@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet"  type="text/css" href="css/stylesheet.css"/>
+<link rel="icon"  type="image/x-icon" href="favicon.ico"/>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2134c93">Xorg</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2134c93" class="outline-2">
+<h2 id="org2134c93">Xorg</h2>
+<div class="outline-text-2" id="text-org2134c93">
+<p>
+The Xorg user session is started by the file <i>.xsession</i>. This script
+does the following things:
+</p>
+
+<ul class="org-ul">
+<li>if not already running, start the keychain program to manage pgp and
+ssh keys</li>
+<li>define several useful environment variables</li>
+<li>load the key bindings in the <i>.Xmodmap</i> file</li>
+<li>invoke the script to start the windows manager</li>
+</ul>
+
+
+<p>
+The file <i>.Xmodmap</i> contains XOrg key bindings. Most of the keys are
+automatically recognized by the system. SO the only thing the script
+does is to remap the windows key (between \Ctrl\ and \Alt\ keys) to
+generate <i>screen</i> escape character.
+</p>
+
+<p>
+The file <i>.Xresources</i> contains configuration options of the X11
+applications.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

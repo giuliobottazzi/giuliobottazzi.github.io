@@ -1,0 +1,124 @@
+% Created 2010-04-19 Mon 08:15
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{t1enc}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{software overview}
+\author{Giulio Bottazzi}
+\date{19 April 2010}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+\vspace*{1cm}
+
+Below you can find part of the software I wrote for my research and
+teaching activity. It is a quite heterogeneous collection of programs,
+both in terms of scope and quality.
+
+All these programs have been developed, tested and used in Linux
+(different flavors). They should compile and run, with none or minor
+modifications, on any Unix platform. The porting to different OSes,
+however, can require major rewriting and has never been tested.
+
+Please notice that all the software described in these pages has been
+mainly written for personal use, and is distributed under the \href{http://www.gnu.org/copyleft/gpl.html}{General Public License} in the hope it could be of help to other people. It is
+provided ``as is'' without express or implied warranty to the extent
+permitted by applicable law.
+
+\section{Alka-linux}
+\label{sec-1}
+
+
+Alka-linux is a linux distribution aimed at providing a simple and
+user friendly environment for the econometric and economic
+analysis. The OS can be booted from a CD and don't require any
+previous installation. Light-wight software allow the system to run
+smoothly also on older machines. See the project \href{http://www.alka-linux.sssup.it/}{web page}.
+\section{gbutils}
+\label{sec-2}
+
+
+A set of statistical utilities. They are intended as an help to people
+using gnuplot, indeed their output is designed in a format suitable to
+be sent to gnuplot for plotting. They take ASCII data files as
+input. Utilities to obtain binned density (histogram), kernel
+estimated density, cumulative distribution and binned statistics from
+data are included. All the programs are written in C.  See the \href{http://www.cafed.sssup.it/software/gbutils/gbutils.html}{web page}.
+\section{subbotools}
+\label{sec-3}
+
+
+A set of programs written to deal with the Subbotin and antisymmetric
+Subbotin distributions. Programs for maximum likelihood estimation of
+parameters are included, together with generators of random
+numbers. All the programs are written in C.  See the \href{http://www.cafed.sssup.it/software/subbotools/index.html}{web page}.
+\section{YAFiMM}
+\label{sec-4}
+
+
+This package contains programs providing a simulation framework for
+the analysis of a specific financial market model. For the description
+of the model, see the working paper \href{http://www.sssup.it/%7ELEM/WPLem/2002-10.html}{A Simple Micro-Model of Market Dynamics Part I: The ``Homogenous Agents'' Deterministic Limit} in the WP
+page. All the programs are written in C++. See the \href{http://www.cafed.sssup.it/software/yafimm/index.html"}{web page}.
+\section{bose}
+\label{sec-5}
+
+
+This package contains various programs related to the Bottazzi-Secchi
+model of industry dynamics described in \href{http://www.sssup.it/%7ELEM/WPLem/2002-20.html}{On the Laplace Distribution of Firms Growth Rates}. Some of the programs are written in Python, some
+in C. See the \href{http://www.cafed.sssup.it/software/bose/index.html"}{web page.}
+\section{NAIF}
+\label{sec-6}
+
+
+NAIF (Numerical Analysis of Investment Functions) is a program to for
+simulating the trading activities of an heterogeneous group og agents
+in a simple two-good economy. See the \href{http://www.cafed.sssup.it/software/naif/naif.html"}{web page}.
+\section{bdr}
+\label{sec-7}
+
+
+This package contains the file needed to perform simulations of the
+model of industrial dynamics described in G.Bottazzi, G.Dosi and
+G.Rocchetti Modes of Knowledge Accumulation, Entry Regimes and
+Patterns of Industrial Evolution Industrial and Corporate Change 10,3
+(2001). All the programs are written in Python and require various
+packages and modules that are freely and publicly available.
+\section{multimin}
+\label{sec-8}
+
+
+  \href{file://.software/multimin/miltimin.html}{multimin} is an interface to the \href{http://www.gnu.org/software/gsl/}{GNU Scientific Library} minimization
+  routines. It is a simple C function that accepts the function to be
+  minimized, possibly its derivatives, the initial conditions and the
+  minimization options as formal parameters.
+\section{spanning tree}
+\label{sec-9}
+
+
+  \href{file://.software/spanntree/spanntree.tar.gx}{spanntree} is a collection of routines for the calculation of maximum
+  and minimum spanning tree of weighted graphs. It can be used for
+  directed or undirected graph. In case the graph is made of several
+  disjoint pieces, the routines return a spanning forest (i.e. the
+  union of several spanning tree).
+
+\end{document}

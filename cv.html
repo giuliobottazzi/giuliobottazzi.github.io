@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>curriculum vitae</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet"  type="text/css" href="css/stylesheet.css"/>
+<link rel="icon"  type="image/x-icon" href="favicon.ico"/>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href=""> HOME </a>
+</div><div id="content">
+<h1 class="title">curriculum vitae</h1>
+<p>
+For the lazy ones, you can just download my cv in pdf format. I
+provide a version in <a href="cveng.pdf">English</a> and a (outdated) version in <a href="cvita.pdf">Italian</a>.
+</p>
+
+<p>
+For those who happen to be interested in the way I manage them, please
+find below my CV in <a href="http://docutils.sourceforge.net/rst.html">reSructuredText</a> format. These are simple ASCII
+files which can be read with any editor and transformed in HTML or PDF
+files using the <a href="http://docutils.sourceforge.net/index.html">Docutils</a> tools.
+</p>
+
+<p>
+For instance, to obtain a PDF version of the CV in English you can use
+the rst to LaTex translator and convert the latex result in PDF with
+the following sequence of commands:
+</p>
+
+<pre class="example">
+rst2latex --stylesheet-path=latex2e.tex cveng.txt &gt; cveng.tex
+latex cveng.tex
+dvips cveng.dvi -o
+ps2pdf cveng.ps
+</pre>
+
+<p>
+The file <code>latex2e.tex</code> contains appropriate formatting instructions
+and it is commonly distributed with the Docutils package. For your
+convenience a copy is provided below.
+</p>
+
+<p>
+If you don't have the Docutils tools, you can use the online <a href="http://www.hosting4u.cz/jbar/rest/rest.html">render</a> to
+obtain HTML versions: just cut-and-paste the files below.
+</p>
+
+<p>
+<a href="cveng.txt">cveng.txt</a> curriculum vitae in English
+</p>
+
+<p>
+<a href="shortcveng.txt">shortcveng.txt</a> short (around 2K characters) curriculum vitae in English
+</p>
+
+<p>
+<a href="minicv.txt">minicv.txt</a> very brief CV in English
+</p>
+
+<p>
+<a href="cvita.txt">cvita.txt</a> curriculum vitae in Italian (outdated)
+</p>
+
+<p>
+<a href="shortcvita.txt">shortcvita.tx</a>  short (around 2K characters) curriculum vitae in Italian (outdated)
+</p>
+
+<p>
+<a href="latex2e.tex">latex2e.tex</a> stylesheet for LaTeX rendering of ReST docs
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

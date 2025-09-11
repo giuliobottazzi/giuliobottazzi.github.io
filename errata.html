@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Errata</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet"  type="text/css" href="css/stylesheet.css"/>
+<link rel="icon"  type="image/x-icon" href="favicon.ico"/>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Errata</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org41198d4">Innovation and corporate growth in the evolution of the drug industry</a></li>
+<li><a href="#orgb23f4cd">A New Class of Asymmetric Exponential Power Densities with Applications to Economics and Finance</a></li>
+<li><a href="#orgfb999ea">Cities and Clusters: Economy-Wide and Sector-Specific Effects in Corporate Location</a></li>
+</ul>
+</div>
+</div>
+<p>
+I collect here a few mistakes, typically typos in mathematical
+expressions, that I found in my published papers. Please notify me if
+in that papers you notice something wrong which is not included here.
+</p>
+
+
+<div id="outline-container-org41198d4" class="outline-2">
+<h2 id="org41198d4">Innovation and corporate growth in the evolution of the drug industry</h2>
+<div class="outline-text-2" id="text-org41198d4">
+<ul class="org-ul">
+<li>Authors: G. Bottazzi, G. Dosi, M. Lippi, F. Pammolli, M. Riccaboni</li>
+<li>Journal: International Journal of Industrial Organization</li>
+<li>Date: 2001</li>
+<li>Link: <a href="http://www.sciencedirect.com/science/article/pii/S0167718701000686">Elsevier</a></li>
+</ul>
+
+<p>
+Page 1179, Equation 9: in the denominator the expression \(N-1\)
+should be replaced with \(N\) to read
+\[
+  p_{B.E.}(k) = \frac{ F+N-k-2 \choose N-k }{F+N-1 \choose N }
+  \]
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgb23f4cd" class="outline-2">
+<h2 id="orgb23f4cd">A New Class of Asymmetric Exponential Power Densities with Applications to Economics and Finance</h2>
+<div class="outline-text-2" id="text-orgb23f4cd">
+<ul class="org-ul">
+<li>Authors: G. Bottazzi and A. Secchi</li>
+<li>Journal: Industrial and Corporate Change, 20(4), pp. 991-1030, 2011</li>
+<li>Date: July 4, 2011</li>
+<li>Link: <a href="http://icc.oxfordjournals.org/content/early/2011/07/04/icc.dtr036.full">DOI</a></li>
+</ul>
+
+<p>
+In Section 2 of this paper something went really bad editing-wise.
+</p>
+
+<p>
+Equation 5: the argument of the incomplete Gamma function is
+wrong. Equation 5 should read
+\[
+  F_{AEP}(x;\mathbf{p}) =
+    \frac {a_l \, A_0(b_l)}{C} \; Q(\frac{1}{b_l},\frac{1}{b_l} \, \left|\frac{x-m}{a_l}\right|^{b_l}) \, \theta(m-x) +
+    \left( 1- \frac{a_r \, A_0(b_r)}{C} Q(\frac{1}{b_r},\frac{1}{b_r} \, \left|\frac{x-m}{a_r}\right|^{b_r}) \right)
+    \, \theta(x-m)
+  \]
+</p>
+
+<p>
+Equation 6: the expression for the mean is correct. The expression
+for the variance should read instead
+\[
+  \sigma^2_{AEP} = \frac{a_r^3}{C}\, A_2(b_r)+\frac{a_l^3}{C}\, A_2(b_l) - \frac{1}{C^2} \left( a_r^2\,A_1(b_r) - a_l^2\,A_1(b_l) \right)^2
+  \]
+</p>
+
+<p>
+Equation 7: there are several mistakes. The correct formula should read
+\[
+    M_h = \sum_{q=0}^h \, {h \choose q} \frac{1}{C^{h-q+1}}
+    \left( a_r^{q+1} \, A_q(b_r) + (-1)^q a_l^{q+1}\, A_q(b_l) \right) \,
+    \left( a_l^2\,A_1(b_l) - a_r^2 \,A_1(b_r) \right)^{h-q}
+  \]
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfb999ea" class="outline-2">
+<h2 id="orgfb999ea">Cities and Clusters: Economy-Wide and Sector-Specific Effects in Corporate Location</h2>
+<div class="outline-text-2" id="text-orgfb999ea">
+<ul class="org-ul">
+<li>Authors: G. Bottazzi and U. Gragnolati</li>
+<li>Journal: Regional Studies</li>
+<li>Date: 30 Nov 2012</li>
+<li>Link: <a href="http://dx.doi.org//10.1080/00343404.2012.739281">DOI</a></li>
+</ul>
+
+<p>
+Page 10, Equation 12: the subscript "c" of the log function is in fact
+the name of the function of which the log is computed. The expression
+should start
+\[
+  \log c (\beta, x_l ) = \beta_1 \log POPULATION \ldots
+  \]
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

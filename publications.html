@@ -1,0 +1,795 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-09-14 Thu 16:45 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>publications</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Giulio Bottazzi" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet"  type="text/css" href="css/stylesheet.css"/>
+           <link rel="icon"  type="image/x-icon" href="favicon.ico"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href=""> HOME </a>
+</div><div id="content">
+<h1 class="title">publications</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgf03cf72">Articles in Referred Journals</a></li>
+<li><a href="#org6353613">Articles in Referred Proceedings and Collections</a></li>
+<li><a href="#org00d4aac">in Italian</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf03cf72" class="outline-2">
+<h2 id="orgf03cf72">Articles in Referred Journals</h2>
+<div class="outline-text-2" id="text-orgf03cf72">
+<p>
+G. Bottazzi, F. Cordoni, G. Livieri, and S. Marmi <i>Uncertainty in
+firm valuation and a cross-sectional misvaluation measure</i> Annals
+of Finance, 2023. <a href="https://link.springer.com/article/10.1007/s10436-022-00423-w">DOI</a>
+</p>
+
+<p>
+G. Bottazzi, T. Kang, and F. Tamagni <i>Persistence in firm growth:
+inference from conditional quantile transition matrices</i> Small
+Business Economics, 2022. <a href="https://link.springer.com/article/10.1007/s11187-022-00700-y">DOI</a>
+</p>
+
+<p>
+G.Bottazzi and D. Giachini <i>A general equilibrium model of investor
+sentiment</i> Economics Letters, 2022. <a href="https://doi.org/10.1016/j.econlet.2022.110749">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and D. Giachini <i>STRATEGICALLY BIASED LEARNING IN MARKET
+INTERACTIONS</i> Advances in Complex Systems, 2022.  <a href="https://doi.org/10.1142/S0219525922500047">DOI</a>
+</p>
+
+<p>
+G. Bottazzi <i>On the Pareto Type III Distribution</i> Frontiers in
+Physics, 2022. <a href="https://doi.org/10.3389/fphy.2022.807199">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and P. Dindo <i>Drift criteria for persistence of discrete
+stochastic processes on the line</i> Journal of Mathematical Economics, 2022. <a href="https://doi.org/10.1016/j.jmateco.2022.102696">DOI</a>
+</p>
+
+<p>
+G. Bottazzi, P. Dindo and D. Giachini <i>Momentum and reversal in
+financial markets with persistent heterogeneity</i> Annals of Finance,
+Volume 15, Issue 4, pp 455-487 October, 2019 <a href="https://link.springer.com/article/10.1007/s10436-019-00353-0">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and D. Giachini <i>Far from the Madding Crowd: Collective
+Wisdom in Prediction Markets</i> Special Issue on "AI and Machine
+Learning in Finance", Quantitative Finance, Volume 19, Issue 9, pp
+1461-1471, 2019. <a href="https://www.tandfonline.com/doi/full/10.1080/14697688.2019.1622285">DOI</a>
+</p>
+
+<p>
+G. Bottazzi, L. Li and A. Secchi <i>Aggregate fluctuations and the
+distribution of firm growth rates</i> Industrial and Corporate Change,
+Volume 28, Issue 3, June 2019, pp 635–656. <a href="https://doi.org/10.1093/icc/dtz016">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and D. Giachini <i>Betting, Selection, and Luck: A
+Long-Run Analysis of Repeated Betting Markets</i> Entropy 21(6), 585,
+June, 2019. <a href="https://doi.org/10.3390/e21060585">DOI</a>
+</p>
+
+<p>
+G. Bottazzi, P. Dindo and D. Giachini <i>Long-run Heterogeneity in an
+Exchange Economy with Fixed-Mix Traders</i> Economic Theory, Volume 66,
+pp 407-447, August 2018 <a href="https://doi.org/10.1007/s00199-017-1066-8">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and D. Giachini <i>Wealth and price distribution by
+diffusive approximation in a repeated prediction market</i> Physica A,
+Volume 471, pp 473-479, 1 April 2017 <a href="http://dx.doi.org/10.1016/j.physa.2016.12.012">DOI</a>
+</p>
+
+<p>
+G. Bottazzi, U. Gragnolati and F. Vanni <i>Non-linear externalities in
+firm localization</i> Regional Studies, Volume 51, Number 8, pp
+1138-1150, 2017 <a href="http://dx.doi.org/10.1080/00343404.2016.1237770">DOI</a>
+</p>
+
+<p>
+S. Bianchini, G. Bottazzi and F. Tamagni <i>What does (not)
+characterize persistent corporate high-growth?</i> Small Business
+Economics, Volume 48, Issue 3, pp 633–656 March 2017 <a href="http://link.springer.com/article/10.1007%2Fs11187-016-9790-1">DOI</a>
+</p>
+
+<p>
+G. Bottazzi, D. Pirino and F. Tamagni <i>Zipf law and the firm size
+distribution: a critical discussion of popular estimators</i>, Journal
+of Evolutionary Economics 25 (3), 585-610, February 2015. <a href="http://dx.doi.org/10.1007/s00191-015-0395-7">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and U. Gragnolati <i>Cities and clusters: economy-wide and
+sector-specific effects in corporate location</i>, Regional Studies 49
+(1), 113-129, 2015  <a href="http://dx.doi.org/10.1080/00343404.2012.739281">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and M. Grazzi, <i>Dynamics of productivity and cost of
+labor: Evidence from Italian manufacturing firms</i>, Bulletin of
+Economic Research, Volume 66, Issue 777, pp. 55-73, January 2014. <a href="http://dx.doi.org/10.1111/boer.12014">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and P. Dindo, <i>Evolution and market behavior with
+endogenous investment rules</i>, Journal of Economic Dynamics &amp;
+Control, Volume 48, pp.121–146, September 2014. <a href="http://dx.doi.org/10.1016/j.jedc.2014.08.012">DOI</a>
+</p>
+
+<p>
+G. Bottazzi, A. Secchi, F. Tamagni, <i>Financial Constraints and Firm
+Dynamics</i>, Small Business Economics, Volume 42, Issue 1, pp 99-116,
+January 2014. <a href="http://dx.doi.org/10.1007/s11187-012-9465-5">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and P. Dindo, <i>Globalizing knowledge: how technological
+openness affects output, spatial inequality and welfare levels</i>,
+Journal of Regional Science, Volume 53, Issue 4, pages 631–655,
+October 2013. <a href="http://dx.doi.org/10.1111/jors.12034">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and P. Dindo, <i>Evolution and market behavior in
+economics and finance: introduction to the special issue</i>, Journal
+of Evolutionary Economics, Volume 23, Issue 3, pp 507-512,
+July 2013.  <a href="http://link.springer.com/article/10.1007/s00191-013-0316-6">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and P. Dindo, <i>Selection in asset markets: the good, the
+bad, and the unknown</i>, Journal of Evolutionary Economics, Volume 23,
+Issue 3, pp 641-661, July 2013. <a href="http://link.springer.com/article/10.1007/s00191-013-0318-4">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and A. Secchi <i>Productivity, profitability and growth:
+the empirics of firm dynamics</i>, Structural Change and Economic
+Dynamics, Volume 23, Issue 4, pp. 325–328, December 2012. <a href="http://dx.doi.org/10.1016/j.strueco.2012.08.004">DOI</a>
+</p>
+
+<p>
+M. Anufriev and G. Bottazzi <i>Asset Pricing with Heterogeneous
+Investment Horizons</i>, Studies in Nonlinear Dynamics &amp; Econometrics,
+Volume 16, Issue 4, October 2012. <a href="http://dx.doi.org/10.1515/1558-3708.1903">DOI</a>
+</p>
+
+<p>
+M. Anufriev, G. Bottazzi, M. Marsili and P. Pin <i>Excess Covariance
+and Dynamic Instability in a Multi-Asset Model</i>, Journal of Economic
+Dynamics and Control, 36(8), pp.1142-1161, 2012. <a href="http://dx.doi.org/10.1016/j.jedc.2012.03.015">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and F. Tamagni <i>Big and fragile: when size does not
+shield from defaults</i>, Applied Economics Letters, 18(14),
+pp. 1401-1404, 2011. <a href="http://dx.doi.org/10.1080/13504851.2010.539529">DOI</a>
+</p>
+
+<p>
+G. Bottazzi and A. Secchi <i>A New Class of Asymmetric Exponential
+Power Densities with Applications to Economics and Finance</i>,
+Industrial and Corporate Change, 20(4),
+pp. 991-1030, 2011. <a href="http://icc.oxfordjournals.org/content/early/2011/07/04/icc.dtr036.full">download</a>
+</p>
+
+<p>
+G. Bottazzi, M. Grazzi, A. Secchi, F. Tamagni, <i>Financial and
+Economic Determinants of Firm Default</i>, Journal of Evolutionary
+Economics, 21(3), pp. 373-406, 2011. <a href="http://www.springerlink.com/content/j583517210x5n4v0/">download</a>
+</p>
+
+<p>
+G. Bottazzi, G. Devetag, F. Pancotto <i>Does volatility matter? Expectations of price return and variability in an asset pricing
+experiment</i>, Journal of Economic Behavior &amp; Organization, 77,
+pp. 124-146, 2011
+</p>
+
+<p>
+G.Bottazzi, A.Coad, N.Jacoby and A.Secchi <i>Corporate growth and
+industrial dynamics: evidence from French manufacturing</i>, Applied
+Economics, 43 (1), pp.103-116, 2011
+</p>
+
+<p>
+G.Bottazzi, G.Dosi, N.Jacoby, A.Secchi and F. Tamagni <i>Corporate
+performances and market selection. Some comparative evidence</i>,
+Industrial and Corporate Change, 19(6), pp. 1953-1996, 2010.
+</p>
+
+<p>
+M. Anufriev and G. Bottazzi, <i>Market Equilibria under Procedural
+Rationality</i>, Journal of Mathematical Economics, 46 (6),
+pp. 1140–1172, 2010
+</p>
+
+<p>
+G.Bottazzi and M.Grazzi, <i>Wage-size relation and the structure of
+work-force composition in Italian manufacturing firms</i>, Cambridge
+Journal of Economics, Volume 34, Number 4 pp. 649-669, 2010
+</p>
+
+<p>
+G.Bottazzi, <i>On the Irreconcilability of Pareto and Gibrat Laws</i>,
+Physica A, 388, 7, pp. 1133-1136, 2009
+</p>
+
+<p>
+G. Bottazzi, G. Fagiolo, G.Dosi and A. Secchi
+<i>Sectoral and Geographical Specificities in the Spatial Structure of
+Economic Activities</i> Structural Change and Economic Dynamics, 19,
+pp. 189-202, 2008
+</p>
+
+<p>
+G. Bottazzi, A. Secchi and F. Tamagni <i>Productivity, Profitability
+and Financial Performance</i>, Industrial and Corporate Change, 17,
+pp.711-751, 2008
+</p>
+
+<p>
+G. Bottazzi <i>On the relationship between firms' size and growth
+rate</i> Economics Bulletin, vol. 3, issue 8, pages 1-7, 2008
+</p>
+
+<p>
+G. Bottazzi, G. Fagiolo, G.Dosi and A. Secchi <i>Modeling Industrial
+Evolution in Geographical Space</i> Journal of Economic Geography, 7,
+pp. 651-672, 2007
+</p>
+
+<p>
+G.Bottazzi, E.Cefis, G.Dosi and A.Secchi <i>Invariances and
+Diversities in the Evolution of Italian Manufacturing Industry</i>
+Small Business Economics, 29, pp. 137-159, 2007
+</p>
+
+<p>
+G.Bottazzi and G.Devetag <i>Competition and Coordination in
+Experimental Minority Games</i> Journal of Evolutionary Economics, 17,
+pp. 241-275, 2007
+</p>
+
+<p>
+G.Bottazzi and A.Secchi <i>Gibrat's Law and Diversification</i>
+Industrial and Corporate Change, 15, pp. 847-875, 2006
+</p>
+
+<p>
+M.Anufriev, G.Bottazzi and F.Pancotto
+<i>Equilibria, Stability and Asymptotic Dominance in a Speculative
+Market</i> <i>with Heterogeneous Agents</i> Journal of Economic Dynamics and
+Control, 30, pp. 1787-1835, 2006
+</p>
+
+<p>
+G.Bottazzi and A.Secchi <i>Explaining the Distribution of Firms Growth
+Rates</i> Rand Journal of Economics, 37, pp. 234-263, 2006
+</p>
+
+<p>
+G.Bottazzi, M.Grazzi and A.Secchi <i>Characterizing the Production
+Process: A Disaggregated Analysis of Italian Manufacturing Firms</i>
+Rivista di Politica Economica, I-II,pp. 243-270, 2005
+</p>
+
+<p>
+G.Bottazzi and A.Secchi <i>Growth and Diversification Patterns of the
+Worldwide Pharmaceutical Industry</i> Review of Industrial
+Organization, 26, pp. 195-216, 2005
+</p>
+
+<p>
+G.Bottazzi, M.Grazzi and A.Secchi <i>Input Output Scaling Relations in
+Italian Manufacturing Firms</i> Physica A, 355, pp. 95-102, 2005
+</p>
+
+<p>
+G.Bottazzi, S.Sapio and A.Secchi <i>Some Statistical Investigations on
+the Nature and Dynamics of Electricity Prices</i> Physica A, 355,
+pp. 54-61, 2005
+</p>
+
+<p>
+G.Bottazzi, G.Dosi and I.Rebesco <i>Institutional Architectures and
+Behavioral Ecologies in the Dynamics of Financial Markets</i> Journal
+of Mathematical Economics, vol. 41, pp. 197-228, 2005
+</p>
+
+<p>
+G.Bottazzi, A.Secchi <i>Common Properties and Sectoral Specificities
+in the Dynamics of U.S. Manufacturing Companies</i> Review of
+Industrial Organization, vol. 23, pp. 217-232, 2003
+</p>
+
+<p>
+G.Bottazzi, A.Secchi <i>Why are distributions of firm growth rates
+tent-shaped ?</i> Economic Letters vol. 80 pp.415-420, 2003
+</p>
+
+<p>
+G.Bottazzi, G. Devetag <i>A Laboratory Experiment on the Minority
+Game</i> Physica A vol. 324 pp. 124-132, 2003
+</p>
+
+<p>
+G.Bottazzi, A. Secchi <i>A Stochastic Model of Firm Growth</i> Physica A
+vol. 324 pp. 213-129, 2003
+</p>
+
+<p>
+G.Bottazzi, G.Devetag, G.Dosi <i>Adaptive learning and emergent
+coordination in minority games</i> Simulation Modeling Practice and
+Theory, 10, 321-347 (2002)
+</p>
+
+<p>
+G.Bottazzi, E.Cefis, G.Dosi <i>Corporate Growth and Industrial
+Structure. Some Evidence from the Italian Manufacturing Industry</i>
+Industrial and Corporate Change vol. 11, pp. 705-723, 2002
+</p>
+
+<p>
+G.Bottazzi, G.Dosi and G.Rocchetti <i>Modes of Knowledge Accumulation,
+Entry Regimes and Patterns of Industrial Evolution</i> Industrial and
+Corporate Change 10,3 (2001)
+</p>
+
+<p>
+G.Bottazzi, G.Dosi, M.Lippi, F.Pammolli, M.Riccaboni <i>Innovation and
+Corporate Growth in the Evolution of the Drug Industry</i>
+International Journal of Industrial Organization 19 (2001)
+pp.1161-1187
+</p>
+
+<p>
+G.Bottazzi, G.Marchesini, G.P.Salam, M.Scorletti, <i>Small x one
+particle inclusive quantities in the CCFM approach</i> Journal of High
+Energy Physics 12 (1998) 011
+</p>
+
+<p>
+G. Bottazzi, G. Marchesini and M. Scorletti, <i>Final State Properties
+in QCD Branching Processes at Small x</i> Nuclear Physics B
+(Proc. Suppl.) 51C (1996) 250
+</p>
+
+<p>
+G. Bottazzi, G. Marchesini, G.P. Salam, M. Scorletti, <i>Structure
+functions and angular ordering at small x</i> Nuclear Physics B 505
+(1997) p. 366 (hep-ph, 1997)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6353613" class="outline-2">
+<h2 id="org6353613">Articles in Referred Proceedings and Collections</h2>
+<div class="outline-text-2" id="text-org6353613">
+<p>
+Andrea Antico, Giulio Bottazzi, and Daniele Giachini <i>On the
+Evolutionary Stability of the Sentiment Investor</i> in David
+Bourghelle, Pascal Grandin, Fredj Jawadi, and Philippe Rozin (eds.)
+Behavioral Finance and Asset Prices, Springer, 2023 <a href="https://link.springer.com/chapter/10.1007/978-3-031-24486-5_7">DOI</a>
+</p>
+
+<p>
+G.Bottazzi and A.Secchi <i>Financial fragility and the distribution of
+ﬁrm growth rates</i> in A.M. Ferragina, E. Taymaz and K. Yilmaz (eds)
+“Innovation, Globalization and Firm Dynamics: Lessons for Enterprise
+Policy”, 2013
+</p>
+
+<p>
+G.Bottazzi and P.Dindo <i>An evolutionary model of firms location with
+technological externality</i> in R.A.Boschma and R.Martin (eds.)
+"Handbook on Evolutionary Economic Geography", Edward Elgar,
+Cheltenham, 2010
+</p>
+
+<p>
+G.Bottazzi and S.Sapio <i>Power Exponential Price Returns in Day-ahead
+Power Exchanges</i> in A. Chatterjee and B. K. Chakrabarti (eds)
+"Econophysics of Markets and Business Networks", New Economic
+Windows, Springer Verlag, Berlin, 2007
+</p>
+
+<p>
+G.Bottazzi, M. Grazzi e A. Secchi <i>Characterizing the Production
+Process: A Disaggregated Analysis of Italian Manufacturing Firms</i> in
+M. Malgarini and G. Piga (eds) "Capital Accumulation, Productivity
+and Growth", Palgrave Macmillan, New York, 2006
+</p>
+
+<p>
+G.Bottazzi and A. Secchi <i>Self-reinforcing Dynamics and the
+evolution of business firms</i> in A.Pyka and and H.Hanusch (eds.)
+"Applied Evolutionary Economics and the Knowledge-Based Economy",
+Edward Elgar, Cheltenham, 2006
+</p>
+
+<p>
+G. Bottazzi, G Dosi, and G. Fagiolo <i>On Sectoral Specificities in
+the Geography of Corporate Location</i> in Breschi, S. and Malerba,
+F. (Eds.)  "Clusters, networks and innovation", Oxford University
+Press, Oxford, U.K., 2006
+</p>
+
+<p>
+M. Anufriev and G. Bottazzi <i>Noisy Trading in the Large Market
+Limit</i> Lecture Notes in Economics and Mathematical Systems, Issue
+564, Springer-Verlag, Berlin, 2006
+</p>
+
+<p>
+G. Bottazzi, F. Pammolli and A. Secchi <i>The Dynamics of Growth and
+Diversification of the Large Pharmaceuticals Companies</i> in Mazzucato
+M. and Dosi G. (Eds.) "Knowledge accumulation and industry
+evolution: the case of pharma-biotech", Cambridge University Press,
+Cambridge, U.K., 2005.
+</p>
+
+<p>
+M. Anufriev, G. Bottazzi and F. Pancotto <i>Speculative Equilibria and
+Asymptotic Dominance in a Market with Adaptive CRRA Traders</i> in
+Abbot, D., Bouchard, J.P., Gabaix, X., and McCauley, J.L. "Noise and
+Fluctuations in Econophysics and Finance" SPIE Conference
+Proceedings, vol. 5848, SPIE, WA, 2005
+</p>
+
+<p>
+G.Bottazzi, M. G. Devetag <i>Expectations structure in asset pricing
+experiments</i> Lecture Notes in Economics and Mathematical Systems,
+Issue 550, pp.11-26, Springer Verlag, Berlin, 2005
+</p>
+
+<p>
+G.Bottazzi, M. G. Devetag <i>Coordination and Self-Organization in
+Minority Games: Experimental Evidence</i> Lecture Notes in Economics
+and Mathematical Systems, Issue 531, pp. 283-302, Springer-Verlag,
+Berlin, 2003
+</p>
+
+<p>
+G.Bottazzi <i>A Simple Micro-Model of Market Dynamics</i>, Lecture Notes
+in Economics and Mathematical Systems, Volume 531, pp. 213-228,
+Springer-Verlag, Berlin, 2004 <a href="http://link.springer.com/chapter/10.1007%2F978-3-642-17045-4_12">DOI</a>
+</p>
+
+<p>
+G.Bottazzi, G.Devetag, G.Dosi <i>Adaptive Coordination and Aggregate
+Efficiency in Minority Games</i> in R.Cowan and N.Jonard
+Eds. "Heterogeneous Agents, Interactions and Economic Performance"
+Lecture Notes in Economics and Mathematical Systems 521, Springer
+Verlag, Berlin, 2003
+</p>
+
+<p>
+G.Bottazzi, G.Fagiolo, G.Dosi <i>On the ubiquitous nature of the
+agglomerations economies and their limits</i> in A. Quadro Curzio and
+M. Fortis eds. ``Complexity and Industrial Cluster'',
+Physica-Verlag, Heidelberg, 2001
+</p>
+
+<p>
+F.Cernuschi, N.Ludwig, P.Teruzzi and G.Bottazzi /A critical analysis
+and possible modifications of two analytical model for defects
+sizing using Video Pulse Thermography/ in D.Balageas, G.Busse and
+G.M.Carlomagno Eds. "Quantitative Infrared Thermography" Akademickie
+Centrum Graficzno-Marketingowe Lodart S.A. (Lodz Polland 1999).
+</p>
+
+<p>
+G. Bottazzi, G. Marchesini and M. Scorletti, <i>Coherence and Final
+States in DIS at Small x</i> in "Deep Inelastic Scattering and Related
+Phenomena", Proceedings of the DIS96 Conference, G. D'Agostini and
+A. Nigro editors, World Scientific (Singapore 1997).
+</p>
+
+<p>
+G. Bottazzi, <i>Angular ordering and structure function at small x</i>
+Proceedings of the 5th Topical Seminar on ``The Irresistible Rise of
+the Standard Model'', San Miniato, Italy, 21-25 April 1997
+<a href="http://bottazzi.sssup.it/%7Egiulio/wp.html">(hep-ph, 1997)</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org00d4aac" class="outline-2">
+<h2 id="org00d4aac">in Italian</h2>
+<div class="outline-text-2" id="text-org00d4aac">
+<p>
+G.Bottazzi and U.Gragnolati <i>Città e distretti: effetti generali e
+settoriali nella localizzazione di impresa</i>, l'industria, 4, 2011,
+pp. 577-613.
+</p>
+
+<p>
+G.Bottazzi and M.Grazzi <i>Dinamiche della produttività e del costo
+del lavoro nelle imprese manifatturiere italiane</i> in Produttività e
+cambiamento nell'industria italiana, a cura di L. Rondi e F. Silva,
+il Mulino, Bologna, 2009.
+</p>
+
+<p>
+G.Bottazzi, E. <a href="other/bottazzi-santarelli-sole24.pdf">Santarelli Startup in corsia preferenziale</a>, Sole 24
+Ore, 2007.
+</p>
+
+<p>
+G.Bottazzi, E.Cefis, G.Dosi e A.Secchi 
+<i>Crescita dell'impresa e struttura industriale: evidenze empiriche
+sull'industria manifatturiera italiana</i>
+in Eterogeneita' degli agenti economici ed interazione sociale:
+teorie e verifiche empiriche, a cura di D. Delli Gatti e M.
+Gallegati, Il Mulino, Bologna, 2003.
+</p>
+
+<p>
+G.Bottazzi, G.Fagiolo, G.Dosi <i>Sulla onnipresenza delle economie di
+agglomerazione e le loro diverse determinanti: alcune note</i> in
+A. Quadro Curzio and M. Fortis (a cura di) ``Complessita' e
+distretti industriali: dinamicge, modelli, casi reali'', Il Mulino
+Collana della Fondazione Edison, Bologna 2002, pp. 265-298
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Giulio Bottazzi</p>
+<p class="date">Created: 2023-09-14 Thu 16:45</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

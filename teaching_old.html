@@ -1,0 +1,3119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-25 dom 12:38 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Old Courses</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Giulio Bottazzi" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet"  type="text/css" href="css/stylesheet.css"/>
+           <link rel="icon"  type="image/x-icon" href="favicon.ico"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="teaching.html"> UP </a>
+ |
+ <a accesskey="H" href=""> HOME </a>
+</div><div id="content">
+<h1 class="title">Old Courses</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgb43bb8c">Academic Term (Anno Accademico) 2022/2023: mathematical methods I</a></li>
+<li><a href="#orgd097168">Academic Term (Anno Accademico) 2022/2023: Financial Economics</a></li>
+<li><a href="#org8b476c7">Academic Term (Anno Accademico) 2020/2021: financial economics</a></li>
+<li><a href="#orgb3359cb">Academic Term (Anno Accademico) 2019/2020: financial economics</a></li>
+<li><a href="#orgb9ed810">Academic Term (Anno Accademico) 2019/2020: advanced calculus</a></li>
+<li><a href="#orgcd6ee20">Academic Term (Anno Accademico) 2018/2019: financial economics</a></li>
+<li><a href="#org6c5e55c">Academic Term (Anno Accademico) 2018/2019: advanced calculus</a></li>
+<li><a href="#org1ab3d91">Academic Term (Anno Accademico) 2018/2019: financial economics (post-graduate)</a></li>
+<li><a href="#org6f3b26f">Academic Term (Anno Accademico) 2018/2019: industrial dynamics, theory (post-graduate)</a></li>
+<li><a href="#orgec3fb6e">Academic Term (Anno Accademico) 2017/2018: financial economics</a></li>
+<li><a href="#orgfacfaf4">Academic Term (Anno Accademico) 2017/2018: advanced calculus</a></li>
+<li><a href="#org3d1765c">Academic Term (Anno Accademico) 2017/2018: industrial dynamics</a></li>
+<li><a href="#org5729ce0">Academic Term (Anno Accademico) 2016/2017: financial economics</a></li>
+<li><a href="#orgb11c5e5">Academic Term (Anno Accademico) 2016/2017: advanced calculus</a></li>
+<li><a href="#org974727a">Academic Term (Anno Accademico) 2016/2017: Probability, Certainty and Security in Economics, Part I</a></li>
+<li><a href="#orgd48883c">Academic Term (Anno Accademico) 2015/2016: financial economics</a></li>
+<li><a href="#org0b26681">Academic Term (Anno Accademico) 2015/2016: measure theory</a></li>
+<li><a href="#org51e46bd">Academic Term (Anno Accademico) 2014/2015: financial economics</a></li>
+<li><a href="#org07f5805">Academic Term (Anno Accademico) 2014/2015: Summer School in San Miniato</a></li>
+<li><a href="#org6dae55c">Academic Term (Anno Accademico) 2014/2015: differential equations</a></li>
+<li><a href="#org504b55b">Academic Term (Anno Accademico) 2013/2014: mathematics for economics</a></li>
+<li><a href="#org9cfe3e9">Academic Term (Anno Accademico) 2013/2014: Linear Algebra</a></li>
+<li><a href="#org53e1edb">Academic Term (Anno Accademico) 2013/2014: financial economics</a></li>
+<li><a href="#org86dfa62">Academic Term (Anno Accademico) 2012/2013: financial economics</a></li>
+<li><a href="#org2bc2e8d">Academic Term (Anno Accademico) 2012/2013: Introduction to stochastic processes</a></li>
+<li><a href="#org33e03c0">Academic Term (Anno Accademico) 2012/2013: Economia del lavoro (in Italian)</a></li>
+<li><a href="#orgec477c9">Academic Term (Anno Accademico) 2011/2012: mathematics for economics</a>
+<ul>
+<li><a href="#org026bb36">Calculus</a></li>
+<li><a href="#org02a5c2f">Linear Algebra</a></li>
+<li><a href="#org6a87983">Differential Equations</a></li>
+<li><a href="#org0ad56c0">Static Optimization</a></li>
+<li><a href="#org8e2a3ee">Dynamic Optimization</a></li>
+</ul>
+</li>
+<li><a href="#orge5f60aa">Academic Term (Anno Accademico) 2010/2011: decision under uncertainty</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb43bb8c" class="outline-2">
+<h2 id="orgb43bb8c">Academic Term (Anno Accademico) 2022/2023: mathematical methods I</h2>
+<div class="outline-text-2" id="text-orgb43bb8c">
+<p>
+The aim of the course is to provide a deepest introduction to the
+basic tools and theorems of mathematical calculus. It is taught as a
+companion courses for second and third year students. Undergraduate
+courses in the first and second years are oriented to provide a
+specific set of computational procedures to be applied to the
+solution of specific problems. The present course might constitute a
+good complement as it is more concerned with the definition and
+study of general notions and it is characterized by a
+theorem-proving approach.
+</p>
+
+<ul class="org-ul">
+<li>Teaching load: 40 hours</li>
+<li>Lecturer : BOTTAZZI Giulio</li>
+<li>Teaching Assistant: Pietro Battiston</li>
+<li>Semester: Fall</li>
+<li>Textbook: Notes directly provided by the teacher</li>
+<li>Further references and Optional readings: Principles of
+Mathematical Analysis, W.A. Rudin, chapters 3, 6 and 9</li>
+<li>Prerequisites: The course does not have any
+prerequisite. Knowledge of the exponential, logarithm and
+trigonometric functions and elementary set theory are advisable.</li>
+</ul>
+
+<p>
+List of topics covered by the lectures (not necessarily in this
+order)
+</p>
+
+<p>
+Prerequisite:
+</p>
+<ul class="org-ul">
+<li>Sets, equivalence relations and functions</li>
+<li>Order relations, upper and lower bounds, supremum and infimum</li>
+<li>Countable sets</li>
+<li>Real numbers</li>
+</ul>
+
+<p>
+Introduction to topology, normed and metric spaces:
+</p>
+<ul class="org-ul">
+<li>Topological spaces</li>
+<li>Compact and connected sets</li>
+<li>Basis of a topology</li>
+<li>Countable spaces</li>
+<li>Continuity</li>
+<li>Notion of distance and induced topology</li>
+</ul>
+
+<p>
+Sequences in Metric Spaces:
+</p>
+<ul class="org-ul">
+<li>Cauchy sequences.</li>
+<li>Limit of sequences and sub-sequences.</li>
+<li>Comparison theroem for limit of sequences.</li>
+<li>The number e as a limit of a sequence.</li>
+</ul>
+
+<p>
+Series:
+</p>
+<ul class="org-ul">
+<li>Series as limit of partial sums.</li>
+<li>Root, ratio and comparison tests for series.</li>
+</ul>
+
+<p>
+Functions and Limits on Metric Spaces:
+</p>
+<ul class="org-ul">
+<li>Notion of limit of function in a metric space.</li>
+<li>Properties of limit (sum, ratio and product of limits)</li>
+</ul>
+
+<p>
+Limits of Real Functions:
+</p>
+<ul class="org-ul">
+<li>Some important limits.</li>
+<li>Properties of limits of functions (comparison test)</li>
+<li>The number e as limit of a function.</li>
+</ul>
+
+<p>
+Continuity of Real Functions:
+</p>
+<ul class="org-ul">
+<li>Uniform continuity.</li>
+<li>Weiestrass Theorem.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd097168" class="outline-2">
+<h2 id="orgd097168">Academic Term (Anno Accademico) 2022/2023: Financial Economics</h2>
+<div class="outline-text-2" id="text-orgd097168">
+<ul class="org-ul">
+<li>Teaching load: 63 hours (ECTS credits 9)</li>
+<li>Lecturers: BOTTAZZI Giulio, GIACHINI Daniele</li>
+<li>Teaching Assistant:</li>
+<li>Semester: Fall</li>
+
+<li>Outline: This course aims to provide a modern theoretical
+foundation to the most widespread notions and tools in financial
+economics, including present value theory, real interest rate,
+arbitrage pricing, portfolio management and mean-variance
+analysis.</li>
+
+<li>Objectives: The students should become acquainted with the notion
+of arbitrage and equilibrium price in different market
+settings. They should be able to solve the problem of portfolio
+optimization and mean-variance analysis in rather general terms.</li>
+
+<li>Description: General equilibrium, no arbitrage in riskless
+economies, real interest rate and the yield curve. Arbitrage in
+security markets, state prices, complete and incomplete markets,
+valuation functional and the fundamental theorem of
+finance. Choices under uncertainty, expected utility theory and
+risk aversion. Portfolio choices, optimal portfolio with multiple
+risky assets. General equilibrium under uncertainty. Pricing
+kernel and mean-variance analysis. OPTIONAL: behavioral finance,
+asset prices under ambiguity, evolutionary finance and the market
+selection hypothesis.</li>
+
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[LRW]</dt><dd>Principles of Financial Economics, S.F. LeRoy and
+J. Werner (2nd edition)</dd>
+<dt>[FBJ]</dt><dd>Foundations of Financial Markets and Institutions,
+Fabozzi, Modigliani and Jones</dd>
+</dl></li>
+
+<li>Further references and Optional readings:
+<dl class="org-dl">
+<dt>[MWG]</dt><dd>Microeconomic Theory, A. Mas-Colell, M. D. Whinston,
+and J. R. Green</dd>
+<dt>[CN]</dt><dd>Quantitative Financial Economics, K. Cuthbertson and
+D. Nitzsche</dd>
+<dt>[HR]</dt><dd>Financial Economics, T. Hens and M. O. Rieger</dd>
+<dt>[ES]</dt><dd>Ambiguity and Asset Markets, L. G. Epstein and
+M. Schneider, NBER paper;</dd>
+<dt>[Hu]</dt><dd>Options, Futures and Other Derivatives, J. C. Hull (7th ed.)</dd>
+<dt>[Ni]</dt><dd>The Ascent of Money: A Financial History of the World,
+Niall Ferguson</dd>
+<dt>[Eco]</dt><dd>Guide to the Financial Markets, The Economist</dd>
+</dl></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>Prerequisites: The course requires a basic knowledge of linear
+algebra (linear space, linear map, basis, inversion, eigenvectors
+and eigensystems), calculus (differential analyses of function of
+many real variables and static optimization) and, to a lesser
+extent, probability theory. Some basic knowledge of the theory of
+choice under uncertainty (utility theory) and economic equilibrium
+are in general given for granted and only cursorily reviewed.</li>
+
+<li>Keywords: financial economics, general equilibrium, arbitrage,
+asset pricing, optimization</li>
+
+<li>Final exam: the get the final grading students are required to
+pass a final written exam. At least one fake exam will be
+organized to test your level of preparation. Students get extra
+points for completing their homework during the course.</li>
+
+<li>Calendar: check "Financial Economics" entries for the lectures
+timetable and locations in the <a href="https://calendar.google.com/calendar/embed?src=t9085fnf0ff4lppr0uolp3ohg8%40group.calendar.google.com&amp;ctz=Europe%2FRome">calendar</a>.</li>
+
+<li>Leacures are also available in the Teams platform at the following
+link <a href="https://teams.microsoft.com/l/team/19%3a1ae5a77f86614f54806e788a95eb602f%40thread.tacv2/conversations?groupId=93416e7a-aa58-47b8-bddc-76fa452801ad&amp;tenantId=c7456b31-a220-47f5-be52-473828670aa1">Financial Economics</a></li>
+</ul>
+
+<p>
+Data for Assignment 4: <a href="./teaching/prices_close.txt">weekly closing prices</a> of America Corporation
+(BAC), General Electric Company (GE), Ford Motor Co. (F), Citigroup,
+Inc. (C), Pfizer Inc. (PFE), Hewlett-Packard Company (HPQ), JPMorgan
+Chase &amp; Co. (JPM), AT&amp;T, Inc. (T), Wells Fargo &amp; Company (WFC) and
+J. C. Penney Company, Inc. (JCP)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8b476c7" class="outline-2">
+<h2 id="org8b476c7">Academic Term (Anno Accademico) 2020/2021: financial economics</h2>
+<div class="outline-text-2" id="text-org8b476c7">
+<ul class="org-ul">
+<li>Teaching load: 63 hours (ECTS credits 9)</li>
+<li>Lecturers: BOTTAZZI Giulio, GIACHINI Daniele</li>
+<li>Teaching Assistant:</li>
+<li>Semester: Fall</li>
+
+<li>Outline: This course aims to provide a modern theoretical
+foundation to the most widespread notions and tools in financial
+economics, including present value theory, real interest rate,
+arbitrage pricing, portfolio management and mean-variance
+analysis.</li>
+
+<li>Objectives: The students should become acquainted with the notion
+of arbitrage and equilibrium price in different market
+settings. They should be able to solve the problem of portfolio
+optimization and mean-variance analysis in rather general terms.</li>
+
+<li>Description: General equilibrium, no arbitrage in riskless
+economies, real interest rate and the yield curve. Arbitrage in
+security markets, state prices, complete and incomplete markets,
+valuation functional and the fundamental theorem of
+finance. Choices under uncertainty, expected utility theory and
+risk aversion. Portfolio choices, optimal portfolio with multiple
+risky assets. General equilibrium under uncertainty. Pricing
+kernel and mean-variance analysis. OPTIONAL: behavioral finance,
+asset prices under ambiguity, evolutionary finance and the market
+selection hypothesis.</li>
+
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[LRW]</dt><dd>Principles of Financial Economics, S.F. LeRoy and
+J. Werner (2nd edition)</dd>
+<dt>[FBJ]</dt><dd>Foundations of Financial Markets and Institutions,
+Fabozzi, Modigliani and Jones</dd>
+</dl></li>
+
+<li>Further references and Optional readings:
+<dl class="org-dl">
+<dt>[MWG]</dt><dd>Microeconomic Theory, A. Mas-Colell, M. D. Whinston,
+and J. R. Green</dd>
+<dt>[CN]</dt><dd>Quantitative Financial Economics, K. Cuthbertson and
+D. Nitzsche</dd>
+<dt>[HR]</dt><dd>Financial Economics, T. Hens and M. O. Rieger</dd>
+<dt>[ES]</dt><dd>Ambiguity and Asset Markets, L. G. Epstein and
+M. Schneider, NBER paper;</dd>
+<dt>[Hu]</dt><dd>Options, Futures and Other Derivatives, J. C. Hull (7th ed.)</dd>
+<dt>[Ni]</dt><dd>The Ascent of Money: A Financial History of the World,
+Niall Ferguson</dd>
+<dt>[Eco]</dt><dd>Guide to the Financial Markets, The Economist</dd>
+</dl></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>Prerequisites: The course requires a basic knowledge of linear
+algebra (linear space, linear map, basis, inversion, eigenvectors
+and eigensystems), calculus (differential analyses of function of
+many real variables and static optimization) and, to a lesser
+extent, probability theory. Some basic knowledge of the theory of
+choice under uncertainty (utility theory) and economic equilibrium
+are in general given for granted and only cursorily reviewed.</li>
+
+<li>Prerequisites suggested reading (relevant chapters in):
+C. P. Simon, L. E. Blume, Mathematics for Economists, H. R. Varian
+Microeconomic Analysis.</li>
+
+<li>Keywords: financial economics, general equilibrium, arbitrage,
+asset pricing, optimization</li>
+
+<li>Final exam: the get the final grading students are required to
+pass a final written exam. At least one fake exam will be
+organized to test your level of preparation. Students get extra
+points for completing their homework during the course.</li>
+
+<li>Calendar: check "Financial Economics" entries for the lectures
+timetable and locations in the <a href="https://calendar.google.com/calendar/embed?src=t9085fnf0ff4lppr0uolp3ohg8%40group.calendar.google.com&amp;ctz=Europe%2FRome">calendar</a>.</li>
+</ul>
+
+<p>
+List of lectures. To have a guess about future lectures check the
+<a href="teaching_old.html">previous years</a> but consider that your mileage may vary.
+</p>
+
+<ol class="org-ol">
+<li>(22/09/2020, Bottazzi) Introduction: the structure of the course
+and its textbooks; the role of financial institutions <a href="https://docs.google.com/presentation/d/1fPWtpCZgLpRXPdWiiNIE9HtLyaMs5hSaSQqVL_Gj7No/edit?usp=sharing">slides</a>
+(Textbooks sections: [FBJ] Ch. 1, 2 and 3; [Ni] Ch. 1; [Eco]
+Ch. 1)</li>
+<li>(23/09/2020, Bottazzi) Barter and market economies; Two agents,
+two goods, one date model.</li>
+<li>(24/09/2020, Bottazzi) Financial equilibrium.  Two date
+model. Spot and forward markets. The role of arbitrage in setting
+prices.</li>
+<li>(28/09/2020, Bottazzi) Introduction to present value
+model. Present value prices and economic equilibrium. Redundant
+contracts.</li>
+<li>(29/09/2020, Bottazzi) Real and nominal interest rates; The role
+of inflation; Pricing of forward contracts. (Textbooks sections:
+[FBJ] Ch. 4,5,10 and 11 [Hu] Sections from 4.1 to 4.8 all Chapter
+5 and section from 6.1 to 6.3 [Ni] Ch. 2)</li>
+<li>(30/09/2020, Bottazzi) Forward interest rate. Inter-temporal
+allocation in a one good two date model: the role of preferences
+and endowments in setting real interest rates.</li>
+<li>(02/10/2020, Bottazzi) Structure of security markets with
+uncertainty; complete markets and redundant assets. Left and
+right matrix inverse. The Law of One Price. (Textbook sections:
+[LRW] 1.2,1.6)</li>
+<li>(07/10/2020, Bottazzi) Payoff pricing correspondence; the Law of
+One Price; state claims and state prices (Textbook sections:
+[LRW] 2.1, 2.2, 2.3, 2.5)</li>
+<li>(08/10/2020, Bottazzi) Arbitrage and valuation: strong and weak
+arbitrage; positive pricing; the payoffs convex cone; Farkas'
+Lemma; the valuation functional and strong arbitrage; Stiemke's
+Lemma; the valuation functional and arbitrage; arbitrage and
+valuation: the fundamental theorem of finance; (Textbook
+sections: [LRW] 3.2, 3.3, 3.4, 3.5, 4.1, 4.2, 4.3,
+5.2,5.3,5.4,5.5) [Assignment 1]</li>
+<li>(12/10/2020, Bottazzi) Examples of payoff pricing function and
+no-arbitrage pricing. Discussion of the no-arbitrage condition
+in a general two date model. Multiplicity of valuation
+functionals. Riskless return. Risk neutral probabilities;
+(Textbook sections: [LRW] 4.5, 5.6, 5.7)</li>
+<li>(13/10/2020, Giachini) Forward and future contracts in a
+two-date model, definition and pricing. Call and put options in
+a two-date model, definition and pricing; put-call parity. (see
+the discussion of forward and future contracts in [Hu] Ch.1-3)</li>
+<li>(14/10/2020, Giachini) Completing the market with call (or put)
+options; using option prices to derive the payoff pricing
+functional. Agent behavior under uncertainty; Expected Utility
+Theory. Choices under uncertainty: consumption and portfolio
+choices. (Textbook sections: [MWG] Ch.6 section 6B)</li>
+<li>(19/10/2020, Giachini) Expected Utility Theory, separable and
+time invariant utilities; risk aversion; absolute and relative
+risk aversion coefficients; certainty equivalent; Concave
+transformation; comparison of utility functions; first and
+second order stochastic dominance; (Textbook sections: [LRW]
+9.1,9.2, 9.3, 9.4, 9.5, 9.6, 9.8 . The proves of the theorems can
+also be found in [MWG] Ch.6 Sec.B; further examples are
+discussed in [CN] Ch.1 Sec.3-5)</li>
+<li>(20/10/2019, Giachini) Exercises and solutions of Assignment 1</li>
+<li>(21/10/2019, Giachini) Portfolio optimization: first order
+conditions; arbitrage and optimal portfolio, optimal
+consumption, prices and returns. (Textbook sections: [LRW] 1.4,
+1.5, 2.6, 3.6, 11.1, 11.2; see [CN] Ch.15 for an introductory
+discussion of the problem)</li>
+<li>(26/10/2020, Giachini) Portfolio optimization: Example of
+internal and boundary solutions. Marginal utility and
+risk-neutral probabilities.</li>
+<li>(27/10/2020, Giachini) Portfolio optimization with one risky
+security: impact of wealth on optimal investment; exercises
+(Textbook sections: [LRW] 12.2).</li>
+<li>(28/10/2020, Giachini) Exercises and solutions of Assignment 2</li>
+<li>(2/11/2020, Bottazzi) Inner products, norms, orthogonal vectors,
+Gram–Schmidt procedure, orthogonal complement, orthogonal
+projection, Riesz representation theorem. (Textbook sections:
+[LRW] from 17.2 to 17.8)  [Assignment 3]</li>
+<li>(3/11/2020, Bottazzi) Quadratic problem in a inner product
+space. Expectation kernel, pricing kernel, mean-variance
+frontier payoffs, mean variance frontier returns. (Textbook
+sections: [LRW] 17.9, 17.10, 18.2, 18.3)</li>
+<li>(9/11/2020, Bottazzi) Minimum variance frontier return;
+Mean-variance frontier, the generic case. (Textbook sections:
+[LRW] 18.4)</li>
+<li>(11/11/2020, Giachini) Exercises and solutions of Assignment 3</li>
+<li>(9/11/2020, Bottazzi) Mean-variance frontier and orthogonal
+kernels.</li>
+<li>(17/11/2020, Bottazzi) Using the mean-variance frontier to solve
+portfolio optimization problems. Stochastic discount factors;
+Factor pricing. (Textbook sections: [LRW] 20.2, 20.3)
+[Assignment 4]</li>
+<li>(18/11/2020, Giachini) Economic equilibrium; representative
+agent model; equilibrium sufficient conditions; equilibrium and
+arbitrage. (Textbook sections: [LRW] 1.7, 1.8, 1.9, 2.4, 3.7)</li>
+<li>(23/11/2020, Giachini) An example of general equilibrium with
+heterogeneous agents. The relation between individual wealth and
+prevailing prices.</li>
+<li>(24/11/2020, Giachini) Equilibrium and Pareto optimal
+allocation, first and second welfare theorem. (Textbook
+sections: [LRW] 15.2, 15.3, 15.4, 15.5 without theorem 15.5.1,
+15.6)</li>
+<li>(25/11/2020, Giachini) Exercises and solutions of Assignment 4
+[Assignment 5]</li>
+<li>(1/12/2019, Bottazzi) CAPM, (Textbook sections: [LRW] from 19.1
+to 19.4)</li>
+<li>(2/12/2019, Giachini) Exercises and solutions of Assignment 5.</li>
+<li>(4/12/2019, Bottazzi) Mock exam and solutions</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb3359cb" class="outline-2">
+<h2 id="orgb3359cb">Academic Term (Anno Accademico) 2019/2020: financial economics</h2>
+<div class="outline-text-2" id="text-orgb3359cb">
+<ul class="org-ul">
+<li>Teaching load: 63 hours (ECTS credits 9)</li>
+<li>Lecturers: BOTTAZZI Giulio, GIACHINI Daniele</li>
+<li>Teaching Assistant:</li>
+<li>Semester: Fall</li>
+
+<li>Outline: This course aims to provide a modern theoretical
+foundation to the most widespread notions and tools in financial
+economics, including present value theory, real interest rate,
+arbitrage pricing, portfolio management and mean-variance
+analysis.</li>
+
+<li>Objectives: The students should become acquainted with the notion
+of arbitrage and equilibrium price in different market
+settings. They should be able to solve the problem of portfolio
+optimization and mean-variance analysis in rather general terms.</li>
+
+<li>Description: General equilibrium, no arbitrage in riskless
+economies, real interest rate and the yield curve. Arbitrage in
+security markets, state prices, complete and incomplete markets,
+valuation functional and the fundamental theorem of
+finance. Choices under uncertainty, expected utility theory and
+risk aversion. Portfolio choices, optimal portfolio with multiple
+risky assets. General equilibrium under uncertainty. Pricing
+kernel and mean-variance analysis. OPTIONAL: behavioral finance,
+asset prices under ambiguity, evolutionary finance and the market
+selection hypothesis.</li>
+
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[LRW]</dt><dd>Principles of Financial Economics, S.F. LeRoy and
+J. Werner (1st edition)</dd>
+<dt>[FBJ]</dt><dd>Foundations of Financial Markets and Institutions,
+Fabozzi, Modigliani and Jones</dd>
+</dl></li>
+
+<li>Further references and Optional readings:
+<dl class="org-dl">
+<dt>[MWG]</dt><dd>Microeconomic Theory, A. Mas-Colell, M. D. Whinston,
+and J. R. Green</dd>
+<dt>[CN]</dt><dd>Quantitative Financial Economics, K. Cuthbertson and
+D. Nitzsche</dd>
+<dt>[HR]</dt><dd>Financial Economics, T. Hens and M. O. Rieger</dd>
+<dt>[ES]</dt><dd>Ambiguity and Asset Markets, L. G. Epstein and
+M. Schneider, NBER paper;</dd>
+<dt>[Hu]</dt><dd>Options, Futures and Other Derivatives, J. C. Hull (7th ed.)</dd>
+<dt>[Ni]</dt><dd>The Ascent of Money: A Financial History of the World,
+Niall Ferguson</dd>
+<dt>[Eco]</dt><dd>Guide to the Financial Markets, The Economist</dd>
+</dl></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>Prerequisites: The course requires a basic knowledge of linear
+algebra (linear space, linear map, basis, inversion, eigenvectors
+and eigensystems), calculus (differential analyses of function of
+many real variables and static optimization) and, to a lesser
+extent, probability theory. Some basic knowledge of the theory of
+choice under uncertainty (utility theory) and economic equilibrium
+are in general given for granted and only cursorily reviewed.</li>
+
+<li>Prerequisites suggested reading (relevant chapters in):
+C. P. Simon, L. E. Blume, Mathematics for Economists, H. R. Varian
+Microeconomic Analysis.</li>
+
+<li>Keywords: financial economics, general equilibrium, arbitrage,
+asset pricing, optimization</li>
+
+<li>Final exam: the get the final grading students are required to
+pass a final written exam. At least one fake exam will be
+organized to test your level of preparation. Students get extra
+points for completing their homework during the course.</li>
+
+<li>Calendar: check "Financial Economics" entries for the lectures
+timetable and locations in the <a href="https://calendar.google.com/calendar/embed?src=t9085fnf0ff4lppr0uolp3ohg8%40group.calendar.google.com&amp;ctz=Europe%2FRome">calendar</a>.</li>
+</ul>
+
+<p>
+List of lectures. To have a guess about future lectures check the
+<a href="teaching_old.html">previous years</a> but consider that your mileage may vary.
+</p>
+
+<ol class="org-ol">
+<li>(23/09/2019, Bottazzi) Introduction: the structure of the course
+and its textbooks; the role of financial institutions <a href="https://docs.google.com/presentation/d/1fPWtpCZgLpRXPdWiiNIE9HtLyaMs5hSaSQqVL_Gj7No/edit?usp=sharing">slides</a>
+(Textbooks sections: [FBJ] Ch. 1, 2 and 3; [Ni] Ch. 1; [Eco]
+Ch. 1)</li>
+<li>(24/09/2019, Bottazzi) Barter and market economies; Two agents,
+two goods, one date model. Two date model. Spot and forward
+markets.</li>
+<li>(25/09/2019, Bottazzi) Financial equilibrium. The role of
+arbitrage in setting prices. Introduction to present value model.</li>
+<li>(30/09/2019, Bottazzi) Present value prices and economic
+equilibrium. Redundant contracts. Real and nominal interest
+rates; The role of inflation; Pricing of forward
+contracts. (Textbooks sections: [FBJ] Ch. 4 and 5 [Hu] Sections
+from 4.1 to 4.8 all Chapter 5 and section from 6.1 to 6.3 [Ni]
+Ch. 2) [Assignment 1]</li>
+<li>(01/10/2019, Bottazzi) Forward interest rate. Inter-temporal
+allocation in a one good two date model: the role of preferences
+and endowments in setting real interest rates.</li>
+<li>(02/10/2019, Bottazzi) Structure of security markets with
+uncertainty; complete markets and redundant assets. Left and
+right matrix inverse. (Textbook sections: [LRW] 1.6)</li>
+<li>(07/10/2019, Bottazzi) Payoff pricing correspondence; the Law of
+One Price; state claims and state prices (Textbook sections:
+[LRW] 2.1, 2.3, 2.4, 2.5)</li>
+<li>(08/10/2019, Bottazzi) Arbitrage and valuation: strong and weak
+arbitrage; positive pricing; the payoffs convex cone; (Textbook
+sections: [LRW] 3.2, 3.3, 3.4, 3.5, 5.1)</li>
+<li>(09/10/2019, Bottazzi) Farkas' Lemma; the valuation functional
+and strong arbitrage; Stiemke's Lemma; the valuation functional
+and arbitrage; Arbitrage and valuation: the fundamental theorem
+of finance; multiplicity of valuation functionals; risk neutral
+probabilities; (Textbook sections: [LRW] 5.2, 5.3, 5.5, 6.3, 6.4,
+6.5;6.6, 6.7;) [Assignment 2]</li>
+<li>(14/10/2019, Giachini) Examples of payoff pricing function and
+no-arbitrage pricing. Discussion of the no-arbitrage condition
+in a general two date model.</li>
+<li>(15/10/2019, Giachini) Solution of Assignment 1.</li>
+<li>(16/10/2019, Giachini) Valuation of derivatives in a two date
+model: forward and future (see the discussion of forward and
+future contracts in [Hu] Ch.1-3)</li>
+<li>(21/10/2019, Giachini) Valuation of derivatives in a two date
+model: call and put options. Choices under uncertainty: consumption
+and portfolio choices, Expected Utility Theory, separable and
+time invariant utilities; risk aversion; absolute and relative
+risk aversion coefficients; certainty equivalent; (Textbook
+sections: [LRW] 9.2, 9.3, 9.4, 9.5, 9.6, 9.8)</li>
+<li>(23/10/2019, Giachini) Concave transformation; comparison of
+utility functions; first and second order stochastic dominance;
+(Textbook sections: the proves of the theorems can also be found
+in [MWG] Ch.6 Sec.B; further examples are discussed in [CN] Ch.1
+Sec.3-5)</li>
+<li>(28/10/2019, Giachini) Exercises and solutions of Assignment 2</li>
+<li>(29/10/2019, Giachini) Portfolio optimization: first order
+conditions; arbitrage and optimal portfolio, optimal
+consumption, prices and returns. (Textbook sections: [LRW] 1.4,
+1.5, 2.6, 3.6, 11.1, 11.2; see [CN] Ch.15 for an introductory
+discussion of the problem)</li>
+<li>(30/10/2019, Giachini) Portfolio optimization: Example of
+internal and boundary solutions. Marginal utility and
+risk-neutral probabilities. [Assignment 3]</li>
+<li>(4/11/2019, Giachini) Portfolio optimization with one risky
+security: impact of wealth on optimal investment; exercises
+(Textbook sections: [LRW] 12.2).</li>
+<li>(5/11/2019, Bottazzi) Exercises and solution. Strategies of
+portfolio optimization.</li>
+<li>(6/11/2019, Bottazzi) Scalar product, Gram–Schmidt procedure,
+orthogonal complement and orthogonal projection. Portfolio
+optimization with several risky securities: from consumption to
+investment optimization; risk-return trade off; optimal
+portfolio under fair pricing.  (Textbook sections: [LRW] 13.2,
+13.3, 13.4)</li>
+<li>(11/11/2019, Bottazzi) Portfolio optimization with several risky
+securities: Linear Risk tolerance. (Textbook sections: [LRW]
+9.9, 13.6)</li>
+<li>(12/11/2019, Bottazzi) Expectations kernel and pricing kernel
+(Textbook sections: [LRW] from 17.1 to 17.10, 18.5)</li>
+<li>(13/11/2019, Bottazzi) Mean-variance frontier payoffs and
+mean-variance frontier returns with complete markets. (Textbook
+sections: 18.1, 18.2 and Th. 18.2.1 with proof 18.4, 18.6; see
+also the discussion in [CN] Ch.15 Sec.1-2).</li>
+<li>(19/11/2019, Giachini) Mean-variance frontier payoffs and
+mean-variance frontier returns with incomplete
+markets. (Textbook sections: 18.1, 18.2 and Th. 18.2.1 with
+proof 18.4, 18.6; see also the discussion in [CN] Ch.15
+Sec.1-2).</li>
+<li>(20/11/2019, Giachini) Zero-Covariance Frontier Returns, Sharpe
+Ratio of mean-variance frontier returns (Textbook sections:
+18.4) [Assignment 4, see below for data]</li>
+<li>(21/11/2019, Giachini) Exercises and solutions of Assignment 3</li>
+<li>(25/11/2019, Bottazzi) Economic equilibrium; representative
+agent model; equilibrium sufficient conditions; equilibrium and
+arbitrage. (Textbook sections: [LRW] 1.7, 1.8, 1.9, 2.4, 3.7)
+[Assignment 5]</li>
+<li>(27/11/2019, Bottazzi) An example of general equilibrium with
+heterogeneous agents. The relation between individual wealth and
+prevailing prices.</li>
+<li>(2/12/2019, Bottazzi) Exercises and solutions of Assignment 4.</li>
+<li>(3/12/2019, Bottazzi) Consumption based security pricing; a
+first derivation of CAPM;, (Textbook sections: [LRW] 14.1, 14.2,
+14.3, 14.5)</li>
+<li>(4/12/2019, Bottazzi) Equilibrium and Pareto optimal allocation,
+first and second welfare theorem; (Textbook sections: [LRW]
+15.2, 15.3, 15.4, 15.5 without theorem 15.5.1, 15.6 )</li>
+<li>(10/12/2019, Giachini) Exercises and solutions of Assignment 5.</li>
+<li>(11/12/2019, Giachini) Mock Exam and solutions.</li>
+</ol>
+
+<p>
+Data for Assignment 4: <a href="./teaching/prices_close.txt">weekly closing prices</a> of America Corporation
+(BAC), General Electric Company (GE), Ford Motor Co. (F), Citigroup,
+Inc. (C), Pfizer Inc. (PFE), Hewlett-Packard Company (HPQ), JPMorgan
+Chase &amp; Co. (JPM), AT&amp;T, Inc. (T), Wells Fargo &amp; Company (WFC) and
+J. C. Penney Company, Inc. (JCP)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb9ed810" class="outline-2">
+<h2 id="orgb9ed810">Academic Term (Anno Accademico) 2019/2020: advanced calculus</h2>
+<div class="outline-text-2" id="text-orgb9ed810">
+<p>
+The aim of the course is to provide a deepest introduction to the
+basic tools and theorems of mathematical calculus. Undergraduate
+courses are oriented to provide a specific set of computational
+procedures to be applied to the solution of specific problems. The
+present course might constitute a good complement as it is more
+concerned with the definition and study of general notions and it is
+characterized by a theorem-proving approach.
+</p>
+
+<ul class="org-ul">
+<li>Teaching load: 40 hours (ECTS credits 4)</li>
+<li>Lecturer : BOTTAZZI Giulio, BATTISTON Pietro</li>
+<li>Semester: Fall</li>
+<li>Textbook: Notes directly provided by the teacher</li>
+<li>Further references and Optional readings: Principles of
+Mathematical Analysis, W.A. Rudin, chapters 3, 6 and 9</li>
+<li>Prerequisites: The course requires some knowledge of linear
+algebra (linear space, linear map, basis, determinant, inversion,
+eigenvectors) and basic calculus.</li>
+</ul>
+
+<p>
+List of topics covered by the lectures.
+</p>
+
+<p>
+Functions of several real variables:
+</p>
+<ul class="org-ul">
+<li>Continuity in Euclidean spaces</li>
+<li>Derivative and differential</li>
+<li>Concavity and convexity</li>
+<li>Local and global maxima and minima</li>
+<li>Implicit function theorem</li>
+<li>Theorems of alternatives</li>
+<li>Constrained maximization</li>
+<li>Khun-Tucker conditions</li>
+</ul>
+
+<p>
+Riemann and Steltjes integral:
+</p>
+<ul class="org-ul">
+<li>Finite sum and limits</li>
+<li>Summability conditions</li>
+<li>Properties of the integral</li>
+</ul>
+
+<p>
+Measure theory:
+</p>
+<ul class="org-ul">
+<li>Sigma algebra, measurable space, measure</li>
+<li>Measurable function</li>
+<li>Borel sigma algrebra, outer measure, Lebesgue measure</li>
+<li>Lebesgue integral</li>
+<li>Product measure and multiple integral</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgcd6ee20" class="outline-2">
+<h2 id="orgcd6ee20">Academic Term (Anno Accademico) 2018/2019: financial economics</h2>
+<div class="outline-text-2" id="text-orgcd6ee20">
+<ul class="org-ul">
+<li>Teaching load: 63 hours (ECTS credits 9)</li>
+<li>Lecturers: BOTTAZZI Giulio</li>
+<li>Teaching Assistant: GIACHINI Daniele</li>
+<li>Semester: Fall</li>
+
+<li>Outline: This course aims to provide a modern theoretical
+foundation to the most widespread notions and tools in financial
+economics, including present value theory, real interest rate,
+arbitrage pricing, portfolio management and mean-variance
+analysis.</li>
+
+<li>Objectives: The students should become acquainted with the notion
+of arbitrage and equilibrium price in different market
+settings. They should be able to solve the problem of portfolio
+optimization and mean-variance analysis in rather general terms.</li>
+
+<li>Description: General equilibrium, no arbitrage in riskless
+economies, real interest rate and the yield curve. Arbitrage in
+security markets, state prices, complete and incomplete markets,
+valuation functional and the fundamental theorem of
+finance. Choices under uncertainty, expected utility theory and
+risk aversion. Portfolio choices, optimal portfolio with multiple
+risky assets. General equilibrium under uncertainty. Pricing
+kernel and mean-variance analysis. OPTIONAL: behavioral finance,
+asset prices under ambiguity, evolutionary finance and the market
+selection hypothesis.</li>
+
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[LRW]</dt><dd>Principles of Financial Economics, S.F. LeRoy and
+J. Werner</dd>
+<dt>[FBJ]</dt><dd>Foundations of Financial Markets and Institutions,
+Fabozzi, Modigliani and Jones</dd>
+</dl></li>
+
+<li>Further references and Optional readings:
+<dl class="org-dl">
+<dt>[MWG]</dt><dd>Microeconomic Theory, A. Mas-Colell, M. D. Whinston,
+and J. R. Green</dd>
+<dt>[CN]</dt><dd>Quantitative Financial Economics, K. Cuthbertson and
+D. Nitzsche</dd>
+<dt>[HR]</dt><dd>Financial Economics, T. Hens and M. O. Rieger</dd>
+<dt>[ES]</dt><dd>Ambiguity and Asset Markets, L. G. Epstein and
+M. Schneider, NBER paper;</dd>
+<dt>[Hu]</dt><dd>Options, Futures and Other Derivatives, J. C. Hull (7th ed.)</dd>
+<dt>[Ni]</dt><dd>The Ascent of Money: A Financial History of the World,
+Niall Ferguson</dd>
+<dt>[Eco]</dt><dd>Guide to the Financial Markets, The Economist</dd>
+</dl></li>
+</ul>
+
+
+<ul class="org-ul">
+<li>Prerequisites: The course requires a basic knowledge of linear
+algebra (linear space, linear map, basis, inversion, eigenvectors
+and eigensystems), calculus (differential analyses of function of
+many real variables and static optimization) and, to a lesser
+extent, probability theory. Some basic knowledge of the theory of
+choice under uncertainty (utility theory) and economic equilibrium
+are in general given for granted and only cursorily reviewed.</li>
+
+<li>Prerequisites suggested reading (relevant chapters in):
+C. P. Simon, L. E. Blume, Mathematics for Economists, H. R. Varian
+Microeconomic Analysis.</li>
+
+<li>Keywords: financial economics, general equilibrium, arbitrage,
+asset pricing, optimization</li>
+
+<li>Final exam: the get the final grading students are required to
+pass a final written exam. At least one fake exam will be
+organized to test your level of preparation. Students get extra
+points for completing their homework during the course.</li>
+
+<li>Calendar: check "Financial Economics" entries for the lectures
+timetable and locations in the <a href="https://calendar.google.com/calendar/embed?src=t9085fnf0ff4lppr0uolp3ohg8%40group.calendar.google.com&amp;ctz=Europe%2FRome">calendar</a>.</li>
+</ul>
+
+<p>
+List of lectures. To have a guess about future lectures check the
+<a href="teaching_old.html">previous years</a> but consider that your mileage may vary.
+</p>
+
+<ol class="org-ol">
+<li>Introduction: the structure of the course and its textbooks;
+the role of financial institutions <a href="https://docs.google.com/presentation/d/1fPWtpCZgLpRXPdWiiNIE9HtLyaMs5hSaSQqVL_Gj7No/edit?usp=sharing">slides</a> (Textbooks sections:
+[FBJ] Ch. 1, 2 and 3; [Ni] Ch. 1; [Eco] Ch. 1)</li>
+<li>Barter and market economies; Two agents, two goods, one date
+model.</li>
+<li>Two date model. Spot and forward markets. Financial
+equilibrium. The role of arbitrage in setting prices.</li>
+<li>Present value prices and economic equilibrium. Redundant
+contracts.</li>
+<li>Real and nominal interest rates; The role of inflation; Pricing
+of future contracts. (Textbooks sections: [FBJ] Ch. 4 and 5 [Hu]
+Sections from 4.1 to 4.8 all Chapter 5 and section from 6.1 to
+6.3 [Ni] Ch. 2)</li>
+<li>Inter-temporal allocation in a one good two date model: the role
+of preferences and endowments in setting real interest
+rates. [Assignment 1]</li>
+<li>Structure of security markets with uncertainty; complete
+markets and redundant assets (Textbook sections: [LRW] 1.6)</li>
+<li>Exercises and solutions of Assignment 1</li>
+<li>Left and right matrix inverse.</li>
+<li>Payoff pricing correspondence; the Law of One Price; state claims
+and state prices (Textbook sections: [LRW] 2.1, 2.3, 2.4, 2.5)</li>
+<li>Arbitrage and valuation: strong and weak arbitrage; positive
+pricing; the payoffs convex cone; (Textbook sections: [LRW] 3.2,
+3.3, 3.4, 3.5, 5.1)</li>
+<li>Farkas' Lemma; the valuation functional and strong arbitrage;
+Stiemke's Lemma; the valuation functional and arbitrage;
+Arbitrage and valuation: the fundamental theorem of finance;
+multiplicity of valuation functionals; risk neutral
+probabilities; (Textbook sections: [LRW] 5.2, 5.3, 5.5, 6.3,
+6.4, 6.5;) [Assignment 2]</li>
+<li>Discussion of the no-arbitrage condition in a general two date
+model. Risk neutral probabilities; (Textbook sections: [LRW]
+6.6, 6.7;)</li>
+<li>Valuation of derivatives in a two date model: forward and
+future, call and put options (see the discussion of forward and
+future contracts in [Hu] Ch.1-3)</li>
+<li>Choices under uncertainty: consumption and portfolio choices,
+Expected Utility Theory, separable and time invariant utilities;
+risk aversion; absolute and relative risk aversion coefficients;
+certainty equivalent; Concave transformation; comparison of
+utility functions; first and second order stochastic dominance
+(Textbook sections: [LRW] 9.2, 9.3, 9.4, 9.5, 9.6, 9.8; the
+proves of the theorems can also be found in [MWG] Ch.6 Sec.B;
+further examples are discussed in [CN] Ch.1 Sec.3-5)</li>
+<li>Mean-variance frontier payoffs and mean-variance frontier
+returns with complete markets. [Assignment 3]</li>
+<li>Scalar product and orthogonal projection in linear
+spaces. Expectations kernel and pricing kernel (Textbook
+sections: [LRW] from 17.1 to 17.10, 18.5)</li>
+<li>Mean-variance frontier payoffs and mean-variance frontier
+returns with complete and incomplete markets.
+(Textbook sections: 18.1, 18.2 and Th. 18.2.1 with proof 18.4,
+18.6; see also the discussion in [CN] Ch.15 Sec.1-2).</li>
+<li>Example on orthogonal projection and mean-variance frontier
+payoffs.</li>
+<li>Zero-Covariance Frontier Returns, Sharpe Ratio of mean-variance
+frontier returns (Textbook sections: 18.4) [Assignment 4, see
+below for data]</li>
+<li>Exercises and solutions of Assignment 3</li>
+<li>Portfolio optimization: first order conditions; arbitrage and
+optimal portfolio, optimal consumption, prices and
+returns. (Textbook sections: [LRW] 1.4, 1.5, 2.6, 3.6, 11.1,
+11.2; see [CN] Ch.15 for an introductory discussion of the
+problem)</li>
+<li>Exercises on optimal portfolios</li>
+<li>Exercises and solutions of Assignment 4</li>
+<li>Portfolio optimization with one risky security: impact of wealth
+on optimal investment; exercises (Textbook sections: [LRW]
+12.2).</li>
+<li>Portfolio optimization with several risky securities: from
+consumption to investment optimization; risk-return trade off;
+optimal portfolio under fair pricing. Linear Risk
+tolerance. (Textbook sections: [LRW] 13.2, 13.3, 13.4, 9.9,
+13.6)</li>
+<li>Economic equilibrium; representative agent model; equilibrium
+sufficient conditions; equilibrium and arbitrage. (Textbook
+sections: [LRW] 1.7, 1.8, 1.9, 2.4, 3.7) [Assignment 5]</li>
+<li>An example of general equilibrium with heterogeneous agents. The
+relation between individual wealth and prices.</li>
+<li>Consumption based security pricing; a first derivation of CAPM;,
+(Textbook sections: [LRW] 14.1, 14.2, 14.3, 14.5)</li>
+<li>Equilibrium and Pareto optimal allocation, first and second
+welfare theorem; (Textbook sections: [LRW] 15.2, 15.3, 15.4,
+15.5 without theorem 15.5.1, 15.6 )</li>
+<li>Exercises and solutions of Assignment 5</li>
+</ol>
+
+<p>
+Data for Assignment 4: <a href="./teaching/prices_close.txt">weekly closing prices</a> of America Corporation
+(BAC), General Electric Company (GE), Ford Motor Co. (F), Citigroup,
+Inc. (C), Pfizer Inc. (PFE), Hewlett-Packard Company (HPQ), JPMorgan
+Chase &amp; Co. (JPM), AT&amp;T, Inc. (T), Wells Fargo &amp; Company (WFC) and
+J. C. Penney Company, Inc. (JCP)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6c5e55c" class="outline-2">
+<h2 id="org6c5e55c">Academic Term (Anno Accademico) 2018/2019: advanced calculus</h2>
+<div class="outline-text-2" id="text-org6c5e55c">
+<p>
+The aim of the course is to provide a deepest introduction to the
+basic tools and theorems of mathematical calculus. It is taught as a
+companion courses for second and third year students. Undergraduate
+courses in the first and second years are oriented to provide a
+specific set of computational procedures to be applied to the
+solution of specific problems. The present course might constitute a
+good complement as it is more concerned with the definition and
+study of general notions and it is characterized by a
+theorem-proving approach.
+</p>
+
+<ul class="org-ul">
+<li>Teaching load: 40 hours</li>
+<li>Lecturer : BOTTAZZI Giulio</li>
+<li>Teaching Assistant: Pietro Battiston</li>
+<li>Semester: Fall</li>
+<li>Textbook: Notes directly provided by the teacher</li>
+<li>Further references and Optional readings: Principles of
+Mathematical Analysis, W.A. Rudin, chapters 3, 6 and 9</li>
+<li>Prerequisites: The course requires a knowledge of linear algebra
+(linear space, linear map, basis, determinant, inversion,
+eigenvectors) and basic calculus.</li>
+</ul>
+
+<p>
+List of topics covered by the lectures (not necessarily in this
+order)
+</p>
+
+<p>
+Prerequisite:
+</p>
+<ul class="org-ul">
+<li>Sets, equivalence relations and functions</li>
+<li>Order relations, upper and lower bounds, supremum and infimum</li>
+<li>Countable sets</li>
+<li>Real numbers</li>
+</ul>
+
+<p>
+Introduction to topology and metric spaces:
+</p>
+<ul class="org-ul">
+<li>Topological spaces</li>
+<li>Compact and connected sets</li>
+<li>Basis of a topology</li>
+<li>Countable spaces</li>
+<li>Continuity</li>
+<li>Notion of distance and induced topology</li>
+</ul>
+
+<p>
+Sequences in Metric Spaces:
+</p>
+<ul class="org-ul">
+<li>Cauchy sequences.</li>
+<li>Limit of sequences and sub-sequences.</li>
+<li>Comparison theroem for limit of sequences.</li>
+<li>The number e as a limit of a sequence.</li>
+</ul>
+
+<p>
+Series:
+</p>
+<ul class="org-ul">
+<li>Series as limit of partial sums.</li>
+<li>Root, ratio and comparison tests for series.</li>
+</ul>
+
+<p>
+Functions and Limits on Metric Spaces:
+</p>
+<ul class="org-ul">
+<li>Notion of limit of function in a metric space.</li>
+<li>Properties of limit (sum, ratio and product of limits)</li>
+</ul>
+
+<p>
+Limits of Real Functions:
+</p>
+<ul class="org-ul">
+<li>Some important limits.</li>
+<li>Properties of limits of functions (comparison test)</li>
+<li>The number e as limit of a function.</li>
+</ul>
+
+<p>
+Continuity of Real Functions:
+</p>
+<ul class="org-ul">
+<li>Uniform continuity.</li>
+<li>Weiestrass Theorem.</li>
+</ul>
+
+<p>
+Differential calculus of real functions:
+</p>
+<ul class="org-ul">
+<li>Properties of derivatives.</li>
+<li>Continuity and differential.</li>
+<li>Lagrange theorem.</li>
+<li>de L'Hopital rule and application.</li>
+<li>Derivatives of fundamental functions.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1ab3d91" class="outline-2">
+<h2 id="org1ab3d91">Academic Term (Anno Accademico) 2018/2019: financial economics (post-graduate)</h2>
+<div class="outline-text-2" id="text-org1ab3d91">
+<ul class="org-ul">
+<li>Teaching load: 12 hours</li>
+<li>Lecturer : BOTTAZZI Giulio, GIACHINI Daniele</li>
+<li>Semester: Spring</li>
+<li>Textbook: Notes directly provided by the teachers</li>
+<li>Further references and Optional readings: Principles of Financial
+Economics, S.F. LeRoy and J. Werner</li>
+<li>Prerequisites: The course requires some knowledge of linear
+algebra (linear space, linear map, basis, determinant, inversion,
+eigenvectors), basic calculus, static optimization and expected
+utility theory.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6f3b26f" class="outline-2">
+<h2 id="org6f3b26f">Academic Term (Anno Accademico) 2018/2019: industrial dynamics, theory (post-graduate)</h2>
+<div class="outline-text-2" id="text-org6f3b26f">
+<ul class="org-ul">
+<li>Teaching load: 8 hours</li>
+<li>Lecturer : BOTTAZZI Giulio</li>
+<li>Semester: Spring</li>
+<li>Papers:
+<dl class="org-dl">
+<dt>[BS2012]</dt><dd>G. Bottazzi and A. Secchi Productivity,
+profitability and growth: the empirics of firm
+dynamics, Structural Change and Economic Dynamics,
+Volume 23, Issue 4, pp. 325–328, 2012.</dd>
+<dt>[BPT]</dt><dd>G. Bottazzi, D. Pirino and F. Tamagni Zipf law and the
+firm size distribution: a critical discussion of
+popular estimators, Journal of Evolutionary Economics
+25 (3), 585-610, 2015.</dd>
+<dt>[Hill]</dt><dd>B. Hill A Simple General Approach to Inference About
+the Tail of a Distribution. The Ann Stat 3:1163–1174,
+<ol class="org-ol">
+<li></li>
+</ol></dd>
+<dt>[Simon]</dt><dd>H.A.Simon On a Class of Skew Distribution Functions,
+Biometrika, vol. 42, 1955.</dd>
+<dt>[Champ]</dt><dd>D.G. Champernowne A Model of Income Distribution, The
+Economic Journal, vol. 63,1953.</dd>
+<dt>[BS2006a]</dt><dd>G.Bottazzi and A.Secchi Explaining the Distribution
+of Firms Growth Rates Rand Journal of Economics, 37,
+pp. 234-263, 2006</dd>
+<dt>[BS2006b]</dt><dd>G.Bottazzi and A.Secchi Gibrat's Law and
+Diversification Industrial and Corporate Change, 15,
+pp. 847-875, 2006</dd>
+<dt>[BS2003]</dt><dd>G.Bottazzi, A.Secchi Why are distributions of firm
+growth rates tent-shaped ? Economic Letters vol. 80
+pp.415-420, 2003</dd>
+</dl></li>
+</ul>
+
+<p>
+List of lectures:
+</p>
+
+<ol class="org-ol">
+<li>The object of study. Pareto distribution, scale invariance and
+fat tails. Order statistics, Ranyi transfromation and Hill
+estimator ([BS2012],[BPT],[Hill]).</li>
+<li>Gibrat process, strong and weak form. Sub-diffusive
+model. Characteristic function, cumulant generating function and
+central limit theorem.</li>
+<li>Simon model of firm growth. Champernow model and the generating
+function method ([Simon,[Champ]]).</li>
+<li>Birth and death models and the diversification structure of
+firms, Distribution of growth rates, generalization of the
+central limit theorem and Laplace distribution
+([BS2006b],[BS2003],[BS2006a]). <a href="./teaching/talk_pisa_gb_new.pdf">handout</a></li>
+</ol>
+</div>
+</div>
+
+
+<div id="outline-container-orgec3fb6e" class="outline-2">
+<h2 id="orgec3fb6e">Academic Term (Anno Accademico) 2017/2018: financial economics</h2>
+<div class="outline-text-2" id="text-orgec3fb6e">
+<ul class="org-ul">
+<li>Teaching load: 63 hours (ECTS credits 9)</li>
+<li>Lecturers: BOTTAZZI Giulio</li>
+<li>Teaching Assistant: GIACHINI Daniele</li>
+<li>Semester: Fall</li>
+
+<li>Outline: This course aims to provide a modern theoretical
+foundation to the most widespread notions and tools in financial
+economics, including present value theory, real interest rate,
+arbitrage pricing, portfolio management and mean-variance
+analysis.</li>
+
+<li>Objectives: The students should become acquainted with the notion
+of arbitrage and equilibrium price in different market
+settings. They should be able to solve the problem of portfolio
+optimization and mean-variance analysis in rather general terms.</li>
+
+<li>Description: General equilibrium, no arbitrage in riskless
+economies, real interest rate and the yield curve. Arbitrage in
+security markets, state prices, complete and incomplete markets,
+valuation functional and the fundamental theorem of
+finance. Choices under uncertainty, expected utility theory and
+risk aversion. Portfolio choices, optimal portfolio with multiple
+risky assets. General equilibrium under uncertainty. Pricing
+kernel and mean-variance analysis. OPTIONAL: behavioral finance,
+asset prices under ambiguity, evolutionary finance and the market
+selection hypothesis.</li>
+
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[LRW]</dt><dd>Principles of Financial Economics, S.F. LeRoy and
+J. Werner</dd>
+<dt>[FBJ]</dt><dd>Foundations of Financial Markets and Institutions,
+Fabozzi, Modigliani and Jones</dd>
+</dl></li>
+
+<li><p>
+Further references and Optional readings:
+</p>
+<dl class="org-dl">
+<dt>[MWG]</dt><dd>Microeconomic Theory, A. Mas-Colell, M. D. Whinston,
+and J. R. Green</dd>
+<dt>[CN]</dt><dd>Quantitative Financial Economics, K. Cuthbertson and
+D. Nitzsche</dd>
+<dt>[HR]</dt><dd>Financial Economics, T. Hens and M. O. Rieger</dd>
+<dt>[ES]</dt><dd>Ambiguity and Asset Markets, L. G. Epstein and
+M. Schneider, NBER paper;</dd>
+<dt>[Hu]</dt><dd>Options, Futures and Other Derivatives, J. C. Hull (7th ed.)</dd>
+<dt>[Ni]</dt><dd>The Ascent of Money: A Financial History of the World,
+Niall Ferguson</dd>
+<dt>[Eco]</dt><dd>Guide to the Financial Markets, The Economist</dd>
+</dl>
+
+<p>
+see the <a href="teaching/syllabus_fineco.html">syllabus</a> for references to specific parts of these books.
+</p></li>
+
+<li>Prerequisites: The course requires a basic knowledge of linear
+algebra (linear space, linear map, basis, inversion, eigenvectors
+and eigensystems), calculus (differential analyses of function of
+many real variables and static optimization) and, to a lesser
+extent, probability theory. Some basic knowledge of the theory of
+choice under uncertainty (utility theory) and economic equilibrium
+are in general given for granted and only cursorily reviewed.</li>
+
+<li>Prerequisites suggested reading (relevant chapters in):
+C. P. Simon, L. E. Blume, Mathematics for Economists, H. R. Varian
+Microeconomic Analysis.</li>
+
+<li>Keywords: financial economics, general equilibrium, arbitrage,
+asset pricing, optimization</li>
+
+<li>Final exam: the get the final grading students are required to
+pass a final written exam. At least one fake exam will be
+organized to test your level of preparation. Students get extra
+points for completing their homework during the course.</li>
+
+<li>Calendar: check "Financial Economics" entries for the lectures
+timetable and locations</li>
+</ul>
+
+<div class="HTML">
+<p>
+&lt;iframe src="<a href="https://calendar.google.com/calendar/embed?showTitle=0&amp;amp;showTabs=0&amp;amp;showCalendars=0&amp;amp;height=600&amp;amp;wkst=1&amp;amp;bgcolor=%23FFFFFF&amp;amp;src=t9085fnf0ff4lppr0uolp3ohg8%40group.calendar.google.com&amp;amp;color=%2329527A&amp;amp;ctz=Europe%2FRome">https://calendar.google.com/calendar/embed?showTitle=0&amp;amp;showTabs=0&amp;amp;showCalendars=0&amp;amp;height=600&amp;amp;wkst=1&amp;amp;bgcolor=%23FFFFFF&amp;amp;src=t9085fnf0ff4lppr0uolp3ohg8%40group.calendar.google.com&amp;amp;color=%2329527A&amp;amp;ctz=Europe%2FRome</a>" style="border-width:0" width="600" height="600" frameborder="0" scrolling="no"&gt;&lt;/iframe&gt;
+</p>
+
+</div>
+
+<p>
+List of lectures. To have a guess about future lectures check the
+<a href="teaching_old.html">previous years</a> but consider that your mileage may vary.
+</p>
+
+<ol class="org-ol">
+<li>Introduction: the structure of the course and its textbooks;
+the role of financial institutions <a href="https://docs.google.com/presentation/d/1fPWtpCZgLpRXPdWiiNIE9HtLyaMs5hSaSQqVL_Gj7No/edit?usp=sharing">slides</a> (Textbooks sections:
+[FBJ] Ch. 1, 2 and 3; [Ni] Ch. 1; [Eco] Ch. 1)</li>
+<li>The notion of economic equilibrium; Two agents, two goods, one
+date model.</li>
+<li>Two date model. Spot and forward markets. Financial
+equilibrium. The role of arbitrage in setting prices.</li>
+<li>Present value prices and economic equilibrium. Redundant
+contracts.</li>
+<li>Real and nominal interest rates; The role of inflation; Pricing
+of future contracts. (Textbooks sections: FBJ] Ch. 4 and 5 [Hu]
+Sections from 4.1 to 4.8 all Chapter 5 and section from 6.1 to
+6.3 [Ni] Ch. 2) [Assignment 1]</li>
+<li>Inter-temporal allocation in a one good two date model: the role
+of preferences and endowments in setting real interest
+rates. Structure of security markets with uncertainty; complete
+markets and redundant assets (Textbook sections: [LRW] 1.6)</li>
+<li>Exercises and solutions of Assignment 1</li>
+<li>Left and right matrix inverse. Payoff pricing correspondence; the
+Law of One Price; state claims and state prices (Textbook
+sections: [LRW] 2.1, 2.3, 2.4, 2.5)</li>
+<li>Arbitrage and valuation: strong and weak arbitrage; positive
+pricing; the payoffs convex cone; (Textbook sections: [LRW] 3.2,
+3.3, 3.4, 3.5, 5.1)</li>
+<li>Farkas' Lemma; the valuation functional and strong arbitrage;
+Stiemke's Lemma; the valuation functional and arbitrage;
+Arbitrage and valuation: the fundamental theorem of finance;
+multiplicity of valuation functionals; risk neutral
+probabilities; (Textbook sections: [LRW] 5.2, 5.3, 5.5, 6.3, 6.4,
+6.5, 6.6, 6.7;) [Assignment 2]</li>
+<li>Choices under uncertainty: consumption and portfolio choices,
+Expected Utility Theory, separable and time invariant utilities;
+risk aversion; absolute and relative risk aversion coefficients;
+certainty equivalent; Concave transformation; comparison of
+utility functions; first and second order stochastic dominance
+(Textbook sections: [LRW] 9.2, 9.3, 9.4, 9.5, 9.6, 9.8; the
+proves of the theorems can also be found in [MWG] Ch.6 Sec.B;
+further examples are discussed in [CN] Ch.1 Sec.3-5)</li>
+<li>Exercises and solutions of Assignment 2</li>
+<li>Valuation of derivatives in a two date model: forward and future
+(see the discussion of forward and future contracts in [Hu]
+Ch.1-3) [Assignment 3]</li>
+<li>Portfolio optimization: first order conditions; arbitrage and
+optimal portfolio, optimal consumption, prices and
+returns. (Textbook sections: [LRW] 1.4, 1.5, 2.6, 3.6, 11.1,
+11.2; see [CN] Ch.15 for an introductory discussion of the
+problem)</li>
+<li>Portfolio optimization with one risky security: impact of wealth
+on optimal investment; exercises (Textbook sections: [LRW]
+12.2).</li>
+<li>Exercises and solutions of Assignment 3.</li>
+<li>Put and call options. The role of options in completing the
+market. Exercise: an useful <a href="./teaching/options.png">picture</a> and the Octave/Matlab <a href="./teaching/options.m">file</a>;
+(Textbook sections: [LRW] 15.4).</li>
+<li>Portfolio optimization with several risky securities: from
+consumption to investment optimization; risk-return trade off;
+optimal portfolio under fair pricing. (Textbook sections: [LRW]
+13.2, 13.3, 13.4, 9.9, 13.6)</li>
+<li>Portfolio optimization with several risky securities: Linear
+Risk tolerance, recap on Euclidean spaces, Orthogonal projection
+and scalar product. [Assignment 4]</li>
+<li>Expectations kernel and pricing kernel (Textbook sections: [LRW]
+from 17.1 to 17.10, 18.5)</li>
+<li>Exercises and solutions of Assignment 4.</li>
+<li>Again on expectations kernel and pricing kernel (Textbook
+sections: [LRW] from 17.1 to 17.10, 18.5)</li>
+<li>Mean-variance frontier payoffs and mean-variance frontier
+returns with complete markets.</li>
+<li>Mean-variance frontier payoffs and mean-variance frontier
+returns with complete and incomplete markets. Zero-Covariance
+Frontier Returns, Sharpe Ratio of mean-variance frontier returns
+(Textbook sections: 18.1, 18.2 and Th. 18.2.1 with proof 18.4,
+18.6; see also the discussion in [CN] Ch.15
+Sec.1-2). [Assignment 5 see below for data]</li>
+<li>Economic equilibrium; representative agent model; equilibrium
+sufficient conditions; equilibrium and arbitrage. (Textbook
+sections: [LRW] 1.7, 1.8, 1.9, 2.4, 3.7)</li>
+<li>Consumption based security pricing; a first derivation of CAPM;,
+the social planner problem; equilibrium and Pareto optimality,
+first and second welfare theorems; (Textbook sections: [LRW]
+14.2, 14.3, 14.5, 15.2, 15.3, 15.4, 15.5, without theorem
+15.5.1)</li>
+<li>Exercises and solutions of Assignment 4.</li>
+<li>Simulated exam</li>
+<li>Correction and discussion of the exercises of the simulated exam</li>
+</ol>
+
+<p>
+Data for Assignment 5: <a href="./teaching/prices_close.txt">weekly closing prices</a> of America Corporation
+(BAC), General Electric Company (GE), Ford Motor Co. (F), Citigroup,
+Inc. (C), Pfizer Inc. (PFE), Hewlett-Packard Company (HPQ), JPMorgan
+Chase &amp; Co. (JPM), AT&amp;T, Inc. (T), Wells Fargo &amp; Company (WFC) and
+J. C. Penney Company, Inc. (JCP)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfacfaf4" class="outline-2">
+<h2 id="orgfacfaf4">Academic Term (Anno Accademico) 2017/2018: advanced calculus</h2>
+<div class="outline-text-2" id="text-orgfacfaf4">
+<p>
+The aim of the course is to provide a deepest introduction to the
+basic tools and theorems of mathematical calculus. Undergraduate
+courses in the first and second year are oriented to provide a
+specific set of computational procedures to be applied to the
+solution of specific problems. The present course might constitute a
+good complement as it is more concerned with the definition and
+study of general notions and it is characterized by a
+theorem-proving approach.
+</p>
+
+<ul class="org-ul">
+<li>Teaching load: 40 hours (ECTS credits 3)</li>
+<li>Lecturer : BOTTAZZI Giulio, BATTISTON Pietro</li>
+<li>Semester: Fall</li>
+<li>Textbook: Notes directly provided by the teacher</li>
+<li>Further references and Optional readings: Principles of
+Mathematical Analysis, W.A. Rudin, chapters 3, 6 and 9</li>
+<li>Prerequisites: The course requires some knowledge of linear
+algebra (linear space, linear map, basis, determinant, inversion,
+eigenvectors) and basic calculus.</li>
+</ul>
+
+<p>
+List of topics covered by the lectures.
+</p>
+
+<p>
+Functions of several real variables:
+</p>
+<ul class="org-ul">
+<li>Continuity in Euclidean spaces</li>
+<li>Derivative and differential</li>
+<li>Concavity and convexity</li>
+<li>Local and global maxima and minima</li>
+<li>Implicit function theorem</li>
+<li>Constrained maximization</li>
+<li>Khun-Tucker conditions</li>
+</ul>
+
+<p>
+Riemann integral:
+</p>
+<ul class="org-ul">
+<li>Finite sum and limits</li>
+<li>Summability conditions</li>
+<li>Properties of the integral</li>
+</ul>
+
+<p>
+Measure theory:
+</p>
+<ul class="org-ul">
+<li>Sigma algebra, measurable space, measure</li>
+<li>Measurable function</li>
+<li>Borel sigma algrebra, outer measure, Lebesgue measure</li>
+<li>Lebesgue integral</li>
+<li>Multiple integral</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3d1765c" class="outline-2">
+<h2 id="org3d1765c">Academic Term (Anno Accademico) 2017/2018: industrial dynamics</h2>
+<div class="outline-text-2" id="text-org3d1765c">
+<ul class="org-ul">
+<li>Teaching load: 10 hours</li>
+<li>Lecturers: BOTTAZZI Giulio</li>
+<li>Outline: The course introduces some theoretical aspects of the
+study of the growth dynamics of business firms. Basic stochastic
+processes and the classical models are reviewed.</li>
+<li><p>
+References and Optional readings:
+</p>
+<dl class="org-dl">
+<dt>[Kal]</dt><dd>On the Gibrat Distribution, M. Kalecki,
+Econometrica, 1945.</dd>
+<dt>[Cham]</dt><dd>A model of Income Distribution, D.G. Champernowne, The
+Economic Journal, 1953.</dd>
+<dt>[Simon]</dt><dd>On a class od skew distribution functions,
+H.A. Simon, Biometrika, 1955.</dd>
+<dt>[Mitz]</dt><dd>A Brief History of Generative Models for Power Law and
+Lognormal Distributions, Michael Mitzenmacher, Internet
+Math, 2003.</dd>
+<dt>[New]</dt><dd>Power laws, Pareto distributions and Zipf's law,
+M. E. J. Newman, Contemporary Physics, 2004.</dd>
+<dt>[Bot1]</dt><dd>Explaining the distribution of firms gwoth rates,
+G. Bottazzi and A. Secchi, RAND journal of economics, 2006.</dd>
+<dt>[Bot2]</dt><dd>Gibrat's Law and Diversification, G. Bottazzi and
+A. Secchi, Industrial and Corporate Change, 2006.</dd>
+</dl>
+<p>
+Note that these references do not contain a complete coverage of all
+the topics reviewed in the course.
+</p></li>
+</ul>
+
+
+<p>
+List of lectures.
+</p>
+<ol class="org-ol">
+<li>Uncertain in the definition of measured quantities. The Pareto
+distribution and its properties: scale-free and fat tails. The
+central limit theorem for the sum of independent random
+variables. Characteristic function and cumulant generating
+functions. ([New] and [Mitz]).</li>
+<li>The asymptotic of Gibrat process: the case of auto-regressive
+growth rates and the dependence on size ([Kal]).</li>
+<li>From the Simon model to the Yule distribution. The Champernowne
+model. ([Simon] and [Cham]).</li>
+<li>Laplace distribution and firm growth rates. ([Bot1])</li>
+<li>Poisson process, Yule process and firm diversification. ([Bot2])</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org5729ce0" class="outline-2">
+<h2 id="org5729ce0">Academic Term (Anno Accademico) 2016/2017: financial economics</h2>
+<div class="outline-text-2" id="text-org5729ce0">
+<ul class="org-ul">
+<li>Teaching load: 63 hours (ECTS credits 9)</li>
+<li>Lecturers: BOTTAZZI Giulio and GIACHINI Daniele</li>
+<li>Teaching Assistant: SANTI Caterina</li>
+<li>Semester: Fall</li>
+
+<li>Outline: This course aim to provide a modern theoretical
+foundation to the most widespread notions and tools in modern
+finance, including present value theory, real interest rate,
+arbitrage pricing, portfolio allocation and mean-variance
+analysis.</li>
+
+<li>Objectives: The students should become acquainted with the notion
+of arbitrage and equilibrium price in different market
+settings. They should be able to solve the problem of portfolio
+optimization and mean-variance analysis in rather general terms.</li>
+
+<li>Description: General equilibrium, no arbitrage in riskless
+economies, real interest rate and the yield curve. Arbitrage in
+security markets, state prices, complete and incomplete markets,
+valuation functional and the fundamental theorem of
+finance. Choices under uncertainty, expected utility theory and
+risk aversion. Portfolio choices, optimal portfolio with multiple
+risky assets. General equilibrium under uncertainty. Pricing
+kernel and mean-variance analysis. OPTIONAL: behavioral finance,
+asset prices under ambiguity, evolutionary finance and the market
+selection hypothesis.</li>
+
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[LRW]</dt><dd>Principles of Financial Economics, S.F. LeRoy and
+J. Werner</dd>
+<dt>[FBJ]</dt><dd>Foundations of Financial Markets and Institutions,
+Fabozzi, Modigliani and Jones</dd>
+</dl></li>
+
+<li><p>
+Further references and Optional readings:
+</p>
+<dl class="org-dl">
+<dt>[MWG]</dt><dd>Microeconomic Theory, A. Mas-Colell, M. D. Whinston,
+and J. R. Green</dd>
+<dt>[CN]</dt><dd>Quantitative Financial Economics, K. Cuthbertson and
+D. Nitzsche</dd>
+<dt>[HR]</dt><dd>Financial Economics, T. Hens and M. O. Rieger</dd>
+<dt>[ES]</dt><dd>Ambiguity and Asset Markets, L. G. Epstein and
+M. Schneider, NBER paper;</dd>
+<dt>[Hu]</dt><dd>Options, Futures and Other Derivatives, J. C. Hull (7th ed.)</dd>
+<dt>[Ni]</dt><dd>The Ascent of Money: A Financial History of the World,
+Niall Ferguson</dd>
+<dt>[Eco]</dt><dd>Guide to the Financial Markets, The Economist</dd>
+</dl>
+
+<p>
+see the <a href="teaching/syllabus_fineco.html">syllabus</a> for references to specific parts of these books.
+</p></li>
+
+<li>Prerequisites: The course requires a knowledge of linear algebra
+(linear space, linear map, basis, inversion, eigenvectors and
+eigensystems), calculus (differential analyses of function of many
+real variables and static optimization) and, to a lesser extent,
+probability theory. Some basic knowledge of the theory of choice
+under uncertainty (utility theory) and economic equilibrium are in
+general given for granted and only cursorily reviewed.</li>
+
+<li>Prerequisites suggested reading (relevant chapters): C. P. Simon,
+L. E. Blume, Mathematics for Economists, H. R. Varian
+Microeconomic Analysis.</li>
+
+<li>Keywords: financial economics, general equilibrium, arbitrage,
+asset pricing, optimization</li>
+
+<li>Final exam: the get the final grading students are required to
+pass a final written exam. At least one trial exam will be
+organized to test your level of preparation. Students get extra
+points for completing their homework during the course.</li>
+
+<li>Calendar: check "Financial Economics" entries for the lectures
+timetable and locations</li>
+</ul>
+
+<p>
+List of lectures. To have a guess about actual lectures check the
+<a href="teaching_old.html">previous years</a> but consider that your mileage may vary.
+</p>
+
+<ol class="org-ol">
+<li>Introduction: the structure of the course and its textbooks;
+the role of financial institutions <a href="https://docs.google.com/presentation/d/1fPWtpCZgLpRXPdWiiNIE9HtLyaMs5hSaSQqVL_Gj7No/edit?usp=sharing">slides</a> (Textbooks sections:
+[FBJ] Ch. 1, 2 and 3; [Ni] Ch. 1; [Eco] Ch. 1)</li>
+<li>The notion of economic equilibrium; Two agents, two goods, one
+date model. The role of prices.</li>
+<li>Two date model. Spot and forward markets. Financial
+equilibrium.</li>
+<li>Present value prices and economic equilibrium. Redundant
+contracts; the role of arbitrage in setting prices.</li>
+<li>Real and nominal interest rate; The role of inflation; Pricing
+of future contracts. (Textbooks sections: FBJ] Ch. 4 and 5 [Hu]
+Sections from 4.1 to 4.8 all Chapter 5 and section from 6.1 to
+6.3 [Ni] Ch. 2) [Assignment 1]</li>
+<li>Inter-temporal allocation in a one good two date model: the role
+of preferences and endowments.</li>
+<li>Structure of security markets with uncertainty; complete market
+and redundant assets; Left and right matrix inverse; (Textbook
+sections: [LRW] 1.6)</li>
+<li>Exercises and solutions of Assignment 1.</li>
+<li>Payoff pricing correspondence; the Law of One Price; state
+claims and state prices (Textbook sections: [LRW] 2.1, 2.3, 2.4,
+2.5)</li>
+<li>Arbitrage and valuation: strong and weak arbitrage; positive
+pricing; the payoffs convex cone; Farkas' Lemma; the valuation
+functional and strong arbitrage; (Textbook sections: [LRW] 3.2,
+3.3, 3.4, 3.5, 5.1)</li>
+<li>Stiemke's Lemma; the valuation functional and arbitrage;
+Arbitrage and valuation: the fundamental theorem of finance;
+multiplicity of valuation functionals; risk neutral
+probabilities; (Textbook sections: [LRW] 5.2, 5.3, 5.5, 6.3,
+6.4, 6.5, 6.6, 6.7;) [Assignment 2]</li>
+<li>Valuation of derivatives in a two date model: forward and
+future</li>
+<li>Put and call options. the role of options in completing the
+market (see the discussion of forward and future contracts in
+[Hu] Ch.1-3)</li>
+<li>Exercises and solutions of Assignment 2</li>
+<li>Choices under uncertainty: consumption and portfolio choices,
+Expected Utility Theory, separable and time invariant utilities;
+risk aversion; absolute and relative risk aversion coefficients;
+certainty equivalent; (Textbook sections: [LRW] 9.2, 9.3, 9.4,
+9.5, 9.6, 9.8)</li>
+<li>Concave transformation; comparison of utility functions; first
+and second order stochastic dominance; (Textbook sections: the
+proves of the theorems can also be found in [MWG] Ch.6 Sec.B;
+further examples are discussed in [CN] Ch.1 Sec.3-5)</li>
+<li>Portfolio optimization: first order conditions; arbitrage and
+optimal portfolio, optimal consumption, prices and
+returns. (Textbook sections: [LRW] 1.4, 1.5, 2.6, 3.6, 11.1,
+11.2; see [CN] Ch.15 for an introductory discussion of the
+problem)</li>
+<li>Portfolio optimization with one risky security: impact of wealth
+on optimal investment; exercises (Textbook sections: [LRW ]12.2)</li>
+<li>Portfolio optimization with several risky securities: from
+consumption to investment optimization; risk-return trade off;
+optimal portfolio under fair pricing; (Textbook sections: [LRW]
+13.2, 13.3, 13.4, 9.9, 13.6)</li>
+<li>Portfolio optimization with several risky securities: Linear
+Risk tolerance [Assignment 4]</li>
+<li>Constrained utility maximization.  [Assignment 3]</li>
+<li>Orthogonal projection and scalar product, expectations kernel,
+pricing kernel (Textbook sections: from 17.1 to 17.10, 18.5)</li>
+<li>Mean-variance frontier payoffs and mean-variance frontier
+returns with complete and incomplete markets.</li>
+<li>Zero-Covariance Frontier Returns, Sharpe Ratio of mean-variance
+frontier returns (Textbook sections: 18.1, 18.2 and Th. 18.2.1
+with proof 18.4, 18.6; see also the discussion in [CN] Ch.15
+Sec.1-2)</li>
+<li>Exercises and solutions of Assignment 4</li>
+<li>Economic equilibrium; Example with heterogeneous agents,
+log-utilities and Arrow securities.</li>
+<li>Economic equilibrium; representative agent model; equilibrium
+sufficient conditions; equilibrium and arbitrage. (Textbook
+sections: [LRW] 1.7, 1.8, 1.9, 2.4, 3.7)</li>
+<li>Consumption based security pricing; a first derivation of CAPM;,
+the social planner problem; equilibrium and Pareto optimality,
+first and second welfare theorems; (Textbook sections: [LRW]
+14.2, 14.3, 14.5, 15.2, 15.3, 15.4, 15.5, without theorem
+15.5.1)</li>
+<li>Introduction to otimal betting and Kelly rule</li>
+<li>Exercises and solutions of Assignment 5</li>
+<li>Simulated exam</li>
+<li>Correction and discussion of the exercises of the simulated exam</li>
+</ol>
+
+<p>
+Data for Assignment 5: <a href="./teaching/prices_close.txt">weekly closing prices</a> of America Corporation
+(BAC), General Electric Company (GE), Ford Motor Co. (F), Citigroup,
+Inc. (C), Pfizer Inc. (PFE), Hewlett-Packard Company (HPQ), JPMorgan
+Chase &amp; Co. (JPM), AT&amp;T, Inc. (T), Wells Fargo &amp; Company (WFC) and
+J. C. Penney Company, Inc. (JCP)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb11c5e5" class="outline-2">
+<h2 id="orgb11c5e5">Academic Term (Anno Accademico) 2016/2017: advanced calculus</h2>
+<div class="outline-text-2" id="text-orgb11c5e5">
+<p>
+The aim of the course is to provide a deepest introduction to the
+basic tools and theorems of mathematical calculus. It is taught as a
+companion courses for second and third year students. Undergraduate
+courses in the first and second years are oriented to provide a
+specific set of computational procedures to be applied to the
+solution of specific problems. The present course might constitute a
+good complement as it is more concerned with the definition and
+study of general notions and it is characterized by a
+theorem-proving approach.
+</p>
+
+<ul class="org-ul">
+<li>Teaching load: 40 hours (ECTS credits 3)</li>
+<li>Lecturer : BOTTAZZI Giulio</li>
+<li>Semester: Spring</li>
+<li>Textbook: Notes directly provided by the teacher</li>
+<li>Further references and Optional readings: Principles of
+Mathematical Analysis, W.A. Rudin, chapters 3, 6 and 9</li>
+<li>Prerequisites: The course requires a knowledge of linear algebra
+(linear space, linear map, basis, determinant, inversion,
+eigenvectors) and basic calculus.</li>
+</ul>
+
+<p>
+List of topics covered by the lectures (not necessarily in this
+order)
+</p>
+
+<p>
+Prerequisite:
+</p>
+<ul class="org-ul">
+<li>Sets, equivalence relations and functions</li>
+<li>Order relations, upper and lower bounds, supremum and infimum</li>
+<li>Countable sets</li>
+<li>Real numbers</li>
+</ul>
+
+<p>
+Introduction to topology and metric spaces:
+</p>
+<ul class="org-ul">
+<li>Topological spaces</li>
+<li>Compact and connected sets</li>
+<li>Basis of a topology</li>
+<li>Countable spaces</li>
+<li>Continuity</li>
+<li>Notion of distance and induced topology</li>
+</ul>
+
+<p>
+Sequences in Metric Spaces:
+</p>
+<ul class="org-ul">
+<li>Cauchy sequences.</li>
+<li>Limit of sequences and sub-sequences.</li>
+<li>Comparison theroem for limit of sequences.</li>
+<li>The number e as a limit of a sequence.</li>
+</ul>
+
+<p>
+Series:
+</p>
+<ul class="org-ul">
+<li>Series as limit of partial sums.</li>
+<li>Root, ratio and comparison tests for series.</li>
+</ul>
+
+<p>
+Functions and Limits on Metric Spaces:
+</p>
+<ul class="org-ul">
+<li>Notion of limit of function in a metric space.</li>
+<li>Properties of limit (sum, ratio and product of limits)</li>
+</ul>
+
+<p>
+Limits of Real Functions:
+</p>
+<ul class="org-ul">
+<li>Some important limits.</li>
+<li>Properties of limits of functions (comparison test)</li>
+<li>The number e as limit of a function.</li>
+</ul>
+
+<p>
+Continuity of Real Functions:
+</p>
+<ul class="org-ul">
+<li>Uniform continuity.</li>
+<li>Weiestrass Theorem.</li>
+</ul>
+
+<p>
+Real functions:
+</p>
+<ul class="org-ul">
+<li>Properties of derivatives.</li>
+<li>Continuity and differential.</li>
+<li>Lagrange theorem.</li>
+<li>de L'Hopital rule and application.</li>
+<li>Derivatives of fundamental functions.</li>
+</ul>
+
+<p>
+Functions of several real variables:
+</p>
+<ul class="org-ul">
+<li>Continuity in Euclidean spaces</li>
+<li>Derivative and differential</li>
+<li>Concavity and convexity</li>
+<li>Local and global maxima and minima</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org974727a" class="outline-2">
+<h2 id="org974727a">Academic Term (Anno Accademico) 2016/2017: Probability, Certainty and Security in Economics, Part I</h2>
+<div class="outline-text-2" id="text-org974727a">
+<ul class="org-ul">
+<li>Teaching load: 24 hours (ECTS credits 9)</li>
+<li>Lecturer: BOTTAZZI Giulio</li>
+<li>Semester: Spring</li>
+<li>Prerequisites: Basic mathematical skills. A previous basic knowledge of economic notions is helpful.</li>
+<li>References: S.O. Hansson, Decision Theory: a brief introduction,
+M.D. Resnik, Choices, P.L. Berstain, Against the Gods: The
+Remarkable Story of Risk,</li>
+</ul>
+
+<p>
+This is the first part of a two part course taught in the MISS
+master programme in Political Science.
+</p>
+
+<p>
+The course is aimed at familiarizing students with the concepts of
+risk, uncertainty and security in micro and macro economics and
+their present and historical role in economic reasoning. After the
+introduction of the basic mathematical tools, the course cover the
+basics of decision making under uncertainty, its normative and
+positive aspects and its role in modern economic
+institutions. Through discussion of notable examples the students
+will see the application of these concepts to practical issues
+</p>
+
+<p>
+By the end of this part of the course students should:
+</p>
+
+<ul class="org-ul">
+<li>Understand the problem of decision theory under uncertainty,</li>
+<li>Be able to apply the notion of expected payoff and expected
+utility to practical example,</li>
+<li>Be able to distinguish between the normative content of decision
+theory and the positive findings about human decision process in
+uncertain environment.</li>
+</ul>
+
+<p>
+List of lectures:
+</p>
+
+<ol class="org-ol">
+<li>Short history of risk (1/2)</li>
+<li>Short history of risk (2/2)</li>
+<li>Expected payoff in games of chance (1/2)</li>
+<li>Expected payoff in games of chance (2/2)</li>
+<li>Utility theory: non satiating hypothesis, decreasing marginal utility</li>
+<li>Expected utility theory, certainty equivalent</li>
+<li>The role of wealth and preferences in decision making</li>
+<li>Paradoxes and behavioral approach (1/2)</li>
+<li>Paradoxes and behavioral approach (2/2)</li>
+<li>Individual probability and Bayesian updating (1/2)</li>
+<li>Individual probability and Bayesian updating (2/2)</li>
+<li>Trial exam (with solutions)</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd48883c" class="outline-2">
+<h2 id="orgd48883c">Academic Term (Anno Accademico) 2015/2016: financial economics</h2>
+<div class="outline-text-2" id="text-orgd48883c">
+<ul class="org-ul">
+<li>Teaching load: 63 hours (ECTS credits 9)</li>
+<li>Lecturers: BOTTAZZI Giulio and GIACHINI Daniele</li>
+<li>Semester: Spring</li>
+
+<li>Outline: This course aim to provide a modern theoretical
+foundations to the most widespread notions and tools in modern
+finance, including present value theory, real interest rate,
+arbitrage pricing, portfolio allocation and mean-variance
+analysis.</li>
+
+<li>Objectives: The students should become acquainted with the notion
+of arbitrage and equilibrium prices in different market
+settings. They should be able to solve the problem of portfolio
+optimization and mean-variance analysis in rather general terms.</li>
+
+<li>Description: General equilibrium, no arbitrage in riskless
+economies, real interest rate and the interest rate
+curve. Arbitrage in security markets, state prices, complete and
+incomplete markets, valuation functional and the fundamental
+theorem of finance. Choices under uncertainty, expected utility
+theory and risk aversion. Portfolio choices, optimal portfolio
+with multiple risky assets. General equilibrium under
+uncertainty. Pricing kernel and mean-variance analysis. OPTIONAL:
+behavioral finance, asset prices under ambiguity, evolutionary
+finance and the market selection hypothesis.</li>
+
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[LRW]</dt><dd>Principles of Financial Economics, S.F. LeRoy and
+J. Werner</dd>
+<dt>[FBJ]</dt><dd>Foundations of Financial Markets and Institutions,
+Fabozzi, Modigliani and Jones</dd>
+</dl></li>
+
+<li><p>
+Further references and Optional readings:
+</p>
+<dl class="org-dl">
+<dt>[MWG]</dt><dd>Microeconomic Theory, A. Mas-Colell, M. D. Whinston,
+and J. R. Green</dd>
+<dt>[CN]</dt><dd>Quantitative Financial Economics, K. Cuthbertson and
+D. Nitzsche</dd>
+<dt>[HR]</dt><dd>Financial Economics, T. Hens and M. O. Rieger</dd>
+<dt>[ES]</dt><dd>Ambiguity and Asset Markets, L. G. Epstein and
+M. Schneider, NBER paper;</dd>
+<dt>[Hu]</dt><dd>Options, Futures and Other Derivatives, J. C. Hull (7th ed.)</dd>
+<dt>[Ni]</dt><dd>The Ascent of Money: A Financial History of the World,
+Niall Ferguson</dd>
+<dt>[Eco]</dt><dd>Guide to the Financial Markets, The Economist</dd>
+</dl>
+
+<p>
+see the <a href="teaching/syllabus_fineco.html">syllabus</a> for references to specific parts of these books.
+</p></li>
+
+<li>Prerequisites: The course requires a knowledge of linear algebra
+(linear space, linear map, basis, inversion, eigenvectors and
+eigensystems), calculus (differential analyses of function of many
+real variables and static optimization) and, to a lesser extent,
+probability theory. Some basic knowledge of the theory of choice
+under uncertainty (utility theory) and economic equilibrium are in
+general given for granted and only cursorily reviewed.</li>
+
+<li>Prerequisites suggested reading: C. P. Simon, L. E. Blume,
+Mathematics for Economists, H. R. Varian Microeconomic Analysis.</li>
+
+<li>Keywords: financial economics, general equilibrium, arbitrage,
+asset pricing, optimization</li>
+
+<li>Final exam: the get the final grading students are required to
+pass a final written exam. At least one trial exam will be
+organized to test your level of preparation. Students get extra
+points for completing their homework during the course.</li>
+</ul>
+
+<p>
+List of lectures:
+</p>
+
+<ol class="org-ol">
+<li>Lecture 1: Introduction: the structure of the course and its
+textbooks; the role of financial institutions <a href="https://docs.google.com/presentation/d/1fPWtpCZgLpRXPdWiiNIE9HtLyaMs5hSaSQqVL_Gj7No/edit?usp=sharing">slides</a> (Textbooks
+sections: [FBJ] Ch. 1, 2 and 3; [Ni] Ch. 1; [Eco] Ch. 1)</li>
+<li>Lecture 2: The notion of economic equilibrium; Two agents, two
+goods, one date model. The role of prices.</li>
+<li>Lecture 3: Two date model. Spot and forward markets. Financial
+equilibrium.</li>
+<li>Lecture 4: Present value prices and economic
+equilibrium. Redundant contracts; the role of arbitrage in setting
+princes.</li>
+<li>Exercises and assignment solutions</li>
+<li>Lecture 5: Real and nominal interest rate; The role of inflation;
+(Textbooks sections: [FBJ] Ch. 4 and 5)</li>
+<li>Lecture 6: The role of preferences and endowments in the
+definition of interest rates. Pricing of future contracts
+(Textbooks sections: [Hu] Sections from 4.1 to 4.8 all Chapter 5
+and section from 6.1 to 6.3 [Ni] Ch. 2)</li>
+<li>Lecture 7: A second look at intertemporal allocation in a one good
+two date model: the role of impatience and optimism in the equity
+market. The idea of the "Wealth of nations" and the first theorem
+of welfare.</li>
+<li>Lecture 8: Seminar by Dr. Giachini on "market
+sentiment". Structure of security markets with uncertainty;
+complete markets and redundant assets; (Textbook sections: [LRW]
+1.1, 1.2)</li>
+<li>Exercises and assignment solutions</li>
+<li>Lecture 9: Structure of security markets: Left and right matrix
+inverse; payoff pricing correspondence; the Law of One Price;
+state claims and state prices (Textbook sections: [LRW] 1.6,
+2.1, 2.3, 2.4, 2.5)</li>
+<li>Lecture 10: Arbitrage and valuation: strong and weak arbitrage;
+positive pricing; the payoffs convex cone; Farkas' Lemma; the
+valuation functional and strong arbitrage; (Textbook sections:
+[LRW] 3.2, 3.3, 3.4, 3.5, 5.1)</li>
+<li>Exercises and assignment solutions</li>
+<li>Lecture 11: Stiemke's Lemma; the valuation functional and
+arbitrage; Arbitrage and valuation: the fundamental theorem of
+finance; multiplicity of valuation functional; (Textbook
+sections: [LRW] 5.2, 5.3, 5.5, 6.3, 6.4, 6.5, 6.6, 6.7;)</li>
+<li>Lecture 12: values bound; risk neutral probabilities; Valuation
+of derivatives in a two date model: forward and future; put and
+call options.  (see the discussion of forward and future
+contracts in [Hu] Ch.1-3)</li>
+<li>Lecture 13: example of market securities; the role of options in
+completing the market</li>
+<li>Lecture 14: Choices under uncertainty: consumption and
+portfolio choices, Expected Utility Theory, separable and time
+invariant utilities; risk aversion; absolute and relative risk
+aversion coefficients; certainty equivalent; concave
+transformation; comparison of utility functions (Textbook
+sections: [LRW] 9.2, 9.3, 9.4, 9.5, 9.6, 9.8; the proves of the
+theorems can also be found in [MWG] Ch.6 Sec.B; further examples
+are discussed in [CN] Ch.1 Sec.3-5)</li>
+<li>Exercises and assignment solutions</li>
+<li>Lecture 15: Portfolio optimization: first order conditions;
+arbitrage and optimal portfolio, optimal consumption, prices and
+returns. (Textbook sections: [LRW] 1.4, 1.5, 2.6, 3.6, 11.1,
+11.2; see [CN] Ch.15 for an introductory discussion of the
+problem)</li>
+<li>Lecture 16: Portfolio optimization with one risky security:
+impact of wealth on optimal investment; exercises (Textbook
+sections: [LRW ]12.2)</li>
+<li>Lecture 17: Portfolio optimization with several risky
+securities: from consumption to investment optimization;
+risk-return trade off; optimal portfolio under fair pricing;
+(Textbook sections: [LRW] 13.2, 13.3, 13.4, 9.9, 13.6)</li>
+<li>Lecture 18: refresh of main results about inner product,
+orthogonal complement, Gram-Schmidt orthogonalization, direct
+sum of orthogonal spaces, orthogonal projection, scalar product
+representation of functional. Expectations inner product
+(Textbook sections: from 17.1 to 17.8)</li>
+<li>Lecture 19: expectations kernel, pricing kernel, fair pricing,
+beta pricing mean-variance frontier payoffs and mean-variance
+frontier returns when market is complete (Textbook sections:
+17.9, 17.10, 18.5)</li>
+<li>Lecture 20: mean-variance frontier payoffs and mean-variance
+frontier returns in the general case; Zero-Covariance Frontier
+Returns, Sharpe Ratio of mean-variance frontier returns
+(Textbook sections: 18.1, 18.2 and Th. 18.2.1 with proof 18.4,
+18.6; see also the discussion in [CN] Ch.15 Sec.1-2)</li>
+<li>Lecture 21: Economic equilibrium; representative agent model;
+equilibrium sufficient conditions; equilibrium and arbitrage
+(Textbook sections: [LRW] 1.7, 1.8, 1.9, 2.4, 3.7)</li>
+<li>Lecture 22: Economic equilibrium: example with heterogeneous
+agents, log-utilities and Arrow securities. Exercises.</li>
+<li>Lecture 23: Consumption based security pricing; a first
+derivation of CAPM;, the social planner problem; equilibrium and
+Pareto optimality, first and second welfare theorems; (Textbook
+sections: [LRW] 14.2, 14.3, 14.5, 15.2, 15.3, 15.4, 15.5,
+without theorem 15.5.1)</li>
+<li>Simulated exam</li>
+<li>Correction and discussion of the exercises of the simulated exam</li>
+<li>Further exercises for the final exam</li>
+</ol>
+
+<p>
+Data for Assignment 5: <a href="./teaching/prices_close.txt">weekly closing prices</a> of America Corporation
+(BAC), General Electric Company (GE), Ford Motor Co. (F), Citigroup,
+Inc. (C), Pfizer Inc. (PFE), Hewlett-Packard Company (HPQ), JPMorgan
+Chase &amp; Co. (JPM), AT&amp;T, Inc. (T), Wells Fargo &amp; Company (WFC) and
+J. C. Penney Company, Inc. (JCP)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0b26681" class="outline-2">
+<h2 id="org0b26681">Academic Term (Anno Accademico) 2015/2016: measure theory</h2>
+<div class="outline-text-2" id="text-org0b26681">
+<p>
+The course presents an introduction to measure theory and Lebesgue
+integration. The relationship between measure and probability theory
+will serve as a background example for the first part of the
+course. Differences between Riemann and Lebesgue integration will be
+illustrated. The final part of the course is devoted to multiple
+integrals.
+</p>
+
+<ul class="org-ul">
+<li>Teaching load: 20 hours (ECTS credits 2)</li>
+<li>Lecturer : BOTTAZZI Giulio</li>
+<li>Semester: Fall</li>
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[RB]</dt><dd>"Real Analysis for Graduate Students" by Richard F. Bass</dd>
+</dl></li>
+<li>Prerequisites: The course requires a basic knowledge of
+calculus. Previous knowledge of topology and Riemann integration
+is useful but not necessary.</li>
+</ul>
+
+<p>
+Syllabus:
+</p>
+
+<ul class="org-ul">
+<li>Measure theory
+<ul class="org-ul">
+<li>Measurable spaces and their properties</li>
+<li>Measurable spaces and probabilities</li>
+<li>Measure and topology. Borel sigma algrebra</li>
+<li>Product measure</li>
+<li>Measurable functions</li>
+</ul></li>
+<li>Lebesgue integration
+<ul class="org-ul">
+<li>From external measure to Lebesgue measure</li>
+<li>Lebesgue and Riemann integrals</li>
+<li>Multiple integrals</li>
+</ul></li>
+</ul>
+
+<p>
+Lecture notes will be made available to all students. The textbook
+can be used as a further reference.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org51e46bd" class="outline-2">
+<h2 id="org51e46bd">Academic Term (Anno Accademico) 2014/2015: financial economics</h2>
+<div class="outline-text-2" id="text-org51e46bd">
+<ul class="org-ul">
+<li>Teaching load: 63 hours (ECTS credits 9)</li>
+<li>Lecturers: BOTTAZZI Giulio and GIACHINI Daniele</li>
+<li>Semester: Spring</li>
+
+<li>Outline: This course aim to provide a modern theoretical
+foundations to the most widespread notions and tools in modern
+finance, including present value theory, real interest rate,
+arbitrage pricing, portfolio allocation and mean-variance
+analysis.</li>
+
+<li>Objectives: The students should become acquainted with the notion
+of arbitrage and equilibrium prices in different market
+settings. They should be able to solve the problem of portfolio
+optimization and mean-variance analysis in rather general terms.</li>
+
+<li>Description: General equilibrium, no arbitrage in riskless
+economies, real interest rate and the interest rate
+curve. Arbitrage in security markets, state prices, complete and
+incomplete markets, valuation functional and the fundamental
+theorem of finance. Choices under uncertainty, expected utility
+theory and risk aversion. Portfolio choices, optimal portfolio
+with multiple risky assets. General equilibrium under
+uncertainty. Pricing kernel and mean-variance analysis. OPTIONAL:
+behavioral finance, asset prices under ambiguity, evolutionary
+finance and the market selection hypothesis.</li>
+
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[LRW]</dt><dd>Principles of Financial Economics, S.F. LeRoy and
+J. Werner</dd>
+<dt>[FBJ]</dt><dd>Foundations of Financial Markets and Institutions,
+Fabozzi, Modigliani and Jones</dd>
+</dl></li>
+
+<li><p>
+Further references and Optional readings:
+</p>
+<dl class="org-dl">
+<dt>[MWG]</dt><dd>Microeconomic Theory, A. Mas-Colell, M. D. Whinston,
+and J. R. Green</dd>
+<dt>[CN]</dt><dd>Quantitative Financial Economics, K. Cuthbertson and
+D. Nitzsche</dd>
+<dt>[HR]</dt><dd>Financial Economics, T. Hens and M. O. Rieger</dd>
+<dt>[ES]</dt><dd>Ambiguity and Asset Markets, L. G. Epstein and
+M. Schneider, NBER paper;</dd>
+<dt>[Hu]</dt><dd>Options, Futures and Other Derivatives, J. C. Hull (7th ed.)</dd>
+<dt>[Ni]</dt><dd>The Ascent of Money: A Financial History of the World,
+Niall Ferguson</dd>
+</dl>
+
+<p>
+references are provided below to specific parts of these books.
+</p></li>
+
+<li>Prerequisites: The course requires a knowledge of linear algebra
+(linear space, linear map, basis, inversion, eigenvectors and
+eigensystems), calculus (differential analyses of function of many
+real variables and static optimization) and, to a lesser extent,
+probability theory. Some basic knowledge of the theory of choice
+under uncertainty (utility theory) and economic equilibrium are in
+general given for granted and only cursorily reviewed.</li>
+
+<li>Prerequisites suggested reading: C. P. Simon, L. E. Blume,
+Mathematics for Economists, H. R. Varian Microeconomic Analysis.</li>
+
+<li>Keywords: financial economics, general equilibrium, arbitrage,
+asset pricing, optimization</li>
+</ul>
+
+<p>
+List of lectures so far (to have a guess about future lectures check
+the list of <a href="teaching_old.html">previous years</a> but consider that your mileage may vary):
+</p>
+
+<ul class="org-ul">
+<li>Lecture 1: Introduction: the structure of the course and its
+textbooks; the role of financial institutions <a href="https://docs.google.com/presentation/d/1fPWtpCZgLpRXPdWiiNIE9HtLyaMs5hSaSQqVL_Gj7No/edit?usp=sharing">slides</a> (Textbooks
+sections: [FBJ] Ch. 1, 2 and 3; [Ni] Ch. 1)</li>
+<li>Lecture 2: The notion of economic equilibrium; Two agents, two
+goods, one date model. The role of prices.</li>
+<li>Lecture 3: Two date model. Spot and forward market. Financial
+equilibrium. Present value prices and economic
+equilibrium. Redundant contracts; the role of arbitrage in setting
+princes;</li>
+<li>Lecture 4: Real and nominal interest rate; The role of inflation;
+(Textbooks sections: [FBJ] Ch. 4 and 5)</li>
+<li>Lecture 5: A second look at intertemporal allocation in a one good
+two date model: the role of preferences and endowments. Pricing of
+future contracts (Textbooks sections: [Hu] Sections from 4.1 to
+4.8 and from 6.1 to 6.3 [Ni] Ch. 2)</li>
+<li>Lecture 6: Structure of security markets with uncertainty;
+complete markets and redundant assets; (Textbook sections: [LRW]
+1.1, 1.2)</li>
+<li>Lecture 7: Structure of security markets: Left and right matrix
+inverse; payoff pricing correspondence; the Law of One Price;
+state claims and state prices (Textbook sections: [LRW] 1.6, 2.1,
+2.3, 2.4, 2.5)</li>
+<li>Lecture 8: Exercises on the payoff pricing functional. The case of
+complete markets and the case of no redundant assets.</li>
+<li>Lecture 9-10: Arbitrage and valuation: strong and weak arbitrage;
+positive pricing; the payoffs convex cone; Farkas' Lemma; the
+valuation functional and strong arbitrage; Stiemke's Lemma; the
+valuation functional and arbitrage; (Textbook sections: [LRW] 3.2,
+3.3, 3.4, 3.5, 5.1)</li>
+<li>Lecture 11: Arbitrage and valuation: the fundamental theorem of
+finance; multiplicity of valuation functional; values bound; risk
+neutral probabilities; (Textbook sections: [LRW] 5.2, 5.3, 5.5,
+6.3, 6.4, 6.5, 6.6, 6.7;)</li>
+<li>Lecture 12: Valuation of derivatives in a two date model: forward
+and future; put and call options. Practical example: from option
+price to risk-neutral measure, see the <a href="./teaching/options.png">picture</a> and the
+Octave/Matlab <a href="./teaching/options.m">file</a>; (see the discussion of forward and future
+contracts in [Hu] Ch.1-3)</li>
+<li>Lecture 13-14: Choices under uncertainty: consumption and portfolio
+choices, Expected Utility Theory, separable and time invariant
+utilities; risk aversion; absolute and relative risk aversion
+coefficients; certainty equivalent; concave transformation;
+comparison of utility functions (Textbook sections: [LRW] 9.2,
+9.3, 9.4, 9.5, 9.6, 9.8; the proves of the theorems can also be
+found in [MWG] Ch.6 Sec.B; further examples are discussed in [CN]
+Ch.1 Sec.3-5)</li>
+<li>Lecture 15: Portfolio optimization: first order conditions;
+arbitrage and optimal portfolio, optimal consumption, prices and
+returns. (Textbook sections: [LRW] 1.4, 1.5, 2.6, 3.6, 11.1, 11.2;
+see [CN] Ch.15 for an introductory discussion of the problem)</li>
+<li>Lecture 16: Portfolio optimization with one risky security: impact
+of wealth on optimal investment; exercises (Textbook sections:
+[LRW ]12.2)</li>
+<li>Lecture 17: Portfolio optimization with several risky securities:
+from consumption to investment optimization; risk-return trade
+off; optimal portfolio under fair pricing; (Textbook sections:
+[LRW] 13.2, 13.3, 13.4, 9.9, 13.6)</li>
+<li>Lecture 18: Economic equilibrium; representative agent model;
+equilibrium sufficient conditions; equilibrium and arbitrage
+(Textbook sections: [LRW] 1.7, 1.8, 1.9, 2.4, 3.7)</li>
+<li>Lecture 19: Economic equilibrium: example with heterogeneous
+agents, log-utilities and Arrow securities. Exercises.</li>
+<li>Lecture 20: Consumption based security pricing; the social planner
+problem; equilibrium and Pareto optimality, first and second
+welfare theorems; (Textbook sections: [LRW] 14.2, 14.3, 14.5,
+15.2, 15.3, 15.4, 15.5, without theorem 15.5.1)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org07f5805" class="outline-2">
+<h2 id="org07f5805">Academic Term (Anno Accademico) 2014/2015: Summer School in San Miniato</h2>
+<div class="outline-text-2" id="text-org07f5805">
+<p>
+The material is available upon request.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6dae55c" class="outline-2">
+<h2 id="org6dae55c">Academic Term (Anno Accademico) 2014/2015: differential equations</h2>
+<div class="outline-text-2" id="text-org6dae55c">
+<p>
+The course presents an introduction to differential and difference
+equations. A particular emphasis is put on the analysis of linear
+systems, whose study is then exploited to obtain results about high
+order equations and for the stability analysis of non-linear
+systems.
+</p>
+
+<ul class="org-ul">
+<li>Teaching load: 30 hours (ECTS credits 3)</li>
+<li>Lecturer : BOTTAZZI Giulio</li>
+<li>Semester: Fall</li>
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[HHW]</dt><dd>Discrete and continuous dynamical systems" by Heijnen, Hommes and Wagener</dd>
+<dt>[MB]</dt><dd>Istituzioni di matematica by Bertsch (in Italian)</dd>
+</dl></li>
+<li>Further references and Optional readings:
+<dl class="org-dl">
+<dt>[HS]</dt><dd>Differential Equations, Dynamical Systems and Linear
+Algebra by Hirsh and Smale;</dd>
+<dt>[GB]</dt><dd>Advanced Calculus by Bottazzi.</dd>
+<dt>[RD]</dt><dd>A first course in Chaotic Dynamical Systems, by Devaney</dd>
+</dl></li>
+<li>Prerequisites: The course requires a knowledge of linear algebra
+(linear space, linear map, basis, determinant, inversion,
+eigenvectors), basic calculus and the algebra of complex
+numbers.</li>
+</ul>
+
+<p>
+Syllabus and textbook references:
+</p>
+
+<ul class="org-ul">
+<li>Introduction to Differential Equations
+<ul class="org-ul">
+<li>Complex numbers: algebra, Euler representation and the
+exponential function. ([MB] Ch.12)</li>
+<li>The simplest differential problem and the Torricelli-Barrow
+theorem</li>
+<li>Cauchy problems and Cauchy-Lipshitz sufficient conditions;
+counter examples with no solution or multiple solutions</li>
+<li>Differential equations in one dimension: separation of
+variables. ([MB] Ch.13 Sec. 1)</li>
+<li>Linear equations: the method of the variation of constant;
+general and particular solutions. ([MB] Ch.13 Sec. 2)</li>
+<li>The Malthus growth model, technological adoption and qualitative
+analysis. ([MB] Ch.13 Sec. 3-5)</li>
+<li>Higher order equations and systems of equations</li>
+</ul></li>
+
+<li>Linear system with constant coefficients 
+<ul class="org-ul">
+<li>Evolution in time; linear systems ([HHW] Ch. 1,7)</li>
+<li>Asymptotic behavior; the single eigenvalue case; power and
+exponential of a matrix</li>
+<li>The diagonalisable case: real eigenvalues ([HHW] Ch. 2,8)</li>
+<li>The diagonalisable case: complex eigenvalues ([HHW] Ch. 3,9).</li>
+<li>The Jordan case: general solution ([HHW] Ch. 4,10).</li>
+<li>Generalized eigenvalues and direct sum decomposition of a linear
+space</li>
+<li>Nonhomogeneous equation: variation of constants.</li>
+</ul></li>
+
+<li>Non-linear system.
+<ul class="org-ul">
+<li>Null-clines and phase portrait ([HHW] Ch. 5,11).</li>
+<li>Linearization around equilibrium point and stability analysis
+([HHW] Sec 5.3,5.4 and Ch. 14)</li>
+</ul></li>
+
+<li>Examples
+<ul class="org-ul">
+<li>The Goodwin model</li>
+<li>Curnot duopoly ([HHW] Sec. 14.3)</li>
+<li>Bounded rationality and price fluctuation</li>
+</ul></li>
+
+<li>Numerical exercises with Octave
+<ul class="org-ul">
+<li>Matrix manipulation <a href="https://drive.google.com/file/d/0B3G1Di9qZKBmdG03dVExMV93SWc/view?usp=sharing">download</a></li>
+<li>1 and 2 dimensional systems <a href="https://drive.google.com/file/d/0B3G1Di9qZKBmQ2k3MHVxVS1QSU0/view?usp=sharing">download</a></li>
+<li>chaotic dynamics, bifurcation plot and Lyapunov exponents <a href="https://drive.google.com/file/d/0B3G1Di9qZKBmSVpWRFljMDFCSHM/view?usp=sharing">download</a></li>
+<li>exercises of [RD], Ch. 3 <a href="https://drive.google.com/file/d/0B3G1Di9qZKBmZUpWd0luVXFYeVk/view?usp=sharing">download</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org504b55b" class="outline-2">
+<h2 id="org504b55b">Academic Term (Anno Accademico) 2013/2014: mathematics for economics</h2>
+<div class="outline-text-2" id="text-org504b55b">
+<p>
+The aim of the course is to provide a deepest introduction to the
+basic tools and theorems of mathematical calculus applied to
+economic and finance. It is taught as a companion courses for second
+and third year students. Undergraduate courses in the first and
+second years are oriented to provide a specific set of computational
+procedures to be applied to the solution of specific problems. The
+present course consitutes a good complement. It is more concerned
+with the definition and study of general notions and it is
+characterized by a theorem-proving approach.
+</p>
+
+<ul class="org-ul">
+<li>Teaching load: 40 hours (ECTS credits 3)</li>
+<li>Lecturer : BOTTAZZI Giulio</li>
+<li>Semester: Fall</li>
+<li>Textbook: Notes directly provided by the teacher</li>
+<li>Further references and Optional readings: Principles of
+Mathematical Analysis, W.A. Rudin, chapters 3, 6 and 9</li>
+<li>Prerequisites: The course requires a knowledge of linear algebra
+(linear space, linear map, basis, determinant, inversion,
+eigenvectors) and basic calculus.</li>
+<li>Topics: see the course <a href="teaching/outline_calculus.html">outline</a>.</li>
+<li>Exams: <a href="teaching/exam_12_2013.pdf">midterm exam</a> <a href="teaching/exam_02_2014.pdf">final exam</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9cfe3e9" class="outline-2">
+<h2 id="org9cfe3e9">Academic Term (Anno Accademico) 2013/2014: Linear Algebra</h2>
+<div class="outline-text-2" id="text-org9cfe3e9">
+<p>
+This course is a companion course for first year students. It is
+intended as a deeper introduction to linear algebra. Almost all
+results are explicitly derived.
+</p>
+
+<ul class="org-ul">
+<li>Teaching load: 30 hours (ECTS credits 3)</li>
+<li>Lecturer : SETTEPANELLA Simona</li>
+<li>Semester: Spring</li>
+<li>Prerequisites: Basic calculus.</li>
+<li>Topics: see the course <a href="https://mail.sssup.it/~s.settepanella/teachingfile/teachingsantannaperdottorandi.html">outline</a>.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org53e1edb" class="outline-2">
+<h2 id="org53e1edb">Academic Term (Anno Accademico) 2013/2014: financial economics</h2>
+<div class="outline-text-2" id="text-org53e1edb">
+<ul class="org-ul">
+<li>Teaching load: 42 hours (ECTS credits 6)</li>
+<li>Lecturers: BOTTAZZI Giulio</li>
+<li>Semester: Spring</li>
+
+<li>Outline: This course aim to provide a modern theoretical
+foundations to the most widespread notions and tools in modern
+finance, including present value theory, real interest rate,
+arbitrage pricing, portfolio allocation and mean-variance
+analysis.</li>
+
+<li>Objectives: The students should become acquainted with the notion
+of arbitrage and equilibrium prices in different market
+settings. They should be able to solve the problem of portfolio
+optimization and mean-variance analysis in rather general terms.</li>
+
+<li>Description: General equilibrium, no arbitrage in riskless
+economies, real interest rate and the interest rate
+curve. Arbitrage in security markets, state prices, complete and
+incomplete markets, valuation functional and the fundamental
+theorem of finance. Choices under uncertainty, expected utility
+theory and risk aversion. Portfolio choices, optimal portfolio
+with multiple risky assets. General equilibrium under
+uncertainty. Pricing kernel and mean-variance analysis. OPTIONAL:
+behavioral finance, asset prices under ambiguity, evolutionary
+finance and the market selection hypothesis.</li>
+
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[LRW]</dt><dd>Principles of Financial Economics, S.F. LeRoy and
+J. Werner</dd>
+<dt>[FBJ]</dt><dd>Foundations of Financial Markets and Institutions,
+Fabozzi, Modigliani and Jones</dd>
+</dl></li>
+
+<li><p>
+Further references and Optional readings:
+</p>
+<dl class="org-dl">
+<dt>[MWG]</dt><dd>Microeconomic Theory, A. Mas-Colell, M. D. Whinston,
+and J. R. Green</dd>
+<dt>[CN]</dt><dd>Quantitative Financial Economics, K. Cuthbertson and
+D. Nitzsche</dd>
+<dt>[HR]</dt><dd>Financial Economics, T. Hens and M. O. Rieger</dd>
+<dt>[ES]</dt><dd>Ambiguity and Asset Markets, L. G. Epstein and
+M. Schneider, NBER paper;</dd>
+<dt>[Hu]</dt><dd>Options, Futures and Other Derivatives, J. C. Hull (7th ed.)</dd>
+<dt>[Ni]</dt><dd>The Ascent of Money: A Financial History of the World,
+Niall Ferguson</dd>
+</dl>
+
+<p>
+references are provided below to specific parts of these books.
+</p></li>
+
+<li>Prerequisites: The course requires a knowledge of linear algebra
+(linear space, linear map, basis, inversion, eigenvectors and
+eigensystems), calculus (differential analyses of function of many
+real variables and static optimization) and, to a lesser extent,
+probability theory. Some basic knowledge of the theory of choice
+under uncertainty (utility theory) and economic equilibrium are in
+general given for granted and cursorily overwieved.</li>
+
+<li>Prerequisites suggested reading: C. P. Simon, L. E. Blume,
+Mathematics for Economists, H. R. Varian Microeconomic Analysis.</li>
+
+<li><p>
+Keywords: financial economics, general equilibrium, arbitrage,
+asset pricing, optimization
+</p>
+
+<p>
+List of lectures so far (to have a guess about future lectures
+check the list of <a href="teaching_old.html">previous years</a> but consider that your mileage
+may vary):
+</p></li>
+
+<li>Lecture 1: Introduction: the structure of the course and its
+textbooks; the role of financial institutions <a href="https://docs.google.com/presentation/d/1fPWtpCZgLpRXPdWiiNIE9HtLyaMs5hSaSQqVL_Gj7No/edit?usp=sharing">slides</a> (Textbooks
+sections: [FBJ] Ch. 2 and 3; [Ni] Ch. 1)</li>
+<li>Lecture 2: The notion of economic equilibrium; Review of statitic
+optimization; Two agents, two goods, one date model;</li>
+<li>Lecture 3: Two agents, two goods and two date model: redundant
+contracts; the role of arbitrage in setting princes; The real
+interest rate;</li>
+<li>Lecture 4: Real and nominal interest rate; The role of inflation;
+(Textbooks sections: [FBJ] Ch. 4 and 5)</li>
+<li>Lecture 5: A second look at intertemporal allocation in a one good
+two date model: the role of preferences and endowments.</li>
+<li>Lecture 6: The yield curve for pricing future cash flows: bond,
+anuities, perpetuities and mortgages (Textbooks section: [FBJ]
+Ch. 10 and 11 [Hu] Sections from 4.1 to 4.8 and from 6.1 to 6.3
+[Ni] Ch. 2)</li>
+<li>Lecture 7: Structure of security markets with uncertainty;
+complete markets and redundant assets; (Textbook sections: [LRW]
+1.1, 1.2)</li>
+<li>Lecture 8: Structure of security markets: Left and right matrix
+inverse; payoff pricing correspondence; the Law of One Price;
+state claims and state prices (Textbook sections: [LRW] 1.6, 2.1,
+2.3, 2.4, 2.5)</li>
+<li>Lecture 9: Arbitrage and valuation: strong and weak arbitrage;
+positive pricing; the payoffs convex cone; Farkas' Lemma; the
+valuation functional and strong arbitrage; Stiemke's Lemma; the
+valuation functional and arbitrage; (Textbook sections: [LRW] 3.2,
+3.3, 3.4, 3.5, 5.1)</li>
+<li>Lecture 10: Arbitrage and valuation: the fundamental theorem of
+finance; multiplicity of valuation functional; values bound; risk
+neutral probabilities (Textbook sections: [LRW] 5.2, 5.3, 5.5,
+6.3, 6.4, 6.5, 6.6, 6.7; see the discussion of forward and future
+contracts in [Hu] Ch.1-3)</li>
+<li>Lecture 11: Choices under uncertainty: consumption and portfolio
+choices, Expected Utility Theory, separable and time invariant
+utilities; risk aversion; absolute and relative risk aversion
+coefficients; certainty equivalent; concave transformation;
+comparison of utility functions (Textbook sections: [LRW] 9.2,
+9.3, 9.4, 9.5, 9.6, 9.8; the proves of the theorems can also be
+found in [MWG] Ch.6 Sec.B; further examples are discussed in [CN]
+Ch.1 Sec.3-5)</li>
+<li>Lecture 12: Portfolio optimization: first order conditions;
+arbitrage and optimal portfolio, optimal consumption, prices and
+returns. (Textbook sections: [LRW] 1.4, 1.5, 2.6, 3.6, 11.1, 11.2;
+see [CN] Ch.15 for an introductory discussion of the problem)</li>
+<li>Lecture 13: Portfolio optimization with one risky security: impact
+of wealth on optimal investment; exercises (Textbook sections:
+[LRW ]12.2)</li>
+<li>Lecture 14: Portfolio optimization with several risky securities:
+from consumption to investment optimization; risk-return trade
+off; optimal portfolio under fair pricing; linear risk tolerance
+(LRT); optimal portfolio with LRT utility function (Textbook
+sections: [LRW] 13.2, 13.3, 13.4, 9.9, 13.6)</li>
+<li>Lecture 15: Economic equilibrium; representative agent model;
+equilibrium sufficient conditions; equilibrium and arbitrage
+(Textbook sections: [LRW] 1.7, 1.8, 1.9, 2.4, 3.7)</li>
+<li>Lecture 16: Economic equilibrium: example with heterogeneous
+agents, log-utilities and Arrow securities. Exercises.</li>
+<li>Lecture 17: Consumption based security pricing; a first derivation
+of CAPM; the social planner problem; equilibrium and Pareto
+optimality, first and second welfare theorems; (Textbook sections:
+[LRW] 14.2, 14.3, 14.5, 15.2, 15.3, 15.4, 15.5, without theorem
+15.5.1)</li>
+<li>Lecture 18: Practical example: from option price to invariant
+measure, see the picture <a href="./teaching/options.png">here</a>; mean-variance efficient frontier
+from empirical data, download <a href="./teaching/prices_open.txt">open</a> and <a href="./teaching/prices_close.txt">close</a> weekly price data on
+NYSE for Bank of America Corporation (BAC), General Electric
+Company (GE), Ford Motor Co. (F), Citigroup, Inc. (C), Pfizer
+Inc. (PFE), Hewlett-Packard Company (HPQ), JPMorgan Chase &amp;
+Co. (JPM), AT&amp;T, Inc. (T), Wells Fargo &amp; Company (WFC) and
+J. C. Penney Company, Inc. (JCP); (The software used is
+<a href="http://www.gnu.org/software/octave/">octave</a>. Data courtesy of <a href="http://finance.yahoo.com/">yahoo!finance</a>)</li>
+<li>Lecture 19: CAPM (Textbook sections: chapter 19 all, theorems
+without proof; ; see also the discussion in [CN] Ch.15 Sec. 3-5)</li>
+<li>Lecture 20: Exercises</li>
+<li>Lecture 21: Trial exam</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org86dfa62" class="outline-2">
+<h2 id="org86dfa62">Academic Term (Anno Accademico) 2012/2013: financial economics</h2>
+<div class="outline-text-2" id="text-org86dfa62">
+<ul class="org-ul">
+<li>Teaching load: 42 hours (ECTS 6)</li>
+<li>Lecturers: BOTTAZZI Giulio</li>
+<li>Semester: Spring</li>
+<li>Outline: Choices under uncertainty, expected utility theory and
+risk aversion, equilibrium and arbitrage, state prices, complete
+and incomplete markets, arbitrage and portfolio choices, optimal
+portfolio with multiple risky assets, equilibrium prices,
+mean-variance analysis. OPTIONAL: behavioral finance, asset
+prices under ambiguity, evolutionary finance and the market
+selection hypothesis.</li>
+<li>Description: The aim of the course is to provide an intermediate
+treatment of the theory of speculative markets. After a review of
+decision theory under uncertainty, the notion of arbitrage and
+equilibrium price are introduced and developed for different
+market settings. The problem of portfolio optimization and
+mean-variance analysis is discussed in a rather general
+framework. Depending on the remaining time, the course might
+include a short introduction to behavioral and evolutionary
+finance.</li>
+<li>Textbook: Principles of Financial Economics, S.F. LeRoy and
+J. Werner</li>
+<li>Further references and Optional readings:
+<dl class="org-dl">
+<dt>[MWG]</dt><dd>Microeconomic Theory, A. Mas-Colell, M. D. Whinston,
+and J. R. Green</dd>
+<dt>[CN]</dt><dd>Quantitative Financial Economics, K. Cuthbertson and
+D. Nitzsche</dd>
+<dt>[HR]</dt><dd>Financial Economics, T. Hens and M. O. Rieger</dd>
+<dt>[ES]</dt><dd>Ambiguity and Asset Markets, L. G. Epstein and
+M. Schneider, NBER paper;</dd>
+<dt>[Hu]</dt><dd><p>
+Options, Futures and Other Derivatives, J. C. Hull
+</p>
+
+<p>
+references are provided below to specific parts of these books.
+</p></dd>
+</dl></li>
+
+<li>Prerequisites: The course requires a knowledge of linear algebra
+(linear space, linear map, basis, inversion, eigenvectors and
+eigensystems), calculus (differential analyses of function of many
+real variables and static optimization) and, to a lesser extent,
+probability theory. Previous knowledge of consumer theory and
+economic equilibrium can be useful.
+<ul class="org-ul">
+<li>Prerequisites suggested reading: C. P. Simon, L. E. Blume,
+Mathematics for Economists, H. R. Varian Microeconomic Analysis.</li>
+</ul></li>
+<li>Keywords: financial economics, arbitrage, asset pricing,
+portfolio optimization</li>
+<li><p>
+Final valuation: Written exam
+</p>
+
+<p>
+Tentative list of lectures (this is just a guess based on previous
+year's experience, your mileage may vary)
+</p></li>
+
+<li>Lecture 1: Structure of security markets: complete markets and
+redundant assets; (Textbook sections: 1.1, 1.2)</li>
+<li>Lecture 2: Structure of security markets: Left and right matrix
+inverse; payoff pricing correspondence; the Law of One Price;
+state claims and state prices (Textbook sections: 1.6, 2.1, 2.3,
+2.4, 2.5)</li>
+<li>Lecture 3: Arbitrage and valuation: strong and weak arbitrage;
+positive pricing; the payoffs convex cone; Farkas' Lemma; the
+valuation functional and strong arbitrage; Stiemke's Lemma; the
+valuation functional and arbitrage; (Textbook sections: 3.2, 3.3,
+3.4, 3.5, 5.1)</li>
+<li>Lecture 4: Arbitrage and valuation: the fundamental theorem of
+finance; multiplicity of valuation functional; values bound;
+forward and future contracts; put and call options; risk neutral
+probabilities (Textbook sections: 5.2, 5.3, 5.5, 6.3, 6.4, 6.5,
+6.6, 6.7; see the discussion of forward and future contracts in
+[Hu] Ch.1-3)</li>
+<li>Lecture 5: Choices under uncertainty: consumption and portfolio
+choices, Expected Utility Theory, separable and time invariant
+utilities; risk aversion; absolute and relative risk aversion
+coefficients; certainty equivalent; concave transformation;
+comparison of utility functions (Textbook sections: 9.2, 9.3, 9.4,
+9.5, 9.6, 9.8; the proves of the theorems can also be found in
+[MWG] Ch.6 Sec.B; further examples are discussed in [CN] Ch.1
+Sec.3-5)</li>
+<li>Lecture 6: Choices under uncertainty: comparing lotteries;
+state-wise dominance; first order stochastic dominance and
+strictly increasing utility functions; second order stochastic
+dominance and risk-averse utility functions (Textbook sections:
+10.6, 10.7; the proves of the theorems can also be found in [MWG]
+Ch.6 Sec.D)</li>
+<li>Lecture 7: refresh of main results about inner product, orthogonal
+complement, Gram-Schmidt orthogonalization, direct sum of
+orthogonal spaces, orthogonal projection, scalar product
+representation of functional. Expectations inner product (Textbook
+sections: from 17.1 to 17.8)</li>
+<li>Lectur 8: expectations kernel, pricing kernel, fair pricing, beta
+pricing (Textbook sections: 17.9, 17.10, 18.5)</li>
+<li>Lecture 9: mean-variance frontier payoffs and mean-variance
+frontier returns when market is complete</li>
+<li>Lecture 10: mean-variance frontier payoffs and mean-variance
+frontier returns in the general case; Zero-Covariance Frontier
+Returns, Sharpe Ratio of mean-variance frontier returns (Textbook
+sections: 18.1, 18.2 and Th. 18.2.1 with proof 18.4, 18.6; see
+also the discussion in [CN] Ch.15 Sec.1-2)</li>
+<li>Lecture 11: exercises on the first part; exam simulation</li>
+<li>Lecture 12: Portfolio optimization: first order conditions;
+arbitrage and optimal portfolio, optimal consumption, prices and
+returns. Portfolio optimization with one risky security: first
+order conditions; approximate quadratic solution (Textbook
+sections: 1.4, 1.5, 2.6, 3.6, 11.1, 11.2, 11.3, 11.4, 11.5; see
+[CN] Ch.15 for an introductory discussion of the problem)</li>
+<li>Lecture 13: Portfolio optimization with one risky security: impact
+of wealth on optimal investment; exercises (Textbook sections:
+12.2)</li>
+<li>Lecture 14: Portfolio optimization with several risky securities:
+from consumption to investment optimization; risk-return trade
+off; optimal portfolio under fair pricing; linear risk tolerance
+(LRT); optimal portfolio with LRT utility function (Textbook
+sections: 13.2, 13.3, 13.4, 9.9, 13.6)</li>
+<li>Lecture 15: Economic equilibrium; representative agent model;
+equilibrium sufficient conditions; equilibrium and arbitrage
+(Textbook sections: 1.7, 1.8, 1.9, 2.4, 3.7)</li>
+<li>Lecture 16: Economic equilibrium: example with heterogeneous
+agents, log-utilities and Arrow securities. Exercises.</li>
+<li>Lecture 17: Consumption based security pricing; a first derivation
+of CAPM; the social planner problem; equilibrium and Pareto
+optimality, first and second welfare theorems; (Textbook sections:
+14.2, 14.3, 14.5, 15.2, 15.3, 15.4, 15.5, without theorem 15.5.1)</li>
+<li>Lecture 18: Practical example: from option price to invariant
+measure, see the picture <a href="./teaching/options.png">here</a>; mean-variance efficient frontier
+from empirical data, download <a href="./teaching/prices_open.txt">open</a> and <a href="./teaching/prices_close.txt">close</a> weekly price data on
+NYSE for Bank of America Corporation (BAC), General Electric
+Company (GE), Ford Motor Co. (F), Citigroup, Inc. (C), Pfizer
+Inc. (PFE), Hewlett-Packard Company (HPQ), JPMorgan Chase &amp;
+Co. (JPM), AT&amp;T, Inc. (T), Wells Fargo &amp; Company (WFC) and
+J. C. Penney Company, Inc. (JCP); (The software used is
+<a href="http://www.gnu.org/software/octave/">octave</a>. Data courtesy of <a href="http://finance.yahoo.com/">yahoo!finance</a>)</li>
+<li>Lecture 19: CAPM (Textbook sections: chapter 19 all, theorems
+without proof; ; see also the discussion in [CN] Ch.15 Sec. 3-5)</li>
+<li>Lecture 20: Exercises</li>
+<li>Lecture 21: Trial exam</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2bc2e8d" class="outline-2">
+<h2 id="org2bc2e8d">Academic Term (Anno Accademico) 2012/2013: Introduction to stochastic processes</h2>
+<div class="outline-text-2" id="text-org2bc2e8d">
+<ul class="org-ul">
+<li>Teaching load: 30 hours</li>
+<li>Lecturer: Prof. Giulio Bottazzi, Dr. Davide Pirino</li>
+<li>Semester: Spring</li>
+<li>References:
+<dl class="org-dl">
+<dt>[CM]</dt><dd>The Theory of Stochastic Processes, Cox and Miller, Taylor &amp; Francis, 1977</dd>
+<dt>[Fe]</dt><dd>An introduction to Probability Theory and its Application, Vol. 1, Feller, Wiley and Sons, 1968</dd>
+</dl></li>
+</ul>
+
+<p>
+List of lectures (for some topic I provide a reference where further
+material is discussed):
+</p>
+
+<ul class="org-ul">
+<li>Lecture 1: Bernoulli trials and combinatorics; Symmetric random
+walk, r.w. as a sum of Bernulli variables and transition
+proabilities ([Fe] Ch.3 Sec.1); The Kolmogorov theorem on
+stochastic processes, stationary processes, Markov processes.</li>
+<li>Lecture 2: The reflection principle. Probability of return to the
+origin and of first return. Stirling approximation ([Fe] Ch.3
+Secs. 2-3).</li>
+<li>Lecture 3: LABORATORY: Normal distribtuion and error function. The
+normal approximation to the random walk and the arcsine law ([Fe]
+Ch.3 Sec. 4). Random number generators and the computation of
+probabilities via Monte Carlo experiments.</li>
+</ul>
+
+
+<p>
+See course <a href="teaching/outline_stochastic.html">outline</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org33e03c0" class="outline-2">
+<h2 id="org33e03c0">Academic Term (Anno Accademico) 2012/2013: Economia del lavoro (in Italian)</h2>
+<div class="outline-text-2" id="text-org33e03c0">
+<ul class="org-ul">
+<li>Teaching load: 20 hours</li>
+<li>Lecturer: Dr. Mauro Sylos Labini</li>
+<li>Semester: Fall</li>
+<li><p>
+References: Economia del lavoro, Borjas G., Brioschi editore 2010.
+</p>
+
+<p>
+See course <a href="teaching/LE_syllabus_2012.pdf">outline</a>
+</p></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgec477c9" class="outline-2">
+<h2 id="orgec477c9">Academic Term (Anno Accademico) 2011/2012: mathematics for economics</h2>
+<div class="outline-text-2" id="text-orgec477c9">
+<p>
+The course of mathematical methods is part of the Sant'Anna
+undergraduate and post-graduate teaching offer. Is is structured in
+different but complementary modules. Different lecturers are assigned
+to different modules. Undergraduate students are allowed to chose what
+modules to follow. It is assumed that students already understand the
+basic notion of calculus, as they are typically taught in high schools
+or fist year courses at the Faculty of Economics (see Prerequisite
+below). During the course, students will be assigned home works in the
+form of exercises or elaborations on specific topics. In order to
+follow the development of the lectures, it is in general important
+that these assignments are duly performed. Please report any problem
+to the teachers. If deemed necessary, extra teaching hours, albeit in
+a limited amount, can be organized. One or more copies of the
+reference textbooks cited below will be available at the Sant'Anna
+Library and students are not required to buy a copy. In any case the
+essential material for the different modules will be provided directly
+by the teachers.
+</p>
+
+<p>
+You can check your knowledge of the prerequisite with the
+<a href="teaching/exerc_prelim.pdf">training exercices</a>.
+</p>
+</div>
+
+
+
+<div id="outline-container-org026bb36" class="outline-3">
+<h3 id="org026bb36">Calculus</h3>
+<div class="outline-text-3" id="text-org026bb36">
+<ul class="org-ul">
+<li>Teaching load: 30 hours</li>
+<li>Lecturers: Prof. Giulio Bottazzi, Dr. Davide Pirino</li>
+<li><p>
+References: Principles of Mathematical Analysis, W.A. Rudin,
+chapters 3, 6 and 9
+</p>
+
+<p>
+See course <a href="teaching/outline_calculus.html">outline</a>
+</p></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org02a5c2f" class="outline-3">
+<h3 id="org02a5c2f">Linear Algebra</h3>
+<div class="outline-text-3" id="text-org02a5c2f">
+<ul class="org-ul">
+<li>Teaching load: 30 hours</li>
+<li><p>
+Lecturers: Dr. Simona Settepanella
+</p>
+
+<p>
+See course <a href="https://mail.sssup.it/~s.settepanella/teachingfile/teachingsantannaperdottorandi.html">outline</a>.
+</p></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org6a87983" class="outline-3">
+<h3 id="org6a87983">Differential Equations</h3>
+<div class="outline-text-3" id="text-org6a87983">
+<ul class="org-ul">
+<li>Teaching load: 30 hours</li>
+<li>Lecturers:     Prof. Giulio Bottazzi, Dr. Davide Pirino</li>
+<li><p>
+References: Differential Equations, Dynamical Systems and Linear
+Algebra, M.W. Hirsh, S. Smale, chapters 3-9
+</p>
+
+<p>
+See course <a href="teaching/outline_diffeq.html">outline</a>.
+</p></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org0ad56c0" class="outline-3">
+<h3 id="org0ad56c0">Static Optimization</h3>
+<div class="outline-text-3" id="text-org0ad56c0">
+<ul class="org-ul">
+<li>Teaching load: 20 hours</li>
+<li>Lecturers: Dr. Pietro Dindo</li>
+<li><p>
+Topics: linear programming, non linear programming, Lagrange,
+Kuhn-Tucker conditions
+</p>
+
+<p>
+See course <a href="http://www.cafed.sssup.it/~pietro/Teaching/static_allievi.html">outline</a>.
+</p></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org8e2a3ee" class="outline-3">
+<h3 id="org8e2a3ee">Dynamic Optimization</h3>
+<div class="outline-text-3" id="text-org8e2a3ee">
+<ul class="org-ul">
+<li>Teaching load: 20 hours</li>
+<li><p>
+Lecturers: Prof. Giulio Bottazzi, Dr. Pietro Dindo
+</p>
+
+<p>
+See course <a href="teaching/outline_dynprog.html">outline</a>
+</p></li>
+</ul>
+
+
+<p>
+#* Academic Term (Anno Accademico) 2011/2012: financial economics
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge5f60aa" class="outline-2">
+<h2 id="orge5f60aa">Academic Term (Anno Accademico) 2010/2011: decision under uncertainty</h2>
+<div class="outline-text-2" id="text-orge5f60aa">
+<p>
+This module is part of the Advanced Microeconomic course in the
+first year program of the Laurea Magistralis (Master degree) in
+Economics of the University of Pisa, organized in partnership with
+Scuola Sant'Anna.
+</p>
+
+
+<ul class="org-ul">
+<li>Teaching load: 10 hours</li>
+<li>Lecturers: Prof. Giulio Bottazzi</li>
+<li>courses start: 07/12/2010</li>
+<li>courses end:   16/03/2011</li>
+<li>final exams:   07/06/2011,&#x2026;</li>
+</ul>
+
+
+<p>
+Syllabus:
+</p>
+
+<ul class="org-ul">
+<li>von Neumann and Morgenstern expected utility theory (EUT): space
+of lotteries; completeness, transitivity and continuity axioms;
+linearity of EU</li>
+<li>EUT with state dependent actions</li>
+<li>introduction to random variables and Stieltjes integral</li>
+<li>the EUT for continuous monetary outcomes</li>
+<li>certainty equivalence and risk premium</li>
+<li>definition of risk aversion; convexity and risk aversion;
+Arrow-Pratt characterization of utility functions: absolute and
+relative risk aversion coefficients</li>
+<li>2 stage optimal portfolio management</li>
+</ul>
+
+<p>
+Exercises:
+</p>
+
+<p>
+These <a href="teaching/exercises_eut.pdf">exercises</a> supplement the material already distributed during
+the lectures. They are intended as examples in preparation of the
+final written exam. Here are the <a href="teaching/solutions_eut.pdf">solutions</a>.
+</p>
+
+<p>
+Find below a list of final exam with solutions
+</p>
+
+<p>
+<a href="teaching/exam_07_06_2011.pdf">07/06/2011</a>  <a href="teaching/exam_07_06_2011_solution.pdf">solution</a>
+</p>
+
+<p>
+<a href="teaching/exam_27_06_2011.pdf">27/06/2011</a>  <a href="teaching/exam_27_06_2011_solution.pdf">solution</a>
+</p>
+
+<p>
+<a href="teaching/exam_14_07_2011.pdf">14/07/2011</a>
+</p>
+
+<p>
+<a href="teaching/exam_12_09_2011.pdf">12/09/2011</a>
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Giulio Bottazzi</p>
+<p class="date">Created: 2024-02-25 dom 12:38</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
