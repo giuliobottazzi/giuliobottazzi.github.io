@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Download historical data using Alpha Vantage</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../other.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Download historical data using Alpha Vantage</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org6cd8001">Introduction</a></li>
+<li><a href="#org83c3725">Tickers</a></li>
+<li><a href="#org97baef8">Obtaining historical data</a></li>
+<li><a href="#orga209655">Scripting</a></li>
+<li><a href="#orgaaf54ef">Caveat</a></li>
+<li><a href="#orga03cf99">S&amp;P 500</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org6cd8001" class="outline-2">
+<h2 id="org6cd8001">Introduction</h2>
+<div class="outline-text-2" id="text-org6cd8001">
+<p>
+<a href="https://www.alphavantage.co">Alpha Vantage</a> provides free historical data for various financial time
+series. This page is intended as a short introduction to download
+series of stock price data. Check the company website for full <a href="https://www.alphavantage.co/documentation/">API
+documentation</a>. In order to use their data retieval interface you need
+to request a specific key called <code>APIKEY</code>. It can be requested for
+free from <a href="https://www.alphavantage.co/support/#api-key">this page</a>.
+</p>
+
+<p>
+UPDATE: The last S&amp;P500 database of daily prices is available in the
+<a href="#orga03cf99">S&amp;P 500</a> section below.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org83c3725" class="outline-2">
+<h2 id="org83c3725">Tickers</h2>
+<div class="outline-text-2" id="text-org83c3725">
+<p>
+The first problem is to identify the ticker symbol of the desired
+securities. The ticker symbol is an unique string that identifies each
+security. A global selection of tickers is available as an Excel file
+from <a href="http://investexcel.net/all-yahoo-finance-stock-tickers/">investexcel</a>.
+</p>
+
+<p>
+For the New York stock exchange (NYSE), the updated list of tickers
+can be automatically downloaded in CSV format using
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">wget <span style="color: #8b2252;">'http://old.nasdaq.com/screening/companies-by-name.aspx?letter=0&amp;exchange=nyse&amp;render=download'</span>
+</pre>
+</div>
+<p>
+I use <code>wget</code> but one can directly past the URL in the adress bar of
+any browser. Replace <code>nyse</code> with <code>nasdaq</code> to obtain the list of
+security traded on NASDAQ. The obtained file lists:
+</p>
+<ol class="org-ol">
+<li>the ticker symbol</li>
+<li>the name of the company</li>
+<li>the price of the last transaction</li>
+<li>the market capitalization,</li>
+<li>the IPO year</li>
+<li>the Sector as defined by the stock exchange,</li>
+<li>the Industry, a further division of the Sectors</li>
+<li>the link to company page on the stock exchange website</li>
+</ol>
+
+<p>
+You can take the sample lists I download October 28, 2019 for <a href="companies_nyse.txt.gz">NYSE</a> and
+<a href="companies_nasdaq.txt.gz">NASDAQ</a>. Another useful list of tickers are those of companies that
+compose the <a href="constituents_sp500.csv.gz">S&amp;P 500</a> (as of January 12, 2020). This can be for instance
+obtained from <a href="https://datahub.io/core/s-and-p-500-companies#data">datahub</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org97baef8" class="outline-2">
+<h2 id="org97baef8">Obtaining historical data</h2>
+<div class="outline-text-2" id="text-org97baef8">
+<p>
+Once the ticker of the interesting security is know, the data can be
+downloaded using the Alpha Vantage interface from the base URL
+<a href="https://www.alphavantage.co/query?">https://www.alphavantage.co/query?</a> followed by a list of name=value
+pairs separated by <code>&amp;</code> that specify what you want to download. The
+pairs are:
+</p>
+<dl class="org-dl">
+<dt>symbol</dt><dd>The ticker of the stock</dd>
+<dt>function</dt><dd>It can be <code>TIME_SERIES_DAILY</code> for daily prices,
+<code>TIME_SERIES_WEEKLY</code> for weekly prices or
+<code>TIME_SERIES_MONTHLY</code> for monlty prices. Adding
+<code>_ADJUSTED</code> to the time series specification provided
+adjusted prices</dd>
+<dt>apikey</dt><dd>Use your key</dd>
+<dt>datatype</dt><dd>It can be <code>JASON</code> (default) or <code>CSV</code></dd>
+<dt>outputsize</dt><dd><code>compact</code> (default) returns the last 100 data
+point. <code>full</code> returns the entire history, around 20
+years.</dd>
+</dl>
+<p>
+For instance, to obtain the daily prices of General Eletricks (GE) in
+CSV format and save them in a file called "GE.csv" use
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">wget --output-document=GE.csv <span style="color: #8b2252;">"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&amp;outputsize=full&amp;symbol=GE&amp;apikey=[APIKEY]&amp;datatype=csv"</span>
+</pre>
+</div>
+<p>
+where <code>[APIKEY]</code> is your personal API key. I use <code>wget</code> because I find
+it more convenient to use inside script, but you can just cut and
+paste the URL inside a web browser.  The data in <code>GE.csv</code> contain the
+following comma separated fields:
+</p>
+<ol class="org-ol">
+<li>Date</li>
+<li>Open</li>
+<li>High</li>
+<li>Low</li>
+<li>Close</li>
+<li>Volume</li>
+</ol>
+
+<p>
+Using <code>TIME_SERIES_DAILY_ADJUSTED</code> as a function one gets instead:
+</p>
+<ol class="org-ol">
+<li>Date</li>
+<li>Open</li>
+<li>High</li>
+<li>Low</li>
+<li>Close</li>
+<li>Adjusted Close</li>
+<li>Volume</li>
+<li>Dividend Amount</li>
+<li>Split Coefficient</li>
+</ol>
+
+<p>
+However, The 6th column, "Adjusted Close", seems to be problematic,
+see <a href="#orgaaf54ef">Caveat</a> below. Also notice that the data retrieved from Alpha
+Vantage are in inverse temporal order: the last prices come first in
+the file.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga209655" class="outline-2">
+<h2 id="orga209655">Scripting</h2>
+<div class="outline-text-2" id="text-orga209655">
+<p>
+Often one wants to download data about several securities at once. For
+instance, in order to download the price data at daily frequency for
+all NYSE traded companies in the Pharmaceutical sector one can proceed
+as follows (the commands below are intended to be issued in a Linux
+terminal). First, obtain the list of traded comapnies and we save them
+in the file <code>companies.txt</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">wget --output-document=companies.txt http://old.nasdaq.com/screening/companies-by-name.aspx?<span style="color: #a0522d;">letter</span>=0&amp;<span style="color: #a0522d;">exchange</span>=nyse&amp;<span style="color: #a0522d;">render</span>=download;
+</pre>
+</div>
+<p>
+Next, from the downloaded file, obtain the list of tickers of the
+Technology sector and save them in the env variable <code>tickers</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #a0522d;">tickers</span>=$( gawk -F, <span style="color: #8b2252;">'{ if($7=="\"Major Pharmaceuticals\""){ gsub(/"/,"",$1); print $1} }'</span> companies.txt )
+</pre>
+</div>
+<p>
+Finally, cycle over all tickers and download the price data.
+Presently, you can perform up to 5 requests per minute and 500
+requests per day. So the script needs to <code>sleep</code> a bit between the
+different requests
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #a0522d;">AVWEB</span>=<span style="color: #8b2252;">"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&amp;outputsize=full&amp;apikey=[APIKEY]&amp;datatype=csv"</span>
+<span style="color: #a020f0;">for</span> ticker<span style="color: #a020f0;"> in</span> $<span style="color: #a0522d;">tickers</span>; <span style="color: #a020f0;">do</span>
+wget --output-document=${<span style="color: #a0522d;">ticker</span>}.csv ${<span style="color: #a0522d;">AVWEB</span>}&amp;<span style="color: #a0522d;">symbol</span>=${<span style="color: #a0522d;">ticker</span>}
+sleep 15s
+<span style="color: #a020f0;">done</span>
+</pre>
+</div>
+<p>
+The procedure above is replicated in the <a href="alpha_vantage.sh">example file</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgaaf54ef" class="outline-2">
+<h2 id="orgaaf54ef">Caveat</h2>
+<div class="outline-text-2" id="text-orgaaf54ef">
+<p>
+When using the <code>TIME_SERIES_DAILY_ADJUSTED</code> option the returned
+quantities should be adjusted by split events. But this does not seem
+always to be the case. The plot below shows the "close" and adjusted
+close" price series obtained from Alpha Vantage, together with the
+same series obtained from CRSP, for Microsoft, one of the most
+capitalized companies trading on NYSE.
+</p>
+
+
+<div class="figure">
+<p><img src="AV_CRSP_MSFT.png" alt="AV_CRSP_MSFT.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Comparing price time series from Alpha Vantage and CRSP</p>
+</div>
+
+<p>
+The time windows has been selected to show the only split occurred to
+Microsoft shares in the period covered by Alpha Vantage data. As can
+be seen, the regular price series from the the two databases, "AV
+close" and "CRSP Price", are the same. You don't see the green line
+because it is below the yellow one. On the other hand, the behavior of
+the "adjusted price" from Alpha Vantage is strange. One would expect
+the adjusted price to track the regular price after the last split
+event. In fact the CRSP adjusted closing price does exactly that. The
+Alpha Vantage adjusted closing remains instead below it. With other
+stocks, however, I observed that the "price" columns 2-5 of the Alpha
+Vantage data match the corresponding adjusted quantities obtained from
+the CRSP database. In conclusion, the situation is uncertain:
+sometimes Alpha Vantage seems to return un-adjusted quantities,
+sometimes the adjusted ones. In general, I'd advise against using the
+6th column of the data obtained with <code>TIME_SERIES_DAILY_ADJUSTED</code>. It
+is better to build an adjusting factor using the "split coefficient"
+provided by Alpha Vantage itself (column 9). Using <code>gawk</code> and a <a href="AV_adjust.awk">simple
+script</a> it is possible to obtain a transformed dataset
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">&gt; gawk -F<span style="color: #8b2252;">','</span> -f AV_adjust.awk GE.csv &gt; GEadj.csv
+</pre>
+</div>
+
+<p>
+Now the last column of the file <code>GEadj.csv</code> contains a scaling factor
+that can be used to obtain adjusted quantities, prices, volume and
+dividend, starting from the un-adjusted ones. Depending on the stock,
+you have to use this column or not. In general, it is easy to see it
+by just plotting the time series of the quantity of interest and
+looking for abrupt and persistent jumps. If they are there, then the
+quantity is probably un-adjusted and the scaling factor has to be
+applied. Another possible source of troubles is however the
+possibility that the database returns a false "split event". This can
+be checked using, for instance, <a href="https://www.stocksplithistory.com">stocksplithistory</a> website.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga03cf99" class="outline-2">
+<h2 id="orga03cf99">S&amp;P 500</h2>
+<div class="outline-text-2" id="text-orga03cf99">
+<p>
+Using a simple <a href="alpha_vantage_sp500.sh">script</a> once can obtain the price history of the stocks
+composing the S&amp;P 500 index. You can download an <a href="sp500.tar">compressed file</a> of the
+historical daily prices as of January, 12 2021. I already reverted the
+order of the lines and applied the script described in the <a href="#orgaaf54ef">Caveat</a>
+section above. Files are named according to the ticker symbol of the
+company. They contains eight space separated columns:
+</p>
+<ol class="org-ol">
+<li>Date (yyyymmdd)</li>
+<li>Open</li>
+<li>High</li>
+<li>Low</li>
+<li>Close</li>
+<li>Volume</li>
+<li>Dividend Amount</li>
+<li>Price adjustment factor</li>
+</ol>
+
+<p>
+For instance, to recover the adjusted closing price, multiply column 5
+with column 8.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>
