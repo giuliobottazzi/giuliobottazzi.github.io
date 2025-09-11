@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-03-20 gio 11:08 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Monte Carlo analysis of a learning model</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../other.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Monte Carlo analysis of a learning model</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgad4c2df">Introduction</a></li>
+<li><a href="#org5783138">Kullback–Leibler divergence</a></li>
+<li><a href="#org1c3ff97">Monte Carlo setting</a></li>
+<li><a href="#org113cb5b">The program</a>
+<ul>
+<li><a href="#org20cf785">Requirements</a></li>
+<li><a href="#org45e474b">Installation instructions</a></li>
+<li><a href="#org06f3b11">Download</a></li>
+</ul>
+</li>
+<li><a href="#org3c78737">Example</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgad4c2df" class="outline-2">
+<h2 id="orgad4c2df">Introduction</h2>
+<div class="outline-text-2" id="text-orgad4c2df">
+<p>
+These short notes are intended to illustrate an example of Monte Carlo
+analysis of a model whose evolution is not directly mathematically
+tractable. In the paper <a href="https://www.sciencedirect.com/science/article/abs/pii/S2214635025000085?via%3Dihub">"Pricing anomalies in a general equilibrium
+model with biased learning"</a> a family of learning algorithms is
+considered. The algorithm aims to learn the probability of the next
+occurrence of a binary model \(s_t \in \{0,1\}\), considering the convex
+combination of two Markov chains
+\[ M_h = \begin{pmatrix} \pi_h &
+1-\pi_h \\ 1-\pi_h & \pi_h \\ \end{pmatrix} \quad h =1, 2,
+\]
+where \(\pi_h\) is the probability of remaining in the present state and
+\(1-\pi_h\) is the probability of switching to the other. If the
+algorithm places a weight \(w\) on the first chain and \(1-w\) on the
+second, the prediction is that with probability \(p(w)=w \pi_1+(1-w)
+\pi_2\) the last state that occurred will be realized again, while the
+other state will be realized with probability \(1-p(w)=w
+(1-\pi_1)+(1-w) (1-\pi_2)\).
+</p>
+
+<p>
+The algorithm starts with an initial weight \(w_0\) assigned to the
+first model, and at each new realization this weight is updated, based
+on the previous realization, using the formula
+</p>
+
+<p>
+\[
+w_{t} = \lambda \mu + (1-\mu) w_{t-1}
+\begin{cases}
+\pi_1/p(w_{t-1}) & \text{if } s_t=s_{t-1} \\
+(1-\pi_1)/(1-p(w_{t-1})) & \text{if } s_t \neq s_{t-1}
+\end{cases},
+\quad \mu,\lambda \in [0,1].
+\]
+</p>
+
+<p>
+With \(\mu=0\), this corresponds to a Bayesian learning. When \(\mu> 0\),
+the update is weaker than with the Bayes rule, and an anchoring
+mechanism, parameterized by \(\lambda\), is introduced to represent
+exogenous preferences for one model over the other.
+</p>
+
+<p>
+Assume that the sequence of states \((s_t)\) is a Bernoulli process, so
+that at each step \(t\), irrespective of previous realizations, \(s_t=0\)
+with probability \(\pi\) and \(s_t=1\) with probability \(1-\pi\). In this
+process, the learning model above is misspecified as, in general, the
+true process does not belong to the set of processes that the
+algorithm can perfectly describe. We are interested in investigating
+the performance of the algorithm in this setting.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5783138" class="outline-2">
+<h2 id="org5783138">Kullback–Leibler divergence</h2>
+<div class="outline-text-2" id="text-org5783138">
+<p>
+To measure the agreement between the algorithm and the underlying true
+process, we consider their relative entropy, or Kullback–Leibler
+divergence. The expression of the divergence in terms of the
+probability \(p\) assigned to observe the same outcome as the last
+realization reads
+</p>
+
+<p>
+\[
+D(p)=\pi^2\log\frac{\pi}{p}+\pi(1-\pi)\log\frac{\pi(1-\pi)}{(1-p)^2}+(1-\pi)^2\log\frac{1-\pi}{p}.
+\]
+</p>
+
+<p>
+An analytic expression for the weight distribution \(w\) is not
+normally known, so we do not fully understand how \(D\) depends on the value of the
+learning parameters \((\mu,\lambda,\pi_1,\pi_2)\) and the true model
+\(\pi\). We explore it with a Monte Carlo approach.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1c3ff97" class="outline-2">
+<h2 id="org1c3ff97">Monte Carlo setting</h2>
+<div class="outline-text-2" id="text-org1c3ff97">
+<p>
+Fixing the parameters of the learning model, we consider \(n\) possible
+initial weights \(w_0(i)\), \(i=1,\ldots,n\), and evolve each weight using
+the equation above, over \(n\) independent realizations of the Bernoulli
+process, obtaining \(n\) sequences \((w_t(i))\). In these sequences, we
+want to compute
+</p>
+
+<p>
+\[
+\bar{D}_i(T) = \frac{1}{T} \sum_{t=1}^T D(p_t(i)), \quad
+p_t(i) = w_t(i) \pi_1+(1-w_t(i)) \pi_2.
+\]
+</p>
+
+<p>
+We can expect that these numbers become progressively similar as the
+effect of the initial condition disappears. However, we do not know
+how long \(T\) must be. The approach we follow is to initially evolve
+the weights simulating \(T = \delta T\) steps. We then consider the
+average and standard deviation of the divergence values obtained,
+</p>
+
+<p>
+\[
+m_T = \frac{1}{n} \sum_{i=1}^n \bar{D}_i(\delta T),\quad
+\sigma^2_T = \frac{1}{n-1} \sum_{i=1}^n (\bar{D}_i(\delta T)-m_T)^2.
+\]
+</p>
+
+<p>
+If \(\sigma_T < \alpha\) and \(\sigma_T/m_T < \epsilon\), where
+\(\alpha,\epsilon>0\) are preset thresholds (note that \(m_T>0\)), the
+simulation stops, having reached the desired absolute and relative
+precision. Otherwise, the simulation of each independent replica runs
+for another \(\delta T\) steps and the KL average and standard error are
+updated. The comparison and extension procedure is repeated until the
+thresholds are met.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org113cb5b" class="outline-2">
+<h2 id="org113cb5b">The program</h2>
+<div class="outline-text-2" id="text-org113cb5b">
+<p>
+The procedure described in the previous section is implemented in the
+program <code>DKLmc</code>. It can be run from a console specifying all the
+parameters on the command line. Let's review the help message
+</p>
+<pre class="example" id="org7a9e763">
+&gt;./DKLmc -h
+
+Monte Carlo computation of the average Kullback–Leibler divergence (DKL)   
+of a behavioral learning algorithm. If a comma separated range is provided 
+for mu or lambda, a tabular output is produced with equally spaced         
+values in that range.                                                      
+Usage: ./DKLmc [options]                                                        
+
+Options:                                                                   
+-m  set mu (default 0.5)                                                  
+-l  set lambda (default 0.5)                                              
+-1  set pi1 (default 0.25)                                                
+-2  set pi2 (default 0.75)                                                
+-t  set pi (default 0.5)                                                  
+-a  set the maximum absolute error (default 1e-3)                         
+-e  set the maximum relative error (default 1e-2)                         
+-T  set the maximum number of steps of the simulation (default 1e6)       
+-d  set the steps increment (default 100)                                 
+-n  set the number of initial weights (default 8)                         
+-g  set the number of grid points for tabular output (default 10)         
+    with two comma separated values, set the grid point for mu and lambda 
+-V  verbosity level (default 0)                                           
+    0  only warnings                                                     
+    1  print the values of model parameters                              
+    2  print the values of Monte Carlo parameters                        
+    3  print intermediate DKL estimate and error at each step            
+-h  print this message
+&gt;
+</pre>
+
+<p>
+Note that the parameters \(\mu\) and \(\lambda\) are a bit special. If a
+range of values is specified for them, the program prints a table with
+a list of values for the different combinations of parameters. Thus,
+for instance,
+</p>
+<pre class="example" id="org5f9545d">
+&gt;./DKLmc -l 0,1 -m 0,1 -g 4 
+# mu         lambda       DKL avg
+0.000000e+00 0.000000e+00 1.428616e-01 
+0.000000e+00 3.333333e-01 1.415857e-01 
+0.000000e+00 6.666667e-01 1.417891e-01 
+0.000000e+00 1.000000e+00 1.417545e-01 
+
+3.333333e-01 0.000000e+00 1.423654e-01 
+3.333333e-01 3.333333e-01 2.331129e-02 
+3.333333e-01 6.666667e-01 2.334392e-02 
+3.333333e-01 1.000000e+00 1.422726e-01 
+
+6.666667e-01 0.000000e+00 1.411436e-01 
+6.666667e-01 3.333333e-01 1.471094e-02 
+6.666667e-01 6.666667e-01 1.468875e-02 
+6.666667e-01 1.000000e+00 1.410062e-01 
+
+1.000000e+00 0.000000e+00 1.427470e-01 
+1.000000e+00 3.333333e-01 1.415329e-02 
+1.000000e+00 6.666667e-01 1.415329e-02 
+1.000000e+00 1.000000e+00 1.427470e-01
+</pre>
+<p>
+The option <code>-v</code> controls the level of verbosity. With the options
+<code>-a</code>, <code>-e</code>, and <code>-T</code> one can set the absolute precision, the relative
+precision, and the maximum number of steps, respectively. In any case,
+the precision is not checked before running \(\delta T\) steps. To
+simulate for a fixed number of time steps, set the desired value with
+the parameter <code>-d</code> and select a large absolute and relative
+tolerance. The option <code>-n</code> sets the number of independent replica. As
+th program is parallelized, it is probably a good idea to set it to a
+multiple of the available parallel threads.
+</p>
+
+<p>
+The output format is suitable to be sent to <a href="http://www.gnuplot.info/"><code>gnuplot</code></a> for
+plotting. Using the <code>gbplot</code> utility of the <a href="../../software/gbutils/index.html"><code>gbutils</code></a> package the
+result can be directly displayed on the desktop. The command
+</p>
+<pre class="example" id="org78a738e">
+&gt;./DKLmc -l 0,1 -m 0,1 -g 20 | gbplot -C 'set xlabel "mu"; set ylabel "lambda"' splot with line
+</pre>
+<p>
+produces the following plot
+</p>
+
+<div id="org0be2f2d" class="figure">
+<p><img src="./example_plot.png" alt="example_plot.png" width="600px" style="&quot;display:inline;margin:10px;&quot;" />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org20cf785" class="outline-3">
+<h3 id="org20cf785">Requirements</h3>
+<div class="outline-text-3" id="text-org20cf785">
+<p>
+To be installed from source, the program requires a C compiler, the
+standard C library and a recent version of the GNU Scientific Library
+(GSL) (version &gt;= 1.6) and of the OpenMP library. These libraries are
+all available in the package management tool of any major Linux
+distribution.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org45e474b" class="outline-3">
+<h3 id="org45e474b">Installation instructions</h3>
+<div class="outline-text-3" id="text-org45e474b">
+<p>
+On <code>linux</code>, compile the program using <code>gcc</code> with
+</p>
+<pre class="example" id="org3044b18">
+gcc DKLmc.c -lm -lgsl -lgslcblas -march=native -O3 -fopenmp -o DKLmc
+</pre>
+
+<p>
+On <code>Windows</code>, you can use the <a href="https://learn.microsoft.com/en-us/windows/wsl/install">Windows Subsystem for Linux (WSL)</a> or try
+to install it natively if you have access to a compiler and the
+necessary libraries.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org06f3b11" class="outline-3">
+<h3 id="org06f3b11">Download</h3>
+<div class="outline-text-3" id="text-org06f3b11">
+<p>
+You just need the source code <a href="./DKLmc.c">DKLmc.c</a> (ver. 0.2). Follow the installation
+instructions.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3c78737" class="outline-2">
+<h2 id="org3c78737">Example</h2>
+<div class="outline-text-2" id="text-org3c78737">
+<p>
+We are interested to discover which region of the space
+\((\mu,\lambda))\) provides the best prediction, in terms of relative
+entropy, given \((\pi_1,\pi_2,\pi)\). For definiteness, we set
+\(\pi_1=0.25\) and \(\pi_2=0.75\) and explore three values for the true
+probability, \(\pi=0.15,0.4,0.5\). The case \(0.5\) is special because it
+is the only situation in which our learning algorithm can actually
+learn the true Bernoulli model that generates the space.
+</p>
+
+<p>
+We can use a Bash script to drive the computation by <code>DKLmc</code> and the
+plotting process with <code>gnuplot</code>.
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #b22222;">#</span><span style="color: #b22222;">!/bin/</span><span style="color: #a020f0;">bash</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Copyright (C) 2025 Giulio Bottazzi</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">created: 2025-03-19</span>
+
+<span style="color: #a020f0;">for</span> pi<span style="color: #a020f0;"> in</span> 15 4 5; <span style="color: #a020f0;">do</span>
+    <span style="color: #483d8b;">echo</span> <span style="color: #8b2252;">"$pi"</span>
+    ./DKLmc -1 0.25 -2 0.75 -t 0.${<span style="color: #a0522d;">pi</span>} -l 0,1 -m 0,1 -g 30 -a 1e-4 -e 1e-3 &gt; mu-lambda_025_075_0${<span style="color: #a0522d;">pi</span>}.txt
+    gnuplot &lt;&lt; EOF
+<span style="color: #ffa54f;">set term png enhanced font "Arial,10"</span>
+<span style="color: #ffa54f;">set out "mu-lambda_025_075_0${pi}.png"</span>
+
+<span style="color: #ffa54f;">reset</span>
+<span style="color: #ffa54f;"># shape and title</span>
+<span style="color: #ffa54f;">set encoding utf8</span>
+<span style="color: #ffa54f;">set size square</span>
+<span style="color: #ffa54f;">set title "{/StandardSymbolsPS p}_1=0.25 {/StandardSymbolsPS p}_2=0.75 {/StandardSymbolsPS p}=0.${pi}"</span>
+<span style="color: #ffa54f;">set xlabel "{/StandardSymbolsPS m}"</span>
+<span style="color: #ffa54f;">set ylabel "{/StandardSymbolsPS l}"</span>
+<span style="color: #ffa54f;"># parameters for the heat map</span>
+<span style="color: #ffa54f;">set view map</span>
+<span style="color: #ffa54f;">unset surface</span>
+<span style="color: #ffa54f;">set palette defined (0 "white", 1 "black")</span>
+<span style="color: #ffa54f;"># parameters for the contours</span>
+<span style="color: #ffa54f;">set contours base</span>
+<span style="color: #ffa54f;">set cntrparam levels auto 6</span>
+<span style="color: #ffa54f;">set cntrparam bspline</span>
+<span style="color: #ffa54f;">set cntrparam order 6</span>
+<span style="color: #ffa54f;"># parameters for the labels of the contours</span>
+<span style="color: #ffa54f;">set cntrlabel font "Arial,8"</span>
+<span style="color: #ffa54f;">set cntrlabel onecolor</span>
+<span style="color: #ffa54f;">set cntrlabel start 5 interval 120</span>
+<span style="color: #ffa54f;">set style textbox opaque fc "white"</span>
+<span style="color: #ffa54f;">splot "mu-lambda_025_075_0${pi}.txt" with image notitle, "" w l lt -1 dt 2  notitle, "" with labels font "Arial,6" boxed notitle</span>
+<span style="color: #ffa54f;">EOF</span>
+<span style="color: #a020f0;">done</span>
+</pre>
+</div>
+
+<p>
+Note the use of the <a href="https://tldp.org/LDP/abs/html/here-docs.html">Here Dcouments</a> syntax to create on-the-fly the
+code that <code>gnuplot</code> executes. The tree obtained plots are reported
+below.
+</p>
+
+
+
+
+<div id="orgfa23bc1" class="figure">
+<p><img src="./mu-lambda_025_075_015.png" alt="mu-lambda_025_075_015.png" width="600px" style="&quot;display:inline;margin:10px;&quot;" />
+</p>
+</div>
+
+
+<div id="org85346c8" class="figure">
+<p><img src="./mu-lambda_025_075_04.png" alt="mu-lambda_025_075_04.png" width="600px" style="&quot;display:inline;margin:10px;&quot;" />
+</p>
+</div>
+
+
+<div id="org6a6d48f" class="figure">
+<p><img src="./mu-lambda_025_075_05.png" alt="mu-lambda_025_075_05.png" width="600px" style="&quot;display:inline;margin:10px;&quot;" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2025-03-20 gio 11:08</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Short Report on Oil Derivatives Price in Italy and Europe</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../other.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Short Report on Oil Derivatives Price in Italy and Europe</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org09c5639">Data Sources</a></li>
+<li><a href="#orgd4f6999">Charts</a>
+<ul>
+<li><a href="#orgc06f3b4">Long run dynamics</a></li>
+<li><a href="#orge1b5785">Short run dynamics</a></li>
+<li><a href="#orgb4ba379">Auto-correlation structure of price variation</a></li>
+<li><a href="#org6687781">Cross-correlation of price variation</a></li>
+</ul>
+</li>
+<li><a href="#org462b246">Download</a></li>
+</ul>
+</div>
+</div>
+<dl class="org-dl">
+<dt>Authors</dt><dd>Giulio Bottazzi</dd>
+<dt>Date</dt><dd>January 15 2021</dd>
+<dt>Revision</dt><dd>0.4</dd>
+</dl>
+
+<div id="outline-container-org09c5639" class="outline-2">
+<h2 id="org09c5639">Data Sources</h2>
+<div class="outline-text-2" id="text-org09c5639">
+<p>
+This short report studies the dynamics of prices for automotive fuels
+(Euro-super and diesel) in Italy and Europe since 2005. The observed
+price movement is compared with the behavior of the crude oil price,
+which constitutes the main input in the production of automotive
+fuels. The analysis is based on weekly data. The price of oil is
+approximated with spot price for Brent Crude and are translated in
+Euro/barrel using the daily exchange rates. The oil price is provided
+by the <a href="http://research.stlouisfed.org/fred2">Federal Reserve Economic Data (FRED)</a> service of the <i>Federal
+Reserve Bank of St.Louis</i> while the exchange rate comes from <a href="https://finance.yahoo.com/quote/EURUSD%3DX/history?p=EURUSD%3DX">Yahoo
+Finance</a>.
+</p>
+
+<p>
+The historical prices for oil derivatives are obtained from the <a href="http://ec.europa.eu/energy/observatory/oil/bulletin_en.html">Market
+observatory of the European Commission on Oil</a>. These data, expressed
+as Euro/KL (1KL=1000l), are available since 2005 and updated weekly
+with the pubblication of the <a href="http://ec.europa.eu/energy/observatory/oil/bulletin_en.htm">Oil Bulletin</a>. Prices are collected
+through a survey in all European countries and represent the "price at
+the pump", that is the amount of money on average payed by the final
+consumer. The EU-level data are an average across all countries,
+weighted by national consumption. Time series are provided for both
+gross prices and prices net of duties and taxes. For the present
+analysis we use the latter definition (different regulatory regimes in
+different EU countries make the cross-country comparison of gross
+prices difficult) and focus on the oil derivatives used in propelling
+automobiles, namely the Euro-super 95 (Super) and Automotive gas oil
+(Diesel).
+</p>
+
+<p>
+As the weakly schedule for the publication of oil prices and fuel pump
+costs are not synchronized, a linear interpolation is used to adapt
+the price of oil to the exact dates of the European Commission Oil
+Bulletin.
+</p>
+
+<p>
+The final data is made of five time series, containing around 300
+observations each, covering production prices for oil and consumption
+prices for Super and Diesel fuels in Italy and EU, from 2/01/2005.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgd4f6999" class="outline-2">
+<h2 id="orgd4f6999">Charts</h2>
+<div class="outline-text-2" id="text-orgd4f6999">
+</div>
+<div id="outline-container-orgc06f3b4" class="outline-3">
+<h3 id="orgc06f3b4">Long run dynamics</h3>
+<div class="outline-text-3" id="text-orgc06f3b4">
+
+<div class="figure">
+<p><img src="history_super.png" alt="history_super.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Historical consumer price (net of duties and taxes) of 'Super' fuel in Italy and EU in EUR/L (left axis) and production price of oil, world-wide average, in EUR/Barrel (right axis) since January, 2005.</p>
+</div>
+
+
+
+<div class="figure">
+<p><img src="history_diesel.png" alt="history_diesel.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Historical consumer price (net of duties and taxes) of 'Diesel' fuel in Italy and EU in EUR/L (left axis) and production price of oil, world-wide average, in EUR/Barrel (right axis) since January, 2005.</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orge1b5785" class="outline-3">
+<h3 id="orge1b5785">Short run dynamics</h3>
+<div class="outline-text-3" id="text-orge1b5785">
+
+<div class="figure">
+<p><img src="history_super_short.png" alt="history_super_short.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Historical consumer price (net of duties and taxes) of 'Super' fuel in Italy and EU in EUR/L (left axis) and production price of oil, world-wide average, in EUR/Barrel (right axis) in the last 50 weeks.</p>
+</div>
+
+
+<div class="figure">
+<p><img src="history_diesel_short.png" alt="history_diesel_short.png" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Historical consumer price (net of duties and taxes) of 'Diesel' fuel in Italy and EU in EUR/L (left axis) and production price of oil, world-wide average, in EUR/Barrel (right axis) in the last 50 weeks.</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb4ba379" class="outline-3">
+<h3 id="orgb4ba379">Auto-correlation structure of price variation</h3>
+<div class="outline-text-3" id="text-orgb4ba379">
+
+<div class="figure">
+<p><img src="acorr.png" alt="acorr.png" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Auto-correlation of price variation for the different time series.</p>
+</div>
+
+<p>
+For each time series the simple difference \(x_t=p_{t+1}-p_{t}\) and the
+correlation coefficient \(c_l=E[x_{t+l} x_t]\) is reported for ten time
+lags. The observed behavior is very similar across the different time
+series. Pump prices in Italy seem to have a less sticky dynamics than
+in the rest of Europe. Indeed the coefficients of delayed correlation
+are always lower for the former than for the latter. Interestingly,
+the 1-lag correlation for pump prices in Italy is significantly lower
+than the 1-lag correlation of oil price, while the European average
+prices display a perfect agreement with the latter.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6687781" class="outline-3">
+<h3 id="org6687781">Cross-correlation of price variation</h3>
+<div class="outline-text-3" id="text-org6687781">
+
+<div class="figure">
+<p><img src="crosscorr_super.png" alt="crosscorr_super.png" />
+</p>
+<p><span class="figure-number">Figure 6: </span>Cross-correlation of 'Super' fuel and oil price variation.</p>
+</div>
+
+
+<div class="figure">
+<p><img src="crosscorr_diesel.png" alt="crosscorr_diesel.png" />
+</p>
+<p><span class="figure-number">Figure 7: </span>Cross-correlation of 'Diesel' fuel and oil price variation.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org462b246" class="outline-2">
+<h2 id="org462b246">Download</h2>
+<div class="outline-text-2" id="text-org462b246">
+<p>
+<a href="super_diesel_EU_price.txt">Price of Super and Diesel net of duties and taxes, European average</a>
+Space separated columns. Data structure: year, month, day, super price
+(EUR/Liter), diesel price (EUR/Liter)
+</p>
+
+<p>
+<a href="super_diesel_IT_price.txt">Price of Super and Diesel, net of duties and taxes, Italy</a> Space
+separated columns. Data structure: year, month, day, super price
+(EUR/Liter), diesel price (EUR/Liter)
+</p>
+
+<p>
+<a href="oil_price.txt">Brent crude price</a> Space separated columns. Data structure: year,
+month, day, EUR/Barrel.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Accessing CRSP data on Linux</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../other.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Accessing CRSP data on Linux</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2ddbe4a">Installation</a></li>
+<li><a href="#org117546e">Configuration</a></li>
+<li><a href="#orgef97860">Example of use</a></li>
+</ul>
+</div>
+</div>
+<p>
+The CRSP data structure is rich and complex. The information about
+accessing it, is distributed across different online sources and
+manuals. Below I will briefly review the steps necessary to have a
+functioning installation on your Linux machine and getting started
+with using CRSP database.
+</p>
+
+<div id="outline-container-org2ddbe4a" class="outline-2">
+<h2 id="org2ddbe4a">Installation</h2>
+<div class="outline-text-2" id="text-org2ddbe4a">
+<p>
+Using your username and password access the <a href="https://crsp.moveitcloud.com/">Move It Cloud</a>
+service. From the folder <code>Product Download-&gt;Stock_1925_ANNSUB</code> get
+the file <code>faz201812_cadb.zip</code>. This is a compressed file. Just
+extract it in a suitable place. Then from the folder <code>Utility
+  Download-&gt;CUPL</code> download the file <code>setupLinux[64].bin</code>. Select the
+64 or 32 version as it suits you. Execute this file to install the
+CUPS utility and libraries on the local system. Provide a suitable
+path to the installation program when requested.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org117546e" class="outline-2">
+<h2 id="org117546e">Configuration</h2>
+<div class="outline-text-2" id="text-org117546e">
+<p>
+This is a rather obscure piece of information but it is very
+relevant. Move in the root folder in which the CUPS programs were
+installed. There should be a folder named "accbin[64]". With or
+without the <code>64</code> part, depending on the installed version of the
+tools. Inside this folder, find the utility <code>crsp_setup.[csh,sh]</code>
+and run it.  Use the <code>.sh</code> version if you are using the Bash shell
+or the <code>.csh</code> version if you are using <code>cshell</code> or <code>kshell</code>. The command
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">&gt; echo $<span style="color: #a0522d;">SHELL</span>
+</pre>
+</div>
+<p>
+will tell you which shell version is in use. You will be requested
+to provide the location (path) of your CUPS programs and of your
+databases. The output of <code>crsp_setup.[csh,sh]</code> is a text file
+containing a set of environment variable definitions. These are the
+variables the CUPS utilities will rely upon. The default name is
+something like <code>mycrsp.kshrc</code> but you can change it. Now you have
+two choices. One possibility is adding the lines of this file to
+your login initialization files. You can use any editor to do
+it. Check the manual of your shell to discover the proper names of
+these files. Another possibility is just parsing this file before
+using the command line tools,
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">&gt; source mycrsp.kshrc
+</pre>
+</div>
+<p>
+In this way the necessary environment variable definitions are added
+to you working session. For more information on the configuration
+step check the <a href="http://www.crsp.com/files/images/release_notes/CUPL%203.86.pdf">release notes</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgef97860" class="outline-2">
+<h2 id="orgef97860">Example of use</h2>
+<div class="outline-text-2" id="text-orgef97860">
+<p>
+The utility you are more likely wanting to use is <code>ts_print</code>, which
+"prints time series". Two steps are necessary to use this
+program. First, you have to prepare a "request" text file that
+contains the definition of what you want to get. You can use the
+editor of your choice for this. Second, you have to pass the request
+file to the program. Assuming the name of the prepared file is
+<code>query.txt</code>, from anywhere on your system just run (this works ONLY
+if your environment variables where properly defined, see
+<a href="#org117546e">Configuration</a> above)
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">&gt; $<span style="color: #a0522d;">CRSP_BIN</span>/ts_print query.txt
+</pre>
+</div>
+<p>
+The output produced by <code>ts_print</code> is a very convenient and well
+structured ASCII file. In general, <code>query.txt</code> contains all the
+information <code>ts_print</code> needs. If no output file is specified in
+<code>query.txt</code>, then the data are printed to standard output. This is
+very useful when you want to do post-processing using shell's pipe.
+</p>
+
+<p>
+An example of request file is the following
+</p>
+<div class="org-src-container">
+<pre class="src src-sh" id="orgc81ae1b">ENTITY
+<span style="color: #b22222;">#</span><span style="color: #b22222;">download data for Microsoft</span>
+LIST|TICKER MSFT |ENTFORMAT 3
+END
+
+ITEM
+<span style="color: #b22222;">#</span><span style="color: #b22222;">adjusted opening price</span>
+ITEMID AdjOpenPrc
+<span style="color: #b22222;">#</span><span style="color: #b22222;">adjusted highest traded price during the day</span>
+ITEMID Adjaskhi
+<span style="color: #b22222;">#</span><span style="color: #b22222;">adjusted lowest traded price during the day</span>
+ITEMID Adjbidlo
+<span style="color: #b22222;">#</span><span style="color: #b22222;">adjusted official closing price</span>
+ITEMID Adjprc
+<span style="color: #b22222;">#</span><span style="color: #b22222;">adjusted total volume</span>
+ITEMID Tvol
+<span style="color: #b22222;">#</span><span style="color: #b22222;">adjusted dividend</span>
+ITEMID Adjdiv
+<span style="color: #b22222;">#</span><span style="color: #b22222;">number of outstanding shares</span>
+ITEMID Shr
+END
+
+DATE
+CALNAME daily|RANGE 19860313-20181231
+CALFORMAT 1
+END
+
+OPTIONS
+X ITEM,YES|Y DATE,YES|Z ENTITY,YES,1
+END
+</pre>
+</div>
+<p>
+The lines beginning with <code>#</code> are comments. Using the previous file
+you can download several daily quantities, prices, volume and
+dividend, about Microsoft stock. I use the command
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">&gt; $<span style="color: #a0522d;">CRSP_BIN</span>/ts_print query_MSFT.txt | gzip &gt; MSFT.txt.gz
+</pre>
+</div>
+<p>
+to compress the output of <code>ts_print</code> on the fly and save the
+compressed data in <code>MSFT.txt.gz</code>. There are many things you can do
+by tweaking the request file. I'm not going to review them. A good
+starting point might be <a href="http://www.crsp.com/products/documentation/tsprint-request-file">request file</a> on-line resource.
+</p>
+
+<p>
+Another useful utility program is <code>dstksearch.sh</code>. It can be run with
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">&gt; $<span style="color: #a0522d;">CRSP_BIN</span>/dstksearch.sh
+</pre>
+</div>
+<p>
+However, what this program does is just looking for security
+information in the <code>$CRSP_DSTK"/headfile.dat</code>. This is a simple
+ASCII file that you can parse yourself, for instance with the <code>grep</code>
+command, to find information about one company or ticker
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">&gt;grep <span style="color: #8b2252;">"GENERAL ELECTRIC|"</span> <span style="color: #8b2252;">"$CRSP_DSTK/headfile.dat"</span>
+</pre>
+</div>
+<p>
+will produce the output
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">12060 20792          GENERAL ELECTRIC CO                    1 19251231-19620701
+12060 20792          GENERAL ELECTRIC CO             GE     1 19620702-19680101
+12060 20792 36960410 GENERAL ELECTRIC CO             GE     1 19680102-20181231
+32168 23832          GENERAL ELECTRIC CO LTD         GLE    2 19620702-19640908
+32168 23832          GENERAL ELECTRIC CO LTD         GLE   -2 19640909-19641123
+32168 23832          GENERAL ELECTRIC CO LTD         GLE    2 19641124-19680101
+32168 23832 36964060 GENERAL ELECTRIC CO LTD         GLE    2 19680102-19681128
+32168 23832 36959520 GENERAL ELECTRIC &amp; ENGH ELEC CO GLE    2 19681129-19691204
+45858 21430 73650810 PORTLAND GENERAL ELECTRIC CO    PGN    1 19680306-19860211
+91204 21430 73650884 PORTLAND GENERAL ELECTRIC CO    POR    1 20060410-20181231
+</pre>
+</div>
+<p>
+The different columns contain in order:
+</p>
+<ol class="org-ol">
+<li>PERMNO, the CRSP unique issue identification code;</li>
+<li>PERMCO, the CRSP unique company identification code;</li>
+<li>CUSIP, the COMPUSTAT company identification code;</li>
+<li>The name of the company;</li>
+<li>The ticker symbol associated to the company stock;</li>
+<li>The exchange where the stock is traded: 1=NYSE, 2=AMEX, 3=NASDAQ, 4=ARCA</li>
+<li>The range of available data</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>
