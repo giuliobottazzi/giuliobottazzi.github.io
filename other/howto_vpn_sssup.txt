@@ -1,0 +1,356 @@
+.. -*- Mode: rst -*-
+
+=================================
+VPN at Sant'Anna on Linux systems
+=================================
+
+:Authors:   Giulio Bottazzi 
+:Contact:   <bottazzi@sssup.it>
+:Date:      29 October 2009
+:Revision:  0.4
+:Copyright: GPL
+
+
+.. contents::
+
+
+.. Table of Contents
+
+   1  Introduction
+   2  Installation
+     2.1  Necessary software
+     2.2  Kernel configuration
+     2.3  Checking ipsec
+     2.4  Behind a firewall
+   3  Setting up the connection
+     3.1  Basic configuration
+     3.2  DNS setup
+     3.3  Intranet and proxy server
+     3.4  Automatic startup
+     3.5  Using a script
+   4  Acknowledgment
+
+
+Introduction
+============
+
+This document describe how to configure your Linux computer to access
+the Scuola Sant'Anna VPN. At present, the access point is a Sonicwall
+network appliance. In order to establish a VPN connection you need a
+shared encrypted key, which you can obtain from the School's help
+desk, and a personal account which allows you to access the School's
+IT services. In what follows the possession of both is assumed.
+
+
+Installation
+============
+
+Necessary software
+------------------
+
+Several VPN solution are available under Linux. I will consider only
+one of them, namely *openswan*. The choice is dictated by the good
+interoperability of this software with the proprietary solution
+adopted by the School.
+
+The first step is installing the needed software on your machine.
+*openswan* is based on the ipsec protocol, so apart the client itself,
+you need the extra software tools provided by the
+``ipsec-tools``. Moreover, you also need ``iptables``, which is a NAT
+and Firewall utility. In *Gentoo* you can install all the necessary
+software with the command::
+
+ # emerge --deep -vu iptables openswan bind-tools ipsec-tools
+
+
+In *Debian*, or *Debian* based systems, like *Ubuntu*, you can do the
+same by using the ``Synaptic`` interface or ``dpkg`` command.
+
+
+
+Kernel configuration
+--------------------
+
+First of all, you should use a kernel of the ``2.6`` generation. It is
+very likely that the kernel you use does already contain all necessary
+modules and options. If not, please refer to the openswan_
+documentation.
+
+.. _openswan: http://www.openswan.org/docs/
+
+In case you have it compiled in the kernel, in order for the
+*openswann* program to work you need to switch off ICMP packet
+redirection. Simply do the following::
+
+ # echo 0 > /proc/sys/net/ipv4/conf/default/send_redirects
+ # echo 0 > /proc/sys/net/ipv4/conf/default/accept_redirects
+
+At the same time IP forwarding should be activated::
+
+ #echo 1 > /proc/sys/net/ipv4/ip_forward
+
+
+Checking ipsec
+--------------
+
+Once *openswann* is installed, you have to start the ipsec service::
+
+ # /etc/init.d/ipsec start
+
+then you can check if everything is working using::
+
+ # ipsec verify
+
+
+Behind a firewall
+-----------------
+
+If you intend to use openswan from behind a firewall or in a NAT
+environment, then you have to forward UDP port 500 and 4500 to the
+computer on which the VPN connection is started. This is the case for
+instance if you use your home machine with a private IP. Further
+instructions are available here_.
+
+.. _here: http://wiki.openswan.org/index.php/Openswan/ConfFirewall
+
+
+Setting up the connection
+=========================
+
+If you managed to install the software and the check above reported
+that everything is working, then it's time to configure the access to
+Sant'Anna VPN. 
+
+
+Basic configuration
+-------------------
+
+The *openswann* configuration is composed of two files,
+``/etc/ipsec/ipsec.conf`` and ``/etc/ipsec/ipsec.secrets``. The first
+contains generic installation instructions while the second lists the
+cryptographic keys used by the program. Both files should be present
+on your system after installation.  Add the following stanza to the
+first file
+
+:File: /etc/ipsec/ipsec.conf
+
+::
+ 
+ conn sonicwall
+     type=tunnel
+     pfs=no
+     aggrmode=yes
+     auto=add
+     auth=esp
+     authby=secret
+     #-- left --
+     left=%defaultroute
+     leftid=<machine name>
+     leftxauthclient=yes
+     #-- right --
+     right=193.206.136.46
+     rightsubnet=192.168.0.0/16
+     rightxauthserver=yes
+     rightid=@0006B12025C6
+     #-- crypto --
+     keyingtries=0
+     ike=3des-sha1-modp1024
+     esp=3des-sha1
+
+where ``<machine name>`` is a name identifying your local
+machine. Notice that the indentation is not casual: the ``conn`` line
+is not indented and define the connection name. The following indented
+lines represent the settings relative to this connection.
+
+Then add to the second file the following entry
+
+:File: /etc/ipsec/ipsec.secrets
+
+::
+ 
+ #Shared key for School connection
+ @0006B12025C6 <machine name> : PSK "<shared key>"
+
+where ``<shared_key>`` is the shared encryption key you obtained from
+the School IT staff. Remember to add an empty line after the key, or
+*Openswan* will complain. Now restart the service::
+
+ # /etc/init.d/ipsec start
+
+and start the connection by hand using the following command::
+
+ # ipsec whack --name sonicwall --initiate
+
+
+You should see various output messages and at some point you will be
+asked to provide username and password. Use the ones you normally use
+to access Sant'Anna intranet. If everything goes nicely, you should be
+rewarded with a message containing ``IPsec SA established``. The
+connection is now up. 
+
+.. For a faster and automatic start up of the connection substitute
+   ``auto=add`` with ``auto=start`` in the configuration above. In
+   this way the connection is automatically started when the service
+   starts.
+
+To reach personal machines inside the school you can specify a
+different value in ``rightsubnet``
+
+:File: /etc/ipsec/ipsec.conf
+
+::
+     ... 
+     rightsubnet=10.1.0.0/18
+     ...
+
+
+DNS setup
+---------
+
+To access the machines of the School by names (instead than by IP
+address) it is necessary to use appropriate DNS servers. You can
+configure manually the way names are resolved by modifying the file
+``/etc/resolv.conf`` to read
+
+:File: /etc/resolv.conf
+
+::
+
+ nameserver 192.168.64.12
+ nameserver 192.168.64.11
+
+A better approach is however to configure a local DNS server which can
+intelligently forward DNS queries. The use of *dnsmasq* is
+straightforward. In *Gentoo* install it with::
+
+ # emerge dnsmasq
+
+Then modify the configuration file ``/etc/dnsmasq.conf`` adding
+
+:File: /etc/dnsmasq.conf
+
+::
+
+ server=/168.192.in-addr.arpa/192.168.64.12
+ server=/168.192.in-addr.arpa/192.168.64.11
+ server=/sssup.it/192.168.64.12
+ server=/sssup.it/192.168.64.11
+ server=/sss/192.168.64.12
+ server=/sss/192.168.64.11
+
+
+Then add the local host as the first name server in the resolv
+configuration file
+
+:File: /etc/resolv.conf
+
+::
+
+  nameserver 127.0.0.1
+
+and start the local DNS service::
+
+ # /etc/init.d/dnsmasq start
+
+
+Intranet and proxy server
+-------------------------
+
+With the connection up and with properly configured DNS servers you
+can now access the Sant'Anna intranet at ``www.sss``. In order to
+navigate the web as if you were at the school, you need a proxy
+server. To configure *Firefox* select ``Edit->Preferences`` go to the
+tab ``Advanced->Network``, in the ``Connection`` part select the
+``Settings...`` button. Choose ``Manual proxy configuration`` and
+set::
+
+ HTTP proxy: proxy.sss
+ Port: 3128
+
+also check out ``Use this proxy server for all protocols`` flag.
+
+In recent versions of *Firefox* you can use the *FoxyProxy* add-on. To
+install it go to ``Tools->Add-ons`` and search for it in the ``Get
+Add-ons`` tab. This extension allows for easy switching between
+connection settings and makes possible to select the connection based
+on the accessed page.
+
+
+Automatic startup
+-----------------
+
+Openswan does not provide any Graphic User Interface (GUI) log
+utility. In principle the connection which use the ``XAUTH``
+authentication method, that is a username/password pair, must be
+started from a terminal. An alternative automatic startup can be
+obtained by starting the ``ipsec`` service early during the boot
+process::
+
+ # rc-update add ipsec default
+
+and adding a line that explicitly starts the connection in
+/etc/conf.d/local.start
+
+:File: /etc/conf.d/local.start
+
+::
+
+ ipsec whack --name sonicwall --xauthname <usrname> --xauthpass <passwd> --initiate
+
+where ``<usrname>`` and ``<passwd>`` are the username and password
+used above. If necessary, add the ``echo`` command to disable ICMP
+packets redirection
+
+:File: /etc/conf.d/local.start
+
+::
+
+ echo 0 > /proc/sys/net/ipv4/conf/default/send_redirects
+ echo 0 > /proc/sys/net/ipv4/conf/default/accept_redirects
+ ipsec whack --name sonicwall --xauthname <usrname> --xauthpass <passwd> --initiate
+
+This approach has the drawback of leaving your username and password
+as clear text in the system.
+
+
+Using a script
+--------------
+
+A safer solution is to use the script vpnsssup_. This simple script
+can be used to start and stop the VPN connection.  Download it and
+open it with a text editor to modify a few system specific
+variables. The default should be fine for a gentoo_ installation but
+different Linux flavor could require a minimal tuning. Notice that the
+script should be run as root. Much better, using the `sudo`
+command. To start the connection do::
+
+ #sudo ./vpnsssup start sonicwall username password
+
+The first parameter is the name of the connection as defined in
+``/etc/ipsec/ipsec.conf``. If the presence of an username and password
+on the command line sounds dangerous, you can store the `username
+password` couple in an encrypted file using gpg_ and decrypt it on the
+fly, like::
+ 
+ #sudo ./vpnsssup start sonicwall `gpg -d vpn_secret.gpg`
+
+
+Remember to switch the connection off at log out::
+
+ #sudo ./vpnsssup stop
+
+.. _vpnsssup: http://cafim.sssup.it/~giulio/other/vpnsssup.sh
+
+.. _gpg: http://www.gnupg.org/
+
+.. _gentoo: http://www.gentoo.org/
+
+
+Acknowledgment
+==============
+
+The present document has been put together thanks to the help of
+Sant'Anna School IT staff. Further documentation (on which the
+present document is partly based) is made available at
+ftp://ftp-scuola2000.sss/Ftp_Telnet_Ssh/VPN. All the mistakes have to
+be considered, however, an original contribution of the author.

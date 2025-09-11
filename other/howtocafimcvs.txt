@@ -1,0 +1,478 @@
+.. -*- Mode: rst -*-
+
+=========================================
+How to Use CVS Repository on cafed server
+=========================================
+
+:Authors:   Giulio Bottazzi 
+:Contact:   <bottazzi@sssup.it>
+:Date:      16 May 2014
+:Revision:  0.8.4
+:Copyright: GPL
+
+.. contents::
+
+.. 1  Introduction
+   2  What does a project contain
+   3  Starting a new project
+   4  Working on a project
+     4.1  The structure of the project
+     4.2  Tagging not copying
+     4.3  Project status and file information
+     4.4  Removing cruft
+     4.5  Handling large data files
+   5  Conclusions
+
+
+Introduction
+============
+
+In the past years I found myself, repeatedly, in the need of
+explaining how to use the CVS repository on our server. Since this
+kind of information has taken, with the passing of time, the character
+of an oral tradition, I thought that it was a valuable effort to
+remove this information from the domain of the tacit knowledge and
+start, at least to some extent, to codify it. The instructions that
+follow are the result of this effort. Notice that they are both a very
+short introduction to the CVS suit of programs and to the "standard"
+followed by our group in structuring and managing collaborative
+projects. These instructions, however, only represent vague and
+incomplete guidelines. In any case, you are strongly advised both to
+consult some CVS guide in the Net and to discuss the details of the
+implementation of a new project with your coauthors.
+
+
+What does a project contain
+===========================
+
+The essential idea guiding the management of a project via CVS (or any
+other collaboration system) is that the project contains all and only
+the SOURCE FILES which are needed to derive the final objects. This
+essentially means two things:
+
+- any file that can be derived by some other file should NOT be
+  INCLUDED in the repository
+
+- any file which is needed to derive the final components of the project
+  should be INCLUDED in the repository
+
+For instance, for a standard paper you typically
+
+- include the latex file 'project.tex' and possibly a 'project.bib' but
+  omit any .dvi,.ps. or .pdf file
+
+- if pictures are included in the document, and for instance generated
+  by gnuplot, you include a gnuplot script file 'plots.gp' from which
+  the plots can be generated using the command
+
+  #gnuplot plots.gp
+
+  but omit any .eps,.pdf,.gif file that derives from the execution of
+  the previous program
+
+- if data are necessary to produce pictures or tables, include them in
+  the repository. In this case it is useful to insert a README file
+  that describes the source of these data. Also document the
+  manipulations and transformations the data went through in order to
+  reach their present status
+
+- if programs or scripts are necessary to manipulate data in order to
+  obtain plots or tables, insert the source code of these
+  programs/scripts  and detail their use and purposes in the README file
+
+- if the same data are required in different formats, maybe because of
+  the use of different software package, include if possible the data
+  in a single format together with the scripts necessary to obtain
+  other formats. Explain how to use these scripts in the README file.
+
+- it's a good idea to have a ChangeLog file in which major
+  modifications are recorded. This serves as the "memory" of the
+  project and to track the inclusion (or exclusions) of files in the
+  repository. Note that in X/Emacs a ChangeLOg file is simply created
+  and updated using the command ``Alt-X add-change-log-entry``.
+
+
+The whole point of this approach can be summarized in this idea: every
+participant to the project MUST be able to reproduce and modify any
+part of the project at any level. Any particular help by the original
+author of that particular part should not be necessary. In other
+terms, in any moment, one MUST be able to restart the project by the
+very beginning.
+
+
+Starting a new project
+======================
+
+First of all, in order to operate on a remote CVS repository you have
+to specify in your commands what repository to use. You can do it in
+two ways. You can set the 'CVSROOT' environment variable using::
+
+ export CVSROOT=user@machinename:repopath
+
+where 'user' is an user with access to the repository, 'machinename'
+is the name of the server and 'repopath' is the position of the
+repository in the directories tree. In this way any following 'cvs'
+command will use that repository. Alternatively, you can avoid setting
+a variable by adding the option::
+
+ -d user@machinename:repopath
+ 
+at each invocation of the cvs command.
+
+At this point you need to create a new directory::
+
+ mkdir newdir
+
+move all the necessary files in that directory and, if needed, create
+and fill subdirectories. Then move inside the root directory of the
+project::
+
+ cd newdir
+
+and issue the initial importing command::
+
+ cvs import -m "Imported sources" newdir AAA aaa
+
+or if the 'CVSROOT' variable was not set::
+
+ cvs  -d user@machinename:repopath import -m "Imported sources" newdir AAA aaa
+ 
+where 'AAA' is a vendor tag, and 'aaa' is a release tag. In this way
+the name of the project will be 'newdir'. The vendor and release tag
+are labels used to mark the progress of the project. Initially you can
+set the vendor tag to some name related to the project and the release
+tag to 'initial' or just '1'.
+
+
+Working on a project
+====================
+
+In order to retrieve the last version of a project use::
+ 
+ cvs checkout projname
+
+or if you did not specify a CVSROOT variable::
+
+ cvs -d user@machinename:repopath checkout projname
+
+In this way a new directory named 'projname' will be created and
+filled with all the necessary files. You can then start editing or
+modifying the files. If you need to add a new file, first create it
+locally and then use::
+
+ cvs add filename
+
+The `add` command can also be used to add sub-directories to the
+project.
+
+To remove a file, first remove the local copy and then use::
+
+ cvs delete filename
+
+All the modifications, the addition and the removal of files will not
+be performed until you issue a 'commit' command like this::
+
+ cvs commit -m "short description string"
+
+Always add a short description with the option '-m' or the cvs program
+will ask for one, automatically starting an editor for you.
+
+Handling directories removal is slightly different. First, it is
+necessary to remove all the files in it and leave it empty. Then use::
+
+ cvs update -P
+
+The option -P automatically removes empty directories.
+
+Before committing your modifications, always remember to check that
+they are consistent. If you are modifying programs, check that they
+can be compiled and run as expected. If you are modifying a document,
+run the spell checker and remove typos. In general there is no need to
+commit changes in the middle of a modification. Just do it at the end
+of your work. Also, before committing, remember to write down you
+modification in the 'ChangeLog' file (with a date and the name of the
+author) and modify, if needed, the README file (see next section).
+
+Later if you need to work again on the project you do not need to
+check it out entirely. Just move in the project's directory and do::
+
+ cvs update
+
+Before starting to work on a project it is always a good idea do give
+an update command. Just in case somebody else did modify something.
+
+The command CVS has a lot of different options so I suggest to check
+its man page::
+
+ man cvs
+
+One thing which can be useful is the possibility of inspecting the
+differences between the local version and the version in the
+repository. The command::
+
+ cvs diff
+
+compare all the files. If you want to restrict the comparison to some
+specific file just add the name after 'diff'::
+
+ cvs diff name_of_file
+
+
+The structure of the project
+----------------------------
+
+
+In general, given the difficulties in managing subdirectories in CVS,
+it is always better to keep their number to a minimum.
+
+A simple project, be it a document or a program, should be contained
+in one single root directory. Two files must always be present, namely
+'README' and 'ChangeLog'.
+
+The file 'README' contains a description of the project. It can be as
+simple as a list of command to issue in order to have the project
+properly set up, or as complicated as a reference manual. In any case
+this description should be clear and maintained up to date with the
+project itself.
+
+The file 'ChangeLog' keeps track of all modifications. Each time a
+file of the project is modified, the name of the file, the date of
+modification and the name of the person who modified it should be
+recorded. If you use (X)emacs, you can simply record modifications in
+the change log with the command 'Alt-X add-change-log-entry'.
+
+If the project needs figures and plots, it is a good idea to store
+them in a specific sub-directory, appropriately named. When possible,
+it is better if these figures are generated from scratch using some
+scripts. If the program is 'gnuplot', then put all the necessary
+commands in the file 'plots.gp' so that the figures are generated
+with::
+
+ gnuplot plots.gp
+
+
+For more complex projects, the directory structure depends on the
+project itself. In the case of documents, for instance LaTeX
+documents, the root or main directory could contain two
+subdirectories: one named 'data' and one 'figures'.::
+
+                    contains:
+
+      /--->figures  figures, fig files
+     /                                
+ main               TeX files, scripts
+     \                                
+      \--->data     empirical data, simulations results
+ 
+ 
+
+The source code of the document, for instance the LaTeX '.tex' and
+'.bib' files, together with all the scripts and necessary programs
+reside in the main directory. The directory 'data' contains the
+empirical data or the result of simulations. The directory 'figures'
+contains all the figures, both the ones generated by scripts, like
+'plots.gp', and the ones obtained from other sources. In general, for
+documents preparation, adding more directories is not
+required. Conversely, for complex software program of collection of
+programs, multiple directories are often necessary.
+
+
+Project status and file information
+-----------------------------------
+
+The actual version of a specific file can be found using::
+
+ cvs -v status filename
+
+where the verbose option `-v` is needed to retrieve information on
+available tags.
+
+Historical information on all the modifications a given file undertook
+can be obtained with the command::
+
+ cvs log filename
+
+This command list all recent revisions of the file, together with the
+date at which the revision was committed, the author of the revision
+and the message string accompanying the commit.
+
+
+Working with revisions
+----------------------
+
+Each time a modified version of a file is committed, a new revision is
+created. As said above, revisions can be listed with the ``log``
+command. If a specific revision of a file is required, simply use the
+``-r`` option. For instance to compare the actual version of the file
+``filename`` with its past fifth revision use::
+
+ cvs diff -r 1.5 filename
+
+To retrieve the same revision and put it in your local directory use::
+
+ cvs update -r 1.5 filename
+
+In this way the version of the file in your local directory is
+identical to the fifth revision of the file. By using this simple
+option it is possible to navigate along the entire file history,
+moving forward or backward. However, when a file is updated to a
+specific version, a *sticky tag* is created which forbid a normal
+update or commit of the same file. You can check the existence of a
+sticky tag for a file using the command::
+
+ cvs status filename
+
+if the files ``Sticky Tag`` is set to ``(none)``, the file is free
+from sticky tag and can be normally updated (and its modification
+committed).
+
+In order to release the lock created by the use of the ``-r`` option,
+use the option ``-A``::
+
+ cvs update -A filename
+
+In order to revert back to an old version, you have to retrieve the
+old file, copy it to a new temporary file, remove the lock, copy the
+file back and commit the new version. Assume you want to move the file
+``filename`` back to version 1.5. Do the following::
+ 
+ cvs update -r 1.5 filename
+ mv filename filename_old
+ cvs update -A filename
+ mv filename_old filename
+ cvs commit -m "reverting to version 1.5" filename
+
+
+Tagging not copying
+-------------------
+
+A project that involves distribute efforts from different people is
+likely to evolve a lot in its history. For example a paper can be sent
+to different journals, a presentation prepared for different audiences
+and a software program can undergo several releases. The point is that
+as long as these different versions can be considered different steps
+in the evolution of the same project, there is no reason to multiply
+the number of source files. In order to keep track of which precise
+version was sent to a given journal, or was included in a given
+release, the use of "tags" turns out to be very effective. When a
+project was created (see `Starting a new project`_) we assigned to it
+an initial vendor tag "AAA" and release tag "aaa". Now at a given
+point in time, for instance before sending the paper to a journal, you
+can "tag" all the file in the project with a symbolic label using the
+command::
+
+ cvs tag tagname .
+
+where the dot stands for all the files in the present directory and
+its sub-directories. Later, if the need arises to recover exactly that
+version, you can obtain it from the repository using the option '-r'
+with the check out command, like in::
+
+ cvs checkout -r tagname projectname
+
+You can of course need to tag a single file. In this case, just use
+its name instead of the dot `.` as in::
+
+ cvs tag tagname filename
+
+Notice that the list of available tag for a specific file can be retrieved using::
+
+ cvs log filename
+
+and looking at the list of 'symbolic names' at the beginning of the
+output. If the need arises to remove a tag, you can simply remove it with::
+
+ cvs tag -d tagname filename
+
+and you can add a tag to a specific revision number using::
+
+ cvs tag -r revnum tagname filename
+
+where 'revnum' is a revision number, like for instance '1.25'.
+
+FInally, a tag can be simply removed from 'filename' using::
+
+ cvs tag -d tagname filename
+
+
+Removing cruft
+--------------
+
+After a while, your local copy of the project can contain several
+unneeded files. For instance auxiliary files created by (La)TeX
+program, or backup copies of files generated by the editor in use. It
+is possible to remove all the files not in the project with a simple
+shell command::
+
+ rm `cvs update | gawk '{if($1=="?") print $2 }' `
+
+Before doing it, please remember to commit all the changes, or newly
+added files will be lost!
+
+
+Handling large data files
+-------------------------
+
+Projects sometimes contain large database files. These files are
+usually generated once and kept unchanged during the various revision
+of the project. Moreover, it is likely that they are maintained and
+prepared independently from the actual project and stored somewhere
+else. On the one hand, their dimension makes them unsuitable to be
+inserted directly in the CVS repository. On the other hand, since one
+wants to be sure to work on the last version of the data files, some
+mechanism should be put in place to keep track of the database
+version. These two requirements can be fulfilled in the following way
+
+ - do not put the files in the repository. Instead describe their
+   original source (where they come from) and how to generate them in
+   the appropriate README file. Please remember that the generation
+   procedure should also provide the names for the final files.
+
+ - once the files have been generated, compute their checksum
+   signature and put it in a file::
+
+    md5sum namefiles >> data.checksum
+
+ - copy the file `data.checksum` in the `data` sub-directory of the
+   CVS project. Add it to the repository::
+
+    cvs add data/data.checksum
+
+Now any user who is able to obtain the data files can copy them in the
+`data` folder, and check if the obtained files are correct using the
+command::
+
+   md5sum -c data.checksum
+
+in the `data` directory.
+
+Of course, if for some reason the data files have to be modified, the
+information in `data.checksum` should be changed accordingly. In
+particular, remember that decompressing a file and compressing it
+again with tools like `gzip` or `bzip`, does in general change its
+checksum. In this case it is probably better to store the checksum of
+the uncompressed file in `data.checksum` and perform the check on it.
+
+To avoid the removal of data files by the cruft removal script in
+`Removing cruft`_ , you have to tell CVS that these files should be
+ignored. Simply add their names in the `.cvsignore` file of the
+directory that contains them::
+
+ echo "namefiles" >> data/.cvsignore
+
+and add `.cvsignore` to the repository.
+
+
+Conclusions
+===========
+
+I know that young researchers are typically impatient and feel the
+time spent in the organization of the sources and the description of
+the process that transforms these sources in the final objects as
+wasted. I might reply that I can't think of a time better spent. This
+is a Universal Truth, but it is possible that many will disagree with
+me. In any case, on our server we will implement a very effective
+method to protect you from yourself: when a project is found that
+contains unnecessary files, or lack necessary files, it will be simply
+removed from the repository and the last contributor will be asked to
+fix the issue.

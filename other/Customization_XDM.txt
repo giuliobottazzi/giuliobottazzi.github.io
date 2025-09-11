@@ -1,0 +1,509 @@
+.. -*- Mode: rst -*-
+
+=================
+XDM Customization
+=================
+
+:Authors:   Giulio Bottazzi 
+:Contact:   <giulio.bottazzi@libero.it>
+:Date:      13 March 2008
+
+.. Contents::
+
+.. 1  Introduction
+   2  XDM Configuration
+     2.1  Starting the necessary programs
+     2.2  Customize the programs behavior
+     2.3  Cleaning up
+     2.4  Set Permissions
+   3  Restarting XDM
+   4  Extending the XDM configuration
+     4.1  Performing simple tasks with xmessage
+     4.2  Selecting among different window managers
+     4.3  Taking a screenshot of the login screen
+   5  Acknowledgment
+
+
+
+Introduction
+============
+
+Since I tend to use lightweight Windows Managers and Desktop
+Environments (like xfce4) I usually prefer not to bloat my system with
+behemoth Display Managers (like GDM or KDM) but to use the simpler
+(and smaller) XDM, which is typically distributed together with xorg.
+
+The default setup of this program does however produce a pretty ugly
+(minimalistic, somebody would say) login graphic interface, and after
+a while one might be tempted to switch to one of its largest cousins
+just to have some color on the screen.
+
+The purpose of this little document is simply to show that this is not
+necessary. With some minimal configuration effort, you can obtain an
+acceptable, colorful (and, to some extent, feature-full) login
+interface using XDM.
+
+Disclaimer: I'm not a Desktop artist nor a X Window hacker. So don't
+expect to find here hyper-advanced and hyper-specialized hints on how
+to create the Ultimate Display Manager Configuration. This is not the
+purpose of this document.
+
+
+XDM Configuration
+=================
+
+The configuration files and the scripts used by XDM can be found in
+`/etc/X11/ xdm/`. If you inspect this directory, you see that there is
+a number of them.
+
+They are all described in the XDM man page::
+
+ $ man xdm
+
+but for the present purpose we are going to modify only one of them,
+namely `/ etc/X11/xdm/xdm-config`. This is the main configuration
+file. It defines which files are used by xdm to perform its different
+activities. Edit the file and modify these three lines (if you want,
+you may comment the original lines so that everything can be more
+easily recovered)
+
+:File: /etc/X11/xdm/xdm-config
+
+::
+
+ ...
+ DisplayManager._0.setup:        /etc/X11/xdm/Xsetup_my
+ ...
+ DisplayManager._0.startup:      /etc/X11/xdm/GiveConsole_my
+ ...
+ DisplayManager*resources:       /etc/X11/xdm/Xresources_my
+ ...
+
+in this way we instruct XDM to use a different set of files to display
+the graphic login. In order to reduce the interactions with portage
+and its automatic management of configuration files it is better to
+write new files and leave the default ones untouched.
+
+Three files have to be written. `/etc/X11/xdm/Xsetup_my` is a script,
+run by XDM, to setup the various application which populate the login
+screen.  `/etc/X11/xdm/GiveConsole_my` is a file run by XDM when a
+user successfully logs in; we will use it to clean the screen from all
+applications before passing the command to the user.
+
+Finally, in `/etc/X11/xdm/Xresources_my` are listed the resources
+which affect the behavior of the various programs run by XDM. We will
+use it to tune the windows appearance.
+
+
+Starting the necessary programs
+-------------------------------
+
+`/etc/X11/xdm/Xsetup_my` starts various programs that will appear on
+the graphic login screen. Its typical use is to display an image on
+the root window. But you can, in principle, do all the things you do
+inside an X session. We will stick here to a bare minimum. This is the
+file I use
+
+:File: /etc/X11/xdm/Xsetup_my 
+
+::
+
+ #--- set a fullscreen image in background 
+
+ xloadimage -onroot -quiet -fullscreen /etc/X11/xdm/background_my.jpg
+ 
+ #--- log messages in background
+ root-tail -f -geometry 500x150-10+10 -fn fixed /var/log/messages,purple
+ 
+ #--- set Shutdown/Reboot buttons
+ (
+ xmessage -buttons Shutdown:20,Reboot:21 "" ;
+ case $? in
+  20)
+  exec /sbin/poweroff;;
+  21)
+  exec /sbin/reboot;;
+  *)
+  echo "Xmessage closed on `date`";;
+ esac
+ )&
+
+First, it places the image `/etc/X11/xdm/background_my.jpg` on the
+root window (background) using `xloadimage`. Modify this line to point
+to the image you intend to use. `xloadimage` is rather common but
+alternatives exist such as `xsri`. Second, it uses root-tail to
+display a running log of the system messages in the background. Notice
+that this is a possible security weakness, so use it only in
+relatively safe environment. Third, it spawns a sub-shell (this is the
+meaning of ``(...)&``) which uses the simple utility `xmessage` to
+display a couple of buttons on the screen. This utility is in general
+not included in xorg by default. Check it and in case install it using
+the software management system provided by your distribution of
+choice. All these programs are highly configurable and possess a lot
+of options. Please refer to their manual pages for further details.
+
+In addition to the programs explicitly started by
+`/etc/X11/xdm/Xsetup_my`, XDM will also place on the screen an
+authentication widget, that is a window where users can enter their
+`username` and `password` to authenticate themselves.  That's all for
+the first file. Let's now move to `/etc/X11/xdm/Xresources_my`.  This
+file is extremely important, because it defines the way in which the
+various windows generated by the previous programs are actually
+displayed.
+
+
+Customize the programs behavior
+-------------------------------
+
+The default configuration file distributed with xorg is quite
+complicated, since it must fulfill the requirement to be generic,
+i.e. to provide a consistent configuration of the login screen for X
+servers with different characteristics.
+
+In particular, it contains different sections (separated by ``#if...``
+statements) that apply to different screen resolutions and color
+depths. Since we are building a customized version of it, we can avoid
+these complications and simply tune the configuration to our
+particular needs. In what follows I will assume that a color monitor
+is in use with a resolution of 1600x1220 (that was my home monitor
+resolution when I drafted this document). If this is not your case,
+please apply the necessary modifications.
+
+Let's start with the configuration of the authentication widget,
+called xlogin.  First, you have to configure the capability of the
+widget as an editor. It is a good idea to just cut-and-paste from the
+default configuration in `/etc/X11/xdm/ Xresources` to have
+
+:File: /etc/X11/xdm/Xresources_my
+
+::
+
+ ! bind actions to particular keys sequences
+ ! -----------------------------------------
+ 
+ xlogin*login.translations: #override \
+         Ctrl<Key>R: abort-display()\n\
+         <Key>F1: set-session-argument(failsafe) finish-field()\n\
+         <Key>Delete: delete-character()\n\
+         <Key>Left: move-backward-character()\n\
+         <Key>Right: move-forward-character()\n\
+         <Key>Home: move-to-begining()\n\
+         <Key>End: move-to-end()\n\
+         Ctrl<Key>KP_Enter: set-session-argument(failsafe) finish-field()\n\
+         <Key>KP_Enter: set-session-argument() finish-field()\n\
+         Ctrl<Key>Return: set-session-argument(failsafe) finish-field()\n\
+         <Key>Return: set-session-argument() finish-field()
+
+Then we have to decide the position and color, in my case I did
+
+:File: /etc/X11/xdm/Xresources_my
+
+::
+
+ ! position
+ xlogin.geometry: 430x200+180+10
+ 
+ ! colors
+ xlogin*background:  white
+ xlogin*foreground:  darkgray
+ xlogin*greetColor:  darkgray
+ xlogin*promptColor: darkgray
+ xlogin*failColor:   red
+
+to have a login widget of 430 pixels width and 200 pixels height
+placed near the upper left corner (+180+10). The background color is
+white while all the text (greetings and prompts) are displayed in dark
+gray. If the user fails the authentication, a message is displayed in
+red.
+
+The next stanza configures the text of the different messages (greetings and
+prompts) and the font used to display them
+
+:File: /etc/X11/xdm/Xresources_my
+
+::
+
+ ! prompts
+ Xlogin*titleMessage:     Xlogin
+ xlogin*greeting:         Welcome to CLIENTHOST! Authentication required
+ xlogin*namePrompt:       Username:\040
+ xlogin*passwdPrompt:     Password:\040
+ xlogin*fail:             -- Permission Denied --
+ 
+ ! fonts
+ xlogin*font:       -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+ xlogin*greetFont:  -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+ xlogin*promptFont: -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+ xlogin*failFont:   -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+
+ xlogin*greetFace:       Comic Sans MS-16
+ xlogin*face:            Comic Sans MS-16
+ xlogin*promptFace:      Comic Sans MS-16
+ xlogin*failFace:        Comic Sans MS-16
+
+I used an homogeneous font, 16pt comic sans, but you can of course
+choose whatever font you want. In addition to the canonical
+specification of X fonts, I have also added the xft version using the
+`*Face` resources. These resources are used by the most recent version
+of XDM (ver. >= 1.1.4).
+
+Notice the particular sequence `\040`` in the prompts definition. It
+stands for an empty character and I use it to separate by one space
+the cursor from the colons at the end of the prompts. Finally, you can
+customize the external borders and the internal frames of the
+widget. I choose simplicity, with
+
+:File: /etc/X11/xdm/Xresources_my
+
+::
+
+ ! shape
+ xlogin*borderWidth:      0
+ xlogin*frameWidth:       0
+ xlogin*innerFramesWidth: 0
+
+There are many more options you can decide to set, for a long list see
+the XDM man page, but this is enough for me. The next step is to tune
+the apparence of the xmessage windows, where the Shutdown and Reboot
+buttons are displayed. The property of this window (that is size,
+position, colors and fonts) can be again specified using a list of
+resources. My choice is
+
+:File: /etc/X11/xdm/Xresources_my
+
+::
+
+ ! xmessage resources
+ ! ==================
+ 
+ Xmessage*geometry:              150x30+1100+1160
+ Xmessage*background:            white
+ Xmessage*foreground:            darkgrey
+ Xmessage*Font:                  -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+ Xmessage*borderWidth:           0
+ 
+ Xmessage*message.scrollVertical:        Never
+ Xmessage*message.scrollHorizontal:      Never
+ 
+ Xmessage*Text*background:       white
+ Xmessage*Text*foreground:       darkgrey
+ Xmessage*Text.borderColor:      white
+ Xmessage*Text.borderWidth:      0
+ Xmessage*Text*font:             -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+
+Notice that I removed both horizontal and vertical scrollbars (with
+``Never``) and, for consistency, I set the font to the same used by
+the xlogin window. Finally, if you use XDM also for remote
+connections, you should provide some configuration for the chooser
+window. Remote connections can be a thorny issue, and it is clearly
+outside the scope of this document, so I just cut-and-paste from the
+default resource file
+
+:File: /etc/X11/xdm/Xresources_my
+
+::
+
+ ! chooser resources
+ ! ==================
+ 
+ Chooser*geometry:               700x500+300+200
+ Chooser*allowShellResize:       false
+ Chooser*viewport.forceBars:     true
+ Chooser*label.font:             *-new century schoolbook-bold-i-normal-*-240-*
+ Chooser*label.label:            XDMCP Host Menu from CLIENTHOST
+ Chooser*list.font:              -*-*-medium-r-normal-*-*-230-*-*-c-*-iso8859-1
+ Chooser*Command.font:           *-new century schoolbook-bold-r-normal-*-180-*
+
+
+Cleaning up
+-----------
+
+After a successful login, the control of the X server is given to the
+user. Before this, however, we have to clean the screen from the
+application we started before. This is the job of the last file we
+have to write ``/etc/X11/xdm/ GiveConsole_my``. The idea is simple:
+take the default file /etc/X11/xdm/ GiveConsole_my and just add kill
+statements to remove all the applications started by
+``/etc/X11/xdm/Xsetup_my``
+
+:File: /etc/X11/xdm/GiveConsole_my
+
+::
+
+ #remove root-tail
+ killall root-tail
+ 
+ #remove the xmessage buttons
+ killall xmessage
+ 
+ chown $USER /dev/console
+
+I have seen more sophisticated things around, like storing the PID of
+the different programs and use a more selective kill statement to kill
+them, but, for me, this script does perfectly the job.
+
+
+Set Permissions
+---------------
+
+You should also set permissions to ``/etc/X11/xdm/Xsetup_my`` and
+``/etc/X11/ GiveConsole_my``::
+
+ chmod 755 /etc/X11/xdm/Xsetup_my
+ chmod 755 /etc/X11/xdm/GiveConsole_my
+
+
+Restarting XDM
+==============
+
+When all this editing is over, you can restart XDM::
+
+ #/etc/init.d/xdm restart
+
+and enjoy the result. This is a screenshot_ of what I got on my laptop
+with the configuration above
+
+.. _screenshot: ../img/screen.jpg
+
+as you can see, in my case the `xmessage` windows contain some extra
+buttons. I'll explain how to add them below. The rest of the image
+should be similar to what you obtain on your computer (apart the
+background window, of course).
+
+
+Extending the XDM configuration
+===============================
+
+The simple login screen described above can be easily extended in
+several ways.  It is quite strighforward to start new programs by
+adding them to ``/etc/X11/xdm/ Xsetup_my``. Just remember to add the
+necessary configuration (X resources) in
+``/etc/X11/xdm/Xresources_my`` and maybe to stop them in
+``/etc/X11/xdm/ GiveConsole_my``. Another possibility, which I want to
+briefly explain, is to add more buttons to the xmessage windows in
+order to perform simple tasks directly from the login windows.
+
+
+Performing simple tasks with xmessage
+-------------------------------------
+
+By adding more buttons to the xmessage windows and linking them to
+simple actions, it is possible to manage the system before logging in
+to it. I'm going to show you how to do that with an example I found
+rather useful: switching the network interfaces from the login
+screen. Doing it this way is in general faster then logging in to the
+system and starting a root console. Basically, we are going to exploit
+the fact that any command issued by the `/etc/X11/xdm/ Xsetup_my` is
+executed with root privileges.
+
+The first step is to modify the way in which we call xmessage. In order to have
+it permanently on the login screen, we insert it in a while loop. At the same
+time we add to it two new buttons. This is the code snippet
+
+:File: /etc/X11/xdm/Xsetup_my
+
+::
+
+ (
+ EXIT=0
+ 
+ while [[ "$EXIT" == "0" ]]; do
+ 
+   xmessage -buttons Shutdown:20,Reboot:21,eth0:23,eth1:24 "" ;
+   CONTROL=$?;
+   if [ "$CONTROL" = 20 ] ; then
+     /sbin/shutdown -h now 2>/dev/console >/dev/console;
+   elif [ "$CONTROL" = 21 ] ; then
+     /sbin/shutdown -r now 2>/dev/console >/dev/console;
+   elif [ "$CONTROL" = 23 ] ; then
+     if /etc/init.d/net.eth0 status > /dev/null ; then
+       #double quotes prevent pathname expansion
+       xmessage -geometry 600x90 -center "$(/etc/init.d/net.eth0 stop)"
+     else
+       xmessage -geometry 600x90 -center "$(/etc/init.d/net.eth0 start)"
+     fi
+   elif [ "$CONTROL" = 24 ] ; then
+     if /etc/init.d/net.eth1 status > /dev/null ; then
+       #double quotes prevent pathname expansion
+       xmessage -geometry 600x90 -center "$(/etc/init.d/net.eth1 stop)"
+     else
+       xmessage -geometry 600x90 -center "$(/etc/init.d/net.eth1 start)"
+     fi
+   else
+     EXIT=1
+     echo "Xessage closed on `date`";
+   fi
+ 
+ done
+ )&
+
+which replaces what was previously inserted between the ``(`` and
+``)&``. Notice that we use xmessage to display, inside a window, the
+output of the invoked programs. The name of the network interfaces is
+probably different on your system, so don't forget to tailor this
+script to your needs.  Finally, we have to reset the X resources of
+the program to make room for the new buttons. I modified
+``/etc/X11/xdm/Xresources_my`` in the following way
+
+:File: /etc/X11/xdm/Xresources_my
+
+::
+
+ Xmessage*geometry:              240x30+1100+1160
+
+
+
+Selecting among different window managers
+-----------------------------------------
+
+It is possible to select wich Window Manager to use during the login
+session by remapping special function keys. This is done in the file
+`/etc/X11/xdm/Xresources` by adding extra lines to the
+`xlogin*login.translations` definition. Add the following lines (the
+dots stands for already exiting lines; left them untouched)
+
+:File: /etc/X11/xdm/Xresources_my
+
+::
+
+ xlogin*login.translations: #override\
+ ...
+ <Key>F1: set-session-argument(failsafe) finish-field()\n\
+ <Key>F2: set-session-argument(wmaker) finish-field()\n\
+ <Key>F3: set-session-argument(afterstep) finish-field()\n\
+ <Key>F4: set-session-argument(startkde) finish-field()\n\
+ <Key>F5: set-session-argument(fvwm) finish-field()\n\
+ <Key>F6: set-session-argument(enlightenment) finish-field()\n\
+ <Key>F7: set-session-argument(blackbox) finish-field()\n\
+ ...
+
+To select a particular Window Manager, you write your name and the
+password and, instead of pressing 'return', you press the
+corresponding function key.
+
+
+Taking a screenshot of the login screen
+---------------------------------------
+
+To take an screenshot of the login screen, add the following line in
+`/etc/X11/xdm/Xsetup_my`
+
+
+:File: /etc/X11/xdm/Xsetup_my
+
+::
+
+ sleep 15 && import -w root /tmp/xdm.jpg &
+
+
+Acknowledgment
+==============
+
+This document was originally posted in the Gentoo Wiki site. Following
+the crash of the said site, and since I was the original author, I
+decided to move it on my personal web page. Even if I removed several
+later additions made by people on the Gentoo wiki version, it is quite
+possible that the present text contains many improvements by different
+people. I'm not able to give proper credit to single contributors,
+nevertheless I want to express my gratitude for their corrections and
+suggestions.

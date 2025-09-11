@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title>Postfix Setup for Local Mail Only</title>
+<meta name="authors" content="Giulio Bottazzi" />
+<meta name="date" content="18 January 2011" />
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:date: $Date: 2007/05/08 14:29:12 $
+:version: $Revision: 1.1.1.1 $
+:copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the PEP HTML output of Docutils.
+*/
+
+.first {
+  margin-top: 0 }
+
+.last {
+  margin-bottom: 0 }
+
+.navigation {
+  width: 100% ;
+  background: #99ccff ;
+  margin-top: 0px ;
+  margin-bottom: 0px }
+
+.navigation .navicon {
+  width: 150px ;
+  height: 35px }
+
+.navigation .textlinks {
+  padding-left: 1em ;
+  text-align: left }
+
+.navigation td, .navigation th {
+  padding-left: 0em ;
+  padding-right: 0em ;
+  vertical-align: middle }
+
+.rfc2822 {
+  margin-top: 0.5em ;
+  margin-left: 0.5em ;
+  margin-right: 0.5em ;
+  margin-bottom: 0em }
+
+.rfc2822 td {
+  text-align: left }
+
+.rfc2822 th.field-name {
+  text-align: right ;
+  font-family: sans-serif ;
+  padding-right: 0.5em ;
+  font-weight: bold ;
+  margin-bottom: 0em }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+body {
+  margin: 0px ;
+  margin-bottom: 1em ;
+  padding: 0px }
+
+dd {
+  margin-bottom: 0.5em }
+
+div.section {
+  margin-left: 1em ;
+  margin-right: 1em ;
+  margin-bottom: 1.5em }
+
+div.section div.section {
+  margin-left: 0em ;
+  margin-right: 0em ;
+  margin-top: 1.5em }
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.hint p.admonition-title, div.important p.admonition-title,
+div.note p.admonition-title, div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.figure {
+  margin-left: 2em }
+
+div.footer, div.header {
+  font-size: smaller }
+
+div.footer {
+  margin-left: 1em ;
+  margin-right: 1em }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1 {
+  font-family: sans-serif ;
+  font-size: large }
+
+h2 {
+  font-family: sans-serif ;
+  font-size: medium }
+
+h3 {
+  font-family: sans-serif ;
+  font-size: small }
+
+h4 {
+  font-family: sans-serif ;
+  font-style: italic ;
+  font-size: small }
+
+h5 {
+  font-family: sans-serif;
+  font-size: x-small }
+
+h6 {
+  font-family: sans-serif;
+  font-style: italic ;
+  font-size: x-small }
+
+.section hr {
+  width: 75% }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.topic-title {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+pre.line-block {
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option-argument {
+  font-style: italic }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+table {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+td, th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+td.num {
+  text-align: right }
+
+th.field-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap }
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100% }
+
+tt {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="postfix-setup-for-local-mail-only">
+<h1 class="title">Postfix Setup for Local Mail Only</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Authors:</th>
+<td>Giulio Bottazzi</td></tr>
+<tr><th class="docinfo-name">Contact:</th>
+<td>&lt;<a class="reference external" href="mailto:giulio.bottazzi&#64;libero.it">giulio.bottazzi&#64;libero.it</a>&gt;</td></tr>
+<tr><th class="docinfo-name">Date:</th>
+<td>18 January 2011</td></tr>
+</tbody>
+</table>
+<!-- -*- Mode: rst -*- -->
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#introduction" id="id1">Introduction</a></li>
+<li><a class="reference internal" href="#installing-postfix" id="id2">Installing Postfix</a><ul>
+<li><a class="reference internal" href="#mbox-format" id="id3">Mbox Format</a></li>
+<li><a class="reference internal" href="#maildir-format" id="id4">Maildir Format</a></li>
+<li><a class="reference internal" href="#mh-format" id="id5">MH Format</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#testing-the-configuration-and-starting-the-service" id="id6">Testing the Configuration and Starting the Service</a><ul>
+<li><a class="reference internal" href="#mail-aliases" id="id7">Mail Aliases</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#acknowledgment" id="id8">Acknowledgment</a></li>
+</ul>
+</div>
+<!-- 1  Introduction
+2  Installing Postfix
+  2.1  Mbox Format
+  2.2  Maildir Format
+  2.3  MH Format
+3  Testing the Configuration and Starting the Service
+  3.1  Mail Aliases
+4  Acknowledgment -->
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="#id1">Introduction</a></h1>
+<p>Below I show how to setup a simple mail server (MTA) on your machine
+for local only delivery of local mail. In other words, following the
+instructions below you will be able to receive in your account on the
+local machine the mail sent from the machine itself. This could sound
+silly, but it is useful if you want to receive the mail generated as
+automatic notification by various programs, most notably cron.</p>
+<p>This document was primarily conceived for a Gentoo-based system. It
+can however be adapted with minimal modifications to other
+distributions. Probably the only requirement is to change the gentoo
+package management utility, <cite>emerge</cite>, with the analogous utility found
+on your system.</p>
+<p>Disclaimer for the novice user: The steps described below do not
+interfere with the &quot;mail-retrieving&quot; ability of your mail reading
+software (MUA), which is probably based on IMAP or POP protocols. On
+the other hand, if you want to configure a stand-alone mail server on
+your local machine, i.e. if you want to be able to send email directly
+to the Internet, without relying on the mail server of your Internet
+provider, or if you want to be able to receive mail on your machine,
+again without POP or IMAP connection to your Internet provider mail
+server, this document is NOT for you.</p>
+<p>See the Linux Documentation Project <a class="reference external" href="http://en.tldp.org/HOWTO/Mail-User-HOWTO/">Mail-User-HOWTO</a> for a general
+introduction on mail under Linux.</p>
+</div>
+<div class="section" id="installing-postfix">
+<h1><a class="toc-backref" href="#id2">Installing Postfix</a></h1>
+<p>The standard mail transport agent installed by Gentoo is <cite>ssmtp</cite>. So
+let's unmerge <cite>ssmtp</cite> and merge <cite>postfix</cite> instead:</p>
+<pre class="literal-block">
+emerge --unmerge ssmtp
+emerge postfix
+</pre>
+<p>NOTE: before emerging, enable <cite>mbox</cite> if you intend to use system mail
+spool (/var/spool/mail):</p>
+<pre class="literal-block">
+euse -i mbox
+</pre>
+<p>Once postfix is installed, you need to edit its main configuration
+file, <cite>/etc/postfix/main.cf</cite>, for few modifications. This file is
+rather long, and you must leave it essentially untouched. Below I show
+only the lines that should be modified together with their appropriate
+settings</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/postfix/main.cf</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+myhostname = localhost
+mydomain = localdomain
+inet_interfaces = $myhostname, localhost
+mydestination = $myhostname, localhost.$mydomain, localhost
+mynetworks_style = host
+</pre>
+<p>The first two lines set the name and domain of the mail system to
+special names. The variable <cite>inet_interfaces</cite> lists the network
+interface addresses on which mail are received. The variable
+<cite>mydestination</cite> specifies the list of domains for which the machine
+considers itself the final destination. Modify all these lines to read
+exactly as above.</p>
+<p>Also add the following setting to <cite>/etc/postfix/main.cf</cite> to disable
+the delivery of non-local mail</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/postfix/main.cf</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+default_transport = error:outside mail is not deliverable
+</pre>
+<p>The variable <cite>default_transport</cite> specifies which transport is used to
+deliver non-local mail (by default smtp). With this setting, any mail
+from the outside will bounce back with an error instead of being stuck
+in the mail queue forever.</p>
+<p>In some old postfix versions (notably version 2.2.5) the <cite>main.cf</cite> file
+seems also to require this extra line</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/postfix/main.cf</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+unknown_local_recipient_reject_code = 450
+</pre>
+<p>but this is no longer necessary with newer versions (2.2.10 and
+above).</p>
+<p>As a final step, you have to decide where to store the received mail
+and set accordingly the <cite>home_mailbox</cite> variable in
+<cite>/etc/postfix/main.cf</cite>. Your choice depends on the format you use to
+store your mail. It could also be the case that <cite>home_mailbox</cite> is set
+twice in the default <cite>/etc/postfix/main.cf</cite>, once in the main body of
+the file (where it is commented out) and once on the last line. You
+should fix this so that the value you set does not get overridden by
+the second one.</p>
+<p>Note that is generally acceptable to not specify a home_mailbox if you
+just want postfix to use the system mail spool. Some MUAs, such as
+<cite>mailx</cite>, expect to find new mail in the system mail spool and will not
+notice new mail if it is delivered to a home mailbox.</p>
+<div class="section" id="mbox-format">
+<h2><a class="toc-backref" href="#id3">Mbox Format</a></h2>
+<p>For the mbox format do</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/postfix/main.cf for mbox</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+home_mailbox = Mailbox
+</pre>
+<p>to store all the received mail in the single file Mailbox in your home
+directory.</p>
+</div>
+<div class="section" id="maildir-format">
+<h2><a class="toc-backref" href="#id4">Maildir Format</a></h2>
+<p>If you prefer a maildir format, do</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/postfix/main.cf for maildir</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+home_mailbox = Maildir/
+</pre>
+<p>to store messages in the subdirectory Maildir of your home
+directory. Notice the trailing <cite>/</cite>. It tells postfix to deliver mail
+to a maildir local storage.</p>
+</div>
+<div class="section" id="mh-format">
+<h2><a class="toc-backref" href="#id5">MH Format</a></h2>
+<p>If you prefer MH format to store your mail (for instance, if your are
+a <cite>sylpheed</cite> user, like me) you don't need to add anything to
+<cite>main.cf</cite>. Instead, you need some external help, since postfix does
+not directly manage this format.</p>
+<p>First comment out any line setting <cite>home_mailbox</cite> parameter in
+<cite>main.cf</cite>. Then emerge the powerful set of utilities in
+mail-client/nmh:</p>
+<pre class="literal-block">
+emerge nmh
+</pre>
+<p>and use the command (as regular user):</p>
+<pre class="literal-block">
+install-mh
+</pre>
+<p>to properly configure the package. This command creates the file
+<cite>.mh_profile</cite> in your home directory which defines the subdirectory
+where the received mails should be stored. Let's assume you have
+chosen Mail (which is the <cite>nmh</cite> default) as the directory for your
+mail. Check the position of the rcvstore program on your system, for
+instance using the <cite>locate</cite> utility</p>
+<blockquote>
+locate rcvstore</blockquote>
+<p>Assuming the returned path is <cite>/usr/bin/rcvstore</cite>, create the file
+<cite>.forward</cite> in your home directory containing the single line</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">~/.forward for MH</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+| /usr/bin/rcvstore
+</pre>
+<p>In this way postfix will pass an incoming mail automatically to
+<cite>rcvstore</cite> that, in turns, will store it in <cite>~/Mail/inbox</cite>. If you
+want your message stored in a different folder, let's say in
+<cite>~/Mail/myfolder</cite>, use</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">~/.forward for MH different folder</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+| &quot;/usr/bin/rcvstore +myfolder&quot;
+</pre>
+</div>
+</div>
+<div class="section" id="testing-the-configuration-and-starting-the-service">
+<h1><a class="toc-backref" href="#id6">Testing the Configuration and Starting the Service</a></h1>
+<p>When the configuration is complete you can check if everything is set
+properly using:</p>
+<pre class="literal-block">
+postfix upgrade-configuration
+postfix check
+</pre>
+<p>Also don't forget to run:</p>
+<pre class="literal-block">
+newaliases
+</pre>
+<p>even if you didn't modify <cite>/etc/mail/aliases</cite>, as Postfix will not
+operate properly without the alias database <cite>/etc/mail/aliases.db</cite>.</p>
+<p>If everything is OK do not forget to start the service:</p>
+<pre class="literal-block">
+/etc/init.d/postfix start
+</pre>
+<p>and add it to the default runlevel:</p>
+<pre class="literal-block">
+rc-update add postfix default
+</pre>
+<p>As a final check, try to send an email to yourself. For instance,
+using the mailto program distributed in <cite>metamail</cite> package do:</p>
+<pre class="literal-block">
+mailto username
+</pre>
+<p>or:</p>
+<pre class="literal-block">
+mailto username&#64;localhost.localdomain
+</pre>
+<p>where username is your user name.</p>
+<div class="section" id="mail-aliases">
+<h2><a class="toc-backref" href="#id7">Mail Aliases</a></h2>
+<p>If you don't want to become root in order to check the mail
+automatically delivered to you by various programs (for instance by
+cron) it would be a good idea to make your aliases in
+<cite>/etc/mail/aliases</cite>. Edit this file and set the root and operator
+according to</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/mail/aliases</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+root:               username
+operator:           username
+</pre>
+<p>After, do not forget to update the alias database with newaliases. You
+can check if the alias works by sending an email to root:</p>
+<pre class="literal-block">
+mailto root
+</pre>
+<p>The message should appear in your personal inbox. The <cite>mailto</cite> command
+is part of the <cite>metamail</cite> package, install it using:</p>
+<pre class="literal-block">
+emerge metamail
+</pre>
+</div>
+</div>
+<div class="section" id="acknowledgment">
+<h1><a class="toc-backref" href="#id8">Acknowledgment</a></h1>
+<p>This document is largely based on the discussion in
+<a class="reference external" href="http://forums.gentoo.org/viewtopic.php?t=61606">http://forums.gentoo.org/viewtopic.php?t=61606</a> .  It was originally
+posted in the Gentoo Wiki site. Following the crash of the said site,
+and since I was the original author, I decided to move it on my
+personal web page. Even if I removed several later additions made by
+people on the Gentoo wiki version, it is quite possible that the
+present text contains quite a few improvements by different
+people. I'm not able to give proper credit to single contributors,
+nevertheless I want to express my gratitude for their corrections and
+suggestions.</p>
+</div>
+</div>
+</body>
+</html>

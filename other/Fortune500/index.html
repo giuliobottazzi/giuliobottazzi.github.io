@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fortune 500 data for size distribution analysis</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../other.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Fortune 500 data for size distribution analysis</h1>
+<p>
+In 2006, for the investigation of the goodness-of-fit of the Pareto
+Type III distribution, I manually downloaded the annual revenues of
+the top 500 firms in the Fortune database. You can download the
+compressed test file <a href="fortune_2006.txt.gz">Fortune 500</a>.
+</p>
+
+<p>
+This file was further processed to obtain the distribution of
+revenues, available <a href="fortune_2006_size.txt.gz">here</a>. These data can be directly used with the
+gbhill utility in the <a href="../../software/gbutils/index.html">gbutils package</a>. For instance the command
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">gbhill pareto1 1 10 -v 1 -O 0 -u .05 &lt; fortune_2006_size.txt.gz
+</pre>
+</div>
+<p>
+will print the estimated upper tail behavior of the dataset using
+observations in the top 5%.
+</p>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,289 @@
+.. -*- Mode: rst -*-
+
+=================================
+Postfix Setup for Local Mail Only
+=================================
+
+:Authors:   Giulio Bottazzi 
+:Contact:   <giulio.bottazzi@libero.it>
+:Date:      18 January 2011
+
+.. Contents::
+
+.. 1  Introduction
+   2  Installing Postfix
+     2.1  Mbox Format
+     2.2  Maildir Format
+     2.3  MH Format
+   3  Testing the Configuration and Starting the Service
+     3.1  Mail Aliases
+   4  Acknowledgment
+
+
+Introduction
+============
+
+Below I show how to setup a simple mail server (MTA) on your machine
+for local only delivery of local mail. In other words, following the
+instructions below you will be able to receive in your account on the
+local machine the mail sent from the machine itself. This could sound
+silly, but it is useful if you want to receive the mail generated as
+automatic notification by various programs, most notably cron.
+
+This document was primarily conceived for a Gentoo-based system. It
+can however be adapted with minimal modifications to other
+distributions. Probably the only requirement is to change the gentoo
+package management utility, `emerge`, with the analogous utility found
+on your system.
+
+Disclaimer for the novice user: The steps described below do not
+interfere with the "mail-retrieving" ability of your mail reading
+software (MUA), which is probably based on IMAP or POP protocols. On
+the other hand, if you want to configure a stand-alone mail server on
+your local machine, i.e. if you want to be able to send email directly
+to the Internet, without relying on the mail server of your Internet
+provider, or if you want to be able to receive mail on your machine,
+again without POP or IMAP connection to your Internet provider mail
+server, this document is NOT for you.
+
+See the Linux Documentation Project Mail-User-HOWTO_ for a general
+introduction on mail under Linux.
+
+.. _Mail-User-HOWTO: http://en.tldp.org/HOWTO/Mail-User-HOWTO/
+
+
+
+Installing Postfix
+==================
+
+
+The standard mail transport agent installed by Gentoo is `ssmtp`. So
+let's unmerge `ssmtp` and merge `postfix` instead::
+
+ emerge --unmerge ssmtp
+ emerge postfix
+
+NOTE: before emerging, enable `mbox` if you intend to use system mail
+spool (/var/spool/mail)::
+
+ euse -i mbox
+ 
+
+Once postfix is installed, you need to edit its main configuration
+file, `/etc/postfix/main.cf`, for few modifications. This file is
+rather long, and you must leave it essentially untouched. Below I show
+only the lines that should be modified together with their appropriate
+settings
+
+:File: /etc/postfix/main.cf
+
+::
+
+ myhostname = localhost
+ mydomain = localdomain
+ inet_interfaces = $myhostname, localhost
+ mydestination = $myhostname, localhost.$mydomain, localhost
+ mynetworks_style = host
+
+The first two lines set the name and domain of the mail system to
+special names. The variable `inet_interfaces` lists the network
+interface addresses on which mail are received. The variable
+`mydestination` specifies the list of domains for which the machine
+considers itself the final destination. Modify all these lines to read
+exactly as above.
+
+Also add the following setting to `/etc/postfix/main.cf` to disable
+the delivery of non-local mail
+
+:File: /etc/postfix/main.cf
+
+::
+
+ default_transport = error:outside mail is not deliverable
+
+The variable `default_transport` specifies which transport is used to
+deliver non-local mail (by default smtp). With this setting, any mail
+from the outside will bounce back with an error instead of being stuck
+in the mail queue forever.
+
+In some old postfix versions (notably version 2.2.5) the `main.cf` file
+seems also to require this extra line
+
+:File: /etc/postfix/main.cf
+
+::
+
+ unknown_local_recipient_reject_code = 450
+
+but this is no longer necessary with newer versions (2.2.10 and
+above).
+
+As a final step, you have to decide where to store the received mail
+and set accordingly the `home_mailbox` variable in
+`/etc/postfix/main.cf`. Your choice depends on the format you use to
+store your mail. It could also be the case that `home_mailbox` is set
+twice in the default `/etc/postfix/main.cf`, once in the main body of
+the file (where it is commented out) and once on the last line. You
+should fix this so that the value you set does not get overridden by
+the second one.
+
+Note that is generally acceptable to not specify a home_mailbox if you
+just want postfix to use the system mail spool. Some MUAs, such as
+`mailx`, expect to find new mail in the system mail spool and will not
+notice new mail if it is delivered to a home mailbox.
+
+Mbox Format
+-----------
+
+For the mbox format do
+
+:File: /etc/postfix/main.cf for mbox
+
+::
+
+ home_mailbox = Mailbox
+
+to store all the received mail in the single file Mailbox in your home
+directory.
+
+Maildir Format
+--------------
+
+If you prefer a maildir format, do
+
+:File: /etc/postfix/main.cf for maildir
+
+::
+
+ home_mailbox = Maildir/
+
+to store messages in the subdirectory Maildir of your home
+directory. Notice the trailing `/`. It tells postfix to deliver mail
+to a maildir local storage.
+
+
+MH Format
+---------
+
+If you prefer MH format to store your mail (for instance, if your are
+a `sylpheed` user, like me) you don't need to add anything to
+`main.cf`. Instead, you need some external help, since postfix does
+not directly manage this format.
+
+First comment out any line setting `home_mailbox` parameter in
+`main.cf`. Then emerge the powerful set of utilities in
+mail-client/nmh::
+
+ emerge nmh
+
+and use the command (as regular user)::
+
+ install-mh
+
+to properly configure the package. This command creates the file
+`.mh_profile` in your home directory which defines the subdirectory
+where the received mails should be stored. Let's assume you have
+chosen Mail (which is the `nmh` default) as the directory for your
+mail. Check the position of the rcvstore program on your system, for
+instance using the `locate` utility
+
+ locate rcvstore
+
+Assuming the returned path is `/usr/bin/rcvstore`, create the file
+`.forward` in your home directory containing the single line
+
+:File: ~/.forward for MH
+
+::
+
+ | /usr/bin/rcvstore
+
+
+In this way postfix will pass an incoming mail automatically to
+`rcvstore` that, in turns, will store it in `~/Mail/inbox`. If you
+want your message stored in a different folder, let's say in
+`~/Mail/myfolder`, use
+
+:File: ~/.forward for MH different folder
+
+::
+
+ | "/usr/bin/rcvstore +myfolder"
+
+
+Testing the Configuration and Starting the Service
+==================================================
+
+When the configuration is complete you can check if everything is set
+properly using::
+
+ postfix upgrade-configuration
+ postfix check
+
+Also don't forget to run::
+
+ newaliases
+
+even if you didn't modify `/etc/mail/aliases`, as Postfix will not
+operate properly without the alias database `/etc/mail/aliases.db`.
+
+If everything is OK do not forget to start the service::
+
+ /etc/init.d/postfix start
+
+and add it to the default runlevel::
+
+ rc-update add postfix default
+
+As a final check, try to send an email to yourself. For instance,
+using the mailto program distributed in `metamail` package do::
+
+ mailto username
+
+or::
+
+ mailto username@localhost.localdomain
+
+where username is your user name.
+
+
+Mail Aliases
+------------
+
+If you don't want to become root in order to check the mail
+automatically delivered to you by various programs (for instance by
+cron) it would be a good idea to make your aliases in
+`/etc/mail/aliases`. Edit this file and set the root and operator
+according to
+
+:File: /etc/mail/aliases
+
+::
+
+ root:               username
+ operator:           username
+
+After, do not forget to update the alias database with newaliases. You
+can check if the alias works by sending an email to root::
+
+ mailto root
+
+The message should appear in your personal inbox. The `mailto` command
+is part of the `metamail` package, install it using::
+
+ emerge metamail
+
+
+Acknowledgment
+==============
+
+This document is largely based on the discussion in
+http://forums.gentoo.org/viewtopic.php?t=61606 .  It was originally
+posted in the Gentoo Wiki site. Following the crash of the said site,
+and since I was the original author, I decided to move it on my
+personal web page. Even if I removed several later additions made by
+people on the Gentoo wiki version, it is quite possible that the
+present text contains quite a few improvements by different
+people. I'm not able to give proper credit to single contributors,
+nevertheless I want to express my gratitude for their corrections and
+suggestions.

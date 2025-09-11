@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title>XDM Customization</title>
+<meta name="authors" content="Giulio Bottazzi" />
+<meta name="date" content="13 March 2008" />
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:date: $Date: 2007/05/08 14:29:12 $
+:version: $Revision: 1.1.1.1 $
+:copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the PEP HTML output of Docutils.
+*/
+
+.first {
+  margin-top: 0 }
+
+.last {
+  margin-bottom: 0 }
+
+.navigation {
+  width: 100% ;
+  background: #99ccff ;
+  margin-top: 0px ;
+  margin-bottom: 0px }
+
+.navigation .navicon {
+  width: 150px ;
+  height: 35px }
+
+.navigation .textlinks {
+  padding-left: 1em ;
+  text-align: left }
+
+.navigation td, .navigation th {
+  padding-left: 0em ;
+  padding-right: 0em ;
+  vertical-align: middle }
+
+.rfc2822 {
+  margin-top: 0.5em ;
+  margin-left: 0.5em ;
+  margin-right: 0.5em ;
+  margin-bottom: 0em }
+
+.rfc2822 td {
+  text-align: left }
+
+.rfc2822 th.field-name {
+  text-align: right ;
+  font-family: sans-serif ;
+  padding-right: 0.5em ;
+  font-weight: bold ;
+  margin-bottom: 0em }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+body {
+  margin: 0px ;
+  margin-bottom: 1em ;
+  padding: 0px }
+
+dd {
+  margin-bottom: 0.5em }
+
+div.section {
+  margin-left: 1em ;
+  margin-right: 1em ;
+  margin-bottom: 1.5em }
+
+div.section div.section {
+  margin-left: 0em ;
+  margin-right: 0em ;
+  margin-top: 1.5em }
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.hint p.admonition-title, div.important p.admonition-title,
+div.note p.admonition-title, div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.figure {
+  margin-left: 2em }
+
+div.footer, div.header {
+  font-size: smaller }
+
+div.footer {
+  margin-left: 1em ;
+  margin-right: 1em }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1 {
+  font-family: sans-serif ;
+  font-size: large }
+
+h2 {
+  font-family: sans-serif ;
+  font-size: medium }
+
+h3 {
+  font-family: sans-serif ;
+  font-size: small }
+
+h4 {
+  font-family: sans-serif ;
+  font-style: italic ;
+  font-size: small }
+
+h5 {
+  font-family: sans-serif;
+  font-size: x-small }
+
+h6 {
+  font-family: sans-serif;
+  font-style: italic ;
+  font-size: x-small }
+
+.section hr {
+  width: 75% }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.topic-title {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+pre.line-block {
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option-argument {
+  font-style: italic }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+table {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+td, th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+td.num {
+  text-align: right }
+
+th.field-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap }
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100% }
+
+tt {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="xdm-customization">
+<h1 class="title">XDM Customization</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Authors:</th>
+<td>Giulio Bottazzi</td></tr>
+<tr><th class="docinfo-name">Contact:</th>
+<td>&lt;<a class="reference external" href="mailto:giulio.bottazzi&#64;libero.it">giulio.bottazzi&#64;libero.it</a>&gt;</td></tr>
+<tr><th class="docinfo-name">Date:</th>
+<td>13 March 2008</td></tr>
+</tbody>
+</table>
+<!-- -*- Mode: rst -*- -->
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#introduction" id="id1">Introduction</a></li>
+<li><a class="reference internal" href="#xdm-configuration" id="id2">XDM Configuration</a><ul>
+<li><a class="reference internal" href="#starting-the-necessary-programs" id="id3">Starting the necessary programs</a></li>
+<li><a class="reference internal" href="#customize-the-programs-behavior" id="id4">Customize the programs behavior</a></li>
+<li><a class="reference internal" href="#cleaning-up" id="id5">Cleaning up</a></li>
+<li><a class="reference internal" href="#set-permissions" id="id6">Set Permissions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#restarting-xdm" id="id7">Restarting XDM</a></li>
+<li><a class="reference internal" href="#extending-the-xdm-configuration" id="id8">Extending the XDM configuration</a><ul>
+<li><a class="reference internal" href="#performing-simple-tasks-with-xmessage" id="id9">Performing simple tasks with xmessage</a></li>
+<li><a class="reference internal" href="#selecting-among-different-window-managers" id="id10">Selecting among different window managers</a></li>
+<li><a class="reference internal" href="#taking-a-screenshot-of-the-login-screen" id="id11">Taking a screenshot of the login screen</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#acknowledgment" id="id12">Acknowledgment</a></li>
+</ul>
+</div>
+<!-- 1  Introduction
+2  XDM Configuration
+  2.1  Starting the necessary programs
+  2.2  Customize the programs behavior
+  2.3  Cleaning up
+  2.4  Set Permissions
+3  Restarting XDM
+4  Extending the XDM configuration
+  4.1  Performing simple tasks with xmessage
+  4.2  Selecting among different window managers
+  4.3  Taking a screenshot of the login screen
+5  Acknowledgment -->
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="#id1">Introduction</a></h1>
+<p>Since I tend to use lightweight Windows Managers and Desktop
+Environments (like xfce4) I usually prefer not to bloat my system with
+behemoth Display Managers (like GDM or KDM) but to use the simpler
+(and smaller) XDM, which is typically distributed together with xorg.</p>
+<p>The default setup of this program does however produce a pretty ugly
+(minimalistic, somebody would say) login graphic interface, and after
+a while one might be tempted to switch to one of its largest cousins
+just to have some color on the screen.</p>
+<p>The purpose of this little document is simply to show that this is not
+necessary. With some minimal configuration effort, you can obtain an
+acceptable, colorful (and, to some extent, feature-full) login
+interface using XDM.</p>
+<p>Disclaimer: I'm not a Desktop artist nor a X Window hacker. So don't
+expect to find here hyper-advanced and hyper-specialized hints on how
+to create the Ultimate Display Manager Configuration. This is not the
+purpose of this document.</p>
+</div>
+<div class="section" id="xdm-configuration">
+<h1><a class="toc-backref" href="#id2">XDM Configuration</a></h1>
+<p>The configuration files and the scripts used by XDM can be found in
+<cite>/etc/X11/ xdm/</cite>. If you inspect this directory, you see that there is
+a number of them.</p>
+<p>They are all described in the XDM man page:</p>
+<pre class="literal-block">
+$ man xdm
+</pre>
+<p>but for the present purpose we are going to modify only one of them,
+namely <cite>/ etc/X11/xdm/xdm-config</cite>. This is the main configuration
+file. It defines which files are used by xdm to perform its different
+activities. Edit the file and modify these three lines (if you want,
+you may comment the original lines so that everything can be more
+easily recovered)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/xdm-config</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+...
+DisplayManager._0.setup:        /etc/X11/xdm/Xsetup_my
+...
+DisplayManager._0.startup:      /etc/X11/xdm/GiveConsole_my
+...
+DisplayManager*resources:       /etc/X11/xdm/Xresources_my
+...
+</pre>
+<p>in this way we instruct XDM to use a different set of files to display
+the graphic login. In order to reduce the interactions with portage
+and its automatic management of configuration files it is better to
+write new files and leave the default ones untouched.</p>
+<p>Three files have to be written. <cite>/etc/X11/xdm/Xsetup_my</cite> is a script,
+run by XDM, to setup the various application which populate the login
+screen.  <cite>/etc/X11/xdm/GiveConsole_my</cite> is a file run by XDM when a
+user successfully logs in; we will use it to clean the screen from all
+applications before passing the command to the user.</p>
+<p>Finally, in <cite>/etc/X11/xdm/Xresources_my</cite> are listed the resources
+which affect the behavior of the various programs run by XDM. We will
+use it to tune the windows appearance.</p>
+<div class="section" id="starting-the-necessary-programs">
+<h2><a class="toc-backref" href="#id3">Starting the necessary programs</a></h2>
+<p><cite>/etc/X11/xdm/Xsetup_my</cite> starts various programs that will appear on
+the graphic login screen. Its typical use is to display an image on
+the root window. But you can, in principle, do all the things you do
+inside an X session. We will stick here to a bare minimum. This is the
+file I use</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/Xsetup_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+#--- set a fullscreen image in background
+
+xloadimage -onroot -quiet -fullscreen /etc/X11/xdm/background_my.jpg
+
+#--- log messages in background
+root-tail -f -geometry 500x150-10+10 -fn fixed /var/log/messages,purple
+
+#--- set Shutdown/Reboot buttons
+(
+xmessage -buttons Shutdown:20,Reboot:21 &quot;&quot; ;
+case $? in
+ 20)
+ exec /sbin/poweroff;;
+ 21)
+ exec /sbin/reboot;;
+ *)
+ echo &quot;Xmessage closed on `date`&quot;;;
+esac
+)&amp;
+</pre>
+<p>First, it places the image <cite>/etc/X11/xdm/background_my.jpg</cite> on the
+root window (background) using <cite>xloadimage</cite>. Modify this line to point
+to the image you intend to use. <cite>xloadimage</cite> is rather common but
+alternatives exist such as <cite>xsri</cite>. Second, it uses root-tail to
+display a running log of the system messages in the background. Notice
+that this is a possible security weakness, so use it only in
+relatively safe environment. Third, it spawns a sub-shell (this is the
+meaning of <tt class="docutils literal"><span class="pre">(...)&amp;</span></tt>) which uses the simple utility <cite>xmessage</cite> to
+display a couple of buttons on the screen. This utility is in general
+not included in xorg by default. Check it and in case install it using
+the software management system provided by your distribution of
+choice. All these programs are highly configurable and possess a lot
+of options. Please refer to their manual pages for further details.</p>
+<p>In addition to the programs explicitly started by
+<cite>/etc/X11/xdm/Xsetup_my</cite>, XDM will also place on the screen an
+authentication widget, that is a window where users can enter their
+<cite>username</cite> and <cite>password</cite> to authenticate themselves.  That's all for
+the first file. Let's now move to <cite>/etc/X11/xdm/Xresources_my</cite>.  This
+file is extremely important, because it defines the way in which the
+various windows generated by the previous programs are actually
+displayed.</p>
+</div>
+<div class="section" id="customize-the-programs-behavior">
+<h2><a class="toc-backref" href="#id4">Customize the programs behavior</a></h2>
+<p>The default configuration file distributed with xorg is quite
+complicated, since it must fulfill the requirement to be generic,
+i.e. to provide a consistent configuration of the login screen for X
+servers with different characteristics.</p>
+<p>In particular, it contains different sections (separated by <tt class="docutils literal"><span class="pre">#if...</span></tt>
+statements) that apply to different screen resolutions and color
+depths. Since we are building a customized version of it, we can avoid
+these complications and simply tune the configuration to our
+particular needs. In what follows I will assume that a color monitor
+is in use with a resolution of 1600x1220 (that was my home monitor
+resolution when I drafted this document). If this is not your case,
+please apply the necessary modifications.</p>
+<p>Let's start with the configuration of the authentication widget,
+called xlogin.  First, you have to configure the capability of the
+widget as an editor. It is a good idea to just cut-and-paste from the
+default configuration in <cite>/etc/X11/xdm/ Xresources</cite> to have</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/Xresources_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+! bind actions to particular keys sequences
+! -----------------------------------------
+
+xlogin*login.translations: #override \
+        Ctrl&lt;Key&gt;R: abort-display()\n\
+        &lt;Key&gt;F1: set-session-argument(failsafe) finish-field()\n\
+        &lt;Key&gt;Delete: delete-character()\n\
+        &lt;Key&gt;Left: move-backward-character()\n\
+        &lt;Key&gt;Right: move-forward-character()\n\
+        &lt;Key&gt;Home: move-to-begining()\n\
+        &lt;Key&gt;End: move-to-end()\n\
+        Ctrl&lt;Key&gt;KP_Enter: set-session-argument(failsafe) finish-field()\n\
+        &lt;Key&gt;KP_Enter: set-session-argument() finish-field()\n\
+        Ctrl&lt;Key&gt;Return: set-session-argument(failsafe) finish-field()\n\
+        &lt;Key&gt;Return: set-session-argument() finish-field()
+</pre>
+<p>Then we have to decide the position and color, in my case I did</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/Xresources_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+! position
+xlogin.geometry: 430x200+180+10
+
+! colors
+xlogin*background:  white
+xlogin*foreground:  darkgray
+xlogin*greetColor:  darkgray
+xlogin*promptColor: darkgray
+xlogin*failColor:   red
+</pre>
+<p>to have a login widget of 430 pixels width and 200 pixels height
+placed near the upper left corner (+180+10). The background color is
+white while all the text (greetings and prompts) are displayed in dark
+gray. If the user fails the authentication, a message is displayed in
+red.</p>
+<p>The next stanza configures the text of the different messages (greetings and
+prompts) and the font used to display them</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/Xresources_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+! prompts
+Xlogin*titleMessage:     Xlogin
+xlogin*greeting:         Welcome to CLIENTHOST! Authentication required
+xlogin*namePrompt:       Username:\040
+xlogin*passwdPrompt:     Password:\040
+xlogin*fail:             -- Permission Denied --
+
+! fonts
+xlogin*font:       -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+xlogin*greetFont:  -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+xlogin*promptFont: -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+xlogin*failFont:   -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+
+xlogin*greetFace:       Comic Sans MS-16
+xlogin*face:            Comic Sans MS-16
+xlogin*promptFace:      Comic Sans MS-16
+xlogin*failFace:        Comic Sans MS-16
+</pre>
+<p>I used an homogeneous font, 16pt comic sans, but you can of course
+choose whatever font you want. In addition to the canonical
+specification of X fonts, I have also added the xft version using the
+<cite>*Face</cite> resources. These resources are used by the most recent version
+of XDM (ver. &gt;= 1.1.4).</p>
+<p>Notice the particular sequence <cite>040`</cite> in the prompts definition. It
+stands for an empty character and I use it to separate by one space
+the cursor from the colons at the end of the prompts. Finally, you can
+customize the external borders and the internal frames of the
+widget. I choose simplicity, with</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/Xresources_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+! shape
+xlogin*borderWidth:      0
+xlogin*frameWidth:       0
+xlogin*innerFramesWidth: 0
+</pre>
+<p>There are many more options you can decide to set, for a long list see
+the XDM man page, but this is enough for me. The next step is to tune
+the apparence of the xmessage windows, where the Shutdown and Reboot
+buttons are displayed. The property of this window (that is size,
+position, colors and fonts) can be again specified using a list of
+resources. My choice is</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/Xresources_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+! xmessage resources
+! ==================
+
+Xmessage*geometry:              150x30+1100+1160
+Xmessage*background:            white
+Xmessage*foreground:            darkgrey
+Xmessage*Font:                  -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+Xmessage*borderWidth:           0
+
+Xmessage*message.scrollVertical:        Never
+Xmessage*message.scrollHorizontal:      Never
+
+Xmessage*Text*background:       white
+Xmessage*Text*foreground:       darkgrey
+Xmessage*Text.borderColor:      white
+Xmessage*Text.borderWidth:      0
+Xmessage*Text*font:             -microsoft-comic sans ms-medium-r-normal--16-*-100-100-p-*-iso8859-15
+</pre>
+<p>Notice that I removed both horizontal and vertical scrollbars (with
+<tt class="docutils literal"><span class="pre">Never</span></tt>) and, for consistency, I set the font to the same used by
+the xlogin window. Finally, if you use XDM also for remote
+connections, you should provide some configuration for the chooser
+window. Remote connections can be a thorny issue, and it is clearly
+outside the scope of this document, so I just cut-and-paste from the
+default resource file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/Xresources_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+! chooser resources
+! ==================
+
+Chooser*geometry:               700x500+300+200
+Chooser*allowShellResize:       false
+Chooser*viewport.forceBars:     true
+Chooser*label.font:             *-new century schoolbook-bold-i-normal-*-240-*
+Chooser*label.label:            XDMCP Host Menu from CLIENTHOST
+Chooser*list.font:              -*-*-medium-r-normal-*-*-230-*-*-c-*-iso8859-1
+Chooser*Command.font:           *-new century schoolbook-bold-r-normal-*-180-*
+</pre>
+</div>
+<div class="section" id="cleaning-up">
+<h2><a class="toc-backref" href="#id5">Cleaning up</a></h2>
+<p>After a successful login, the control of the X server is given to the
+user. Before this, however, we have to clean the screen from the
+application we started before. This is the job of the last file we
+have to write <tt class="docutils literal"><span class="pre">/etc/X11/xdm/</span> <span class="pre">GiveConsole_my</span></tt>. The idea is simple:
+take the default file /etc/X11/xdm/ GiveConsole_my and just add kill
+statements to remove all the applications started by
+<tt class="docutils literal"><span class="pre">/etc/X11/xdm/Xsetup_my</span></tt></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/GiveConsole_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+#remove root-tail
+killall root-tail
+
+#remove the xmessage buttons
+killall xmessage
+
+chown $USER /dev/console
+</pre>
+<p>I have seen more sophisticated things around, like storing the PID of
+the different programs and use a more selective kill statement to kill
+them, but, for me, this script does perfectly the job.</p>
+</div>
+<div class="section" id="set-permissions">
+<h2><a class="toc-backref" href="#id6">Set Permissions</a></h2>
+<p>You should also set permissions to <tt class="docutils literal"><span class="pre">/etc/X11/xdm/Xsetup_my</span></tt> and
+<tt class="docutils literal"><span class="pre">/etc/X11/</span> <span class="pre">GiveConsole_my</span></tt>:</p>
+<pre class="literal-block">
+chmod 755 /etc/X11/xdm/Xsetup_my
+chmod 755 /etc/X11/xdm/GiveConsole_my
+</pre>
+</div>
+</div>
+<div class="section" id="restarting-xdm">
+<h1><a class="toc-backref" href="#id7">Restarting XDM</a></h1>
+<p>When all this editing is over, you can restart XDM:</p>
+<pre class="literal-block">
+#/etc/init.d/xdm restart
+</pre>
+<p>and enjoy the result. This is a <a class="reference external" href="../img/screen.jpg">screenshot</a> of what I got on my laptop
+with the configuration above</p>
+<p>as you can see, in my case the <cite>xmessage</cite> windows contain some extra
+buttons. I'll explain how to add them below. The rest of the image
+should be similar to what you obtain on your computer (apart the
+background window, of course).</p>
+</div>
+<div class="section" id="extending-the-xdm-configuration">
+<h1><a class="toc-backref" href="#id8">Extending the XDM configuration</a></h1>
+<p>The simple login screen described above can be easily extended in
+several ways.  It is quite strighforward to start new programs by
+adding them to <tt class="docutils literal"><span class="pre">/etc/X11/xdm/</span> <span class="pre">Xsetup_my</span></tt>. Just remember to add the
+necessary configuration (X resources) in
+<tt class="docutils literal"><span class="pre">/etc/X11/xdm/Xresources_my</span></tt> and maybe to stop them in
+<tt class="docutils literal"><span class="pre">/etc/X11/xdm/</span> <span class="pre">GiveConsole_my</span></tt>. Another possibility, which I want to
+briefly explain, is to add more buttons to the xmessage windows in
+order to perform simple tasks directly from the login windows.</p>
+<div class="section" id="performing-simple-tasks-with-xmessage">
+<h2><a class="toc-backref" href="#id9">Performing simple tasks with xmessage</a></h2>
+<p>By adding more buttons to the xmessage windows and linking them to
+simple actions, it is possible to manage the system before logging in
+to it. I'm going to show you how to do that with an example I found
+rather useful: switching the network interfaces from the login
+screen. Doing it this way is in general faster then logging in to the
+system and starting a root console. Basically, we are going to exploit
+the fact that any command issued by the <cite>/etc/X11/xdm/ Xsetup_my</cite> is
+executed with root privileges.</p>
+<p>The first step is to modify the way in which we call xmessage. In order to have
+it permanently on the login screen, we insert it in a while loop. At the same
+time we add to it two new buttons. This is the code snippet</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/Xsetup_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+(
+EXIT=0
+
+while [[ &quot;$EXIT&quot; == &quot;0&quot; ]]; do
+
+  xmessage -buttons Shutdown:20,Reboot:21,eth0:23,eth1:24 &quot;&quot; ;
+  CONTROL=$?;
+  if [ &quot;$CONTROL&quot; = 20 ] ; then
+    /sbin/shutdown -h now 2&gt;/dev/console &gt;/dev/console;
+  elif [ &quot;$CONTROL&quot; = 21 ] ; then
+    /sbin/shutdown -r now 2&gt;/dev/console &gt;/dev/console;
+  elif [ &quot;$CONTROL&quot; = 23 ] ; then
+    if /etc/init.d/net.eth0 status &gt; /dev/null ; then
+      #double quotes prevent pathname expansion
+      xmessage -geometry 600x90 -center &quot;$(/etc/init.d/net.eth0 stop)&quot;
+    else
+      xmessage -geometry 600x90 -center &quot;$(/etc/init.d/net.eth0 start)&quot;
+    fi
+  elif [ &quot;$CONTROL&quot; = 24 ] ; then
+    if /etc/init.d/net.eth1 status &gt; /dev/null ; then
+      #double quotes prevent pathname expansion
+      xmessage -geometry 600x90 -center &quot;$(/etc/init.d/net.eth1 stop)&quot;
+    else
+      xmessage -geometry 600x90 -center &quot;$(/etc/init.d/net.eth1 start)&quot;
+    fi
+  else
+    EXIT=1
+    echo &quot;Xessage closed on `date`&quot;;
+  fi
+
+done
+)&amp;
+</pre>
+<p>which replaces what was previously inserted between the <tt class="docutils literal"><span class="pre">(</span></tt> and
+<tt class="docutils literal"><span class="pre">)&amp;</span></tt>. Notice that we use xmessage to display, inside a window, the
+output of the invoked programs. The name of the network interfaces is
+probably different on your system, so don't forget to tailor this
+script to your needs.  Finally, we have to reset the X resources of
+the program to make room for the new buttons. I modified
+<tt class="docutils literal"><span class="pre">/etc/X11/xdm/Xresources_my</span></tt> in the following way</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/Xresources_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+Xmessage*geometry:              240x30+1100+1160
+</pre>
+</div>
+<div class="section" id="selecting-among-different-window-managers">
+<h2><a class="toc-backref" href="#id10">Selecting among different window managers</a></h2>
+<p>It is possible to select wich Window Manager to use during the login
+session by remapping special function keys. This is done in the file
+<cite>/etc/X11/xdm/Xresources</cite> by adding extra lines to the
+<cite>xlogin*login.translations</cite> definition. Add the following lines (the
+dots stands for already exiting lines; left them untouched)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/Xresources_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+xlogin*login.translations: #override\
+...
+&lt;Key&gt;F1: set-session-argument(failsafe) finish-field()\n\
+&lt;Key&gt;F2: set-session-argument(wmaker) finish-field()\n\
+&lt;Key&gt;F3: set-session-argument(afterstep) finish-field()\n\
+&lt;Key&gt;F4: set-session-argument(startkde) finish-field()\n\
+&lt;Key&gt;F5: set-session-argument(fvwm) finish-field()\n\
+&lt;Key&gt;F6: set-session-argument(enlightenment) finish-field()\n\
+&lt;Key&gt;F7: set-session-argument(blackbox) finish-field()\n\
+...
+</pre>
+<p>To select a particular Window Manager, you write your name and the
+password and, instead of pressing 'return', you press the
+corresponding function key.</p>
+</div>
+<div class="section" id="taking-a-screenshot-of-the-login-screen">
+<h2><a class="toc-backref" href="#id11">Taking a screenshot of the login screen</a></h2>
+<p>To take an screenshot of the login screen, add the following line in
+<cite>/etc/X11/xdm/Xsetup_my</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/X11/xdm/Xsetup_my</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+sleep 15 &amp;&amp; import -w root /tmp/xdm.jpg &amp;
+</pre>
+</div>
+</div>
+<div class="section" id="acknowledgment">
+<h1><a class="toc-backref" href="#id12">Acknowledgment</a></h1>
+<p>This document was originally posted in the Gentoo Wiki site. Following
+the crash of the said site, and since I was the original author, I
+decided to move it on my personal web page. Even if I removed several
+later additions made by people on the Gentoo wiki version, it is quite
+possible that the present text contains many improvements by different
+people. I'm not able to give proper credit to single contributors,
+nevertheless I want to express my gratitude for their corrections and
+suggestions.</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>gbtestdisk</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../other.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">gbtestdisk</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgef591cc">Introduction</a></li>
+<li><a href="#org138bd1c">Installation and use</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgef591cc" class="outline-2">
+<h2 id="orgef591cc">Introduction</h2>
+<div class="outline-text-2" id="text-orgef591cc">
+<p>
+An important aspect of computer performance is the spead with which
+data are written to and read from the hard drive. To test hard drive
+speed I put together a little shell script, <code>gbtestdisk</code>. It measures
+the speed for synchronous writing and reading using the 'dd'
+command. Notice that this is an high level measure, that is it also
+takes into consideration the file system, the system buses and all
+other possible bottlenecks. For this reason, rates reported by this
+script are in general lower than the ones directly reported by
+dd. Indeed the rate reported by dd represents the rate without any lag
+or synch time. Time estimations by this script are a better
+approximation of the time effectively used by a program to open a
+file, write or read the content and close it. In this respect its
+measure should be a good approximation of the actual performances
+observed by the user.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org138bd1c" class="outline-2">
+<h2 id="org138bd1c">Installation and use</h2>
+<div class="outline-text-2" id="text-org138bd1c">
+<p>
+To use it, simply download <a href="gbtestdisk">the file</a>, move it in a directory with write
+permission and run the script to test the speed of the partition this
+directory belongs to. Depending on the directory where you place it,
+the script might require root permission, so be prepared to insert the
+appropriate password. The script accepts the following options
+</p>
+<pre class="example">
+-h print this help
+-c number of MB of the file size
+-r number of executions of the write/read cycle
+-v verbose output: print information about the performed tests
+</pre>
+<p>
+For instance to check the write, read and cache read for a file of 64
+MByte use
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">gbtestdisk -c 64 -v
+</pre>
+</div>
+<p>
+The output should be something like (this is the result on my laptop)
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #b22222;">#       </span><span style="color: #b22222;">write MB/s      read MB/s       cache MB/s</span>
+max     170.212000      180.790000      2782.608000
+min     33.437000       175.824000      2285.714000
+avg     106.007400      179.391200      2570.997600
+</pre>
+</div>
+
+<p>
+Typically the time necessary to write a file to the disk or to read it
+depends on its size. The two pictures below show how the
+writing/readings speed change with file size.
+</p>
+
+
+<div class="figure">
+<p><img src="gbtestdisk_laptop.png" alt="gbtestdisk_laptop.png" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="gbtestdisk_desktop.png" alt="gbtestdisk_desktop.png" />
+</p>
+</div>
+
+<p>
+The plots above have been obtained with
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #a020f0;">for</span> size<span style="color: #a020f0;"> in</span> 16 32 64 128 256; <span style="color: #a020f0;">do</span> 
+  <span style="color: #483d8b;">echo</span> -n <span style="color: #8b2252;">"$size "</span> ;
+  ./gbtestdisk -c $<span style="color: #a0522d;">size</span> | grep <span style="color: #8b2252;">'avg'</span> | gawk <span style="color: #8b2252;">'{print $2,$3,$4}'</span>;
+<span style="color: #a020f0;">done</span> | gbplot -T png -o <span style="color: #8b2252;">"laptop.png"</span> -v -l xy <span style="color: #8b2252;">\</span>
+-C <span style="color: #8b2252;">'set key below; set xrange [15:300]; set xtics (16,32,64,128,256); set grid;\</span>
+<span style="color: #8b2252;">set title "ThinkPad X201s"; set xlabel "MB"; set ylabel "MB/s"'</span><span style="color: #8b2252;">\</span>
+plot <span style="color: #8b2252;">'u 1:2 title "write" w lp pt 5, "" u 1:3 title "read" w lp pt 5, "" u 1:4 title "cache" w lp pt 5'</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

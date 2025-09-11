@@ -1,0 +1,76 @@
+#!/bin/bash
+# gbtestdisk 0.1   Copyright (C) 2013 Giulio Bottazzi
+
+#firstly created: Sat Feb  9 13:05:02 CET 2013
+
+#specify the format of the bash 'time' function
+TIMEFORMAT="%6R"
+
+#specify the default size (in MB) at the command line
+count=1
+
+#specify the default number of replica
+repnum=5
+
+#read command line options; the position of the last option is saved
+#in OPTIND
+while getopts "c:r:hv" opt
+do
+    case $opt in
+	c) count=$OPTARG;;
+	r) repnum=$OPTARG;;
+	v) verbose=yes;;
+	h) help=yes;;
+	\?) help=yes;;
+    esac
+done
+
+if [ "$help" = "yes" ]; then
+
+    cat - <<EOF
+
+testdisk ver. .1   Copyright (C) 2013 Giulio Bottazzi
+
+This command test the disk/filesystem speed for synchronous writing
+and reading using the 'dd' command. Statistics are reported for disk
+write spead, disk read spead and the spead of reading from the disk
+cache.
+
+Simply move in a directroy with write permission and run the script to
+test the spead of the partition this directory belong to. It is
+possible that the script require root permission. So run it with sudo.
+
+Notice tha the rate reported by this script are in general lower than
+the one directly reported by dd. Indeed the rate reported by dd
+represents the rate without any lag or synch time. The time reported
+by this script are a better approximation of the time effectively used
+by a program to open a file, write or read the content and close it.
+
+List of options:
+    -h print this help
+    -c number of MB of the file size
+    -r number of executions of the write/read cycle
+    -v verbose output: print information about the performed tests
+
+EOF
+    exit
+fi
+
+if [ "$verbose" = "yes" ]; then
+    echo -e "#filesize $count MB, statistics collected over $repnum read/write cycles"
+fi
+echo -e "#\twrite MB/s\tread MB/s\tcache MB/s"
+for replica in `seq 1 $repnum`; do
+    #write to disk
+    totaltime=$( time (dd if=/dev/zero of=./tempfile bs=1M count=$count conv=fdatasync,notrunc 2>/dev/null) 2>&1)
+    echo -n $(echo "scale=3 ; $count/$totaltime" | bc) " "
+    #read from disk
+    sudo /sbin/sysctl  vm.drop_caches=3 > /dev/null
+    totaltime=$( time (dd if=./tempfile of=/dev/zero bs=1M count=$count 2>/dev/null) 2>&1)
+    echo -n $(echo "scale=3 ; $count/$totaltime" | bc) " "
+    #read from cache
+    totaltime=$( time (dd if=./tempfile of=/dev/zero bs=1M count=$count 2>/dev/null) 2>&1)
+    echo -n $(echo "scale=3 ; $count/$totaltime" | bc) " "
+    echo " "
+    rm ./tempfile
+done | gawk 'NR==1 { for(col=1;col<=NF;col++) min[col]=max[col]=sum[col]=$col  }; NR>1 {for(col=1;col<=NF;col++){if($col>max[col]) max[col]=$col; if($col<min[col]) min[col]=$col; sum[col]=sum[col]+$col}}; END {printf "max\t"; for(col=1;col<=NF;col++) printf "%f\t",max[col]; printf "\n"; printf "min\t"; for(col=1;col<=NF;col++) printf "%f\t",min[col]; printf "\n"; printf "avg\t"; for(col=1;col<=NF;col++) printf "%f\t",sum[col]/NR; printf "\n";}'

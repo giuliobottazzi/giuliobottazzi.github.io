@@ -1,0 +1,128 @@
+.. -*- Mode: rst -*-
+
+=====
+EncFS
+=====
+
+:Authors:   Giulio Bottazzi 
+:Contact:   <giulio.bottazzi@libero.it>
+:Date:      29 November 2008
+
+.. Contents::
+
+.. 1  Introduction
+   2  Installing EncFS
+   3  Using EncFS
+   4  A Bit More Secure Shell
+   5  Links
+
+
+Introduction
+============
+
+
+Below I will shortly explain how to install and use EncFS on a Gentoo
+system. EncFS homepage_ reads "EncFS provides an encrypted filesystem
+in user-space. It runs without any special permissions and uses the
+FUSE library and Linux kernel module to provide the filesystem
+interface". The major advantages of this method, for instance when
+compared to dmcrypt_, is that the space doesn't have to be allocated
+previously and the filesystem grows as new files are added. A clear
+disadvantage is that the number and size of the encrypted files are
+shown in clear (see below).
+
+.. _homepage: http://www.arg0.net/encfs
+.. _dmcrypt: http://www.saout.de/misc/dm-crypt/
+
+
+Installing EncFS
+================
+
+Start by emerging the necessary package::
+
+ emerge encfs
+
+if not already present on the system, the packages fuse (an interface
+for file systems implemented in userspace) and rlog (a logging
+library) will be installed too. At this point it is probably necessary
+to load the newly created module using::
+
+ modprobe fuse
+
+
+Notice that you need to be root in order to perform this
+operation. Later (after the first reboot) this command should not be
+necessary any longer and the fuse module should be automatically
+loaded by the kernel when needed. If this is not the case for your
+system, and you intended to use EncFS on a regular basis, it is a good
+idea to add this module to the list of automatically loaded modules in
+`/etc/modules.autoload.d/`. Use the file associated with the kernel
+version you intend to use. For example, if you're on kernel 2.6, the
+following is needed::
+
+ echo "fuse" >> /etc/modules.autoload.d/kernel-2.6
+
+After this point, root permission is no longer required.
+
+
+Using EncFS
+===========
+
+You can create an encrypted virtual filesystem in your home using::
+ 
+ encfs ~/private.enc ~/private
+
+with this command, two directories are created (if they do not exist
+already): the first directory, `~/private.enc`, is the important one
+and will contain the encrypted files (with encrypted filenames); the
+second directory `~/private` simply provides a sort of mountpoint in
+which the file data and contents can be seen in clear. The command
+also asks for an encryption password. Check that the new filesystem
+appears as regularly mounted using cat /proc/mounts if you see a line
+like
+
+:File: /proc/mounts
+
+::
+   encfs /home/your_username/private fuse rw,nosuid,nodev,user_id=1000,group_id=100,default_permissions 0 0
+
+everything went ok.
+
+Now that the encrypted filesystem `~/private.enc` is created and
+mounted in `~/private`, you can start filling it with files as if it
+were a normal filesystem.
+
+A command like::
+ 
+ cp ~/my_sensitive_file ~/private
+
+will actually store an encrypted version of `~/my_sensitive_file` in
+`~/private.enc`. The file will appear in `~/private` as a regular
+file.
+
+When you have finished using it, you can unmount the encrypted filesystem using::
+ 
+ fusermount -u ~/private
+
+Notice that there's no particular relationship between `~/private.enc`
+and `~/ private`. Indeed you can mount the former on any directory,
+for instance using::
+
+ encfs ~/private.enc /mnt/cdrom
+
+and unmounting with::
+
+ fusermount -u /mnt/cdrom
+
+
+Acknowledgment
+==============
+
+This document was originally posted in the Gentoo Wiki site. Following
+the crash of the said site, and since I was the original author, I
+decided to move it on my personal web page. Even if I removed several
+later additions made by people on the Gentoo wiki version, it is quite
+possible that the present text contains many improvements by different
+people. I'm not able to give proper credit to single contributors,
+nevertheless I want to express my gratitude for their corrections and
+suggestions.

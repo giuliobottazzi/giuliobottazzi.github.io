@@ -1,0 +1,199 @@
+.. -*- Mode: rst -*-
+
+===========================
+TIP Synchronize with Unison
+===========================
+
+:Authors:   Giulio Bottazzi 
+:Contact:   <giulio.bottazzi@libero.it>
+:Date:      29 November 2008
+
+.. Contents::
+
+
+.. 1  Introduction
+   2  Installation and basic usage
+   3  Synchronizing home directories
+   4  Acknowledgment
+
+
+
+Introduction
+============
+
+
+Unison is a file-synchronization utility. The homepage_ of the program
+says that "It allows two replicas of a collection of files and
+directories to be stored on different hosts (or different disks on the
+same host), modified separately, and then brought up to date by
+propagating the changes in each replica to the other.".
+
+Unison can be used both locally and remotely. For remote
+synchronization, one can choose between two methods: the more advanced
+and secure remote shell method, based on SSH, and the basic, insecure
+and cumbersome socket method.  The major difference with respect to
+backup utilities, is that unison try to handle the updating in a
+bi-directional way, deciding which version of the file should be
+modified.
+
+This document was primarily conceived for a Gentoo-based system. It
+can however be adapted with minimal modifications to other
+distributions. Probably the only requirement is to change the gentoo
+package management utility, `emerge`, with the analogous utility found
+on your system.
+
+
+.. _homepage: http://en.tldp.org/HOWTO/Mail-User-HOWTO/
+
+
+Installation and basic usage
+============================
+
+unison is part of gentoo portage. To install it simply do::
+
+ emerge unison
+
+The program does not posses system configuration files. The user
+configuration files are by default stored in the subdirectory
+`.unison` of the users' home directory.
+
+Unison makes use of three kind of files. The most relevant files are the
+profile files, with extension prf, which are by default stored in .unison. Each
+profile file specifies the variables and the preferences relative to one
+particual use of unison, like the directories which should be syncronized and
+the mechanism used to perform this synchronization. Alternatively, these
+preferences can be specified on the command line. The second type of files used
+by unison is the log file. Indeed, unison does in general produce a detailed
+account of its activity. This account is saved in the log file, which is by
+default named unison.log and placed in the user's home directory. Finally, in
+order to determine the files which have been modified and need an update,
+unison use an automatically named archive file, which is stored by default in
+`.unison`.
+
+For simple usage examples, the reader is referred to unison tutorial,
+at the beginning of the user manual distributed with the program. In
+the next section I will shortly describe one real world example: how
+to use unison to synchronize home directories on different machines.
+
+
+Synchronizing home directories
+==============================
+
+Let's suppose you use a laptop, named laptop.yourdomain, and a
+desktop, named desktop.yourdomain and you want to keep the home
+directories on the two machines synchronized. Assume that your
+username is john and that you have ssh properly configured on both
+machines. Then, you can simply use, from the laptop::
+
+ unison /home/john ssh://desktop.yourdomain/
+
+and from the desktop::
+
+ unison /home/john ssh://laptop.yourdomain/
+
+In this way, every file in every subdirectories of the two directories
+get synchronized. While this brute force approach can be sometimes
+useful, in general it is not what you want to do. Indeed, several
+files which reside in home directories typically contain information
+which are relevant for one single machines. Consequently, these files
+should remain different on different machines.  The solution to this
+problem is to write a customized profile file which contain all the
+necessary settings. Writing such a profile file is easy. Using an
+editor, create the file `~/.unison/home.prf` (the extension seems
+relevant).  Then, using the root directive, specify the location of
+the replicas (local and remote) 
+
+:File: ~/.unison/home.prf 
+
+::
+ 
+ root = /home/john
+ root = ssh://laptop.yourdomain/
+
+Second, add the ignore statements that will tell unison which directories
+should not be kept synchronized
+
+:File: ~/.unison/home.prf
+
+::
+
+ ignore = Path .ssh
+ ignore = Path .keychain
+ ignore = Path .gnupg
+ ignore = Path .Xauthority
+ ignore = Path .ICEauthority
+ ignore = Path .xsession-errors
+ ignore = Path .fonts.cache-1
+ ignore = Path .xscreensaver
+ ignore = Path .unison
+
+Notice the Path keyword, which means that all the file and subdirectories of
+the specified directory should be ignored. The list above contains file which
+are machine specific or specific of a given X session. Notice that I've also
+add the ~/.unison directory. The reason why I did it will be clear in a moment.
+For now, let's put in this directory also the archive and the log files, so
+that they don't get synchronized
+
+:File: ~/.unison/home.prf
+
+::
+
+ #where to put backup
+ backupdir = .unison/home
+ backup = Name *
+ maxbackups = 2
+
+ #where to log activities
+ logfile = .unison/log-home.txt
+
+With the `Name *`, I instruct unison to backup every file which is
+changed during the synchronization. This seems a good idea.
+
+Finally, you can add some more preferences. unison tends to be quite verbose
+and asks a lot of questions. I prefer a more silent behavior.
+
+:File: ~/.unison/home.prf
+
+::
+
+ #don't ask silly questions
+ auto = true
+ confirmmerge = false
+
+ #use textual interface
+ ui = text
+
+using the previous file, you should simply use::
+
+ unison home.prf
+
+Notice that the first time you issue this command, unison has to build the
+archive files that it will use later to check for possible modifications.
+Depending on the size of your home directory, this can take several minutes.
+The file above work if you issue the unison command on the desktop. If you want
+to start the process from the laptop (the machines on which the process is run
+does not have any effect on the actual direction of the updates), use a similar
+file where the root options read
+
+:File: ~/.unison/home.prf
+
+::
+
+ root = /home/john
+ root = ssh://desktop.yourdomain/
+
+This difference should be maintained, and this is why the unison directory
+should not be, in general, synchronized.
+
+
+Acknowledgment
+==============
+
+This document was originally posted in the Gentoo Wiki site. Following
+the crash of the said site, and since I was the original author, I
+decided to move it on my personal web page. Even if I removed several
+later additions made by people on the Gentoo wiki version, it is quite
+possible that the present text contains many improvements by different
+people. I'm not able to give proper credit to single contributors,
+nevertheless I want to express my gratitude for their corrections and
+suggestions.

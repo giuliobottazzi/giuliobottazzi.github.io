@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<title>HUAWEI E1692 HSDPA USB modem</title>
+<meta name="authors" content="Giulio Bottazzi" />
+<meta name="date" content="13 October 2010" />
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:date: $Date: 2007/05/08 14:29:12 $
+:version: $Revision: 1.1.1.1 $
+:copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the PEP HTML output of Docutils.
+*/
+
+.first {
+  margin-top: 0 }
+
+.last {
+  margin-bottom: 0 }
+
+.navigation {
+  width: 100% ;
+  background: #99ccff ;
+  margin-top: 0px ;
+  margin-bottom: 0px }
+
+.navigation .navicon {
+  width: 150px ;
+  height: 35px }
+
+.navigation .textlinks {
+  padding-left: 1em ;
+  text-align: left }
+
+.navigation td, .navigation th {
+  padding-left: 0em ;
+  padding-right: 0em ;
+  vertical-align: middle }
+
+.rfc2822 {
+  margin-top: 0.5em ;
+  margin-left: 0.5em ;
+  margin-right: 0.5em ;
+  margin-bottom: 0em }
+
+.rfc2822 td {
+  text-align: left }
+
+.rfc2822 th.field-name {
+  text-align: right ;
+  font-family: sans-serif ;
+  padding-right: 0.5em ;
+  font-weight: bold ;
+  margin-bottom: 0em }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+body {
+  margin: 0px ;
+  margin-bottom: 1em ;
+  padding: 0px }
+
+dd {
+  margin-bottom: 0.5em }
+
+div.section {
+  margin-left: 1em ;
+  margin-right: 1em ;
+  margin-bottom: 1.5em }
+
+div.section div.section {
+  margin-left: 0em ;
+  margin-right: 0em ;
+  margin-top: 1.5em }
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.hint p.admonition-title, div.important p.admonition-title,
+div.note p.admonition-title, div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.figure {
+  margin-left: 2em }
+
+div.footer, div.header {
+  font-size: smaller }
+
+div.footer {
+  margin-left: 1em ;
+  margin-right: 1em }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1 {
+  font-family: sans-serif ;
+  font-size: large }
+
+h2 {
+  font-family: sans-serif ;
+  font-size: medium }
+
+h3 {
+  font-family: sans-serif ;
+  font-size: small }
+
+h4 {
+  font-family: sans-serif ;
+  font-style: italic ;
+  font-size: small }
+
+h5 {
+  font-family: sans-serif;
+  font-size: x-small }
+
+h6 {
+  font-family: sans-serif;
+  font-style: italic ;
+  font-size: x-small }
+
+.section hr {
+  width: 75% }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.topic-title {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+pre.line-block {
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option-argument {
+  font-style: italic }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+table {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+td, th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+td.num {
+  text-align: right }
+
+th.field-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap }
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100% }
+
+tt {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="huawei-e1692-hsdpa-usb-modem">
+<h1 class="title">HUAWEI E1692 HSDPA USB modem</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Authors:</th>
+<td>Giulio Bottazzi</td></tr>
+<tr><th class="docinfo-name">Contact:</th>
+<td>&lt;<a class="reference external" href="mailto:giulio.bottazzi&#64;libero.it">giulio.bottazzi&#64;libero.it</a>&gt;</td></tr>
+<tr><th class="docinfo-name">Date:</th>
+<td>13 October 2010</td></tr>
+<tr><th class="docinfo-name">Version:</th>
+<td>0.5</td></tr>
+</tbody>
+</table>
+<!-- -*- Mode: rst -*- -->
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#introduction" id="id1">Introduction</a></li>
+<li><a class="reference internal" href="#hardware-configuration" id="id2">Hardware configuration</a><ul>
+<li><a class="reference internal" href="#kernel-options" id="id3">Kernel options</a></li>
+<li><a class="reference internal" href="#checking-the-device" id="id4">Checking the device</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#switching-to-modem-mode" id="id5">Switching to modem mode</a></li>
+<li><a class="reference internal" href="#udev-rules" id="id6">udev rules</a></li>
+<li><a class="reference internal" href="#software-configuration" id="id7">Software configuration</a><ul>
+<li><a class="reference internal" href="#ppp-configuration" id="id8">ppp configuration</a></li>
+<li><a class="reference internal" href="#turning-off-pin-checking" id="id9">Turning off PIN checking</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<!-- 1  Introduction
+2  Hardware configuration
+  2.1  Kernel options
+  2.2  Checking the device
+3  Switching to modem mode
+4  udev rules
+5  Software configuration
+  5.1  ppp configuration
+  5.2  Turning off PIN checking -->
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="#id1">Introduction</a></h1>
+<p>These notes explain how to setup and use the <a class="reference external" href="http://www.huawei.com/mobileweb/en/products/view.do?id=1181">HUAWEI</a> E1692 HSDPA USB
+modem on your Linux system.</p>
+<p>I'm writing these notes because the software included in the modem by
+the service provider, <a class="reference external" href="http://www.tim.it">TIM</a> in my case, does not work so well.</p>
+<p>The following instructions have been tested on a Gentoo system, but
+they should apply with minimal modifications to any Linux box. A
+substantial part of them come from '<a class="reference external" href="http://www.santinoli.com/open/e1692-howto.html">Santinoli</a>' blog. I provide a
+modified 'chat' script which result, on my system, in a much faster
+data transfer. I've also added a set of 'udev' rules that allow for an
+automatic configuration of the device.</p>
+</div>
+<div class="section" id="hardware-configuration">
+<h1><a class="toc-backref" href="#id2">Hardware configuration</a></h1>
+<p>In order to have the modem functioning you need to have all necessary
+modules compiled in the kernel. The HUAWEI E169 is both a HDSPA modem
+and a storage device. Indeed it contains a MicroSD Card Slot. We will
+ignore the storage aspect of the device and focus on its use as a
+modem. Once the device is plugged in, it is necessary to tell the
+system to recognize it as a communication device rather then an
+external disk. For this purpose we are going to use a specific piece
+of software called <a class="reference external" href="http://www.draisberghof.de/usb_modeswitch/">usb_modeswitch</a></p>
+<p>But let's start from the beginning.</p>
+<div class="section" id="kernel-options">
+<h2><a class="toc-backref" href="#id3">Kernel options</a></h2>
+<p>In recent kernel, the HUAWEI E196 modem is supported by the USB serial
+'option' driver (option module). To use it, you also need the support
+for the PPP protocol and for asynchronous serial ports. To verify if
+these drivers are compiled in the kernel, use:</p>
+<pre class="literal-block">
+zgrep &quot;CONFIG_PPP&quot; /proc/config.gz
+zgrep &quot;CONFIG_PPP_ASYNC&quot; /proc/config.gz
+zgrep &quot;CONFIG_USB_SERIAL_OPTION&quot; /proc/config.gz
+</pre>
+<p>or check your kernel configuration (on Gentoo systems, if you use
+genkernel, kernel configurations can be found in <tt class="docutils literal">/etc/kernels/</tt>).</p>
+<p>If the options are not set as module (this is the case if they are
+follows by a <tt class="docutils literal">=m</tt>), recompile your kernel with the following options
+activated:</p>
+<pre class="literal-block">
+Device Drivers  ---&gt; USB Support ---&gt;
+   [M] USB Serial Converter support ---&gt;
+        [M] USB driver for GSM and CDMA modems
+
+Device Drivers  ---&gt; Network device support  ---&gt;
+   [M] PPP (point-to-point protocol) support
+   [M] PPP support for async serial ports
+</pre>
+<p>If you say [M] for &quot;USB Serial Converter support&quot; and for &quot;USB driver
+for GSM and CDMA modems&quot;, you get the 'option' module.</p>
+</div>
+<div class="section" id="checking-the-device">
+<h2><a class="toc-backref" href="#id4">Checking the device</a></h2>
+<p>Once the drivers are available, plug the key and use:</p>
+<pre class="literal-block">
+lsusb -v
+</pre>
+<p>to see if the modem has been properly recognized. You should see
+something like:</p>
+<pre class="literal-block">
+...
+idVendor           0x12d1 Huawei Technologies Co., Ltd.
+idProduct          0x1446
+bcdDevice            0.00
+iManufacturer           3 HUAWEI Technology
+iProduct                2 HUAWEI Mobile
+...
+</pre>
+<p>At this point it is quite likely that the device has been recognized
+as an external storage device. You can check this using:</p>
+<pre class="literal-block">
+tail /var/log/message
+</pre>
+<p>and look for a string like:</p>
+<pre class="literal-block">
+... sd 4:0:0:0: [sdb] Attached SCSI removable disk
+... sd 4:0:0:0: Attached scsi generic sg1 type 0
+...
+... sr0: scsi-1 drive
+... Uniform CD-ROM driver Revision: 3.20
+... sr 3:0:0:0: Attached scsi CD-ROM sr0
+... sr 3:0:0:0: Attached scsi generic sg2 type 5
+... usb-storage: device scan complete
+</pre>
+</div>
+</div>
+<div class="section" id="switching-to-modem-mode">
+<h1><a class="toc-backref" href="#id5">Switching to modem mode</a></h1>
+<p>The E1692 modem has a dual nature: it is both a communication and a
+storage device. It is in general recognized by the kernel as a device
+of the latter type. In this case, it is necessary to change its mode
+of operation. The program <a class="reference external" href="http://www.draisberghof.de/usb_modeswitch/">usb_modeswitch</a> has been designed for this
+purpose.</p>
+<p>Install the program using the package provided by your system. Under
+Gentoo it's simply:</p>
+<pre class="literal-block">
+emerge usb_modeswitch
+</pre>
+<p>possibly after having unmasked the package:</p>
+<pre class="literal-block">
+echo sys-apps/usb_modeswitch &gt;&gt; /etc/portage/package.keywords
+</pre>
+<p>If your version is <cite>1.1.1</cite> or newer, the software automatically
+detects the modem and no further configuration is necessary. You can
+safely jump to <a class="reference internal" href="#udev-rules">udev rules</a>. If your version is older, read what
+follows.</p>
+<p>Once the package is installed, edit its configuration file
+<tt class="docutils literal">/etc/usb_modeswitch.conf</tt> commenting everything out and inserting the
+following lines</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/usb_modeswitch.conf</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+DefaultVendor=  0x12d1
+DefaultProduct= 0x1446
+
+TargetVendor=   0x12d1
+TargetProduct=  0x140c
+
+MessageEndpoint= 0x01
+MessageContent=&quot;55534243000000000000000000000011060000000000000000000000000000&quot;
+</pre>
+<p>At this point it is sufficient to start the program:</p>
+<pre class="literal-block">
+# usb_modeswitch
+</pre>
+<p>and the modem nature of the device should become available. Check if
+the device changed its mode by inspecting <tt class="docutils literal">\var\log\messages</tt>. You
+should find something like:</p>
+<pre class="literal-block">
+...
+... GSM modem (1-port) converter detected
+... GSM modem (1-port) converter now attached to ttyUSB0
+...
+</pre>
+<p>possibly for up to four different devices <tt class="docutils literal">/dev/ttyUSB[0,1,2,4]</tt>
+which have been created. Your modem is ready to be used.</p>
+</div>
+<div class="section" id="udev-rules">
+<h1><a class="toc-backref" href="#id6">udev rules</a></h1>
+<p>In principle one can automatically load the <tt class="docutils literal">option</tt> module at boot
+time by inserting a line in <tt class="docutils literal"><span class="pre">/etc/modules.autoload.d/kernel-2.6</span></tt> and
+manually switch the device to modem mode.</p>
+<p>We will follow a more sophisticated approach: we will create an
+explicit rule for udev.</p>
+<p>Edit the file <tt class="docutils literal"><span class="pre">/etc/udev/rules.d/50-huawei.rules</span></tt> inserting the
+following lines</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/udev/rules.d/50-huawei.rules</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+SUBSYSTEM==&quot;usb&quot;, SYSFS{idProduct}==&quot;1446&quot;, SYSFS{idVendor}==&quot;12d1&quot;, RUN+=&quot;/sbin/modprobe option&quot;
+SUBSYSTEM==&quot;usb&quot;, SYSFS{idProduct}==&quot;1446&quot;, SYSFS{idVendor}==&quot;12d1&quot;, RUN+=&quot;/usr/sbin/usb_modeswitch&quot;
+</pre>
+<p>This file tells the system that if the device is inserted, it should
+load the 'option' module and switch to modem mode. Issue the following
+command to let the system know about your new setting:</p>
+<pre class="literal-block">
+# udevadm control --reload-rules
+</pre>
+<p>unplug and plug again the USB device. Toward the end of the log
+file <tt class="docutils literal">/var/log/messages</tt> you should find something like:</p>
+<pre class="literal-block">
+...
+... option 5-1.2:1.0: GSM modem (1-port) converter detected
+... usb 5-1.2: GSM modem (1-port) converter now attached to ttyUSB0
+...
+</pre>
+<p>If this is the case, the <tt class="docutils literal">udev</tt> system is working as expected.</p>
+</div>
+<div class="section" id="software-configuration">
+<h1><a class="toc-backref" href="#id7">Software configuration</a></h1>
+<p>The HUAWEI E1692 adapter works as a modem and relies on PPP to
+establish a connection. One can in principle use any PPP management
+program. Several GUI programs are available for both KDE and Gnome. In
+what follows I stick with a bare-bone approach.</p>
+<div class="section" id="ppp-configuration">
+<h2><a class="toc-backref" href="#id8">ppp configuration</a></h2>
+<p>The necessary software is called 'ppp'. Install it using the package
+management system of your Linux distribution (in gentoo, it's <tt class="docutils literal">emerge
+<span class="pre">net-dialup/ppp</span></tt>). Once the package is installed, create the following
+file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/ppp/peers/tim</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+/dev/ttyUSB0
+460800
+hide-password
+noauth
+debug
+-crtscts
+remotename huawei
+ipparam huawei
+# connect script
+connect &quot;/usr/sbin/chat -v -s -f /etc/ppp/chat-tim&quot;
+# dns, routing
+usepeerdns
+defaultroute
+noipdefault
+nodetach
+</pre>
+<p>This file defines the connection parameters. In particular it calls a
+<tt class="docutils literal">chat</tt> script to start the connection. Create the script as follows</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/etc/ppp/chat-tim</td>
+</tr>
+</tbody>
+</table>
+<pre class="literal-block">
+TIMEOUT 25
+ABORT BUSY
+ABORT 'NO ANSWER'
+ABORT 'NO CARRIER'
+ABORT 'RINGING RINGING'
+ABORT 'Username/Password Incorrect'
+'' ATZ
+'OK-+++\c-OK' ATH0
+'OK' ATDT*99#
+CONNECT        \c                              \
+</pre>
+<p>At this point you should be able to start the PPP connection simply
+using:</p>
+<pre class="literal-block">
+pon tim
+</pre>
+<p>and stop it with:</p>
+<pre class="literal-block">
+poff tim
+</pre>
+</div>
+<div class="section" id="turning-off-pin-checking">
+<h2><a class="toc-backref" href="#id9">Turning off PIN checking</a></h2>
+<p>In order to work the procedure above could possibly require that the
+initial check of the PIN value is turned off in the data SIM. This can
+be obtained by inserting the SIM card in a regular mobile phone and
+selecting the appropriate option, or by installing the software
+provided by the producer and distributed together with the device,
+under Windows or Linux. This software is pre-installed on the internal
+memory of the device, which can be accessed as a regular USB memory
+key.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

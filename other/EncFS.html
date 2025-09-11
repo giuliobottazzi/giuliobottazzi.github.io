@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<title>EncFS</title>
+<meta name="authors" content="Giulio Bottazzi" />
+<meta name="date" content="29 November 2008" />
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:date: $Date: 2007/05/08 14:29:12 $
+:version: $Revision: 1.1.1.1 $
+:copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the PEP HTML output of Docutils.
+*/
+
+.first {
+  margin-top: 0 }
+
+.last {
+  margin-bottom: 0 }
+
+.navigation {
+  width: 100% ;
+  background: #99ccff ;
+  margin-top: 0px ;
+  margin-bottom: 0px }
+
+.navigation .navicon {
+  width: 150px ;
+  height: 35px }
+
+.navigation .textlinks {
+  padding-left: 1em ;
+  text-align: left }
+
+.navigation td, .navigation th {
+  padding-left: 0em ;
+  padding-right: 0em ;
+  vertical-align: middle }
+
+.rfc2822 {
+  margin-top: 0.5em ;
+  margin-left: 0.5em ;
+  margin-right: 0.5em ;
+  margin-bottom: 0em }
+
+.rfc2822 td {
+  text-align: left }
+
+.rfc2822 th.field-name {
+  text-align: right ;
+  font-family: sans-serif ;
+  padding-right: 0.5em ;
+  font-weight: bold ;
+  margin-bottom: 0em }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+body {
+  margin: 0px ;
+  margin-bottom: 1em ;
+  padding: 0px }
+
+dd {
+  margin-bottom: 0.5em }
+
+div.section {
+  margin-left: 1em ;
+  margin-right: 1em ;
+  margin-bottom: 1.5em }
+
+div.section div.section {
+  margin-left: 0em ;
+  margin-right: 0em ;
+  margin-top: 1.5em }
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.attention, div.caution, div.danger, div.error, div.hint,
+div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.hint p.admonition-title, div.important p.admonition-title,
+div.note p.admonition-title, div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.figure {
+  margin-left: 2em }
+
+div.footer, div.header {
+  font-size: smaller }
+
+div.footer {
+  margin-left: 1em ;
+  margin-right: 1em }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1 {
+  font-family: sans-serif ;
+  font-size: large }
+
+h2 {
+  font-family: sans-serif ;
+  font-size: medium }
+
+h3 {
+  font-family: sans-serif ;
+  font-size: small }
+
+h4 {
+  font-family: sans-serif ;
+  font-style: italic ;
+  font-size: small }
+
+h5 {
+  font-family: sans-serif;
+  font-size: x-small }
+
+h6 {
+  font-family: sans-serif;
+  font-style: italic ;
+  font-size: x-small }
+
+.section hr {
+  width: 75% }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.topic-title {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+pre.line-block {
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option-argument {
+  font-style: italic }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+table {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+td, th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+td.num {
+  text-align: right }
+
+th.field-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap }
+
+h1 tt, h2 tt, h3 tt, h4 tt, h5 tt, h6 tt {
+  font-size: 100% }
+
+tt {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="encfs">
+<h1 class="title">EncFS</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Authors:</th>
+<td>Giulio Bottazzi</td></tr>
+<tr><th class="docinfo-name">Contact:</th>
+<td>&lt;<a class="reference external" href="mailto:giulio.bottazzi&#64;libero.it">giulio.bottazzi&#64;libero.it</a>&gt;</td></tr>
+<tr><th class="docinfo-name">Date:</th>
+<td>29 November 2008</td></tr>
+</tbody>
+</table>
+<!-- -*- Mode: rst -*- -->
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#introduction" id="id1">Introduction</a></li>
+<li><a class="reference internal" href="#installing-encfs" id="id2">Installing EncFS</a></li>
+<li><a class="reference internal" href="#using-encfs" id="id3">Using EncFS</a></li>
+<li><a class="reference internal" href="#acknowledgment" id="id4">Acknowledgment</a></li>
+</ul>
+</div>
+<!-- 1  Introduction
+2  Installing EncFS
+3  Using EncFS
+4  A Bit More Secure Shell
+5  Links -->
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="#id1">Introduction</a></h1>
+<p>Below I will shortly explain how to install and use EncFS on a Gentoo
+system. EncFS <a class="reference external" href="http://www.arg0.net/encfs">homepage</a> reads &quot;EncFS provides an encrypted filesystem
+in user-space. It runs without any special permissions and uses the
+FUSE library and Linux kernel module to provide the filesystem
+interface&quot;. The major advantages of this method, for instance when
+compared to <a class="reference external" href="http://www.saout.de/misc/dm-crypt/">dmcrypt</a>, is that the space doesn't have to be allocated
+previously and the filesystem grows as new files are added. A clear
+disadvantage is that the number and size of the encrypted files are
+shown in clear (see below).</p>
+</div>
+<div class="section" id="installing-encfs">
+<h1><a class="toc-backref" href="#id2">Installing EncFS</a></h1>
+<p>Start by emerging the necessary package:</p>
+<pre class="literal-block">
+emerge encfs
+</pre>
+<p>if not already present on the system, the packages fuse (an interface
+for file systems implemented in userspace) and rlog (a logging
+library) will be installed too. At this point it is probably necessary
+to load the newly created module using:</p>
+<pre class="literal-block">
+modprobe fuse
+</pre>
+<p>Notice that you need to be root in order to perform this
+operation. Later (after the first reboot) this command should not be
+necessary any longer and the fuse module should be automatically
+loaded by the kernel when needed. If this is not the case for your
+system, and you intended to use EncFS on a regular basis, it is a good
+idea to add this module to the list of automatically loaded modules in
+<cite>/etc/modules.autoload.d/</cite>. Use the file associated with the kernel
+version you intend to use. For example, if you're on kernel 2.6, the
+following is needed:</p>
+<pre class="literal-block">
+echo &quot;fuse&quot; &gt;&gt; /etc/modules.autoload.d/kernel-2.6
+</pre>
+<p>After this point, root permission is no longer required.</p>
+</div>
+<div class="section" id="using-encfs">
+<h1><a class="toc-backref" href="#id3">Using EncFS</a></h1>
+<p>You can create an encrypted virtual filesystem in your home using:</p>
+<pre class="literal-block">
+encfs ~/private.enc ~/private
+</pre>
+<p>with this command, two directories are created (if they do not exist
+already): the first directory, <cite>~/private.enc</cite>, is the important one
+and will contain the encrypted files (with encrypted filenames); the
+second directory <cite>~/private</cite> simply provides a sort of mountpoint in
+which the file data and contents can be seen in clear. The command
+also asks for an encryption password. Check that the new filesystem
+appears as regularly mounted using cat /proc/mounts if you see a line
+like</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">File:</th><td class="field-body">/proc/mounts</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>::</dt>
+<dd>encfs /home/your_username/private fuse rw,nosuid,nodev,user_id=1000,group_id=100,default_permissions 0 0</dd>
+</dl>
+<p>everything went ok.</p>
+<p>Now that the encrypted filesystem <cite>~/private.enc</cite> is created and
+mounted in <cite>~/private</cite>, you can start filling it with files as if it
+were a normal filesystem.</p>
+<p>A command like:</p>
+<pre class="literal-block">
+cp ~/my_sensitive_file ~/private
+</pre>
+<p>will actually store an encrypted version of <cite>~/my_sensitive_file</cite> in
+<cite>~/private.enc</cite>. The file will appear in <cite>~/private</cite> as a regular
+file.</p>
+<p>When you have finished using it, you can unmount the encrypted filesystem using:</p>
+<pre class="literal-block">
+fusermount -u ~/private
+</pre>
+<p>Notice that there's no particular relationship between <cite>~/private.enc</cite>
+and <cite>~/ private</cite>. Indeed you can mount the former on any directory,
+for instance using:</p>
+<pre class="literal-block">
+encfs ~/private.enc /mnt/cdrom
+</pre>
+<p>and unmounting with:</p>
+<pre class="literal-block">
+fusermount -u /mnt/cdrom
+</pre>
+</div>
+<div class="section" id="acknowledgment">
+<h1><a class="toc-backref" href="#id4">Acknowledgment</a></h1>
+<p>This document was originally posted in the Gentoo Wiki site. Following
+the crash of the said site, and since I was the original author, I
+decided to move it on my personal web page. Even if I removed several
+later additions made by people on the Gentoo wiki version, it is quite
+possible that the present text contains many improvements by different
+people. I'm not able to give proper credit to single contributors,
+nevertheless I want to express my gratitude for their corrections and
+suggestions.</p>
+</div>
+</div>
+</body>
+</html>

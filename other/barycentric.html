@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-08-04 Fri 19:24 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Barycentric Plots in gnuplot</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../other.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Barycentric Plots in gnuplot</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org8dd7600">Some mathematical details</a></li>
+<li><a href="#org92fb06c">Barycentric coordinates</a></li>
+<li><a href="#orgfc33800">Gnuplot representation</a></li>
+</ul>
+</div>
+</div>
+<dl class="org-dl">
+<dt>Authors</dt><dd>Giulio Bottazzi</dd>
+<dt>Date</dt><dd>26 September 2006</dd>
+<dt>Revision</dt><dd>0.2</dd>
+<dt>Copyright</dt><dd>GPL</dd>
+</dl>
+
+<div id="outline-container-org8dd7600" class="outline-2">
+<h2 id="org8dd7600">Some mathematical details</h2>
+<div class="outline-text-2" id="text-org8dd7600">
+<p>
+Consider an equilateral triangle and number its sides (and the
+opposing vertices) with 1, 2 and 3. Now take a point \(P\) inside the
+triangle and let \(h_1\), \(h_2\) and \(h_3\) be the distance of this point
+from side 1, 2 and 3 respectively. It is easy to show that for any
+point \(P\) it is
+\[
+ h_1+h_2+h_3 = { \sqrt{3} \over 2} l
+\]
+where \(l\) is the length of the triangle side.
+</p>
+
+<p>
+Now consider a triangle with sides of unit length and imagine to embed
+it in a Cartesian system, with vertex 3 in the origin and side 1 along
+the $x$-axis. Vertex 1 is then at position \((1/2,\sqrt{3}/2)\) and
+vertex 2 at \((0,1/2)\). It is easy to see that an internal point P at
+distances h1 and h2 from side 1 and 2 respectively has coordinates
+\[
+ \left( {h_1 \over \sqrt{3} } + 2 {h_2 \over \sqrt{3}} , h_1 \right)
+\]
+</p>
+</div>
+</div>
+
+<div id="outline-container-org92fb06c" class="outline-2">
+<h2 id="org92fb06c">Barycentric coordinates</h2>
+<div class="outline-text-2" id="text-org92fb06c">
+<p>
+The above properties can be exploited to represent a function defined
+over the 2 dimensional simplex, that is over the triplet of points
+\((x_1,x_2,x_3)\) which satisfy the condition
+\[
+ x_1+x_2+x_3=1 \quad   x_1,x_2,x_3>0 .
+\]
+</p>
+
+<p>
+Indeed, with the identification \(h_i=\sqrt{3}/2 x_i\) for \(i=1,2,3\),
+this relation is identical to the one given above concerning the sum
+of the distances of an interior point of an equilateral triangle from
+its sides. In the Cartesian system, the point \((x_1,x_2,x_3)\) is then
+represented by the couple of coordinates
+\[
+ \left( {1 \over 2} x_1+x_2 , {\sqrt{3} \over 2 } x_1 \right)
+\]
+The two dimensional unit simplex is mapped in the equilateral triangle
+of side \(2/\sqrt{3}\). In this representation, if the point \(P\) is
+nearer to the vertex 1, it means that \(x_1> x_2,x_3\). If the point is
+on one side, than the coordinate associated with the opposing vertex
+is zero. If it is on one vertex, than the associated coordinate is 1
+(and the remaining two coordinates are zero).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfc33800" class="outline-2">
+<h2 id="orgfc33800">Gnuplot representation</h2>
+<div class="outline-text-2" id="text-orgfc33800">
+<p>
+Imagine to have the function \(f(x_1,x_2)\) defined over the unit
+2-simplex. When data are generated, the coordinates \((x_1,x_2)\) should
+be transformed according to the equation above. This the points are
+automatically placed inside the equilateral triangle with its side 1
+over the $x$-axis. The picture can be beautified applying some changes
+to the default setting. First of all remove the Cartesian axes and the
+associated ticks
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #483d8b;">unset</span> border
+<span style="color: #483d8b;">unset</span> xtics
+<span style="color: #483d8b;">unset</span> ytics
+</pre>
+</div>
+<p>
+and substitute it with the proper triangular frame
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #483d8b;">set</span> arrow 1 from 0,0 to .5,sqrt(3)/2 nohead front lt -1 lw 1
+<span style="color: #483d8b;">set</span> arrow 2 from 0,0 to 1,0          nohead front lt -1 lw 1
+<span style="color: #483d8b;">set</span> arrow 3 from 1,0 to .5,sqrt(3)/2 nohead front lt -1 lw 1
+</pre>
+</div>
+<p>
+properly numbering the vertex
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #483d8b;">set</span> label 1 <span style="color: #8b2252;">"1"</span> at 0.5,sqrt(3)/2+.05
+<span style="color: #483d8b;">set</span> label 2 <span style="color: #8b2252;">"2"</span> at 1+.05,0
+<span style="color: #483d8b;">set</span> label 3 <span style="color: #8b2252;">"3"</span> at -.05,0
+</pre>
+</div>
+<p>
+At this point you can draw a surface plot or also a map using the
+usual gnuplot options.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-08-04 Fri 19:24</p>
+</div>
+</body>
+</html>

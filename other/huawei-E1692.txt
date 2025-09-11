@@ -1,0 +1,307 @@
+.. -*- Mode: rst -*-
+
+============================
+HUAWEI E1692 HSDPA USB modem
+============================
+
+:Authors:   Giulio Bottazzi 
+:Contact:   <giulio.bottazzi@libero.it>
+:Date:      13 October 2010
+:Version:   0.5
+
+.. Contents::
+ 
+.. 1  Introduction
+   2  Hardware configuration
+     2.1  Kernel options
+     2.2  Checking the device
+   3  Switching to modem mode
+   4  udev rules
+   5  Software configuration
+     5.1  ppp configuration
+     5.2  Turning off PIN checking
+
+
+Introduction
+============
+
+These notes explain how to setup and use the HUAWEI_ E1692 HSDPA USB
+modem on your Linux system.
+
+.. _HUAWEI: http://www.huawei.com/mobileweb/en/products/view.do?id=1181
+
+I'm writing these notes because the software included in the modem by
+the service provider, TIM_ in my case, does not work so well.
+
+.. _TIM: http://www.tim.it
+
+The following instructions have been tested on a Gentoo system, but
+they should apply with minimal modifications to any Linux box. A
+substantial part of them come from 'Santinoli_' blog. I provide a
+modified 'chat' script which result, on my system, in a much faster
+data transfer. I've also added a set of 'udev' rules that allow for an
+automatic configuration of the device.
+
+.. _santinoli: http://www.santinoli.com/open/e1692-howto.html
+
+
+
+Hardware configuration
+======================
+
+In order to have the modem functioning you need to have all necessary
+modules compiled in the kernel. The HUAWEI E169 is both a HDSPA modem
+and a storage device. Indeed it contains a MicroSD Card Slot. We will
+ignore the storage aspect of the device and focus on its use as a
+modem. Once the device is plugged in, it is necessary to tell the
+system to recognize it as a communication device rather then an
+external disk. For this purpose we are going to use a specific piece
+of software called usb_modeswitch_
+
+.. _usb_modeswitch:  http://www.draisberghof.de/usb_modeswitch/
+
+But let's start from the beginning.
+
+
+Kernel options
+--------------
+
+In recent kernel, the HUAWEI E196 modem is supported by the USB serial
+'option' driver (option module). To use it, you also need the support
+for the PPP protocol and for asynchronous serial ports. To verify if
+these drivers are compiled in the kernel, use::
+
+ zgrep "CONFIG_PPP" /proc/config.gz 
+ zgrep "CONFIG_PPP_ASYNC" /proc/config.gz 
+ zgrep "CONFIG_USB_SERIAL_OPTION" /proc/config.gz
+
+
+or check your kernel configuration (on Gentoo systems, if you use
+genkernel, kernel configurations can be found in ``/etc/kernels/``).
+
+If the options are not set as module (which is the case if they are
+followed by a ``=m``), recompile your kernel with the following
+options activated::
+
+ Device Drivers  ---> USB Support ---> 
+    [M] USB Serial Converter support ---> 
+         [M] USB driver for GSM and CDMA modems
+ 
+ Device Drivers  ---> Network device support  --->
+    [M] PPP (point-to-point protocol) support
+    [M] PPP support for async serial ports
+
+If you say [M] for "USB Serial Converter support" and for "USB driver
+for GSM and CDMA modems", you get the 'option' module.
+
+
+Checking the device
+-------------------
+
+Once the drivers are available, plug the key and use::
+
+ lsusb -v
+
+to see if the modem has been properly recognized. You should see
+something like::
+
+  ...
+  idVendor           0x12d1 Huawei Technologies Co., Ltd.
+  idProduct          0x1446 
+  bcdDevice            0.00
+  iManufacturer           3 HUAWEI Technology
+  iProduct                2 HUAWEI Mobile
+  ...
+
+At this point it is quite likely that the device has been recognized
+as an external storage device. You can check this using::
+
+  tail /var/log/message
+
+and look for a few lines like::
+
+ ... sd 4:0:0:0: [sdb] Attached SCSI removable disk
+ ... sd 4:0:0:0: Attached scsi generic sg1 type 0
+ ...
+ ... sr0: scsi-1 drive
+ ... Uniform CD-ROM driver Revision: 3.20
+ ... sr 3:0:0:0: Attached scsi CD-ROM sr0
+ ... sr 3:0:0:0: Attached scsi generic sg2 type 5
+ ... usb-storage: device scan complete
+
+
+Switching to modem mode
+=======================
+
+The E1692 modem has a dual nature: it is both a communication and a
+storage device. It is in general recognized by the kernel as a device
+of the latter type. In this case, it is necessary to change its mode
+of operation. The program usb_modeswitch_ has been designed for this
+purpose.
+
+Install the program using the package provided by your system. Under
+Gentoo it's simply::
+
+ emerge usb_modeswitch 
+
+possibly after having unmasked the package::
+
+ echo sys-apps/usb_modeswitch >> /etc/portage/package.keywords
+
+If your version is `1.1.1` or newer, the software automatically
+detects the modem and no further configuration is necessary. You can
+safely jump to `udev rules`_. If your version is older, read what
+follows.
+
+
+Once the package is installed, edit its configuration file
+``/etc/usb_modeswitch.conf`` commenting everything out and inserting the
+following lines
+
+:File: /etc/usb_modeswitch.conf
+
+::
+ 
+ DefaultVendor=  0x12d1
+ DefaultProduct= 0x1446
+ 
+ TargetVendor=   0x12d1
+ TargetProduct=  0x140c
+ 
+ MessageEndpoint= 0x01
+ MessageContent="55534243000000000000000000000011060000000000000000000000000000"
+
+
+At this point it is sufficient to start the program::
+
+ # usb_modeswitch
+
+and the modem nature of the device should become available. Check if
+the device changed its mode by inspecting ``\var\log\messages``. You
+should find something like::
+ 
+ ...
+ ... GSM modem (1-port) converter detected
+ ... GSM modem (1-port) converter now attached to ttyUSB0
+ ...
+
+possibly for up to four different devices ``/dev/ttyUSB[0,1,2,4]``
+which have been created. Your modem is ready to be used.
+
+
+udev rules
+==========
+
+In principle one can automatically load the ``option`` module at boot
+time by inserting a line in ``/etc/modules.autoload.d/kernel-2.6`` and
+manually switch the device to modem mode.
+
+We will follow a more sophisticated approach: we will create an
+explicit rule for udev. This method has not been tested with
+usb_modeswitch version 1.2 and newer.
+
+Edit the file ``/etc/udev/rules.d/50-huawei.rules`` inserting the
+following lines
+
+:File: /etc/udev/rules.d/50-huawei.rules
+
+::
+
+  SUBSYSTEM=="usb", SYSFS{idProduct}=="1446", SYSFS{idVendor}=="12d1", RUN+="/sbin/modprobe option"
+  SUBSYSTEM=="usb", SYSFS{idProduct}=="1446", SYSFS{idVendor}=="12d1", RUN+="/usr/sbin/usb_modeswitch"
+
+
+This file tells the system that if the device is inserted, it should
+load the 'option' module and switch to modem mode. Issue the following
+command to let the system know about your new setting::
+
+ # udevadm control --reload-rules
+
+unplug and plug again the USB device. Toward the end of the log
+file ``/var/log/messages`` you should find something like::
+
+  ...
+  ... option 5-1.2:1.0: GSM modem (1-port) converter detected
+  ... usb 5-1.2: GSM modem (1-port) converter now attached to ttyUSB0
+  ...
+
+If this is the case, the ``udev`` system is working as expected.
+
+
+Software configuration
+======================
+
+The HUAWEI E1692 adapter works as a modem and relies on PPP to
+establish a connection. One can in principle use any PPP management
+program. Several GUI programs are available for both KDE and Gnome. In
+what follows I stick with a bare-bone approach.
+
+
+ppp configuration
+-----------------
+
+The necessary software is called 'ppp'. Install it using the package
+management system of your Linux distribution (in gentoo, it's ``emerge
+net-dialup/ppp``). Once the package is installed, create the following
+file
+
+:File: /etc/ppp/peers/tim
+
+::
+
+ /dev/ttyUSB0
+ 460800
+ hide-password
+ noauth
+ debug
+ -crtscts
+ remotename huawei
+ ipparam huawei
+ # connect script
+ connect "/usr/sbin/chat -v -s -f /etc/ppp/chat-tim"
+ # dns, routing
+ usepeerdns
+ defaultroute
+ noipdefault
+ nodetach 
+
+
+This file defines the connection parameters. In particular it calls a
+``chat`` script to start the connection. Create the script as follows
+
+:File: /etc/ppp/chat-tim
+
+::
+
+ TIMEOUT 25
+ ABORT BUSY
+ ABORT 'NO ANSWER'
+ ABORT 'NO CARRIER'
+ ABORT 'RINGING RINGING'
+ ABORT 'Username/Password Incorrect'
+ '' ATZ
+ 'OK-+++\c-OK' ATH0
+ 'OK' ATDT*99#
+ CONNECT	\c				\
+
+At this point you should be able to start the PPP connection simply
+using::
+
+ pon tim
+
+and stop it with::
+
+ poff tim
+
+
+Turning off PIN checking
+------------------------
+
+In order to work the procedure above could possibly require that the
+initial check of the PIN value is turned off in the data SIM. This can
+be obtained by inserting the SIM card in a regular mobile phone and
+selecting the appropriate option, or by installing the software
+provided by the producer and distributed together with the device,
+under Windows or Linux. This software is pre-installed on the internal
+memory of the device, which can be accessed as a regular USB memory
+key.
