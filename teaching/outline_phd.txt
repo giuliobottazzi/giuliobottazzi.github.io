@@ -1,0 +1,169 @@
+.. -*- Mode: rst -*-
+
+==============================
+Graduate Course in Mathematics
+==============================
+------------------------
+Academic Year  2008-2009
+------------------------
+
+:Date:      26 September 2008
+
+
+.. contents::
+
+
+..  -----------------------------------
+   | Table of Contents                 |
+   |                                   |
+   | Lecturers                         |
+   |                                   |
+   | General schedule                  |
+   |                                   |
+   | References                        |
+   |                                   |
+   | Prerequisites                     |
+   |                                   |
+   | Detailed schedule                 |
+   |                                   |
+   |  Linear Algebra                   |
+   |                                   |
+   |  Calculus                         |
+   |                                   |
+   |  Probability                      |
+   |                                   |
+   |  Static and Dynamic Optimization  |
+    -----------------------------------
+
+
+
+The mathematical course of the PhD Programme in Economics is
+structured in complementary modules. Different lecturers are assigned
+to different modules. It is assumed that students already understand
+the basic notion of calculus, as they are typically taught in the
+undergraduate basic courses (see Prerequisite below). All PhD students
+are required to attend all lectures. During the course the students
+will be assigned home works in the form of exercises or elaborations
+on specific topics. In order to follow the development of the
+lectures, it is in general important that these assignments are duly
+performed. Please report any problem to the teachers. If deemed
+necessary, extra teaching hours, albeit in a limited amount, can be
+organized. One or more copies of the reference textbook cited below
+will be available at the Sant'Anna Library and students are not
+required to buy a copy. In any case the essential material for the
+different modules will be provided directly by the teachers. For any
+issue or question regarding the course program and related activities
+please contact the course coordinator (Giulio Bottazzi
+<bottazzi@sssup.it>).
+
+
+Lecturers
+=========
+
+- Prof. Giulio Bottazzi (coordinator), Scuola Superiore Sant'Anna, Pisa.
+- Prof. Enrico Scalas, Universit\`a del Piemonte Orientale.
+- Dr. Matteo Barigozzi, Max Planck Institute of Economics, Jena.
+- Dr. Pietro Dindo, Scuola Superiore Sant'Anna, Pisa.
+- Dr. Simona Settepanella, Universit\`a di Pisa.
+
+
+General schedule
+================
+
+:Course starts:  Monday October 6
+:Course ends:    Friday November 7
+:Course load:    20 hours a week for 5 weeks
+:Exam date:      November 14-15
+
+
+References
+==========
+
+
+:[Sp]: Calculus, Spivak
+:[St]: Linear Algebra and its applications, Gilbert Strang
+:[Se]: Linear Algebra, Serge Lang 
+:[Ru]: Principles of Mathematical Analysis, W.A. Rudin 
+:[Du]: Probability: Theory and Examples and Essentials of Stochastic Processes, R. Durrett
+:[Ch]: Elements of Dynamic Optimization, A. Chiang 
+:[HS]: Differential Equations, Dynamical Systems and Linear Algebra, M.W. Hirsh, S. Smale
+
+
+Prerequisites
+=============
+
+:Teaching material: [Sp, Part I,II and III]
+
+:Topics:
+	- sequences
+	- functions in $\mathcal{R}$, continuity, differentiability
+	- primitive mapping
+
+
+Detailed schedule
+=================
+
+
+Linear Algebra
+--------------
+
+:Lecturer: Settepanella
+:Teaching material: [St; Se]
+:Teaching period: first two weeks
+:Load: 20 hours
+:Topics:
+	- linear spaces, linear operators
+	- eigenspaces, diagonalization
+	- Jordan form, S+N decomposition
+	- complex space, Euclidean spaces, quadratic forms
+
+
+Calculus
+--------
+
+:Lecturer: Barigozzi
+:Teaching material: [Ru, chapters 3, 6 and 9]
+:Teaching period: first two weeks
+:Load: 20 hours
+:Topics:
+	- series
+	- Riemann-Steltjes integrals 
+	- functions in $\mathcal{R}^{N}$, continuity, differentiability 
+	- global/local extrema  
+	- curves in $\mathcal{R}^{N}$
+	- integrals on curves
+
+
+Probability
+-----------
+
+:Lecturer: Scalas
+:Teaching material: [Du]
+:Teaching period: third and fourth weeks
+:Load: 20 hours
+:Topics:
+	- the meaning of probability 
+	- a short history of probabilistic methods in economics and the social sciences 
+	- Kolmogorov's axioms 
+	- random variables 
+	- important distributions 
+	- introduction to stochastic processes 
+	- Markov chains 
+	- Poisson process 
+	- Wiener process
+
+
+Static and Dynamic Optimization
+-------------------------------
+
+:Lecturers: Bottazzi, Dindo
+:Teaching material: [HS 3-9, 15; Ch]
+:Teaching period: last three weeks
+:Load: 40 hours
+:Topics:
+	- constrained optimization: Lagrange, Kuhn-Tucker conditions
+	- differential equations: existence and uniqueness theorem
+	- linear autonomous differential equations
+	- general methods for solving differential equations
+	- stability of solutions
+	- dynamic optimization: Euler condition, optimal control

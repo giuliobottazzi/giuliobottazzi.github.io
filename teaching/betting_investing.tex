@@ -1,0 +1,111 @@
+% Created 2015-09-14 Mon 13:04
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\author{Giulio Bottazzi}
+\date{\today}
+\title{Betting and Optimal Portfolios}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.3.1 (Org mode 8.2.4)}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Introduction}
+\label{sec-1}
+
+In his '52 seminal paper Kelly proposes an original connection between
+information theory and betting strategies. His work revealed the
+possibility to investigate the problem of forecasting from a very
+general perspective. One of the topics of the following research has
+been to investigate the possibility to devise a strategy that
+outperforms a given set of competing strategies under minimal
+information about the nature and dynamics of the underline process.
+\section{Assignment}
+\label{sec-2}
+
+Your assignment is divided in two tasks. Each task starts from a
+specific paper which proposes a way of dealing with the problem of
+building, under certain conditions and in a specific sense, the
+"optimal" strategy or family of strategies. You are required to
+understand and implement, using a new database, the idea discussed in
+the paper. A comparative exercise of the proposed family of strategies
+with other alternatives will be highly appreciated.
+
+\subsection{Task 1: Betting}
+\label{sec-2-1}
+
+In 1974 Cover proposes a \href{https://drive.google.com/file/d/0B3G1Di9qZKBmVGhtendHaWtheWM/view?usp=sharing}{Universal Gambling Scheme} that should, to a
+certain extent, perform the magic of beating any single strategy
+competitors propose. From \href{http://www.football-data.co.uk}{football-data} website you can download the
+time series of matches with the final outcome and odds proposed by
+different online gambling sites. You can see the odds proposed by the
+different bookmakers as forecasts on the outcome of the
+game. Investigate and compare their performance and, starting from the
+advice of these "experts", try to build a strategy, or "betting
+scheme", that leads to better asymptotic performances. Hint: Italian
+\emph{Serie A} championship is consistently available from 2002-03.
+
+\subsection{Task2 : Investing}
+\label{sec-2-2}
+
+Not satisfied by having dominated the betting arena, in 1991 Cover
+moves to conquer the financial market with his \href{https://drive.google.com/file/d/0B3G1Di9qZKBmMFRHMkRmZGJ4R00/view?usp=sharing}{Universal
+Portfolios}. From \href{http://finance.yahoo.com/}{yahoo!finance} download daily and weekly time series
+of a portfolio of stocks. Compare the performance of different
+buy-and-hold and re-balancing strategies, possibly using out-of-sample
+analysis. Then try to implement Cover suggested strategy and discuss
+its performance. Hint: Pick a set of liquid, high capitalization, and
+diverse assets. A possible choice could be: Bank of America
+Corporation (BAC), General Electric Company (GE), Ford Motor Co. (F),
+Citigroup, Inc. (C), Pfizer Inc. (PFE), Hewlett-Packard Company (HPQ),
+JPMorgan Chase \& Co. (JPM), AT\&T, Inc. (T), Wells Fargo \& Company
+(WFC) and J. C. Penney Company, Inc. (JCP).
+
+\section{Bibliography}
+\label{sec-3}
+
+\subsection{Essential}
+\label{sec-3-1}
+
+\begin{enumerate}
+\item Thomas M. Cover (1974) "Universal Gambling Schemes and the
+Complexity Measures of Kolmogorov and Chaitin", Technical report
+n.12, Stanford University.
+
+\item Thomas M. Cover (1991) "Universal Portfolios", Mathematical Finance
+1 (1): 1–29.
+\end{enumerate}
+\subsection{Further reading}
+\label{sec-3-2}
+
+\begin{enumerate}
+\item J. L. Kelly , Jr. (1956) \href{https://drive.google.com/file/d/0B3G1Di9qZKBmdUpUZDNDOG83eHM/view?usp=sharing}{"A New Interpretation of Information Rate"},
+The Bell System Technical Journal.
+
+\item Leo Breiman (1961) \href{https://drive.google.com/file/d/0B3G1Di9qZKBmbXotb21Od08wdjA/view?usp=sharing}{"Optimal Gambling Systems for Favorable Games"},
+Proc. Fourth Berkeley Symp. on Math. Statist. and Prob.
+
+\item Meir Feder (1991) \href{https://drive.google.com/file/d/0B3G1Di9qZKBmNUVKQm5pU0ZSUmM/view?usp=sharing}{"Gambling using a finite state machine"}, IEEE
+Transactions in Information Theory.
+\end{enumerate}
+% Emacs 24.3.1 (Org mode 8.2.4)
+\end{document}

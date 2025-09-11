@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-01-20 Fri 10:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Financial Economics 2015/2016</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Giulio Bottazzi" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet"  type="text/css" href="css/stylesheet.css"/>
+           <link rel="icon"  type="image/x-icon" href="favicon.ico"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Financial Economics 2015/2016</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2d9176c">Structure of the course</a></li>
+<li><a href="#orgbaa5b2c">Course material</a></li>
+<li><a href="#org8e8437f">Syllabus</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2d9176c" class="outline-2">
+<h2 id="org2d9176c">Structure of the course</h2>
+<div class="outline-text-2" id="text-org2d9176c">
+<ul class="org-ul">
+<li>Teaching load: 63 hours (ECTS credits 9)</li>
+<li>Main lecturer: BOTTAZZI Giulio</li>
+<li>Teaching assistant: GIACHINI Daniele</li>
+<li>Guest lecturer and experts: TBA</li>
+<li>Semester: Spring</li>
+<li>Keywords: financial economics, general equilibrium, arbitrage,
+asset pricing, optimization</li>
+
+<li>Outline: This course aims to provide a wide theoretical foundation
+to the most widespread notions and tools in modern finance,
+including present value theory, real interest rates, arbitrage
+pricing, portfolio allocation and mean-variance analysis.</li>
+
+<li>Objectives: The students should understand the theoretical
+justification of interest rate and yield curve. The students
+should become acquainted with the notion of arbitrage and
+equilibrium prices in different market settings. They should be
+able to solve the problem of portfolio optimization and
+mean-variance analysis in rather general terms.</li>
+
+<li>Description: General equilibrium, no arbitrage in risk less
+economies, real interest rate and the interest rate
+curve. Arbitrage in security markets, state prices, complete and
+incomplete markets, valuation functional and the fundamental
+theorem of finance. Choices under uncertainty, expected utility
+theory and risk aversion. Portfolio choices, optimal portfolio
+with multiple risky assets. General equilibrium under
+uncertainty. Pricing kernel and mean-variance analysis. OPTIONAL:
+behavioral finance, asset prices under ambiguity, evolutionary
+finance and the market selection hypothesis.</li>
+
+<li>Prerequisites: The course requires a knowledge of linear algebra
+(linear space, linear map, basis, inversion, eigenvectors and
+eigensystems), calculus (differential analyses of function of many
+real variables and static optimization) and, to a lesser extent,
+probability theory. Some basic knowledge of the theory of choice
+under uncertainty (expected utility theory) and economic
+equilibrium are in general considered understood and only
+cursorily reviewed.</li>
+
+<li>Final exam: the get the final grading students are required to
+pass a final written exam. At least one trial exam will be
+organized to test your level of preparation. Students get extra
+points for completing their homework during the course.</li>
+
+<li>Course web page: <a href="http://cafim.sssup.it/~giulio/teaching.html">http://cafim.sssup.it/~giulio/teaching.html</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgbaa5b2c" class="outline-2">
+<h2 id="orgbaa5b2c">Course material</h2>
+<div class="outline-text-2" id="text-orgbaa5b2c">
+<p>
+Lecture notes will be made available to all students. The syllabus
+(see below) contains references to specific parts of the books. Each
+week, students will be assigned a few examples and exercises as
+homework. The following week, the teaching assistant will collect
+the students papers and review the exercises.
+</p>
+
+<ul class="org-ul">
+<li>Textbooks:
+<dl class="org-dl">
+<dt>[LRW]</dt><dd>Principles of Financial Economics, S.F. LeRoy and
+J. Werner</dd>
+<dt>[FBJ]</dt><dd>Foundations of Financial Markets and Institutions,
+Fabozzi, Modigliani and Jones</dd>
+</dl></li>
+
+<li>Further references and Optional readings:
+<dl class="org-dl">
+<dt>[MWG]</dt><dd>Microeconomic Theory, A. Mas-Colell, M. D. Whinston,
+and J. R. Green</dd>
+<dt>[CN]</dt><dd>Quantitative Financial Economics, K. Cuthbertson and
+D. Nitzsche</dd>
+<dt>[HR]</dt><dd>Financial Economics, T. Hens and M. O. Rieger</dd>
+<dt>[ES]</dt><dd>Ambiguity and Asset Markets, L. G. Epstein and
+M. Schneider, NBER paper;</dd>
+<dt>[Hu]</dt><dd>Options, Futures and Other Derivatives, J. C. Hull (7th ed.)</dd>
+<dt>[Ni]</dt><dd>The Ascent of Money: A Financial History of the World,
+Niall Ferguson</dd>
+<dt>[Eco]</dt><dd>Guide to the Financial Markets, The Economist</dd>
+</dl></li>
+
+<li>Prerequisites suggested reading (only relevant parts):
+C. P. Simon, L. E. Blume, Mathematics for Economists, H. R. Varian
+Microeconomic Analysis.</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org8e8437f" class="outline-2">
+<h2 id="org8e8437f">Syllabus</h2>
+<div class="outline-text-2" id="text-org8e8437f">
+<p>
+List of topics with reference to the textbooks. Each item roughly
+corresponds to one or two lectures.
+</p>
+
+<ul class="org-ul">
+<li>Introduction: the structure of the course and its textbooks; the
+role of financial institutions <a href="https://docs.google.com/presentation/d/1fPWtpCZgLpRXPdWiiNIE9HtLyaMs5hSaSQqVL_Gj7No/edit?usp=sharing">slides</a> (Textbooks sections: [FBJ]
+Ch. 1, 2 and 3; [Ni] Ch. 1; [Eco] Ch 1). The first building
+blocks: Walras market clearing condition and utility theory.</li>
+<li>The notion of economic equilibrium; Two agents, two goods, one
+date model. The role of prices.</li>
+<li>Two date model. Spot and forward market. Financial
+equilibrium. Present value prices and economic
+equilibrium. Redundant contracts; the role of arbitrage in setting
+princes;</li>
+<li>Real and nominal interest rate; The role of inflation; (Textbooks
+sections: [FBJ] Ch. 4 and 5)</li>
+<li>A second look at intertemporal allocation in a one good two date
+model: the role of preferences and endowments. Pricing of future
+contracts (Textbooks sections: [Hu] Sections from 4.1 to 4.8 and
+from 6.1 to 6.3 [Ni] Ch. 2)</li>
+<li>The multi-period case and the role of the yield curve. Pricing
+loans and fixed income securities.</li>
+<li>Structure of security markets with uncertainty; complete markets
+and redundant assets; (Textbook sections: [LRW] 1.1, 1.2)</li>
+<li>Structure of security markets: Left and right matrix inverse;
+payoff pricing correspondence; the Law of One Price; state claims
+and state prices (Textbook sections: [LRW] 1.6, 2.1, 2.3, 2.4,
+2.5)</li>
+<li>Arbitrage and valuation: strong and weak arbitrage; positive
+pricing; the payoffs convex cone; Farkas' Lemma; the valuation
+functional and strong arbitrage; Stiemke's Lemma; the valuation
+functional and arbitrage; (Textbook sections: [LRW] 3.2, 3.3, 3.4,
+3.5, 5.1)</li>
+<li>Arbitrage and valuation: the fundamental theorem of finance;
+multiplicity of valuation functional; values bound; risk neutral
+probabilities; (Textbook sections: [LRW] 5.2, 5.3, 5.5, 6.3, 6.4,
+6.5, 6.6, 6.7;)</li>
+<li>Valuation of derivatives in a two date model: forward and future;
+put and call options. Practical example: from option price to
+risk-neutral measure (The software used is <a href="http://www.gnu.org/software/octave/">octave</a>. Data courtesy
+of <a href="http://finance.yahoo.com/">yahoo!finance</a>) (Textbook sections: see the discussion of
+forward and future contracts in [Hu] Ch.1-3)</li>
+<li>Brief history of risk and uncertainty in Economics</li>
+<li>Choices under uncertainty: consumption and portfolio choices,
+Expected Utility Theory, separable and time invariant utilities;
+risk aversion; absolute and relative risk aversion coefficients;
+certainty equivalent; concave transformation; comparison of
+utility functions (Textbook sections: [LRW] 9.2, 9.3, 9.4, 9.5,
+9.6, 9.8; the proves of the theorems can also be found in [MWG]
+Ch.6 Sec.B; further examples are discussed in [CN] Ch.1 Sec.3-5)</li>
+<li>Portfolio optimization: first order conditions; arbitrage and
+optimal portfolio, optimal consumption, prices and
+returns. (Textbook sections: [LRW] 1.4, 1.5, 2.6, 3.6, 11.1, 11.2;
+see [CN] Ch.15 for an introductory discussion of the problem)</li>
+<li>Portfolio optimization with one risky security: impact of wealth
+on optimal investment; exercises (Textbook sections: [LRW ]12.2)</li>
+<li>Portfolio optimization with several risky securities: from
+consumption to investment optimization; risk-return trade off;
+optimal portfolio under fair pricing; (Textbook sections: [LRW]
+13.2, 13.3, 13.4, 9.9, 13.6)</li>
+<li>Economic equilibrium with uncertanty; representative agent model;
+equilibrium sufficient conditions; equilibrium and arbitrage
+(Textbook sections: [LRW] 1.7, 1.8, 1.9, 2.4, 3.7)</li>
+<li>Economic equilibrium: example with heterogeneous agents,
+log-utilities and Arrow securities.</li>
+<li>Mean variance analysis and the Markowitz economy</li>
+<li>Consumption based security pricing; a first derivation of CAPM;
+the social planner problem; equilibrium and Pareto optimality,
+first and second welfare theorems; (Textbook sections: 14.2, 14.3,
+14.5, 15.2, 15.3, 15.4, 15.5, without theorem 15.5.1)</li>
+<li>Practical example: mean-variance efficient frontier from empirical
+data; (The software used is <a href="http://www.gnu.org/software/octave/">octave</a>. Data courtesy of
+<a href="http://finance.yahoo.com/">yahoo!finance</a>)</li>
+<li>CAPM (Textbook sections: chapter 19 all, theorems without proof; ;
+see also the discussion in [CN] Ch.15 Sec. 3-5)</li>
+<li>A short introduction to continuous time option pricing (by a guest
+lecturer)</li>
+<li>Two seminars on empirical problems in finance (guest experts)</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Giulio Bottazzi</p>
+<p class="date">Created: 2023-01-20 Fri 10:28</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

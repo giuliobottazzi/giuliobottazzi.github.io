@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Betting and Optimal Portfolios</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet"  type="text/css" href="css/stylesheet.css"/>
+<link rel="icon"  type="image/x-icon" href="favicon.ico"/>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="teaching.html"> UP </a>
+ |
+ <a accesskey="H" href=""> HOME </a>
+</div><div id="content">
+<h1 class="title">Betting and Optimal Portfolios</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org0263d1e">Introduction</a></li>
+<li><a href="#orge8a8947">Assignment</a>
+<ul>
+<li><a href="#org31f859b">Task 1: Betting</a></li>
+<li><a href="#orgb433d00">Task2 : Investing</a></li>
+</ul>
+</li>
+<li><a href="#org49af1f9">Bibliography</a>
+<ul>
+<li><a href="#org917beda">Essential</a></li>
+<li><a href="#orgd347d1d">Further reading</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0263d1e" class="outline-2">
+<h2 id="org0263d1e">Introduction</h2>
+<div class="outline-text-2" id="text-org0263d1e">
+<p>
+In his '52 seminal paper Kelly proposes an original connection between
+information theory and betting strategies. His work revealed the
+possibility to investigate the problem of forecasting from a very
+general perspective. One of the topics of the following research has
+been to investigate the possibility to devise a strategy that
+outperforms a given set of competing strategies under minimal
+information about the nature and dynamics of the underline process.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge8a8947" class="outline-2">
+<h2 id="orge8a8947">Assignment</h2>
+<div class="outline-text-2" id="text-orge8a8947">
+<p>
+Your assignment is divided in two tasks. Each task starts from a
+specific paper which proposes a way of dealing with the problem of
+building, under certain conditions and in a specific sense, the
+"optimal" strategy or family of strategies. You are required to
+understand and implement, using a new database, the idea discussed in
+the paper. A comparative exercise of the proposed family of strategies
+with other alternatives will be highly appreciated.
+</p>
+</div>
+
+<div id="outline-container-org31f859b" class="outline-3">
+<h3 id="org31f859b">Task 1: Betting</h3>
+<div class="outline-text-3" id="text-org31f859b">
+<p>
+In 1974 Cover proposes a <a href="https://drive.google.com/file/d/0B3G1Di9qZKBmVGhtendHaWtheWM/view?usp=sharing">Universal Gambling Scheme</a> that should, to a
+certain extent, perform the magic of beating any single strategy
+competitors propose. From <a href="http://www.football-data.co.uk">football-data</a> website you can download the
+time series of matches with the final outcome and odds proposed by
+different online gambling sites. You can see the odds proposed by the
+different bookmakers as forecasts on the outcome of the
+game. Investigate and compare their performance and, starting from the
+advice of these "experts", try to build a strategy, or "betting
+scheme", that leads to better asymptotic performances. Hint: Italian
+<i>Serie A</i> championship is consistently available from 2002-03.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgb433d00" class="outline-3">
+<h3 id="orgb433d00">Task2 : Investing</h3>
+<div class="outline-text-3" id="text-orgb433d00">
+<p>
+Not satisfied by having dominated the betting arena, in 1991 Cover
+moves to conquer the financial market with his <a href="https://drive.google.com/file/d/0B3G1Di9qZKBmMFRHMkRmZGJ4R00/view?usp=sharing">Universal
+Portfolios</a>. From <a href="http://finance.yahoo.com/">yahoo!finance</a> download daily and weekly time series
+of a portfolio of stocks. Compare the performance of different
+buy-and-hold and re-balancing strategies, possibly using out-of-sample
+analysis. Then try to implement Cover suggested strategy and discuss
+its performance. Hint: Pick a set of liquid, high capitalization, and
+diverse assets. A possible choice could be: Bank of America
+Corporation (BAC), General Electric Company (GE), Ford Motor Co. (F),
+Citigroup, Inc. (C), Pfizer Inc. (PFE), Hewlett-Packard Company (HPQ),
+JPMorgan Chase &amp; Co. (JPM), AT&amp;T, Inc. (T), Wells Fargo &amp; Company
+(WFC) and J. C. Penney Company, Inc. (JCP).
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org49af1f9" class="outline-2">
+<h2 id="org49af1f9">Bibliography</h2>
+<div class="outline-text-2" id="text-org49af1f9">
+</div>
+<div id="outline-container-org917beda" class="outline-3">
+<h3 id="org917beda">Essential</h3>
+<div class="outline-text-3" id="text-org917beda">
+<ol class="org-ol">
+<li>Thomas M. Cover (1974) "Universal Gambling Schemes and the
+Complexity Measures of Kolmogorov and Chaitin", Technical report
+n.12, Stanford University.</li>
+
+<li>Thomas M. Cover (1991) "Universal Portfolios", Mathematical Finance
+1 (1): 1–29.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd347d1d" class="outline-3">
+<h3 id="orgd347d1d">Further reading</h3>
+<div class="outline-text-3" id="text-orgd347d1d">
+<ol class="org-ol">
+<li>J. L. Kelly , Jr. (1956) <a href="https://drive.google.com/file/d/0B3G1Di9qZKBmdUpUZDNDOG83eHM/view?usp=sharing">"A New Interpretation of Information Rate"</a>,
+The Bell System Technical Journal.</li>
+
+<li>Leo Breiman (1961) <a href="https://drive.google.com/file/d/0B3G1Di9qZKBmbXotb21Od08wdjA/view?usp=sharing">"Optimal Gambling Systems for Favorable Games"</a>,
+Proc. Fourth Berkeley Symp. on Math. Statist. and Prob.</li>
+
+<li>Meir Feder (1991) <a href="https://drive.google.com/file/d/0B3G1Di9qZKBmNUVKQm5pU0ZSUmM/view?usp=sharing">"Gambling using a finite state machine"</a>, IEEE
+Transactions in Information Theory.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>
