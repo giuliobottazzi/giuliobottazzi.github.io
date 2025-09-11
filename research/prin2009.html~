@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-01-20 Fri 10:28 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The growth of firms and countries</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Giulio Bottazzi" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../favicon.ico" />
+<style type="text/css">
+<!--/*--><![CDATA[/*><!--*/
+div.figure { float:left; }
+/*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../research.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">The growth of firms and countries</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org86ba9ad">Proposal</a></li>
+<li><a href="#orgb58712c">News</a>
+<ul>
+<li><a href="#orgdf3289d">Project final meeting</a></li>
+<li><a href="#org4de5d7e">Project second mid-term meeting <span class="timestamp-wrapper"><span class="timestamp">[2013-05-16 Thu]</span></span></a></li>
+<li><a href="#org5cbd866">Project mid-term meeting [2012-12-4 Tue]</a></li>
+<li><a href="#orgb44c725">Project kick-off meeting  <span class="timestamp-wrapper"><span class="timestamp">[2011-10-28 Fri]</span></span></a></li>
+</ul>
+</li>
+<li><a href="#orge592185">People</a></li>
+<li><a href="#orga16cccf">Deliverables</a>
+<ul>
+<li><a href="#org13d3bdf">Objective 1: Refinement and extension of statistical methods</a></li>
+<li><a href="#org3e5031c">Objective 2: Empirical analysis of growth distributions</a></li>
+<li><a href="#org9dbda2a">Objective 3: Formulation of new theoretical models</a></li>
+<li><a href="#org3e3e03c">Further results</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+The project <b>The growth of firms and countries: distributional
+properties and economic determinants</b> which started in October 2012 is
+financed by the Italian Ministry of University and Research as part of
+the PRIN 2009 program (grant protocol number 2009H8WPX5).
+</p>
+
+<div id="outline-container-org86ba9ad" class="outline-2">
+<h2 id="org86ba9ad">Proposal</h2>
+<div class="outline-text-2" id="text-org86ba9ad">
+<p>
+This project studies the distributional properties of economic growth,
+at the level of firms, sectors or entire economies, in a broader
+perspective than the one typically adopted in economic studies. We
+will do that through the development of statistical tools, empirical
+investigations and a coordinated, phenomenologically-driven,
+theorizing effort.
+</p>
+
+<p>
+The traditional analysis of economic growth, and its relation with the
+diverse aspects of the economic system, is based on measures of
+central tendency, that is "averages". We are used to compare the
+competitiveness of sectors or countries by looking at their
+differences in average growth rates, or to asses the effect of a given
+policy by looking at its impact on aggregate productivity, defined as
+the weighted mean of the productivity of single units.
+</p>
+
+<p>
+Conversely, a better description of the growth dynamics characterizing
+the economic systems, and a clearer investigation of the relationships
+existing between the diverse aspects of this growth process, can be
+achieved by looking at the properties of the entire distribution.
+</p>
+
+<p>
+From a theoretical point of view, our approach replaces the
+traditional notion of economic equilibrium, seen as an optimal outcome
+deriving from more or less decentralized planning activities, with the
+notion of statistical equilibrium, generated by the interaction among
+many agents. In this approach the observed distributional
+heterogeneity is not merely considered as the result of a noisy
+environment, but as an emerging phenomenon, whose properties can be
+fruitfully investigated to infer the mechanisms of the underlying
+economic dynamics which, in turn, provide precise constraints to the
+possible modeling efforts.
+</p>
+
+<p>
+The main challenge ahead is to move from the traditional investigation
+of unconditional "stylized facts", toward a more structured approach
+allowing to identify the determinants of the observed empirical
+regularities. Econometric models must be appropriately designed to
+this purpose, and descriptive investigations have to be replaced with
+precise hypothesis and reliable validation tools. The observed
+regularities, once appropriately described, will shape the boundaries
+for the formulation of models, which are indeed constrained to both
+incorporate and be able to reproduce them.
+</p>
+
+<p>
+Inside this broadly defined research agenda, the project is built
+along three main activities, intended to exploit the interdisciplinary
+nature of the project.
+</p>
+
+<p>
+The first activity concerns the investigation of the statistical
+properties of growth rates, both from a micro (firms) and a macro
+perspective (sectors and countries). We will focus on distributional
+aspects, like the presence of fat-tails, asymmetries and
+multi-modality. The interdisciplinary background of the unit members
+will provide the necessary skills to go beyond the technical toolkit
+typically employed in economics, allowing for an intensive use of
+existing non-linear and non-parametric methods, and also enabling us
+to derive new estimators suited for distributional analysis.
+</p>
+
+<p>
+The second activity concerns the identification of the determinants of
+the observed distributional properties. At the macroeconomic level,
+the aim is to study the determinants of the entire growth
+distribution, across countries and across regions, extending the still
+limited body of literature which merely look at aggregate
+volatility. From a micro perspective we will investigate the possible
+determinants of long and short run industrial performances,
+respectively captured by the size of the firm and its growth
+rate. Traditional studies look at the unconditional distribution of
+these variables. However, industrial evolution is essentially a matter
+of economic selection on firms' characteristics and performance. Thus,
+we will explore how growth relates with the availability and cost of
+capital, with technical productivity and operating profitability, the
+latter being the natural fitness measure on the competitive landscape.
+</p>
+
+<p>
+Finally, these empirical efforts will be exploited in the third line
+of activity, which concerns the formulation of new models of
+growth. The goal is to enhance the economic content of existing
+models, including aspects related to structural relationships among
+firm performances, financing problems, and policy regimes affecting
+selection and competition dynamics. The modeling effort is based on
+the analytical tools developed by the units, sharing the common
+purpose to design suitable stochastic models for both discrete and
+continuous time dynamics.
+</p>
+
+<p>
+A final key ingredient of the project is the availability of large and
+rich datasets. These meet the intensive data requirements of the
+methods which we plan to apply and also allow to pursue international
+comparisons of the observed statistical regularities.
+</p>
+
+<p>
+You can read the entire original <a href="http://cafim.sssup.it/~giulio/research/proposal_prin2009.html">proposal</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb58712c" class="outline-2">
+<h2 id="orgb58712c">News</h2>
+<div class="outline-text-2" id="text-orgb58712c">
+</div>
+<div id="outline-container-orgdf3289d" class="outline-3">
+<h3 id="orgdf3289d">Project final meeting</h3>
+<div class="outline-text-3" id="text-orgdf3289d">
+<p>
+See the <a href="./prin2009_finalconf.html">event's page</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4de5d7e" class="outline-3">
+<h3 id="org4de5d7e">Project second mid-term meeting <span class="timestamp-wrapper"><span class="timestamp">[2013-05-16 Thu]</span></span></h3>
+<div class="outline-text-3" id="text-org4de5d7e">
+<p>
+The third meeting of the project was organized by the unit of
+Universita' del Piemonte Orientale, and took place in
+Alessandria. The program is available <a href="./annuncioAL.pdf">here</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5cbd866" class="outline-3">
+<h3 id="org5cbd866">Project mid-term meeting [2012-12-4 Tue]</h3>
+<div class="outline-text-3" id="text-org5cbd866">
+<p>
+The second meeting of the project was organized by the Sant'Anna
+unit in Pisa. The program is available <a href="https://docs.google.com/open?id=0B3G1Di9qZKBmWkhVVUpDaXJUZmM">here</a>.
+</p>
+
+<p>
+Some presenters agreed to have their presentations published on
+the web:
+</p>
+
+<ul class="org-ul">
+<li><a href="https://docs.google.com/open?id=0B3G1Di9qZKBmdHNEaHBSd3hZUmM">Power Laws and the Firm Size Distribution</a> by Giulio Bottazzi,
+Davide Pirino and Federico Tamagni</li>
+<li><a href="https://docs.google.com/open?id=0B3G1Di9qZKBmcHpnakk1c0d6MjQ">The Estimate of Countries’ Growth Volatility via Conditional Density</a> by Davide Fiaschi and Angela Parenti</li>
+<li><a href="https://docs.google.com/open?id=0B3G1Di9qZKBmUkNDTXRZejFHY3M">Measuring the degree of interconnectedness between European regional income</a> by Davide Fiaschi and Angela Parenti</li>
+<li><a href="https://docs.google.com/open?id=0B3G1Di9qZKBmQTUzT2w5TWFqX1E">The Determinants of Growth Volatility in European Regions</a> by Davide Fiaschi, Lisa Gianmoena and Angela Parenti</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb44c725" class="outline-3">
+<h3 id="orgb44c725">Project kick-off meeting  <span class="timestamp-wrapper"><span class="timestamp">[2011-10-28 Fri]</span></span></h3>
+<div class="outline-text-3" id="text-orgb44c725">
+<p>
+The fist meeting of the project took place in Pisa, at Sant'Anna
+School the 27th and 28th of October.  The program is available
+<a href="https://docs.google.com/present/edit?id=0AXG1Di9qZKBmZGhrMzJud3pfMzZobndyZ25oZA">here</a>.
+</p>
+
+<div class="HTML">
+<p>
+&lt;table style="width:auto;"&gt;
+&lt;tr&gt;&lt;td&gt;
+&lt;a href="<a href="https://picasaweb.google.com/lh/photo/svq4ilOepDiyvWoWe3k2YtMTjNZETYmyPJy0liipFm0?feat=embedwebsite">https://picasaweb.google.com/lh/photo/svq4ilOepDiyvWoWe3k2YtMTjNZETYmyPJy0liipFm0?feat=embedwebsite</a>"&gt;&lt;img src="<img src="https://lh5.googleusercontent.com/--ceKxHg-mZA/UYDAG6AhFSI/AAAAAAAADhg/-dcv8ROOAkE/s400/2011-10-28-pisa.jpg" alt="2011-10-28-pisa.jpg" />" height="300" width="400" /&gt;&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style="font-family:arial,sans-serif; font-size:11px; text-align:right"&gt;From &lt;a href="<a href="https://picasaweb.google.com/giulio.bottazzi/Website?authuser=0&amp;feat=embedwebsite">https://picasaweb.google.com/giulio.bottazzi/Website?authuser=0&amp;feat=embedwebsite</a>"&gt;Website&lt;/a&gt;
+&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</p>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge592185" class="outline-2">
+<h2 id="orge592185">People</h2>
+<div class="outline-text-2" id="text-orge592185">
+
+<div class="figure">
+<p><img src="http://www.cafed.sssup.it/~giulio/img/giulio_2.jpg" alt="giulio_2.jpg" width="100px" style="&quot;display:inline;margin:10px;&quot;" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Giulio Bottazzi</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../img/Irene_Brunetti.jpg" alt="Irene_Brunetti.jpg" width="100px" style="&quot;display:inline;margin:10px;&quot;" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Irene Brunetti</p>
+</div>
+
+
+<div class="figure">
+<p><img src="http://www.cafed.sssup.it/~pietro/pietro.jpg" alt="pietro.jpg" width="100px" style="&quot;float:left;display:inline;margin:10px;&quot;" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Pietro Dindo</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../img/Marco_Duenas.jpeg" alt="Marco_Duenas.jpeg" width="100px" style="&quot;float:left;display:inline;margin:10px;&quot;" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Marco Duenas</p>
+</div>
+
+
+<div class="figure">
+<p><img src="http://photos.academia.edu/65993/18581/17273/large_davide.fiaschi.jpg" alt="large_davide.fiaschi.jpg" width="100px" style="&quot;display:inline;margin:10px;&quot;" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Davide Fiaschi</p>
+</div>
+
+
+<div class="figure">
+<p><img src="http://www.imtlucca.it/_personal_pages/pics/006784_d1r91919up.JPG" alt="006784_d1r91919up.JPG" width="100px" style="&quot;display:inline;margin:10px;&quot;" />
+</p>
+<p><span class="figure-number">Figure 6: </span>Lisa Gianmoena</p>
+</div>
+
+
+<div class="figure">
+<p><img src="http://www.uni-marburg.de/fb15/ag-germano/people/guido_germano/jump12r.jpg" alt="jump12r.jpg" width="100px" style="&quot;display:inline;margin:10px;&quot;" />
+</p>
+<p><span class="figure-number">Figure 7: </span>Guido Germano</p>
+</div>
+
+
+<div class="figure">
+<p><img src="https://sites.google.com/site/aparenti79/_/rsrc/1271696030712/home/pecs_modificata.jpg" alt="pecs_modificata.jpg" width="100px" style="&quot;display:inline;margin:10px;&quot;" />
+</p>
+<p><span class="figure-number">Figure 8: </span>Angela Parenti</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../img/TR.jpg" alt="TR.jpg" style="&quot;display:inline;margin:10px;&quot;" width="100px" />
+</p>
+<p><span class="figure-number">Figure 9: </span>Tijana Radivojevic</p>
+</div>
+
+
+<div class="figure">
+<p><img src="../img/rapallo.jpg" alt="rapallo.jpg" style="&quot;display:inline;margin:10px;&quot;" width="100px" />
+</p>
+<p><span class="figure-number">Figure 10: </span>Fabio Rapallo</p>
+</div>
+
+
+<div class="figure">
+<p><img src="http://www.gemas.fr/dphan/laLonde/trombino/enricoScalas.jpg" alt="enricoScalas.jpg" style="&quot;display:inline;margin:10px;&quot;" width="100px" />
+</p>
+<p><span class="figure-number">Figure 11: </span>Enrico Scalas</p>
+</div>
+
+
+<div class="figure">
+<p><img src="http://cafim.sssup.it/~angelo/images/angelo.jpg" alt="angelo.jpg" style="&quot;display:inline;margin:10px;&quot;" width="100px" />
+</p>
+<p><span class="figure-number">Figure 12: </span>Angelo Secchi</p>
+</div>
+
+
+<div class="figure">
+<p><img src="http://www.cafed.sssup.it/~federico/foto_sito.jpg" alt="foto_sito.jpg" style="&quot;display:inline;margin:10px;&quot;" width="100px" />
+</p>
+<p><span class="figure-number">Figure 13: </span>Federico Tamagni</p>
+</div>
+
+<div class="html">
+<p>
+&lt;br style="clear:both;" /&gt;
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga16cccf" class="outline-2">
+<h2 id="orga16cccf">Deliverables</h2>
+<div class="outline-text-2" id="text-orga16cccf">
+<p>
+The success of the project is measured in terms of the scientific
+output it is able to produce. Here we list the deliverables
+otiginally promised in the proposal, classified according to the
+three main objectives, indicating the responsible unit and the
+deadline for delivery. Variations with respect to the original
+proposal are noted where necessary.
+</p>
+</div>
+
+<div id="outline-container-org13d3bdf" class="outline-3">
+<h3 id="org13d3bdf">Objective 1: Refinement and extension of statistical methods</h3>
+<div class="outline-text-3" id="text-org13d3bdf">
+<p>
+<b>Extension of sofware package (Sant'Anna)</b>: We have extended the
+<a href="http://cafim.sssup.it/~giulio/software/gbutils/index.html">gbutils</a> including maximum likelihood estimation of tail behaviour
+(gbhill). We have extended the <a href="http://cafim.sssup.it/~giulio/software/subbotools/index.html">subbotools</a> software packages to
+include maximum likelihood estimation of Asymmetric Power
+Exponential (AEP) distribution (subboafit). Instead of the porting
+to Matlab/Octave we preferred to produce self-installing .deb
+packages to facilitate the software installation on Linux
+machines. The packages are publicly available free of charge in the
+software <a href="http://cafim.sssup.it/~giulio/software/subbotools/index.html">home page</a>.
+</p>
+
+<p>
+<b>Two econometric papers on extreme events and tails behaviour
+(Sant'Anna)</b>: The <a href="http://ideas.repec.org/p/ssa/lemwps/2013-13.html">working paper</a> by G. Bottazzi and A. Secchi is
+about a quantile regression aanalysis of the effect of financial
+constraints on firm growth. The <a href="http://ideas.repec.org/p/ssa/lemwps/2013-17.html">working paper</a> by G. Bottazzi
+D. Pirino and F. Tamagni is about the tail behaviour estimation.
+</p>
+
+<p>
+<b>Software for dealing with finitary models and continuous-time
+ random walks (University of Piemonte Orientale)</b>: a collection of
+ R and Matlab/Octave routines by D. Aringhieri, T. Radivojevic and
+ E. Scalas. <a href="http://cafim.sssup.it/~giulio/doc/SoftwareDeliverablev20.pdf">See here</a>.
+</p>
+
+<p>
+<b>A theoretical paper concerning complex models for contingency
+table analysis (University of Piemonte Orientale)</b>: by Kuhnt, S.,
+Rapallo, F. and Rehage, "Outlier Detection in Contingency Tables
+based on Minimal Patterns", Statistics and Computing. Available
+<a href="http://link.springer.com/article/10.1007%2Fs11222-013-9382-8">here</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3e5031c" class="outline-3">
+<h3 id="org3e5031c">Objective 2: Empirical analysis of growth distributions</h3>
+<div class="outline-text-3" id="text-org3e5031c">
+<p>
+<b>An empirical paper which explores the relationship between properties of firm growth and selection dynamics operating over productivity and profitability performance of firms (Scuola Sant'Anna)</b>: 
+the paper we had in mind was already published before the beginning of the project. 
+Further work led to the following paper: "Dynamics of Productivity
+and Cost of Labour in Italian manufacturing firms" by G. Bottazzi
+and M. Grazzi, Bulletin of Economic Research, <a href="http://dx.doi.org/10.1111/boer.12014">DOI</a>
+</p>
+
+<p>
+<b>An empirical paper on aggregate output volatility of countries
+(Scuola Sant'Anna)</b>: The <a href="http://ideas.repec.org/p/ssa/lemwps/2012-22.html">working paper</a> by G. Bottazzi and M. Duenas
+is ready and submitted to an international journal. This
+deliverable was originally assigned to University of Pisa.
+</p>
+
+<p>
+<b>An empirical paper on financial constraints and firm growth
+(Scuola Sant'Anna)</b>: The <a href="http://ideas.repec.org/p/pie/dsedps/2010-99.html">paper</a> by G. Bottazzi, A. Secchi and
+F. Tamagni is due to appear in Small Business Economics.
+</p>
+
+<p>
+<b>An empirical paper on output volatility at the regional level
+(University of Pisa)</b>: Two papers will be delivered instead of the
+original promised one: "The Determinants of Growth Rate Volatility"
+by D. Fiaschi, L. Gianmoena, A. Parenti
+<a href="http://www.dse.ec.unipi.it/~fiaschi/DP_DEM_170.pdf">Discussion
+Papers del Dipartimento di Economia e Management – University of
+Pisa, n. 170</a> and "An Estimate of the Degree of Interconnectedness
+between European Regions: A Bayesian Model Averaging Approach" by
+D. Fiaschi and A. Parenti <a href="http://www.dse.ec.unipi.it/~fiaschi/DP_DEM_171.pdf">Discussion Papers del Dipartimento di
+Economia e Management – University of Pisa, n. 171</a>
+</p>
+
+<p>
+<b>Contingency table analysis for the identification of firm growth
+dynamics (University of Piemonte Orientale)</b>: this paper is
+prepared in collaboration with the unit at Scuola Sant'Anna, that
+is also responsible of providing data, and will focus on the
+detection of outliers at firm level. This paper substitute the
+deliverable titled "A theoretical paper exploiting finitary models
+on the effects of policy regimes switching on firm growth and
+industrial dynamics" in Objective 3.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9dbda2a" class="outline-3">
+<h3 id="org9dbda2a">Objective 3: Formulation of new theoretical models</h3>
+<div class="outline-text-3" id="text-org9dbda2a">
+<p>
+<b>A methodological paper on the role and relevance of statistical
+equilibrium in economics (University of Piemonte Orientale)</b>:
+Scalas forthcoming.
+</p>
+
+<p>
+<b>A theoretical paper exploiting finitary models for modelization of
+aggregate wealth distribution (University of Piemonte Orientale)</b>:
+"Wealth distribution and the Lorenz curve: A Finitary approach" by
+Scalas, Radivojevic and Garibaldi is available <a href="http://www.bcamath.org/documentos_public/archivos/publicaciones/1_GRS290313.pdf">here</a>.
+</p>
+
+<p>
+*A theoretical paper presenting a new stochastic model of firm
+growth, accounting for selection and financial conditions
+(Universita' di Pisa)*: "The Interrupted Power Law and The Size of
+Shadow Banking" by D. Fiaschi, I. Kondor and M. Marsili <a href="http://www.dse.ec.unipi.it/index.php?eID=tx_nawsecuredl&amp;u=0&amp;file=fileadmin/pdf/2013-166.pdf&amp;t=1382755947&amp;hash=3636eab7f214f258d5b0294fcd54197d88e8ea25">Discussion
+Papers</a> del Dipartimento di Economia e Management – University of
+Pisa, n. 166]]. This deliverable was originally assigned to Scuola
+Sant'Anna.
+</p>
+
+<p>
+<b>A theoretical paper exploiting finitary models on the effects of policy regimes switching on firm growth and industrial dynamics
+(University of Piemonte Orientale)</b>: this deliverable has been replaced by a paper in Ojective 2
+</p>
+
+<p>
+<b>A theoretical paper exploiting continuous time random walks to model the effects of competition enhancing polices on distributional properties of industrial dynamics (University of
+Piemonte Orientale)</b>: S. Alfarano, G. Livan, M. Milaković and E. Scalas "Profitability and financial returns: A correlation perspective".
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3e3e03c" class="outline-3">
+<h3 id="org3e3e03c">Further results</h3>
+<div class="outline-text-3" id="text-org3e3e03c">
+<p>
+The research activity of the project contributed to a special issue
+published on "Structural Change and Economic Dynamics". The issue
+is presented in the editorial paper "Productivity, profitability
+and growth: the empirics of firm dynamics" by G. Bottazzi and
+A. Secchi, Volume 23, Issue 4, pp. 325–328, December 2012. D
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Giulio Bottazzi</p>
+<p class="date">Created: 2023-01-20 Fri 10:28</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

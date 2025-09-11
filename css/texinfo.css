@@ -1,0 +1,113 @@
+/* july 2011 G.B  */
+
+body {
+     margin: auto auto;
+     width: auto;
+     max-width: 1024px;
+
+}
+
+sup {
+    line-height: 1px;
+    }
+
+h1 { 
+    color: #000;
+    font-weight: normal;
+    font-size: 24pt; 
+    clear: both;
+}
+
+
+.title {
+    text-align: left;
+    margin-bottom: 15px; 
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    color: #bababa;
+    background-color: #bababa;
+   }
+
+h2 {
+    font-size: 14pt;
+    color: #000;
+    clear: both;
+    padding-bottom: 2px; 
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #bababa;
+}
+
+h3 {font-size: 12pt; 
+    color: #000;
+   }
+
+h4 {font-size: 11pt;
+   }
+
+a { text-decoration: none; color: #4a708b; }
+a:hover {text-decoration: underline; }
+
+.todo {color: #ff0000;}
+.done {color: #006666;}
+.timestamp-kwd {color: #444;}
+.tag {
+    color: #000; 
+    background-color: #fff;
+    font-variant: small-caps;
+    font-size: 80%; 
+    font-weight: 500;
+}
+
+.timestamp-wrapper { font-size: 80% }
+
+.timestamp { color: #555 }
+
+code {font-size: 10pt;}
+
+table { border: 1px solid #bababa; }
+
+pre {
+    border: 1px solid #555;
+    background: #EEEEEE;
+    font-size: 9pt;
+    padding: 1em;
+}
+
+img {
+    border: none;
+}
+
+.share img {
+    opacity: .4;
+    -moz-opacity: .4;
+    filter: alpha(opacity=40);
+}
+
+.share img:hover {
+    opacity: 1;
+    -moz-opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+
+div#postamble
+{
+  text-align:right;
+  font-size:9pt;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top:0.3em;
+  padding-bottom:1em;
+  margin-top:80px;
+  line-height:50%;
+  border-top:1px dotted #333333;
+}
+
+div#postamble-extra 
+{
+  font-size:9pt;
+}
