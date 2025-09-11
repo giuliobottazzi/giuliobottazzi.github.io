@@ -1,0 +1,1410 @@
+<html lang="en">
+<head>
+<title>SUBBOTOOLS</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="SUBBOTOOLS">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+<link rel="stylesheet" type="text/css" href="http://www.cafed.sssup.it/~giulio/css/texinfo.css">
+</head>
+<body>
+<h1 class="settitle">SUBBOTOOLS</h1>
+<div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Introduction" href="#Introduction">1 Introduction</a>
+<li><a name="toc_Overview" href="#Overview">2 Overview</a>
+<ul>
+<li><a href="#The-Subbotin-Families-of-Densities">2.1 The Subbotin Families of Densities</a>
+<li><a href="#Parameters-Estimation">2.2 Parameters Estimation</a>
+<li><a href="#Programs-Input_002fOutput">2.3 Programs Input/Output</a>
+</li></ul>
+<li><a name="toc_Tutorial" href="#Tutorial">3 Tutorial</a>
+<ul>
+<li><a href="#Command-Line-Tutorial">3.1 Command Line Tutorial</a>
+<li><a href="#Graphic-Tutorial">3.2 Graphic Tutorial</a>
+</li></ul>
+<li><a name="toc_Subbotin-Random-Variates" href="#Subbotin-Random-Variates">4 Generating Subbotin Random Variates</a>
+<ul>
+<li><a href="#Subbogen">4.1 subbogen</a>
+<li><a href="#Subboagen">4.2 subboagen</a>
+</li></ul>
+<li><a name="toc_Fitting-Subbotin-Density" href="#Fitting-Subbotin-Density">5 Fitting the Subbotin Density</a>
+<ul>
+<li><a href="#Symmetric-case">5.1 Fitting the Subbotin density in the symmetric case</a>
+<ul>
+<li><a href="#Method-of-Moments">5.1.1 Method of Moments</a>
+<li><a href="#Unconstrained-Minimization">5.1.2 Unconstrained Minimization</a>
+<li><a href="#Minimization-on-Intervals">5.1.3 Minimization on Intervals</a>
+</li></ul>
+<li><a href="#Asymmetric-case">5.2 Fitting the Subbotin density in the asymmetric case</a>
+<li><a href="#Asymmetric-Laplace-case">5.3 Fitting the asymmetric Laplace density</a>
+<li><a href="#subbofit">5.4 subbofit</a>
+<li><a href="#subboafit">5.5 subboafit</a>
+<li><a href="#subbolafit">5.6 subbolafit</a>
+<li><a href="#laplaafit">5.7 laplaafit</a>
+</li></ul>
+<li><a name="toc_Exploring-Subbotin-Log_002dLikelihood" href="#Exploring-Subbotin-Log_002dLikelihood">6 Exploring the symmetric Subbotin Log-Likelihood</a>
+<ul>
+<li><a href="#subboshow">6.1 subboshow</a>
+</li></ul>
+<li><a name="toc_Installation" href="#Installation">7 Installation</a>
+<li><a name="toc_License-and-Copyright" href="#License-and-Copyright">8 License and Copyright</a>
+<li><a name="toc_Concept-Index" href="#Concept-Index">Concept Index</a>
+</li></ul>
+</div>
+
+
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Top"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Introduction">Introduction</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#dir">(dir)</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
+
+</div>
+
+<ul class="menu">
+<li><a accesskey="1" href="#Introduction">Introduction</a>
+<li><a accesskey="2" href="#Overview">Overview</a>
+<li><a accesskey="3" href="#Tutorial">Tutorial</a>
+<li><a accesskey="4" href="#Subbotin-Random-Variates">Subbotin Random Variates</a>
+<li><a accesskey="5" href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>
+<li><a accesskey="6" href="#Exploring-Subbotin-Log_002dLikelihood">Exploring Subbotin Log-Likelihood</a>
+<li><a accesskey="7" href="#Installation">Installation</a>
+<li><a accesskey="8" href="#License-and-Copyright">License and Copyright</a>
+<li><a accesskey="9" href="#Concept-Index">Concept Index</a>
+</ul>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Introduction"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Overview">Overview</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">1 Introduction</h2>
+
+<p><a name="index-Introduction-1"></a><a name="index-GSL-2"></a><a name="index-Bugs-Report-3"></a>
+The <samp><span class="command">SUBBOTOOLS</span></samp> package is intended as an help to the use of
+the Subbotin family of probability densities in a statistical analysis
+environment.
+
+   <p>The package contains various programs for the maximum likelihood
+estimation of an unknown distribution and for the generation of pseudo
+random variables. The program <samp><span class="command">subbofit</span></samp> can be used for the
+"fitting" (estimation) of a Subbotin probability density on an user
+supplied dataset. The programs <samp><span class="command">subboafit</span></samp> and
+<samp><span class="command">subbolafit</span></samp> perform this estimation on two larger classes of
+probability densities: the asymmetric Subbotin densities (a 5 parameter
+family) and the so called "less-asymmetric" Subbotin densities (a 4
+parameter family) (see <a href="#Overview">Overview</a>). The program <samp><span class="command">laplaafit</span></samp>
+restrict the estimation to the family of asymmetric Laplace densities, a
+subset of the asymmetric Subbotin.
+
+   <p>In addition, the programs <samp><span class="command">subbogen</span></samp> and <samp><span class="command">subboagen</span></samp> can
+be used to generate pseudo random variates drawn, respectively, form a
+user-specified Subbotin or asymmetric Subbotin density (see <a href="#Subbotin-Random-Variates">Subbotin Random Variates</a>) while <samp><span class="command">subboshow</span></samp> allows the exploration of
+the (symmetric) Subbotin log-likelihood function (for a definition
+see <a href="#Parameters-Estimation">Parameters Estimation</a>) of an user supplied dataset
+(see <a href="#Exploring-Subbotin-Log_002dLikelihood">Exploring Subbotin Log-Likelihood</a>).
+
+   <p>All the programs in this package make use of functions from the GNU
+Scientific Library, a collection of numerical routines for scientific
+computing. These libraries must be installed on your system for
+<samp><span class="command">SUBBOTOOLS</span></samp> to compile and run. More information about GSL can
+be found at the project home page,
+<a href="http://www.gnu.org/software/gsl/">http://www.gnu.org/software/gsl/</a>.  Follow the instruction provided
+there to download and install the GSL library.
+
+   <p>Using appropriate command line options, the programs <samp><span class="command">subbofit</span></samp>,
+<samp><span class="command">subboafit</span></samp>, <samp><span class="command">subbolafit</span></samp>, <samp><span class="command">laplaafit</span></samp> and
+<samp><span class="command">subboshow</span></samp> can be used to produce "pictures". They can produce
+tabulated data, in ASCII format, representing 1-dimensional curves or
+2-dimensional surfaces. The output structure, made of newline separated
+records of two or tree space separated numeric fields, is in a format
+suitable to be sent to the common plotting utilities ordinarily found on
+Unix systems. For instance, I usually use this "graphic" output options
+in conjunction with <samp><span class="command">Gnuplot</span></samp> or the <samp><span class="command">graph</span></samp> utility
+found in the <samp><span class="command">plotutils</span></samp> package. For more information on the
+output format of these programs see <a href="#Programs-Input_002fOutput">Programs Input/Output</a>.
+
+   <p><samp><span class="command">SUBBOTOOLS</span></samp> has been developed on Linux systems. It is freely
+distributed under the GNU General Public License and is provided &ldquo;as
+is&rdquo; without any explicit or implicit warranty (see <a href="#License-and-Copyright">License and Copyright</a>). In principle it should work in any flavor of Unix with minor
+or without modifications. No porting to different OS's has been
+undertaken nor planned.
+
+   <p>The last version of <samp><span class="command">SUBBOTOOLS</span></samp> can be found at
+<a href="http://www.sssup.it/~giulio">http://www.sssup.it/~giulio</a>. Comments and bug reports are
+welcome. E-write to <a href="mailto:giulio.bottazzi@sssup.it">giulio.bottazzi@sssup.it</a>.
+
+   <p>Please read the <samp><span class="file">INSTALL</span></samp> file provided with the package for
+installation instructions and the file <samp><span class="file">README</span></samp> for an updated
+description of the package components.
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Overview"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Tutorial">Tutorial</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Introduction">Introduction</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+   <p>Top
+
+<h2 class="chapter">2 Overview</h2>
+
+<p><a name="index-Overview-4"></a>
+The <samp><span class="command">SUBBOTOOLS</span></samp> package contains the following programs:
+
+     <dl>
+<dt><samp><span class="command">subbogen, subboagen</span></samp><dd>these programs generate random variable extracted from a symmetric
+(<samp><span class="command">subbogen</span></samp>) or asymmetric (<samp><span class="command">subboagen</span></samp>) Subbotin
+density. The parameters that defines the density can be provided in the
+program command line or read from standard input see <a href="#Subbotin-Random-Variates">Subbotin Random Variates</a>.
+
+     <br><dt><samp><span class="command">subbofit, subboafit, subbolafit, laplaafit</span></samp><dd>these programs find the symmetric (<samp><span class="command">subbofit</span></samp>) and asymmetric
+(<samp><span class="command">subboafit</span></samp>) Subbotin density or the asymmetric Laplace density
+(<samp><span class="command">laplaafit</span></samp>) that better fit a given set of observations. The
+observations are considered independently drawn from the same, unknown,
+probability density. The values of the density parameters are estimated,
+depending on the family, with maximum likelihood or with the method of
+moments (see <a href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>).
+
+     <br><dt><samp><span class="command">subboshow</span></samp><dd>this program takes a set of observations as input and produces a graphic
+showing the symmetric Subbotin log-likelihood of this set as a function
+of the density parameters see <a href="#Exploring-Subbotin-Log_002dLikelihood">Exploring Subbotin Log-Likelihood</a>. 
+</dl>
+
+   <p>All these programs deal, in a way or another, with one of the Subbotin
+families of densities. The symmetric Subbotin densities depend on three
+parameters, usually denoted m, a and b. The first
+parameter, m, represents the density &ldquo;positioning&rdquo; parameter,
+i.e. the position of its &ldquo;center&rdquo;.  Indeed it is at the same time the
+mean, the mode and the median of the density. The second parameter,
+a, is a &ldquo;scale&rdquo; parameter, that express the &ldquo;spread&rdquo; of the
+distribution. It is proportional (but in general not equal) to the
+density standard deviation. The last parameter, b, is a &ldquo;shape&rdquo;
+parameter. It tells how large are the &ldquo;tails&rdquo; of the density with
+respect to its center.
+
+   <p>The asymmetric Subbotin densities extend the previous family by
+introducing two different values for the parameters a and
+b at the left and at the right of the density mode m. This
+extended group of densities constitutes a 5 parameters
+family. The parameters are commonly denoted
+ b_l, b_r, a_l, a_r and m
+. In this case, the positioning parameter m represent the mode of
+the density, but it is no longer its mean nor its median.
+
+   <p>The asymmetric Laplace family is a subset of the asymmetric Subbotin
+family obtained putting
+bl=br=1
+.
+
+   <p>For a precise definition of the Subbotin, asymmetric Subbotin and
+asymmetric laplace families <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a>. For the estimation of the density that better fits a
+provided sample different methods can be applied. For a short discussion
+of the problem <a href="#Parameters-Estimation">Parameters Estimation</a>. The strategy of the
+estimation procedures implemented in the programs distributed with this
+package is described in <a href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>.
+
+   <p>The program of this package share a common procedure to read in input
+and print out output. Input is read from standard input in ASCII format
+and output is sent to standard output, always in ASCII format. For more
+details, see <a href="#Programs-Input_002fOutput">Programs Input/Output</a>.
+
+<ul class="menu">
+<li><a accesskey="1" href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a>
+<li><a accesskey="2" href="#Parameters-Estimation">Parameters Estimation</a>
+<li><a accesskey="3" href="#Programs-Input_002fOutput">Programs Input/Output</a>
+</ul>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="The-Subbotin-Families-of-Densities"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Parameters-Estimation">Parameters Estimation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Overview">Overview</a>
+
+</div>
+
+<h3 class="section">2.1 The Subbotin Families of Densities</h3>
+
+<p><a name="index-Probability-density-5"></a><a name="index-Central-moments-6"></a><a name="index-Parameters-7"></a><a name="index-Subbotin-probability-density-8"></a><a name="index-Asymmetric-Subbotin-probability-density-9"></a><a name="index-Subbotin-central-moments-10"></a><a name="index-Subbotin-parameters-11"></a>
+The functional form of the Subbotin density is characterized by three
+parameters, a positioning parameter m, a scale parameter a
+and a shape parameter b, and reads
+<pre class="verbatim">f(x;a,b,m) = e^( -1/b | (x-m)/a |^b ) / ( 2 a b^(1/b) \Gamma(1+1/b))  .
+</pre>
+
+   <p>Due to its symmetry, the Subbotin density has  all central moments of
+odd order equal to 0. The central moment of order 2l reads
+<pre class="verbatim">M[2l] = (a  b^(1/b) )^(2l) \Gamma( (2l+2)/b ) / \Gamma(1/b)
+</pre>
+
+   <p>while the absolute deviation is
+<pre class="verbatim">M[|1|] =  a b^(1/b) \Gamma(2/b) / \Gamma(1/b)
+</pre>
+
+   <p>The asymmetric Subbotin density extends the family described above by
+considering different values for the parameters a and b in
+the two halves of the density. Its functional form depends on five
+parameters: a positioning parameter m, two scale parameters
+a_l and a_r
+respectively for the values below or above
+m, and two shape parameters
+b_l and b_r
+characterizing, respectively, the lower and upper tail of the
+density. The functional form reads
+<pre class="verbatim">             / e^(-1/bl | (x-m)/al |^bl )/A for x&lt;m
+f(x;a,b,m)= &lt; 
+             \ e^(-1/br | (x-m)/ar |^br )/A for x>m
+</pre>
+where
+<pre class="verbatim">A = al bl^(1/bl) \Gamma(1+1/bl) + ar br^(1/br) \Gamma(1+1/br)
+</pre>
+
+   <p>It is rather straightforward to obtain the expression of the central
+moments of the asymmetric Subbotin density. They are in general all
+different from zero, the density being skewed. Since we are not going to
+make use of the central moments for the asymmetric case, their
+expressions are not reported here.
+
+   <p>The asymmetric Laplace density restricts the family described above by
+considering fixed values for the tail parameters
+b_l=b_r=1
+. Its
+functional form depends on three parameters: a positioning parameter
+m and two scale parameters,
+a_l and a_r,
+for the
+parts of the density below or above m, respectively. The
+functional form reads
+<pre class="verbatim">             / e^( -(m-x)/al )/A for x&lt;m
+f(x;a,b,m)= &lt; 
+             \ e^( -(x-m)/ar )/A for x>m
+</pre>
+where
+<pre class="verbatim">A = al + ar
+</pre>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Parameters-Estimation"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Programs-Input_002fOutput">Programs Input/Output</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Overview">Overview</a>
+
+</div>
+
+<h3 class="section">2.2 Parameters Estimation</h3>
+
+<p><a name="index-Likelihood-12"></a><a name="index-Reduced-log_002dlikelihood-13"></a>
+<a name="index-Subbotin-likelihood-14"></a><a name="index-Subbotin-reduced-log_002dlikelihood-15"></a>
+Consider a set of N observations
+{x_1,...,x_N}
+and assume that they are independently drawn from an unknown Subbotin
+distribution. We are interested in the estimation of the parameters
+(a,b,m) of this unknown distribution .
+
+   <p>A first approach to this problem, commonly known as <em>method of
+moments</em>, is based on the comparison between the theoretical moments of
+the density (see <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a>) and the sample
+moments computed starting from the N observations.
+
+   <p>The procedure goes as follows. We compute the sample mean
+M_0
+, the sample variance
+M_2
+and the sample absolute deviation
+M_|1|
+. First, we obtain an estimation of the central parameter of the
+distribution using the sample mean. We set
+m = M_0
+.
+
+   <p>Second, we obtain the estimation for the parameter b as the
+unique root of the equation
+\Gamma(3/b) * \Gamma(1/b) / \Gamma(2/b) = M_|1|  /  M_2
+and finally the estimated value for the parameter a is given by
+a = b^(-1/b) \sqrt{ M_2 * \Gamma(1/b) / \Gamma(3/b)}  .
+
+   <p>A second possible approach consists in the maximization of the empirical
+likelihood, i.e. in the method generally known as <em>maximum
+likelihood estimation</em>. More specifically, instead of maximizing the
+likelihood of the sample, we minimize the negative log-likelihood,
+computed taking the logarithm of the likelihood function and chancing it
+sign. Moreover, using the first order conditions is easy to derive the
+expression of the estimated value of the parameter a as an
+explicit function of b and m. Substituting this expression
+in the negative log-likelihood one obtains an object function that
+depends only on 2 parameters, b and m. We call this
+function <em>reduced negative log-likelihood</em> and it reads
+L(a,b) = \log(2b^(1/b)\Gamma(1+1/b)) +1/b +
+1/b \log(1/N \sum_{j=1}^N | x_j-m |^b)
+.
+
+   <p>In the case of the asymmetric density, the method of moments is not so
+attractive. Indeed it is impossible to obtain simple expressions
+relating the parameters characterizing the density to the various
+moments of the sample. Then the use of numerical methods becomes
+mandatory, and one is naturally led toward maximum likelihood
+estimation.  The (negative) log-likelihood (per observation) in the case
+of asymmetric density reads
+
+   <p>L(bl,br,...) = \log(A) + 1/(N bl) \sum_(x_j&lt;m) ( (m-x_j)/al )^bl
++ 1/(N br) \sum_(x_j&gt;m) ( (x_j-m)/ar )^br
+
+   <p>where
+
+   <p>A = al bl^(1/bl) \Gamma(1+1/bl) + ar br^(1/br) \Gamma(1+1/br)
+.
+
+   <p>As can be seen, both L(a,b) and
+L(b_l,b_r,...) 
+are not analytic functions of their arguments. This is way their
+minimization is a non-trivial task that must be handled with particular
+care, see <a href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>.
+
+   <p>The situation is much easier for the case of the asymmetric Laplace
+density. Indeed by substituting
+b_l=b_r=1
+in the previous
+expression one obtains a reduced log likelihood as a sole function of
+the mean m
+
+   <p>L(m)= -2 log( \sqrt(S_l) + \sqrt(S_r) ) -1
+
+   <p>where
+
+   <p>S_l = (\sum_(x_j&lt;m) m-x_j)/N
+S_r = (\sum_(x_j&gt;m) x_j-m)/N
+.
+
+   <p>It is also possible to see that this one variable reduced log-likelihood
+does posses a single global minimum. The optimal parameters
+a_l and a_r
+are determined by the relations
+
+   <p>a_l = S_l + \sqrt(S_l S_r)
+a_r = S_r + \sqrt(S_l S_r)
+.
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Programs-Input%2fOutput"></a>
+<a name="Programs-Input_002fOutput"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Parameters-Estimation">Parameters Estimation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Overview">Overview</a>
+
+</div>
+
+<h3 class="section">2.3 Programs Input/Output</h3>
+
+<p><a name="index-Input-16"></a><a name="index-Output-17"></a><a name="index-g_t_0040command_007bgnuplot_007d-18"></a><a name="index-g_t_0040command_007bplotutils_007d-19"></a><a name="index-Graphics-20"></a>
+Both <samp><span class="command">subbofit</span></samp> and <samp><span class="command">subboshow</span></samp> require user supplied
+data. The data can be read in ASCII format from files whose name are
+specified at the end of the command line (after any option) or from the
+standard input. Different data are separated by white characters (spaces
+or tabs) or newlines. Lines beginning with a fence symbol '#' are
+considered comments and ignored.
+
+   <p>The output of <samp><span class="command">subboshow</span></samp> and the output of
+<samp><span class="command">subbofit</span></samp>,<samp><span class="command">subboafit</span></samp>,<samp><span class="command">subbolafit</span></samp> and
+<samp><span class="command">laplaafit</span></samp> whith the options <samp><span class="option">-O 1</span></samp> or <samp><span class="option">-O 2</span></samp>,
+are intended to be used to produce pictures. They consist in tabulated
+data, of 2 (for 2-dimensional plots) or 3 (for 3-dimensional plots)
+columns, where each line correspond to a different point. In the case of
+3-dimensional plots, the triplet associated to different values of the
+first variable are separated by 2 newlines. This format has been chosen
+to provide an easy interface to the <samp><span class="command">gnuplot</span></samp> plotting
+program. The 2-dimensional plots can be easily displayed also making use
+of the <samp><span class="command">graph</span></samp> utility of the <samp><span class="command">plotutils</span></samp> package. For
+an example of the use of the "graphic" output <a href="#Graphic-Tutorial">Graphic Tutorial</a>.
+
+   <p>The <samp><span class="command">gnuplot</span></samp> program FAQ can be found at
+<a href="http://www.gnuplot.info/faq/">http://www.gnuplot.info/faq/</a>.
+
+   <p>For information about the <samp><span class="command">plotutils</span></samp> package check
+<a href="http://www.gnu.org">http://www.gnu.org</a>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Tutorial"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Subbotin-Random-Variates">Subbotin Random Variates</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Overview">Overview</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">3 Tutorial</h2>
+
+<p><a name="index-Tutorial-21"></a><a name="index-Howto-22"></a><a name="index-Examples-23"></a>
+This tutorial will drive you across some simple example on the use of
+the programs provided with this package. The tutorial is divided in two
+parts. In the first part the use of the programs from the command line
+will be illustrated. We will learn how to generate pseudo-random
+variables drawn from a Subbotin density and how to obtain the best
+Subbotin fit on a given dataset. The second part of the tutorial is more
+"graphical", and we will see how to use the programs in distributed with
+<samp><span class="command">SUBBOTOOLS</span></samp> to generate plots inside the <samp><span class="command">Gnuplot</span></samp>
+plotting environment. Even if I'm not going to assume a previous
+knowledge of <samp><span class="command">Gnuplot</span></samp>, I will not explain all the details of
+the different commands that I will use. For more information on the
+different commands and switches, you are referred to the exhaustive help
+system of <samp><span class="command">Gnuplot</span></samp> itself (try <samp><span class="command">help</span></samp> after
+<samp><span class="command">Gnuplot</span></samp> invocation).
+
+   <p>Please, understand that the choice of <samp><span class="command">gnuplot</span></samp> as plotting
+utility is due to my long experience with it, and to its proven
+reliability and easiness of use. The output of the <samp><span class="command">SUBBOTOOLS</span></samp>
+programs has been designed according to the <samp><span class="command">gnuplot</span></samp>
+requirement as illustrated in <a href="#Programs-Input_002fOutput">Programs Input/Output</a>. Due to the
+essential looseness of these requirements, however, it should be
+relatively easy to use different utilities.
+
+   <p>In this tutorial I'm going to suppose that you are familiar with the
+Unix shell (command line) interface and that you already installed the
+<samp><span class="command">SUBBOTOOLS</span></samp> package without problems.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Command-Line-Tutorial">Command Line Tutorial</a>
+<li><a accesskey="2" href="#Graphic-Tutorial">Graphic Tutorial</a>
+</ul>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Command-Line-Tutorial"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Graphic-Tutorial">Graphic Tutorial</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
+
+<h3 class="section">3.1 Command Line Tutorial</h3>
+
+<p><a name="index-Command-Line-24"></a>
+In order to avoid danger to possibly relevant files, before trying the
+following steps create a new directory, something like <samp><span class="file">subbotest</span></samp>,
+and move there
+<pre class="example">     mkdir subbotest
+     cd subbotest
+</pre>
+   <p>Now that you are in a more or less safe environment, let's start. We
+begin by generating a meaningful set of numbers to work with
+<pre class="example">     subbogen -N 100 -m0 -a1. -b1. -R 5 &gt; testdata.txt
+</pre>
+   <p>Let's see the meaning of the previous command. Using <samp><span class="command">subbogen</span></samp>
+we generated 100 random numbers from a Subbotin distribution with
+<em>m=0</em>, <em>a=1</em> and <em>b=1</em>, i.e. a Laplace (symmetric
+exponential) distribution centered in zero and with variance equal to
+2. The numbers are generated initializing the RNG (random number
+generator) with a seed equal to 5 and are placed in a file named
+<samp><span class="file">testdata.txt</span></samp>. One can generate independent samples by using the
+option <samp><span class="option">-R</span></samp> with different integer numbers (the default value for
+the seed is 0).
+
+   <p>The file <samp><span class="file">testdata.txt</span></samp> now just contains a column of 100 number,
+you can easily inspect it using an editor. We now use this file to
+investigate the properties of the program <samp><span class="command">subbofit</span></samp>.
+
+   <p>We begin with the simplest command
+<pre class="example">     subbofit &lt; testdata.txt
+</pre>
+   <p>that should generate an output similar to
+<pre class="example">     8.832028e-01 8.777607e-01 2.917261e-02 1.615783e+00
+</pre>
+   <p>The meaning of these four number is as follows: the first three number
+represent the estimated values for <em>b</em>, <em>a</em> and <em>m</em>
+respectively, while the last number is the (negative) log-likelihood
+associated with these three values. As can be seen, the estimated values
+for <em>b</em> and <em>a</em> are quite far from the real values. The
+situation is different for different seeds but with only 100
+observations an error of about 10% is not uncommon.
+
+   <p>In addition to the maximum-likelihood estimation of the parameters,
+which is the default, the program <samp><span class="command">subbofit</span></samp> also implements a
+method of moments. You can choose the method with the command line
+option <samp><span class="option">-M</span></samp>, try
+<pre class="example">     subbofit -M 0 &lt; testdata.txt
+</pre>
+   <p>and you should obtain something like
+<pre class="example">     9.569862e-01 9.104554e-01 5.291858e-02 1.617363e+00
+</pre>
+   <p>In this particular case, the method of moments provides better estimates
+than the ones obtained via maximum-likelihood. Of course the associated
+log-likelihood is larger. In order to obtain more details on the
+procedure of fitting you can use the option <samp><span class="option">-V</span></samp>. For more
+details <a href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>.
+
+   <p>Another interesting feature is the possibility of fitting just the
+<em>b</em> and <em>a</em> parameters, providing the &ldquo;true&rdquo; value of
+<em>m</em> directly from the command line. This is useful when you work
+with <em>normalized</em> data whose mean has been previously
+subtracted. Since this is a quite common situation <samp><span class="command">subbofit</span></samp>
+provides the <samp><span class="option">-m</span></samp> command line option. With the file generated
+above do
+<pre class="example">     subbofit -m 0 &lt; testdata.txt
+</pre>
+   <p>and you should obtain
+<pre class="example">     8.808684e-01 8.777596e-01 0.000000e+00 1.616923e+00
+</pre>
+   <p>and in this case the variation in the fitted parameters is relatively
+low.
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Graphic-Tutorial"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Command-Line-Tutorial">Command Line Tutorial</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Tutorial">Tutorial</a>
+
+</div>
+
+<h3 class="section">3.2 Graphic Tutorial</h3>
+
+<p>Now let's start <samp><span class="command">gnuplot</span></samp> and see how the programs in
+<samp><span class="command">SUBBOTOOLS</span></samp> can be used inside its graphic environment. Simply
+type
+<pre class="example">     gnuplot
+</pre>
+   <p>and you will be greeted by a fairly large amount of informations and,
+finally, a prompt. As a first exercise let's compare the result of our
+fitting procedure with the original function. Using
+<pre class="example">     gnuplot&gt;set log y
+     gnuplot&gt;plot "&lt;subbofit -O 2 &lt; testdata.txt",exp(-abs(x))/2
+</pre>
+   <p>The option <samp><span class="option">-O 2</span></samp> print for each point of the file
+<samp><span class="file">testdata.txt</span></samp> the value of the probability density associated
+with the fitted parameters. <samp><span class="command">gnuplot</span></samp> interprets this output and
+produces the corresponding graph. With our small sample the obtained
+estimate is notably different from the theoretical Laplace density from
+which the data were originally generated.
+
+   <p>A similar comparison can be performed on the distribution function
+using the command
+<pre class="example">     gnuplot&gt;set key top left
+     gnuplot&gt;unset log y
+     gnuplot&gt;plot "&lt;subbofit -O 1 &lt;testdata.txt"
+     gnuplot&gt;replot (x&lt;0?exp(-abs(x))/2:1.-exp(-abs(x))/2)
+</pre>
+   <p>where the option <samp><span class="option">-O 1</span></samp> now prints the value of the
+estimated distribution function for each input points.
+
+   <p>The program <samp><span class="command">subboshow</span></samp> is conceived for the visual exploration
+the Subbotin &ldquo;reduced&rdquo; lok-likelihood. For a precise definition
+<a href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>. The program takes a set of observations
+and print out the associated value of the Subbotin reduced negative
+log-likelihood for a grid of <em>b</em> and <em>m</em> values. Using the
+previously generated observations, try the following
+
+<pre class="example">     gnuplot&gt;set contour
+     gnuplot&gt;unset clabel
+     gnuplot&gt;set grid x y z
+     gnuplot&gt;splot "&lt;subboshow -b0.5:1.5 -m-.1:.11 &lt;testdata.txt" i 0 w l
+</pre>
+   <p>and you will obtain a 3D plot representing the negative log-likelihood
+of the dataset
+.
+
+   <p>If one is interested in the behaviour of the reduced (negative)
+log-likelihood with respect to a specific parameter it is enough to
+specify a single point for the other parameter. For instance, if one is
+interested in the behavior of the function with respect to the parameter
+<em>m</em> keeping fixed the value of <em>b</em>, one can use
+<pre class="example">     gnuplot&gt;plot "&lt;subboshow -b0.5 -B 1 -m-.05:.08 -M 500 &lt;testdata.txt" i 0 w l
+</pre>
+   <p>and obtain a 2D plot
+.
+
+   <p>The options <samp><span class="option">-b</span></samp> and <samp><span class="option">-m</span></samp> set the region for which points
+are generated while <samp><span class="option">-B</span></samp> and <samp><span class="option">-M</span></samp> set the number of
+points. See the help of <samp><span class="command">subboshow</span></samp> for more options.
+
+   <p>Using this command, you can check if the parameters values previously
+found with <samp><span class="command">subbofit</span></samp> do in fact constitute a minimum.
+
+   <p><table summary="">
+<tr align="left"><td valign="top" width="50%"><img src="fig1.png" alt="fig1.png">
+</td><td valign="top" width="50%">
+<img src="fig2.png" alt="fig2.png">
+
+<p><br></td></tr><tr align="left"><td valign="top" width="50%">Figure 1: Estimated (fit) and theoretical (th) probability density. 
+</td><td valign="top" width="50%">
+Figure 2: Estimated (fit) and theoretical (th) probability distribution.
+
+<p><br></td></tr><tr align="left"><td valign="top" width="50%"><img src="fig3.png" alt="fig3.png">
+</td><td valign="top" width="50%">
+<img src="fig4.png" alt="fig4.png">
+
+<p><br></td></tr><tr align="left"><td valign="top" width="50%">Figure 3: Negative reduced log-likelihood as a function of <em>m</em> and
+<em>b</em>. 
+</td><td valign="top" width="50%">
+Figure 4: Negative reduced log-likelihood as a function of <em>b</em>.
+   <br></td></tr></table>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Subbotin-Random-Variates"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Tutorial">Tutorial</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">4 Generating Subbotin Random Variates</h2>
+
+<p>The programs <samp><span class="command">subbogen</span></samp> and <samp><span class="command">subboagen</span></samp> can be used to
+generate pseudo random variables drawn, respectively, from a Subbotin
+and an asymmetric Subbotin density.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Subbogen">Subbogen</a>
+<li><a accesskey="2" href="#Subboagen">Subboagen</a>
+</ul>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Subbogen"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Subboagen">Subboagen</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Subbotin-Random-Variates">Subbotin Random Variates</a>
+
+</div>
+
+<h3 class="section">4.1 subbogen</h3>
+
+<p><samp><span class="command">subbogen</span></samp> generate a sequence of pseudo-random variables from a
+Subbotin density and print them to standard output, in ASCII format,
+separated by a newline character. The parameters of the density can be
+specified as option on the command line or can be read from standard
+input.
+
+   <p>Usage:
+        <samp><span class="command">subbogen</span></samp> [options]
+
+   <p>where [options] can be
+
+     <dl>
+<dt><samp><span class="option">-N num</span></samp><dd>generate a number <samp><span class="option">num</span></samp> of independent random variables.
+
+     <br><dt><samp><span class="option">-m M</span></samp><dd>set the value of the parameter m equal to <samp><span class="option">M</span></samp>.
+
+     <br><dt><samp><span class="option">-a A</span></samp><dd>set the value of the parameter a equal to <samp><span class="option">A</span></samp>.
+
+     <br><dt><samp><span class="option">-b B</span></samp><dd>set the value of the parameter b equal to <samp><span class="option">B</span></samp>.
+
+     <br><dt><samp><span class="option">-R seed</span></samp><dd>set the seed of the random number generator to <samp><span class="option">seed</span></samp>.
+
+     <br><dt><samp><span class="option">-i</span></samp><dd>read the density parameter from the standard input. They should
+be provided in the order b,a,m. 
+<br><dt><samp><span class="option">-h</span></samp><dd>print a short help
+</dl>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Subboagen"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Subbogen">Subbogen</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Subbotin-Random-Variates">Subbotin Random Variates</a>
+
+</div>
+
+<h3 class="section">4.2 subboagen</h3>
+
+<p><samp><span class="command">subboagen</span></samp> generate a sequence of pseudo-random variables from
+an asymmetric Subbotin density and print them to standard output, in
+ASCII format, separated by a newline character. The parameters of the
+density can be specified as option on the command line or can be read
+from standard input.
+
+   <p>Usage:
+        <samp><span class="command">subbogen</span></samp> [options]
+
+   <p>where [options] can be
+
+     <dl>
+<dt><samp><span class="option">-N num</span></samp><dd>generate a number <samp><span class="option">num</span></samp> of independent random variables.
+
+     <br><dt><samp><span class="option">-m M</span></samp><dd>set the value of the parameter m equal to <samp><span class="option">M</span></samp>.
+
+     <br><dt><samp><span class="option">-a A</span></samp><dd>if <samp><span class="option">A</span></samp> is a single number, set the values of both al and
+ar equal to <samp><span class="option">A</span></samp>. If <samp><span class="option">A</span></samp> is a couple of comma
+separated numbers, the first is used to set al, the second to set
+ar.
+
+     <br><dt><samp><span class="option">-b B</span></samp><dd>if <samp><span class="option">B</span></samp> is a single number, set the values of both bl and
+br equal to <samp><span class="option">B</span></samp>. If <samp><span class="option">B</span></samp> is a couple of comma
+separated numbers, the first is used to set bl, the second to set
+br.
+
+     <br><dt><samp><span class="option">-R seed</span></samp><dd>set the seed of the random number generator to <samp><span class="option">seed</span></samp>.
+
+     <br><dt><samp><span class="option">-i</span></samp><dd>read the density parameter from the standard input. They should
+be provided in the order b,a,m. 
+<br><dt><samp><span class="option">-h</span></samp><dd>print a short help
+</dl>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Fitting-Subbotin-Density"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Exploring-Subbotin-Log_002dLikelihood">Exploring Subbotin Log-Likelihood</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Subbotin-Random-Variates">Subbotin Random Variates</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">5 Fitting the Subbotin Density</h2>
+
+<p><a name="index-Fitting-25"></a>
+The programs <samp><span class="command">subbofit</span></samp> and <samp><span class="command">subboafit</span></samp> try to find the
+Subbotin density or the asymmetric Subbotin density that better fit a
+user-supplied dataset. These programs obtain their estimation via
+numerical minimization of the reduced (negative) log-likelihood
+(see <a href="#Parameters-Estimation">Parameters Estimation</a>).
+
+   <p>The program <samp><span class="command">subbolafit</span></samp> fit the same asymmetric Subbotin
+density fitted by <samp><span class="command">subboafit</span></samp>, but in the particular case in
+which the two scale parameters are set equal, i.e. 
+a_l=a_r
+.
+
+   <p>Due to the non-analytic nature of the Subbotin log-likelihood function,
+both in the symmetric and asymmetric case, a straightforward
+minimization of that function can result dangerous. Instead, the
+programs use a multi-steps approach.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Symmetric-case">Symmetric case</a>
+<li><a accesskey="2" href="#Asymmetric-case">Asymmetric case</a>
+<li><a accesskey="3" href="#Asymmetric-Laplace-case">Asymmetric Laplace case</a>
+<li><a accesskey="4" href="#subbofit">subbofit</a>
+<li><a accesskey="5" href="#subboafit">subboafit</a>
+<li><a accesskey="6" href="#subbolafit">subbolafit</a>
+<li><a accesskey="7" href="#laplaafit">laplaafit</a>
+</ul>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Symmetric-case"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Asymmetric-case">Asymmetric case</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>
+
+</div>
+
+<h3 class="section">5.1 Fitting the Subbotin density in the symmetric case</h3>
+
+<p><a name="index-Fitting_002c-Subbotin-symmetric-26"></a>
+In the symmetric case, <samp><span class="command">subbofit</span></samp> obtains a first guess of the
+parameters values using the method of moments. Then it refines this
+first guess performing an unconstrained minimization of the
+log-likelihood function. Finally it splits the minimization procedure
+inside different sub-domains whose interior constitute an analyticity
+region for the log-likelihood function and that together constitute a
+neighborhood covering of the previously found values. By comparing the
+various local minima in these domains, the program finds the global
+minimum. Let's analyze the procedure in more details.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Method-of-Moments">Method of Moments</a>
+<li><a accesskey="2" href="#Unconstrained-Minimization">Unconstrained Minimization</a>
+<li><a accesskey="3" href="#Minimization-on-Intervals">Minimization on Intervals</a>
+</ul>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Method-of-Moments"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Unconstrained-Minimization">Unconstrained Minimization</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Symmetric-case">Symmetric case</a>
+
+</div>
+
+<h4 class="subsection">5.1.1 Method of Moments</h4>
+
+<p><a name="index-Method-of-Moments-27"></a>
+The first step of the fitting procedure consists in the estimation of
+the values of the parameters based on the method of moments, i.e. using
+the sample mean
+M_0
+, the sample variance
+M_2
+and the sample absolute deviation
+M_|1|
+and following the procedure outlined in see <a href="#Parameters-Estimation">Parameters Estimation</a>. 
+Let
+(b_0,a_0,m_0)
+be the parameters values obtained with the method of moments.
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Unconstrained-Minimization"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Minimization-on-Intervals">Minimization on Intervals</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Method-of-Moments">Method of Moments</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Symmetric-case">Symmetric case</a>
+
+</div>
+
+<h4 class="subsection">5.1.2 Unconstrained Minimization</h4>
+
+<p><a name="index-Unconstrained-Minimization-28"></a><a name="index-Minimization_002c-unconstrained-29"></a>
+In the second step we run an unconstrained minimization procedure on the
+reduced negative log likelihood function L (see <a href="#Parameters-Estimation">Parameters Estimation</a>), using as starting point the couple
+(b_0,m_0)
+previously determined with the method of moments.
+
+   <p>In the case in which the value of m is provided on the command
+line (using the option <samp><span class="option">-m</span></samp>, see <a href="#subbofit">subbofit</a>) the search for the
+minimum is reduced to a one dimensional problem. Moreover, in this case
+the function L is always analytical and the unconstrained
+minimization solve the problem finding the global minimum.
+
+   <p>In general, when the value for m is not provided, due to the
+non-analyticity of the object function, the unconstrained minimization
+procedure does not generate reliable results and it is simply used as a
+first rough estimate of the solution. Denote with
+(b_1,a_1,m_1)
+the set of values obtained with the present procedure.
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Minimization-on-Intervals"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Unconstrained-Minimization">Unconstrained Minimization</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Symmetric-case">Symmetric case</a>
+
+</div>
+
+<h4 class="subsection">5.1.3 Minimization on Intervals</h4>
+
+<p><a name="index-Minimization-on-intervals-30"></a>
+If b&lt;1 the reduced (negative) log-likelihood function L
+becomes not differentiable
+when m=x_j for j in {1,...,N}
+i.e. when the parameter m takes the value of one of the
+observations.
+
+   <p>The method of <em>Interval Constrained Minimization</em> try to overcome
+this problem by evaluating the function L only in domains where
+it is analytical. More specifically, one searches for the minimum inside
+any compact interval
+[x_j,x_(j+1)]
+. In this way a list of <em>local</em> minima, one for each interval, is
+produced. The minimization inside each interval is performed on a
+&ldquo;smoothed&rdquo; version of L obtained with a change of variables, in
+such a way that the first derivative results well defined but the number
+and location of minima remains unaffected. Once the local minima are
+computed inside all the intervals, the local minimum associated with the
+smallest value of the function L constitutes the global minima,
+i.e. the point one was looking for.
+
+   <p>The algorithm actually implemented does not apply this straightforward
+procedure, because the execution of a constrained minimization problem
+for each interval can become too expensive when the size of the sample
+increases. Instead, a search algorithm is implemented on the set of
+these intervals. Initially the minimization problem is solved on a small
+group of intervals surrounding the point
+m_1
+. This initial set is enlarged progressively if new global minima are
+found. When for a given number of steps no new global minima appear, the
+search is stopped.
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Asymmetric-case"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Asymmetric-Laplace-case">Asymmetric Laplace case</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Symmetric-case">Symmetric case</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>
+
+</div>
+
+<h3 class="section">5.2 Fitting the Subbotin density in the asymmetric case</h3>
+
+<p><a name="index-Fitting_002c-Subbotin-asymmetric-31"></a>
+
+   <p>In the asymmetric case it is impossible to implement a simple and direct
+approach for the density estimation based on the method of moments. Even
+if the method is still valid in principle, its application requires the
+solution of a 5-dimensional system of non-linear equations. This
+strongly reduces its attractiveness as a first guess generator.
+
+   <p>Another difference with respect to the symmetric case is the practical
+inconvenience of reducing the number of variables in the log-likelihood
+function. Indeed, in the asymmetric case it is again possible to use
+suitable first order conditions to remove the explicit dependence of the
+log-likelihood function on some variables, namely al and
+ar. However, this method would lead to an expression for the
+reduced log-likelihood that, despite the reduction of the number of
+independent variables form 5 to 3, appears extremely
+complicated and computationally more demanding.
+
+   <p>For the above reasons, in order to obtain the asymmetric Subbotin fit,
+the program <samp><span class="command">subboafit</span></samp> starts with an unconstrained
+minimization of the log-likelihood function over all its 5
+parameters (for the expression of the log-likelihood function see
+see <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a>). Then the programs proceeds
+with an interval-constrained minimization, similar to the one performed
+by <samp><span class="command">subbofit</span></samp>, whit the parameter m limited inside a
+compact interval formed by two consecutive observations of the dataset
+See <a href="#Minimization-on-Intervals">Minimization on Intervals</a>. A search algorithm is implemented on
+the local minima found inside these intervals to find the global
+minimum.
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Asymmetric-Laplace-case"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#subbofit">subbofit</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Asymmetric-case">Asymmetric case</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>
+
+</div>
+
+<h3 class="section">5.3 Fitting the asymmetric Laplace density</h3>
+
+<p><a name="index-Fitting_002c-Laplace-asymmetric-32"></a>
+For the asymmetric Laplace a global maximization of the reduced, one
+paramter, log-likelihood to find the value of the parameter m. 
+The parameters a_l and a_r are then computed using the
+formula provided in see <a href="#Overview">Overview</a>.
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="subbofit"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#subboafit">subboafit</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Asymmetric-Laplace-case">Asymmetric Laplace case</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>
+
+</div>
+
+<h3 class="section">5.4 subbofit</h3>
+
+<p><samp><span class="command">subbofit</span></samp> fits a Subbotin density on a set of data provided as
+standard input. The method used to estimate the density parameters and
+the ouput format can be set with command-line options.
+
+   <p>Usage:
+        <samp><span class="command">subbofit</span></samp> [options list] [files list]
+
+   <p>where [files list] is a list of files containing the observations on
+which the density is estimated. If [files list] is empty, the program
+reads the data from standard input. The possible options in [options
+list] are
+
+     <dl>
+<dt><samp><span class="option">-M method</span></samp><dd>choose a fitting method. If <samp><span class="option">method</span></samp>=0 uses maximum likelihood
+estimation, if <samp><span class="option">method</span></samp>=1 uses method of moments
+See <a href="#Parameters-Estimation">Parameters Estimation</a>.
+
+     <br><dt><samp><span class="option">-O output</span></samp><dd>choose an output format. If <samp><span class="option">output</span></samp>=0 print to the standard
+ouput the estimated b, a, m and reduced negative
+log-likelihood. If <samp><span class="option">output</span></samp>=1 prints each datapoint with the
+associated distribution function. If <samp><span class="option">output</span></samp>=2 prints each
+datapoint with the associated density.
+
+     <br><dt><samp><span class="option">-V verbosity</span></samp><dd>choose a verbosity level. If <samp><span class="option">verbosity</span></samp>=0 print only the final
+results. More information can be obtained increasing the verbosity
+level.
+
+     <br><dt><samp><span class="option">-m M</span></samp><dd>set the parameter m equal to <samp><span class="option">M</span></samp>. The optimization is
+performed only on the two remaining parameters.
+
+     <br><dt><samp><span class="option">-G step,tol,iter, eps, algo</span></samp><dd>set the parameter for the global numerical optimization
+
+     <br><dt><samp><span class="option">-I step,tol,iter, eps, algo</span></samp><dd>set the parameter for the interval-constrained numerical optimization.
+
+     <br><dt><samp><span class="option">-s steps</span></samp><dd>
+set to <samp><span class="option">steps</span></samp> the step of the discrete optimization algorithm on
+the set of local minima obtained with interval-constrained optimization.
+
+     <br><dt><samp><span class="option">-h</span></samp><dd>print a short help with the default values for the various parameters
+</dl>
+
+   <p>The parameters of the numerical optimization are set using a comma
+separated list of 5 parameters. Empty fields leave the default
+unchanged. The meaning of the various parameter is as follows:
+
+     <dl>
+<dt><samp><span class="option">step</span></samp><dd>initial step size of the searching algorithm
+
+     <br><dt><samp><span class="option">tol</span></samp><dd>tolerance of the line search algorithm
+
+     <br><dt><samp><span class="option">iter</span></samp><dd>maximum number of iterations
+
+     <br><dt><samp><span class="option">eps</span></samp><dd>gradient tolerance: the search is stopped when ||gradient|| &lt; eps
+
+     <br><dt><samp><span class="option">algo</span></samp><dd>choose the optimization method: 0 Fletcher-Reeves, 1 Polak-Ribiere,2
+Broyden-Fletcher-Goldf, 3 Steepest descent
+</dl>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="subboafit"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#subbolafit">subbolafit</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#subbofit">subbofit</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>
+
+</div>
+
+<h3 class="section">5.5 subboafit</h3>
+
+<p><samp><span class="command">subboafit</span></samp> fits an asymmetric Subbotin density on a user
+supplied set of data. The ouput format can be set with command-line
+options.
+
+   <p>Usage:
+        <samp><span class="command">subboafit</span></samp> [options list] [files list]
+
+   <p>where [files list] is a list of files containing the observations on
+which the density is estimated. If [files list] is empty, the program
+reads the data from standard input. The possible options in [options
+list] are
+
+     <dl>
+<dt><samp><span class="option">-O output</span></samp><dd>choose an output format. If <samp><span class="option">output</span></samp>=0 print to the standard
+ouput the estimated b, a, m and reduced negative
+log-likelihood. If <samp><span class="option">output</span></samp>=1 prints each datapoint with the
+associated distribution function. If <samp><span class="option">output</span></samp>=2 prints each
+datapoint with the associated density.
+
+     <br><dt><samp><span class="option">-V verbosity</span></samp><dd>choose a verbosity level. If <samp><span class="option">verbosity</span></samp>=0 print only the final
+results. More information can be obtained increasing the verbosity
+level.
+
+     <br><dt><samp><span class="option">-m M</span></samp><dd>set the parameter m equal to <samp><span class="option">M</span></samp>. The optimization is
+performed only on the two remaining parameters.
+
+     <br><dt><samp><span class="option">-G step,tol,iter, eps, algo</span></samp><dd>set the parameter for the global numerical optimization
+
+     <br><dt><samp><span class="option">-I step,tol,iter, eps, algo</span></samp><dd>set the parameter for the interval-constrained numerical optimization.
+
+     <br><dt><samp><span class="option">-s steps</span></samp><dd>
+set to <samp><span class="option">steps</span></samp> the step of the discrete optimization algorithm on
+the set of local minima obtained with interval-constrained optimization.
+
+     <br><dt><samp><span class="option">-h</span></samp><dd>print a short help with the default values for the various parameters
+</dl>
+
+   <p>The parameters of the numerical optimization are set using a comma
+separated list of 5 parameters. The meaning of the parameters and
+the syntax is the same as for <samp><span class="command">subbofit</span></samp> (see <a href="#subbofit">subbofit</a>)
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="subbolafit"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#laplaafit">laplaafit</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#subboafit">subboafit</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>
+
+</div>
+
+<h3 class="section">5.6 subbolafit</h3>
+
+<p><samp><span class="command">subbolafit</span></samp> fits a (less) asymmetric density on a user supplied
+set of data. The less asymmetric density is the asymmetric Subbotin
+density (see <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a>) with the two scale
+parameters equal, al=ar The ouput format can be set with
+command-line options.
+
+   <p>Usage:
+        <samp><span class="command">subbolafit</span></samp> [options list] [files list]
+
+   <p>where [files list] is a list of files containing the observations on
+which the density is estimated. If [files list] is empty, the program
+reads the data from standard input. The possible options in [options
+list] are
+
+     <dl>
+<dt><samp><span class="option">-O output</span></samp><dd>choose an output format. If <samp><span class="option">output</span></samp>=0 print to the standard
+ouput the estimated b, a, m and reduced negative
+log-likelihood. If <samp><span class="option">output</span></samp>=1 prints each datapoint with the
+associated distribution function. If <samp><span class="option">output</span></samp>=2 prints each
+datapoint with the associated density.
+
+     <br><dt><samp><span class="option">-V verbosity</span></samp><dd>choose a verbosity level. If <samp><span class="option">verbosity</span></samp>=0 print only the final
+results. More information can be obtained increasing the verbosity
+level.
+
+     <br><dt><samp><span class="option">-m M</span></samp><dd>set the parameter m equal to <samp><span class="option">M</span></samp>. The optimization is
+performed only on the two remaining parameters.
+
+     <br><dt><samp><span class="option">-G step,tol,iter, eps, algo</span></samp><dd>set the parameter for the global numerical optimization
+
+     <br><dt><samp><span class="option">-I step,tol,iter, eps, algo</span></samp><dd>set the parameter for the interval-constrained numerical optimization.
+
+     <br><dt><samp><span class="option">-s steps</span></samp><dd>
+set to <samp><span class="option">steps</span></samp> the step of the discrete optimization algorithm on
+the set of local minima obtained with interval-constrained optimization.
+
+     <br><dt><samp><span class="option">-h</span></samp><dd>print a short help with the default values for the various parameters
+</dl>
+
+   <p>The parameters of the numerical optimization are set using a comma
+separated list of 5 parameters. The meaning of the parameters and
+the syntax is the same as for <samp><span class="command">subbofit</span></samp> (see <a href="#subbofit">subbofit</a>)
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="laplaafit"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#subbolafit">subbolafit</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>
+
+</div>
+
+<h3 class="section">5.7 laplaafit</h3>
+
+<p><samp><span class="command">laplaafit</span></samp> fits an asymmetric Laplace density on a user
+supplied set of data. The asymmetric Laplace density is a special
+asymmetric Subbotin density (see <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a>)
+with the two tail parameters equal to one. The ouput format can be set
+with command-line options.
+
+   <p>Usage:
+        <samp><span class="command">laplaafit</span></samp> [options list] [files list]
+
+   <p>where [files list] is a list of files containing the observations on
+which the density is estimated. If [files list] is empty, the program
+reads the data from standard input. The possible options in [options
+list] are
+
+     <dl>
+<dt><samp><span class="option">-O output</span></samp><dd>choose an output format. If <samp><span class="option">output</span></samp>=0 print to the standard
+ouput the estimated b, a, m and reduced negative
+log-likelihood. If <samp><span class="option">output</span></samp>=1 prints each datapoint with the
+associated distribution function. If <samp><span class="option">output</span></samp>=2 prints each
+datapoint with the associated density.
+
+     <br><dt><samp><span class="option">-V verbosity</span></samp><dd>choose a verbosity level. If <samp><span class="option">verbosity</span></samp>=0 print only the final
+results. More information can be obtained increasing the verbosity
+level.
+
+     <br><dt><samp><span class="option">-m M</span></samp><dd>set the parameter m equal to <samp><span class="option">M</span></samp>. The optimization is
+performed only on the two remaining parameters.
+
+     <br><dt><samp><span class="option">-G step,tol,iter, eps, algo</span></samp><dd>set the parameter for the global numerical optimization
+
+     <br><dt><samp><span class="option">-h</span></samp><dd>print a short help with the default values for the various parameters
+</dl>
+
+   <p>The parameters of the numerical optimization are set using a comma
+separated list of 5 parameters. The meaning of the parameters and
+the syntax is the same as for <samp><span class="command">subbofit</span></samp> (see <a href="#subbofit">subbofit</a>)
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Exploring-Subbotin-Log-Likelihood"></a>
+<a name="Exploring-Subbotin-Log_002dLikelihood"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Installation">Installation</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">6 Exploring the symmetric Subbotin Log-Likelihood</h2>
+
+<p>The possibility of visually explore the reduced negative log-likelihood
+of a given dataset becomes very useful when the fitting program produces
+some error and you want to directly verify if the found minima is
+actually the global minima you were looking for. The program
+<samp><span class="command">subboshow</span></samp> provides an easy way of performing such a graphical
+exploration. It is essentially intended to be used inside the
+<samp><span class="command">gnuplot</span></samp> graphic environment. The format of the output has been
+conceived to be sent to <samp><span class="command">gnuplot</span></samp>'s <samp><span class="command">plot</span></samp> or
+<samp><span class="command">splot</span></samp> commands. For an example of use See <a href="#Graphic-Tutorial">Graphic Tutorial</a>.
+
+<ul class="menu">
+<li><a accesskey="1" href="#subboshow">subboshow</a>
+</ul>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="subboshow"></a>
+<p><hr>
+Up:&nbsp;<a rel="up" accesskey="u" href="#Exploring-Subbotin-Log_002dLikelihood">Exploring Subbotin Log-Likelihood</a>
+
+</div>
+
+<h3 class="section">6.1 subboshow</h3>
+
+<p>The program <samp><span class="command">subboshow</span></samp> allows the visual exploration of the
+Subbotin reduced (negative) log-likelihood of an user-supplied dataset.
+
+   <p>Usage:
+        <samp><span class="command">subboshow</span></samp> [options list] [files list]
+
+   <p>where [files list] is a list of files containing the observations with
+which the log-likelihood is computed. If [files list] is empty, the
+program reads the data from standard input. The possible options in
+[options list] are
+
+     <dl>
+<dt><samp><span class="option">-M num</span></samp><dd>print the reduced negative log-likelihood for <samp><span class="option">num</span></samp> equally spaced
+values of the parameter m.
+
+     <br><dt><samp><span class="option">-B num</span></samp><dd>print the reduced negative log-likelihood for <samp><span class="option">num</span></samp> equally spaced
+values of the parameter b.
+
+     <br><dt><samp><span class="option">-m min,max</span></samp><dd>print the reduced negative log-likelihood for values of m in the
+range min,max.
+
+     <br><dt><samp><span class="option">-b min,max</span></samp><dd>print the reduced negative log-likelihood for values of b in the
+range min,max.
+
+     <br><dt><samp><span class="option">-h</span></samp><dd>print a short help and default parameters values
+</dl>
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="Installation"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#License-and-Copyright">License and Copyright</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Exploring-Subbotin-Log_002dLikelihood">Exploring Subbotin Log-Likelihood</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">7 Installation</h2>
+
+<p>You require the GSL (Gnu Scientifi Library) to be present on your system
+in order to install <samp><span class="command">SUBBOTOLS</span></samp>. Check that these libraries are properly
+installed on your system before proceeding to the installation of the
+present package. For informations about GSL, including installation
+instructions, check <a href="http://www.gnu.org/software/gsl/">http://www.gnu.org/software/gsl/</a>.
+
+   <p>SUBBOTOLS comes with a <samp><span class="command">configure</span></samp> program in the GNU style. 
+Installation can be as simple as
+
+<pre class="example">     tar xvzf subbotools-[version].tar.gz
+     cd subbotools-[version]
+     ./configure
+     make
+     make install
+</pre>
+   <p>where <code>[version]</code> stands for a number indicating the package
+version.
+
+   <p>The commands above install the <samp><span class="command">SUBBOTOLS</span></samp> executable in
+<samp><span class="file">/usr/local/bin</span></samp> and the documentation, in the form of info files,
+in <samp><span class="file">/usr/local/info</span></samp>.
+
+   <p>To obtain pdf or html version of the manual, after the configuration, do
+<pre class="example">     cd doc
+     make pdf
+     make html
+</pre>
+   <p>For more detailed installation instruction see the file <samp><span class="file">INSTALL</span></samp>.
+
+<!-- ************************************************************ -->
+<div class="node">
+<a name="License-and-Copyright"></a>
+<p><hr>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Concept-Index">Concept Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Installation">Installation</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">8 License and Copyright</h2>
+
+<p>SUBBOTOOLS is copyright &copy; 2002-2003 Giulio Bottazzi.
+
+   <p>SUBBOTOOLS is a collection of free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.
+
+   <p>This package is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+   <p>You should have received a copy of the GNU General Public License along
+with this package; if not, write to the Free Software Foundation, Inc.,
+59 Temple Place, Suite 330, Boston, MA 02111-1307 USA.  You can also
+find the <a href="http://www.gnu.org/copyleft/gpl.html">GPL on the GNU web site</a>.
+
+   <p>In addition, I kindly ask you to acknowledge SUBBOTOOLS and its author
+in any program or publication in which you use SUBBOTOOLS.  (You are not
+<em>required</em> to do so; it is up to your common sense to decide
+whether you want to comply with this request or not.)
+
+<div class="node">
+<a name="Concept-Index"></a>
+<p><hr>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#License-and-Copyright">License and Copyright</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="unnumbered">Concept Index</h2>
+
+<ul class="index-cp" compact>
+<li><a href="#index-Asymmetric-Subbotin-probability-density-9">Asymmetric Subbotin probability density</a>: <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a></li>
+<li><a href="#index-Bugs-Report-3">Bugs Report</a>: <a href="#Introduction">Introduction</a></li>
+<li><a href="#index-Central-moments-6">Central moments</a>: <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a></li>
+<li><a href="#index-Command-Line-24">Command Line</a>: <a href="#Command-Line-Tutorial">Command Line Tutorial</a></li>
+<li><a href="#index-Examples-23">Examples</a>: <a href="#Tutorial">Tutorial</a></li>
+<li><a href="#index-Fitting-25">Fitting</a>: <a href="#Fitting-Subbotin-Density">Fitting Subbotin Density</a></li>
+<li><a href="#index-Fitting_002c-Laplace-asymmetric-32">Fitting, Laplace asymmetric</a>: <a href="#Asymmetric-Laplace-case">Asymmetric Laplace case</a></li>
+<li><a href="#index-Fitting_002c-Subbotin-asymmetric-31">Fitting, Subbotin asymmetric</a>: <a href="#Asymmetric-case">Asymmetric case</a></li>
+<li><a href="#index-Fitting_002c-Subbotin-symmetric-26">Fitting, Subbotin symmetric</a>: <a href="#Symmetric-case">Symmetric case</a></li>
+<li><a href="#index-g_t_0040command_007bgnuplot_007d-18"><samp><span class="command">gnuplot</span></samp></a>: <a href="#Programs-Input_002fOutput">Programs Input/Output</a></li>
+<li><a href="#index-Graphics-20">Graphics</a>: <a href="#Programs-Input_002fOutput">Programs Input/Output</a></li>
+<li><a href="#index-GSL-2">GSL</a>: <a href="#Introduction">Introduction</a></li>
+<li><a href="#index-Howto-22">Howto</a>: <a href="#Tutorial">Tutorial</a></li>
+<li><a href="#index-Input-16">Input</a>: <a href="#Programs-Input_002fOutput">Programs Input/Output</a></li>
+<li><a href="#index-Introduction-1">Introduction</a>: <a href="#Introduction">Introduction</a></li>
+<li><a href="#index-Likelihood-12">Likelihood</a>: <a href="#Parameters-Estimation">Parameters Estimation</a></li>
+<li><a href="#index-Method-of-Moments-27">Method of Moments</a>: <a href="#Method-of-Moments">Method of Moments</a></li>
+<li><a href="#index-Minimization-on-intervals-30">Minimization on intervals</a>: <a href="#Minimization-on-Intervals">Minimization on Intervals</a></li>
+<li><a href="#index-Minimization_002c-unconstrained-29">Minimization, unconstrained</a>: <a href="#Unconstrained-Minimization">Unconstrained Minimization</a></li>
+<li><a href="#index-Output-17">Output</a>: <a href="#Programs-Input_002fOutput">Programs Input/Output</a></li>
+<li><a href="#index-Overview-4">Overview</a>: <a href="#Overview">Overview</a></li>
+<li><a href="#index-Parameters-7">Parameters</a>: <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a></li>
+<li><a href="#index-g_t_0040command_007bplotutils_007d-19"><samp><span class="command">plotutils</span></samp></a>: <a href="#Programs-Input_002fOutput">Programs Input/Output</a></li>
+<li><a href="#index-Probability-density-5">Probability density</a>: <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a></li>
+<li><a href="#index-Reduced-log_002dlikelihood-13">Reduced log-likelihood</a>: <a href="#Parameters-Estimation">Parameters Estimation</a></li>
+<li><a href="#index-Subbotin-central-moments-10">Subbotin central moments</a>: <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a></li>
+<li><a href="#index-Subbotin-likelihood-14">Subbotin likelihood</a>: <a href="#Parameters-Estimation">Parameters Estimation</a></li>
+<li><a href="#index-Subbotin-parameters-11">Subbotin parameters</a>: <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a></li>
+<li><a href="#index-Subbotin-probability-density-8">Subbotin probability density</a>: <a href="#The-Subbotin-Families-of-Densities">The Subbotin Families of Densities</a></li>
+<li><a href="#index-Subbotin-reduced-log_002dlikelihood-15">Subbotin reduced log-likelihood</a>: <a href="#Parameters-Estimation">Parameters Estimation</a></li>
+<li><a href="#index-Tutorial-21">Tutorial</a>: <a href="#Tutorial">Tutorial</a></li>
+<li><a href="#index-Unconstrained-Minimization-28">Unconstrained Minimization</a>: <a href="#Unconstrained-Minimization">Unconstrained Minimization</a></li>
+   </ul></body></html>
+

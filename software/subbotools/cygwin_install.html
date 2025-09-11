@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>subbotools: cygwin installation</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">subbotools: cygwin installation</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orga6e6cd3">Introduction</a></li>
+<li><a href="#orgd3fbf49">Install Cygwin</a></li>
+<li><a href="#org0ab277a">Install subbotools</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orga6e6cd3" class="outline-2">
+<h2 id="orga6e6cd3">Introduction</h2>
+<div class="outline-text-2" id="text-orga6e6cd3">
+<p>
+The present document provides a short description of how to install
+the <code>subbottols</code> package inside a <a href="https://www.cygwin.com/">Cygwin</a> environment.
+</p>
+
+<p>
+From its website "Cygwin is a large collection of GNU and Open Source
+tools which provide functionality similar to a Linux distribution on
+Windows". The Cygwin DLL currently works with all recent, commercially
+released x86 32 bit and 64 bit versions of Windows, starting with
+Windows XP SP3.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd3fbf49" class="outline-2">
+<h2 id="orgd3fbf49">Install Cygwin</h2>
+<div class="outline-text-2" id="text-orgd3fbf49">
+<p>
+You can skip this part if you use Cygwin already. Otherwise follow the
+instructions.
+</p>
+
+<p>
+From the <a href="https://www.cygwin.com/">Cygwin</a> website download the installation program on the
+windows machine. There is both a 32 bit and a 64 bit flavor. Launch
+the executable. It will require to set a few parameters, but I usually
+accept the default setting. Then you are presented with a page that
+ask you to select extra packages for installation, similar to the
+picture below. You will follow the same procedure to update packages
+or install other packages later.
+</p>
+
+<p width="600px">
+<img src="../gbutils/cygwin_install.png" alt="cygwin_install.png" width="600px" />
+
+</p>
+
+<p>
+From this window select the packages (by clicking on the "circular
+arrows" symbol on the left) <code>gsl</code> and <code>gsl-devel</code>. Moreover check that
+the package <code>make</code> is selected. It should be already, but you never
+know. For plotting or graphical analysis install <code>gnuplot</code>
+(recommended).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0ab277a" class="outline-2">
+<h2 id="org0ab277a">Install subbotools</h2>
+<div class="outline-text-2" id="text-org0ab277a">
+<p>
+From the <a href="ftp://cafed.sssup.it/packages/">cafed repository</a> download the last <code>tar.gz</code> package and move
+it in the <code>/usr/local/</code> directory. In the <code>Cygwin desktop</code> unpack the
+package:
+</p>
+<pre class="example">
+tar xvzf subbotools-{version}.tar.gz
+</pre>
+
+<p>
+move inside the source directory
+</p>
+<pre class="example">
+cd subbotools-{version}
+</pre>
+
+<p>
+run the configure script
+</p>
+<pre class="example">
+./configure
+</pre>
+
+<p>
+then build the files
+</p>
+<pre class="example">
+make
+</pre>
+
+<p>
+and install them
+</p>
+<pre class="example">
+make install
+</pre>
+
+
+<p>
+If more detailed instructions are necessary, see the file <code>INSTALL</code> in
+the source directory (you can use the command <code>less INSTALL</code>).
+</p>
+
+<p>
+This is the END, enjoy your subbotools :-)
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-03-05 Tue 12:19 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>gbutils: command line econometrics</title>
+<meta name="generator" content="Org mode" />
+<meta name="description" content="pippa lippa"
+ />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<style type="text/css">
+<!--/*--><![CDATA[/*><!--*/
+div.figure { float:left; }
+/*]]>*/-->
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../software.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">gbutils: command line econometrics</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org0181eef">Getting Started</a>
+<ul>
+<li><a href="#org02159cf">Requirements</a></li>
+<li><a href="#orga8d6e4c">Installation instructions</a></li>
+</ul>
+</li>
+<li><a href="#org00d9722">Documentation</a></li>
+<li><a href="#orgd8b51fc">Contributors</a></li>
+<li><a href="#orgda8eb66">Download</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org0181eef" class="outline-2">
+<h2 id="org0181eef">Getting Started</h2>
+<div class="outline-text-2" id="text-org0181eef">
+<p>
+This is a brief description of <code>gbutils</code> (since version 5.6), a set of
+command line utilities for the manipulation and statistical analysis
+of data. These utilities read data from standard input in an ASCII
+format and print the result in ASCII format to standard output. See
+the <a href="http://cafim.sssup.it/~giulio/software/gbutils/overview.html">overview</a> for more details and join <a href="http://groups.google.com/group/gbutils">gbutils google group</a> for
+discussion and news.
+</p>
+
+<p>
+Since version 6.0, the <code>gbutils</code> package contains an updated version
+of the programs originally distributed in the discontinued
+<code>subbotools</code> package. See <a href="#org00d9722">Documentation</a> for further information.
+</p>
+
+<p>
+In many cases, the output of the utilities in the <code>gbutils</code> package is
+designed in a format suitable to be sent to other program, like the
+graph program in the <a href="https://www.gnu.org/software/plotutils/">plotutils</a> package, for plotting. Alternatively,
+these utilities can be used inside an interactive <a href="http://www.gnuplot.info/">gnuplot</a> session, or
+inside a gnuplot script, with the help of the special datafile
+identifier <code>&lt;</code> (see Gnuplot documentations for details).
+</p>
+
+<p width="600px" style="&quot;display:inline;margin:10px;&quot;">
+<img src="./example1.png" alt="example1.png" width="600px" style="&quot;display:inline;margin:10px;&quot;" />
+
+</p>
+
+<p>
+Let us see some examples. Figure 1 reports empirical estimates of the
+density of \(200\) realizations of a exponential power random variable,
+obtained using both a binned distribution and a kernel estimate. This
+picture can be obtained in  terminal with the following list of commands:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">gbrand -c 1 -r 200 gaussian 1 &gt; data.txt
+
+gbker &lt; data.txt &gt;kernel.txt
+
+gbhisto -n 20 -M 2 &lt;data.txt &gt; histogram.txt 
+
+gbplot -T <span style="color: #8b2252;">'png enhan crop'</span> -o example1.png plot <span style="color: #8b2252;">'w histeps title "binned",\</span>
+<span style="color: #8b2252;">"kernel.txt" w l title "kernel" '</span> &lt; histogram.txt
+
+rm data.dat kernel.txt histogram.txt
+</pre>
+</div>
+<p>
+In the first line, a sample of 200 observations is independently drawn
+form a Gaussian distribution with unit variance and saved in the file
+<code>data.txt</code>. The second line builds a kernel estimate of the density
+and the third an histograms. Results are saved in <code>kernel.txt</code> and
+<code>histogram.txt</code>, respectively. The command in the fourth line, which
+continues on the fifth, generates the plot and save the result in
+<code>example1.png</code> and the last line remove all the intermediary files.
+</p>
+
+<p width="600px" style="&quot;display:inline;margin:10px;&quot;">
+<img src="./example2.png" alt="example2.png" width="600px" style="&quot;display:inline;margin:10px;&quot;" />
+
+</p>
+<br style="clear:both;" />
+
+<p>
+The second example, Figure 2, is a scatter plot of couples of points
+together with a non-linear kernel regression. 
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">gbrand -c 2 -r 200 gaussian 1 | gbfun <span style="color: #8b2252;">'x1'</span> <span style="color: #8b2252;">'x1+.5*x2'</span> &gt; data.txt
+
+gbkreg &lt; data.txt &gt; kernel_reg.txt
+
+gbplot -T <span style="color: #8b2252;">'png enhan crop'</span> -o example2.png plot <span style="color: #8b2252;">'w p pt 5,\</span>
+<span style="color: #8b2252;">"kernel_reg.txt" w l '</span> &lt; data.txt
+
+rm kernel_reg.txt data.txt
+</pre>
+</div>
+<p>
+The data generated in the first line and saved in <code>data.txt</code> are
+independent couples of correlated random variables. A kernel
+regression is performed in the second line. The third (and fourth)
+lines produce the plot.
+</p>
+
+<p>
+What these commands do is to generate random samples, somehow
+manipulate them, perform some model estimation and finally plot the
+result. All this in one line of code. 
+</p>
+
+<p>
+Both pictures are generated using <code>gbplot</code>, which is an interface to
+the <a href="http://www.gnuplot.info/">gnuplot</a> graphic program. To reproduce these pictures the latter
+must be installed in your system. Grasping all the details of the
+lines above is probably complicated. The baseline message, whoever,
+should be clear: even complicated analysis can be split in a sequence
+of very simple steps.
+</p>
+
+<p>
+The programs in <code>gbutils</code> are completely written in C. Some of them
+can make use of external libraries (see below).
+</p>
+
+<p>
+These programs have been tested (and repeatedly used for many years)
+on different Linux distributions and should compile and run, in
+principle, on any Unix platform. Other operating systems, most notably
+Windows, have been scarcely tested.
+</p>
+
+<p>
+These programs have been originally written for personal use. Even if
+today they are used by several persons, please consider that I
+maintain and develop them in my spare time. They are distributed under
+the <a href="COPYING">GPL license</a> in the hope they could be of help to other people, but
+without any implied warranty.
+</p>
+
+<p>
+Please report bugs to <a href="mailto:gbutils@googlegroups.com">mailto:gbutils@googlegroups.com</a>
+</p>
+</div>
+
+<div id="outline-container-org02159cf" class="outline-3">
+<h3 id="org02159cf">Requirements</h3>
+<div class="outline-text-3" id="text-org02159cf">
+<p>
+To be installed from source, the package requires a C compiler and the
+standard C library. Unix-like environment in which GNU auto-tools can
+work is required for automatic installation.
+</p>
+
+<p>
+Many programs in gbutils do not require ANY external library apart the
+standard ones. There are however exceptions. Several programs use the
+GNU Scientific Library (GSL) (version &gt;= 1.6) and other the GNU
+matheval library (version &gt;=1.0.1).
+</p>
+
+<p>
+See the <a href="overview.html#org1532283">Programs summary table</a> for the list of dependencies of the
+different utilities.
+</p>
+
+<p>
+At install time, if a library is not found, the programs requiring it
+are omitted from the list of programs to be installed. If the zlib
+library is found on the system, all the utilities are compiled with
+the capability of reading gz-compressed input.
+</p>
+
+<p>
+For more information about GSL, including installation procedures on
+various platforms, check <a href="http://www.gnu.org/software/gsl/">here</a>.  GNU matheval library is hosted <a href="http://savannah.gnu.org">here</a>
+and zlib home page is <a href="http://www.gzip.org/zlib/">here</a>. Notice that, in principle, using programs
+linked with different libraries can produce slightly different
+outputs.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga8d6e4c" class="outline-3">
+<h3 id="orga8d6e4c">Installation instructions</h3>
+<div class="outline-text-3" id="text-orga8d6e4c">
+<p>
+On <code>Linux</code>, the <code>gbutils</code> package can be either installed using a .deb
+package or from source. The first method is recommended. You can
+download the binaries executable for your system from the <a href="https://packages.debian.org/unstable/main/gbutils">Debian</a> or
+the <a href="http://packages.ubuntu.com/search?keywords=gbutils">Ubuntu</a> repositories. Alternatively, the latest source code
+packages are available in the <a href="#orgda8eb66">Download</a> section. The installation
+from source requires the <code>gcc</code> compiler, the <code>make</code> utility and, in
+order to have all utilities with all the features activated, the
+development (dev) version of the <code>gsl</code>, <code>matheval</code> and <code>zlib</code>
+libraries. You should be able to install all of them using the package
+manager of your <code>Linux</code> distribution. Once all the necessary tools and
+library are installed, the procedure is rather straightforward.
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">wget ftp://cafed.sssup.it/packages/gbutils-{version}.tar.gz
+tar xvzf gbutils-{version}.tar.gz
+<span style="color: #483d8b;">cd</span> gbutils-{version}
+./configure
+make
+su
+make install
+</pre>
+</div>
+<p>
+Check the <code>README</code> file in the distributed package for further
+details.
+</p>
+
+<p>
+In <code>Windows 10</code> the <code>gbutils</code> package can be installed directly form
+the Bash shell using the Windows Subsystem for Linux. To activate it,
+open the Settings app, go to "Update &amp; Security -&gt; For Developers" and
+activate the “Developer Mode”. Then open the Control Panel, go to
+“Programs -&gt; Turn Windows Features On or Off” and enable the “Windows
+Subsystem for Linux” option. Confirm with “OK" and reboot the system
+to install the new software. Open Microsoft Store and install your
+preferred Linux distribution. I suggest Ubuntu or Debian. Now you have
+a Linux system inside Windows 10. Launch the just installed
+application or start the "Bash" program to enter a console and install
+the package with
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">sudo apt-get update 
+sudo apt-get install gbutils
+</pre>
+</div>
+
+<p>
+In older versions of <code>Windows</code>, the <code>gbutils</code> package is installed in
+the <code>Cygwin</code> environment. Follow the instructions in the <a href="http://cafim.sssup.it/~giulio/software/gbutils/cygwin_install.html">cygwin
+installation</a> page.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org00d9722" class="outline-2">
+<h2 id="org00d9722">Documentation</h2>
+<div class="outline-text-2" id="text-org00d9722">
+<p>
+For a brief survey of the package features see the <a href="http://cafim.sssup.it/~giulio/software/gbutils/overview.html">overview</a>. The
+<code>gbget</code> utility is the Swiss knife of the package, the main tool to
+perform data manipulation. Its special role commands a specific <a href="http://cafim.sssup.it/~giulio/software/gbutils/gbget.html">gbget
+tutorial</a>.
+</p>
+
+<p>
+The utility <code>gbtest</code> provides a number of non-parametric statistical
+tests. They are described in the <a href="http://cafim.sssup.it/~giulio/software/gbutils/tests.html">tests summary</a> page.
+</p>
+
+<p>
+The <code>gbutils</code> package also includes a set of utilities specifically
+aimed to the estimation of symmetric and asymmetric Laplace and power
+exponential distributions. You can find a description of these
+utilities in <a href="http://cafim.sssup.it/~giulio/software/gbutils/ep.html">power exponential estimation</a>.
+</p>
+
+<p>
+A brief summary of options and modes of operation can be obtained from
+all the programs using the command line option <code>-h</code> or <code>--help</code>. All
+the programs are accompanied by automatically generated manual pages
+which can be isnpected with the <code>man</code> Unix utility.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd8b51fc" class="outline-2">
+<h2 id="orgd8b51fc">Contributors</h2>
+<div class="outline-text-2" id="text-orgd8b51fc">
+<p>
+<a href="http://www1.fee.uva.nl/cendef/whoiswho/showHP/default.asp?pID=6&amp;selected=pi">Cees Diks</a>, <a href="http://www.cafed.sssup.it/~federico/">Federico Tamagni</a>, <a href="http://cafim.sssup.it/~angelo/">Angelo Secchi</a> and Davide Pirino provided
+helpful suggestions and coding.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgda8eb66" class="outline-2">
+<h2 id="orgda8eb66">Download</h2>
+<div class="outline-text-2" id="text-orgda8eb66">
+<p>
+<a href="gbutils-6.4.tar.gz">gbutils 6.4 source package</a>
+</p>
+
+<p>
+<a href="gbutils-6.3.tar.gz">gbutils 6.3 source package</a>
+</p>
+
+<p>
+<a href="gbutils-6.0.tar.gz">gbutils 6.0 source package</a>
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2024-03-05 Tue 12:19</p>
+</div>
+</body>
+</html>

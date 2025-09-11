@@ -1,0 +1,345 @@
+% Created 2011-07-08 Fri 16:30
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\tolerance=1000
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{multimin: GSL optimization interface}
+\author{Giulio Bottazzi}
+\date{08 July 2011}
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{3}
+\tableofcontents
+\vspace*{1cm}
+
+
+\section{Introduction}
+\label{sec-1}
+
+
+multimin is an interface to the \href{http://www.gnu.org/software/gsl/}{GNU Scientific Library} minimization
+routines. It is a simple C function. When invoked, all the information
+necessary to perform the minimization, that is the function, possibly
+its derivatives, the initial conditions and the minimization options,
+are passed as formal parameters.
+
+The drawback is that one can and up calling the function with a pretty
+long, FORTRAN-like, list of parameters. On the other hand, a first
+advantage is that one can safely forget about the details of the
+interior functioning of the GSL minimization routines. A more
+fundamental one is that the interface automatically handles different
+kinds of boundary conditions (open, closed, semi-closed). The way in
+which this is performed is by transforming the problem using a change
+of coordinates. For instance, assume one is interested in the minimum
+$x_0$ of the function $f(x)$ on the closed interval
+$[a,b]$. Considering the change of variable
+
+\[
+x=h(y)=\frac{a+b}{2} + \frac{a-b}{2} \, \sin(y)
+\]
+
+one can restate the problem above in finding the minimum $y_0$ of the
+function $f(h(y))$ on the open real line. Once the minimum (or better,
+one minimum) has been found, the solution of the original problem is
+obtained as $x_0=h(y_0)$. The list of the implemented transformations
+can be found below.
+
+Pointer to the objective function to be minimized and its derivatives
+are passed as parameters to multimin. So the only programming effort
+for the user is to properly code these functions. The C function
+returning the value of the objective function at the point $x$ should
+be coded as
+\begin{verbatim}
+void (*f) (const size_t n, const double *x,void *fparams,double *fval)
+\end{verbatim}
+where \texttt{n} is the dimension of the problem (number of variables),
+\texttt{fval} is the return value, \texttt{x} is an array of type double of
+dimension \texttt{n} containing the coordinates where the objective has to be
+computed and \texttt{fparams} is a pointer to a list of parameters, which
+should not be the argument of the minimization problem, on which the
+function depends. The function returning derivatives of the objective
+is coded similarly (see below).
+\section{Download and install}
+\label{sec-2}
+
+
+Download the file \href{file:///home/giulio/doc/org-webpage/software/multimin/multimin.c}{multimin.c} and \href{file:///home/giulio/doc/org-webpage/software/multimin/multimin.h}{multimin..h} and copy it in the
+directory of your choice. In order to work, the GNU scientific library
+must be properly installed on your system. To compile a program using
+multimin, remember to include the appropriate header file
+\texttt{multimin.h}. To test the function, download the file \href{file:///home/giulio/doc/org-webpage/software/multimin/multimin_test.c}{multimin\_test.c}
+and compile it using
+\begin{verbatim}
+gcc -Wall multimin_test.c multimin.c -lgsl -lgslcblas -o multimin_test
+\end{verbatim}
+The example is discussed in the \hyperref[sec-4]{section} below.
+\section{Calling convention}
+\label{sec-3}
+
+
+Let's now analyze the calling convention in details
+
+\begin{verbatim}
+multimin(size_t n,double *x,double *fmin, unsigned *type,double
+         *xmin,double *xmax, void (*f) (const size_t,const double
+         *,void *,double *), void (* df) (const size_t,const double *,
+         void *,double *), void (* fdf) (const size_t,const double *,
+         void *,double *,double *), void *fparams, const struct
+         multimin_params oparams)
+\end{verbatim}
+
+the list of the parameters is as follows (where INPUT stands for the
+input values of the parameter, while OUTPUT indicates their values
+when the function return):
+
+
+\begin{description}
+\item[\texttt{n}] INPUT: dimension of the problem, number of independent
+       variables of the function.
+\end{description}
+
+\begin{description}
+\item[\texttt{x}] INPUT: pointer to an array of \texttt{n} values \texttt{x[0],...x[n-1]}
+       containing the initial estimate of the minimum point. OUTPUT:
+       contains the final estimation of the minimum position
+\item[\texttt{fmin}] OUPUT: return the value of the function at the minimum
+\item[\texttt{type}] INPUT a pointer to an array of \texttt{n} integers
+            \texttt{type[1],...,type[n-1]} describing the boundary conditions
+            for the different variables. The problem is solved as an
+            unconstrained one on a suitably transformed variable
+            y. Possible values are:
+
+\begin{table}[htb]
+\caption{Available transformations} 
+\begin{center}
+\begin{tabular}{rll}
+ value  &  interval           &  function                      \\
+     0  &  unconstrained      &  $x=y$                         \\
+     1  &  $[x_m,+\infty )$   &  $x=x_m+y^2$                   \\
+     2  &  $( -\infty,x_M ]$  &  $x=x_M-y^2$                   \\
+     3  &  $[ x_m,x_M ]$      &  $x=SS+SD \sin(y)$             \\
+     4  &  $( x_m,+\infty )$  &  $x=x_m+\exp(y)$               \\
+     5  &  $( -\infty,x_M )$  &  $x=x_M-\exp(y)$               \\
+     6  &  $( x_m,x_M )$      &  $x=SS+SD \tanh(y)$            \\
+    7*  &  $( x_m,x_M )$      &  $x=SS+SD (1+y/\sqrt{1+y^2})$  \\
+    8*  &  $( x_m,+\infty )$  &  $x=x_m+.5 (y+\sqrt{1+y^2})$   \\
+\end{tabular}
+\end{center}
+\end{table}
+
+
+            where $$SS=(x_m+x_M)/2$$ and $$SD=(x_M-x_m)/2$$.
+
+            (*) These are UNSUPPORTED transformations: they have been
+            used for testing purposes but are not recommended.
+\item[\texttt{xmin xmax}] INPUT: pointers to arrays of double containing
+                 respectively the lower and upper boundaries of the
+                 different variables. For a given variable, only the
+                 values that are implied by the type of constraints,
+                 defined as in \texttt{*type}, are actually inspected.
+\end{description}
+
+\begin{description}
+\item[\texttt{f}] function that calculates the objective function at a specified
+         point x. Its specification is
+  
+\begin{verbatim}
+void (*f) (const size_t n, const double *x,void *fparams,double *fval)
+\end{verbatim}
+         where
+\begin{description}
+\item[\texttt{n}] INPUT: the number of variables
+\item[\texttt{x}] INPUT:the point at which the function is required
+\item[\texttt{fparams}] INPUT: pointer to a structure containing
+                     parameters required by the function. If no
+                     external parameter are required it can be set to
+                     NULL.
+\item[\texttt{fval}] OUTPUT: the value of the objective function at
+                     the current point x.
+\end{description}
+\end{description}
+
+\begin{description}
+\item[\texttt{df}] function that calculates the gradient of the objective
+          function at a specified point x. Its specification is
+
+\begin{verbatim}
+void (*df) (const size_t n, const double *x,void *fparams,double *grad)
+\end{verbatim}
+         where
+\begin{description}
+\item[\texttt{n}] INPUT: the number of variables
+\item[\texttt{x}] INPUT:the point at which the function is required
+\item[\texttt{fparams}] INPUT: pointer to a structure containing
+                     parameters required by the function. If no
+                     external parameter are required it can be set to
+                     NULL.
+\item[\texttt{grad}] OUTPUT: the values of the gradient of the
+                     objective function at the current point x are
+                     stored in \texttt{grad[0],...,grad[n-1]}.
+\end{description}
+\end{description}
+
+\begin{description}
+\item[\texttt{fdf}] fdf calculates the value and the gradient of the objective
+           function at a specified point x. Its specification is
+
+\begin{verbatim}
+void (*fdf) (const size_t n, const double *x,void *fparams,double *fval,double *grad)
+\end{verbatim}
+
+         where
+\begin{description}
+\item[\texttt{n}] INPUT: the number of variables
+\item[\texttt{x}] INPUT:the point at which the function is required
+\item[\texttt{fparams}] INPUT: pointer to a structure containing
+                     parameters required by the function. If no
+                     external parameter are required it can be set to
+                     NULL.
+\item[\texttt{fval}] OUTPUT: the value of the objective function at
+                     the current point x.
+\item[\texttt{grad}] OUTPUT: the values of the gradient of the
+                     objective function at the current point x are
+                     stored in \texttt{grad[0],...,grad[n-1]}.
+\end{description}
+\item[\texttt{fparams}] pointer to a structure containing parameters required
+               by the function. If no external parameter are required
+               it can be set to NULL.
+\item[\texttt{oparams}] structure of the type ``multimin$_{\mathrm{params}}$'' containing the
+               optimization parameters. The members are
+\begin{description}
+\item[\texttt{double step\_size}] size of the first trial step
+\item[\texttt{double tol}] accuracy of the line minimization
+\item[\texttt{unsigned maxiter}] maximum number of iterations
+\item[\texttt{double epsabs}] accuracy of the minimization
+\item[\texttt{double maxsize}] final size of the simplex
+\item[\texttt{unsigned method}] method to use. Possible values are:
+\begin{enumerate}
+\item Fletcher-Reeves conjugate gradient
+\item Polak-Ribiere conjugate gradient
+\item Vector Broyden-Fletcher-Goldfarb-Shanno method
+\item Steepest descent algorithm
+\item Nelder-Mead simplex
+\item Vector Broyden-Fletcher-Goldfarb-Shanno ver. 2
+\end{enumerate}
+\item[\texttt{unsigned verbosity}] if greater then 0 print info
+                    on intermediate steps
+\end{description}
+\end{description}
+\section{Example}
+\label{sec-4}
+
+
+Consider the same example described in the \href{http://www.gnu.org/software/gsl/manual/html_node/Providing-a-function-to-minimize.html}{GSL maual}: a
+two-dimensional paraboloid function centerd in $(a,b)$ with scale
+factor $(A,B)$ and minimum $C$:
+
+\[
+f(x,y) = A (x-a)^2 + B (y-b)^2 + C \;.
+\]
+
+Assume the parameters $(a,b,A,B,C)$ are stored in a five dimensional
+array named \texttt{p}. The function returning the value of the objective can
+be coded as follows
+\begin{verbatim}
+void f(const size_t n, const double *x,void *fparams,double *fval){
+
+  double *p = (double *)params;
+
+  *fval=p[2]*(x[0]-p[0])*(x[0]-p[0]) + p[3]*(x[1]-p[1])*(x[1]-p[1]) + p[4];
+
+}
+\end{verbatim}
+while the function returning the derivatives reads
+\begin{verbatim}
+void df(const size_t n, const double *x,void *fparams,double *grad)
+{
+  
+    double *p = (double *)params;
+  
+    grad[0]=2*p[2]*(x[0]-p[0]);
+
+    grad[1]=2*p[3]*(x[1]-p[1]);
+}
+\end{verbatim}
+and, in addition, one needs a function returning both the value of the
+objective and of its derivative at the point
+\begin{verbatim}
+void fdf(const size_t n, const double *x,void *fparams,double *fval,double *grad)
+{
+  
+    double *p = (double *)params;
+
+    *fval=p[2]*(x[0]-p[0])*(x[0]-p[0]) + p[3]*(x[1]-p[1])*(x[1]-p[1]) + p[4];
+  
+    grad[0]=2*p[2]*(x[0]-p[0]);
+
+    grad[1]=2*p[3]*(x[1]-p[1]);
+}
+\end{verbatim}
+
+Once these functions are defined, the program to minimize the
+objective can simply be
+\begin{verbatim}
+int main(){
+  
+  double par[5] = { 1.0, 2.0, 10.0, 20.0, 30.0 };
+  
+  double x[2]={0,0};
+  double minimum;
+  
+  double xmin[2], xmax[2];
+  unsigned type[2];
+  
+  struct multimin_params optim_par = {.1,1e-2,100,1e-3,1e-5,2,0};
+  
+  /* unconstrained minimization */
+  multimin(2,x,&minimum,NULL,NULL,NULL,&f,&df,&fdf,(void *) par,optim_par);
+  
+  printf("unconstrained minimum %e at x=%e y=%e\n",minimum,x[0],x[1]);
+  
+  /* minimum constrained in [-1,2]x(-5,5] */
+  type[0]=3;
+  xmin[0]=-1;
+  xmax[0]=2;
+  x[0]=0;
+
+  type[1]=2;
+  xmin[1]=-5;
+  xmax[1]=5;
+  x[1]=0;
+
+  /* increase verbosity */
+  optim_par.verbosity=1;
+
+  multimin(2,x,&minimum,type,xmin,xmax,&f,&df,&fdf,par,optim_par);
+  
+  printf("constrained minimum %e at x=%e y=%e\n",minimum,x[0],x[1]);
+  
+  
+  return 0;
+}
+\end{verbatim}
+Notice that in the unconstrained minimization \texttt{NULL} arrays have been
+passed to the function. To search for a constrained minimum, the
+arrays \texttt{type}, \texttt{xmin} and \texttt{xmax} have been set accordingly. Of course,
+in this case the two minima coincide.
+
+\end{document}

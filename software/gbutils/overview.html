@@ -1,0 +1,1416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-25 dom 12:38 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>gbutils overview</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Giulio Bottazzi" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">gbutils overview</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgcc54c37">Brief description of programs</a>
+<ul>
+<li><a href="#org4623140">Data Manipulation</a></li>
+<li><a href="#orgab8d0cb">Data transformation</a></li>
+<li><a href="#org78d5162">Descriptive statistics</a></li>
+<li><a href="#orgdf82d4b">Statistical tests and models</a></li>
+</ul>
+</li>
+<li><a href="#org70aa31c">Understanding Input/Output</a>
+<ul>
+<li><a href="#orga3370a0">Sequential, tabular and compounded input</a></li>
+<li><a href="#org33c3676">Missing values and NaN management</a></li>
+<li><a href="#orgc0eb948">Radix and thousands separator</a></li>
+<li><a href="#org60468ba">Output format and precision</a></li>
+</ul>
+</li>
+<li><a href="#orga710da4">Functional expressions</a></li>
+<li><a href="#org9fc278c">Numerical Error handling</a></li>
+<li><a href="#orgb440aa9">Binary format</a></li>
+<li><a href="#orgedbb1bc">Graphic output</a>
+<ul>
+<li><a href="#orgda057fb">GNU plotutils package</a></li>
+<li><a href="#org1c9ad02">Gnuplot interactive session</a></li>
+<li><a href="#orgee336f7">Gnuplot's plot from command line</a></li>
+</ul>
+</li>
+<li><a href="#orgaa76db4">Programs summary table</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgcc54c37" class="outline-2">
+<h2 id="orgcc54c37">Brief description of programs</h2>
+<div class="outline-text-2" id="text-orgcc54c37">
+<p>
+The programs in <code>gbutils</code> can be divided in four broad classes:
+</p>
+
+<ul class="org-ul">
+<li>Data Manipulation</li>
+
+<li>Data Transformation</li>
+
+<li>Descriptive Statistics</li>
+
+<li>Statistical Tests and Models</li>
+</ul>
+
+<p>
+The basic operation is essentially the same for all programs: you feed
+the standard input of the program with data in ASCII format separated
+by spaces, tabs or newline character. In general, each input line is
+considered a record and the blank separated entries in each line are
+considered different fields. The exact way in which different records
+and fields are treated depends on the program and can vary accordingly
+to the options specified in the command line (see below).
+</p>
+
+<p>
+After the program has read the data from standard input, it performs
+the required manipulations/analyses and prints the result to standard
+output, in the form of an ASCII file of newline separated
+records. Inside each output record, the fields are separated by
+spaces. Obviously, the meaning of the records and fields depend on the
+program.
+</p>
+</div>
+
+<div id="outline-container-org4623140" class="outline-3">
+<h3 id="org4623140">Data Manipulation</h3>
+<div class="outline-text-3" id="text-org4623140">
+<p>
+These programs do not perform any analysis by themselves. Rather, they
+are provided as an help to prepare data for subsequent analysis. In
+particular, gbget is the only program that reads data from file and
+not from standard input. It can be used to extract data, according to
+a given pattern, from one or more files and send them, through a pipe
+<code>|</code>, to other utilities. This program possesses a rather complex set
+of options. See README.gbget for a tutorial on its use.
+</p>
+
+<dl class="org-dl">
+<dt>gbget</dt><dd>extract data from a tabular input according to a specified
+pattern. It is possible to access more files at the same
+time, merge their contents and transpose or flatten the
+resulting table.</dd>
+
+<dt>gbfun</dt><dd>compute generic functions on data in a column-wise
+manner. The function can be applied to all the columns or
+defined in a recursive way.</dd>
+
+<dt>gbgrid</dt><dd>generate a grid (i.e. a matrix) of values according to a
+user specified function</dd>
+
+<dt>gbboot</dt><dd>generate bootstrapped sequences from data provided sample</dd>
+
+<dt>gbrand</dt><dd>generated i.i.d. pseudo random variates</dd>
+
+<dt>gbenv</dt><dd>provide information about the numeric environment and the
+internal settings of the package</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgab8d0cb" class="outline-3">
+<h3 id="orgab8d0cb">Data transformation</h3>
+<div class="outline-text-3" id="text-orgab8d0cb">
+<p>
+These programs perform basic transformation on input data, which are
+often considered preliminary to further statistical analysis.
+</p>
+
+
+<dl class="org-dl">
+<dt>gbmave</dt><dd>print moving statistics (average, variance, etc.) of input
+data</dd>
+</dl>
+
+
+<dl class="org-dl">
+<dt>gbinterp</dt><dd>compute the interpolation on a regular mesh of user
+provided points. It can also print first and second
+derivative of the interpolation.</dd>
+
+<dt>gbfilternear</dt><dd>filter near points in Ecuclidean metrics. Point
+whose distance is below a given threshold are
+removed.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org78d5162" class="outline-3">
+<h3 id="org78d5162">Descriptive statistics</h3>
+<div class="outline-text-3" id="text-org78d5162">
+<p>
+These utilities are useful in the representation and description of
+data. They encompass simple statistics and more "advanced" non
+parametric methods.
+</p>
+
+
+<dl class="org-dl">
+<dt>gbdist</dt><dd>cumulative distribution of input data</dd>
+
+<dt>gbstat</dt><dd>simple descriptive statistics of input data</dd>
+
+<dt>gbbin</dt><dd>compute binned statistics</dd>
+
+<dt>gbquant</dt><dd>quantiles of the empirical distribution of input data</dd>
+
+<dt>gbhisto</dt><dd>histogram for univariate data. Choose between absolute
+frequencies, relative frequencies and empirical density</dd>
+
+<dt>gbker</dt><dd>kernel density estimate for univariate data. The type of
+kernel, the bandwidth and the computation method can be
+specified at the command line</dd>
+
+<dt>gbnear</dt><dd>density estimate via nearest neighbors method</dd>
+
+<dt>gbker2d</dt><dd>kernel density estimate for bivariate data</dd>
+
+<dt>gbhisto2d</dt><dd>histograms for bivariate data</dd>
+
+<dt>gbgcorr</dt><dd>Compute the correlation dimension of a time series with a
+Gaussian kernel.</dd>
+
+<dt>gbacorr</dt><dd>It computes the autocorrelogram or the
+cross-autocorrelogram of a series of observations. It
+reads the data column-wise.</dd>
+
+<dt>gbxcorr</dt><dd>Compute the cross-covariance and cross-correlation
+coefficients with and without the removal of the mean of
+two samples. It reads the data column-wise.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgdf82d4b" class="outline-3">
+<h3 id="orgdf82d4b">Statistical tests and models</h3>
+<div class="outline-text-3" id="text-orgdf82d4b">
+<p>
+The utilities provide statistical tests to compare different samples
+and non-parametric method to investigate relationship between paired
+(or in general compounded) observations.
+</p>
+
+<dl class="org-dl">
+<dt>gbtest</dt><dd>various one and two samples statistical tests. When
+available, p-score significance is also provided.</dd>
+
+<dt>gbmodes</dt><dd>find the critical bandwidth for a kernel density estimate
+to generate a given number of modes and compute the
+associated p-value using smoothed bootstrap technique</dd>
+
+<dt>gbbin</dt><dd>the program takes couples of values X Y (separated by
+spaces), bins them with respect to the first variable and
+prints statistics of the second variables</dd>
+
+<dt>gbkreg</dt><dd>compute the kernel non-linear regression function</dd>
+
+<dt>gbkreg2d</dt><dd>compute the kernel non-linear regression function on
+three dimensional data</dd>
+
+<dt>gblreg</dt><dd>compute linear OLS regression</dd>
+
+<dt>gbglreg</dt><dd>compute generalized linear OLS regression</dd>
+
+<dt>gbnlreg</dt><dd>compute non linear regression using OLS, MAD or
+asymmetric MAD estimators</dd>
+
+<dt>gbnlqreg</dt><dd>compute non linear quantile regression</dd>
+
+<dt>gbnlmult</dt><dd>contemporaneous least square estimation of a system of
+non linear equations.</dd>
+
+<dt>gbnlprobit</dt><dd>estimate a non linear probit model on binary data</dd>
+
+<dt>gbhill</dt><dd>estimate different families of probability distribution on
+the extremal data using maximum likelihood.</dd>
+
+<dt>gblafit</dt><dd>Fit Laplace density using maximum-likelihood.</dd>
+
+<dt>gbalafit</dt><dd>Fit  asymmetric Laplace density using maximum-likelihood.</dd>
+
+<dt>gbepfit</dt><dd>Fit symmetric power exponential density using maximum-likelihood.</dd>
+
+<dt>gblaepfit</dt><dd>Fit skewed power exponential density using maximum-likelihood.</dd>
+
+<dt>gbaepfit</dt><dd>Fit asymmetric power exponential density using maximum-likelihood.</dd>
+</dl>
+
+
+<p>
+For more information on a specific command, use the -h command line
+option.
+</p>
+
+<p>
+Please, notice that all the programs work by loading the whole set of
+data in memory before computing the relevant statistics. In this
+respect, they are probably not suitable to be used on very large
+datasets.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org70aa31c" class="outline-2">
+<h2 id="org70aa31c">Understanding Input/Output</h2>
+<div class="outline-text-2" id="text-org70aa31c">
+<p>
+All the commands of this package read input in ASCII format. The data
+should be separated by white characters (spaces or tabs) or
+newlines. Lines beginning with a fence symbol <code>#</code> are ignored. They
+are simply skipped by the input routine.
+</p>
+
+<p>
+If support for the zlib has been included at compile time (see above)
+the input ASCII file can be gz-compressed.
+</p>
+
+<p>
+A file can contain several blocks of data. Blocks are separated by two
+consecutive blank lines. In general, all operations are performed on
+the first block found in the datafile. The program 'gbget' can be used
+to extract one particular block (or set of blocks) from one file.
+</p>
+</div>
+
+
+<div id="outline-container-orga3370a0" class="outline-3">
+<h3 id="orga3370a0">Sequential, tabular and compounded input</h3>
+<div class="outline-text-3" id="text-orga3370a0">
+<p>
+The utilities in this package use three different ways of reading data
+from input:
+</p>
+
+<dl class="org-dl">
+<dt>sequential</dt><dd>In 'sequential' format a single dataset is internally
+build from the data input file. All the entries found
+on one column of input are read sequentially and put
+in the same dataset. Notice that the different lines
+must contain the same number of entries or NAN values
+are generated.</dd>
+
+<dt>tabular</dt><dd>In 'tabular' format, each column of the input is treated
+as a different dataset; the program will internally
+create a list of datasets, one for each column of
+input. The different entries on one line are then put
+inside different sets. Notice that, in this case, the
+number of fields in the first non-comment non-empty line
+decides the number of datasets. All subsequent input
+lines should contain the same number of fields (but see
+below).</dd>
+
+<dt>compounded</dt><dd>In 'compounded' format the program reads a fixed
+number of fields from each line. Each line is
+internally stored as an n-tuple (a couple or a
+triplet) and treated accordingly. Notice that if some
+line contains more fields than needed, the extra
+fields are ignored.</dd>
+</dl>
+
+
+<p>
+An example can clarify the difference between the 'sequential',
+'tabular' and 'compounded' format. Suppose to have the following input
+datafile
+</p>
+
+<pre class="example">
+1.0 2.0 3.0
+4.0 5.0 6.0
+7.0 8.0 9.0
+</pre>
+
+<p>
+using the 'sequential' input the unique dataset
+<code>{1.0,2.0,3.0,4.0,...,9.0}</code> is internally generated by the
+program. Notice the ordering: all the entries of one line are inserted
+in the internal dataset before the next line is red.
+</p>
+
+<p>
+In 'tabular' format, the program builds instead three different
+datasets: <code>{1.0,4.0,7.0}</code>, <code>{2.0,5.0,8.0}</code> and <code>{3.0,6.0,9.0}</code> and use
+each set separately for its subsequent duties (topically reproducing
+the same statistical analysis for each set).
+</p>
+
+<p>
+In 'compounded' format, assuming that the program accepts couples, the
+following array of ordered couples is generated
+<code>{(1.0,2.0),(4.0,5.0),(7.0,8.0)}</code>. Notice that this is a single
+dataset, made of couples of associated values.
+</p>
+
+<p>
+When available, the "sequential" format is the default while the
+"tabular" format is activated with the option '-t'. See the <a href="#orgaa76db4">Programs summary table</a> for the list of input format accepted by the different
+utilities.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org33c3676" class="outline-3">
+<h3 id="org33c3676">Missing values and NaN management</h3>
+<div class="outline-text-3" id="text-org33c3676">
+<p>
+When the conversion of an input entry to an internal floating point
+number cannot be performed, or when, on an input line, there are not
+enough values for the required "tabular" or "compounded" format, a NAN
+(not-a-number) value is generated. This approach is introduced to make
+possible the manipulation of files with an uneven number of entries in
+different columns or with "non numerical" values.
+</p>
+
+<p>
+The following utilities automatically remove the <code>NaN</code> values from their
+input: <code>gbstat</code>, <code>gbdist</code> and <code>gbquant</code>.
+</p>
+
+<p>
+The other utilities do handle <code>NaN</code> values as expected: if <code>NaN</code> values
+are present they typically return <code>NaN</code> output. In this case, the option
+<code>D</code> of the <code>gbget</code> utility is provided to remove all the lines
+containing <code>NaN</code> entries. This program can be used in a pipe like
+</p>
+
+<pre class="example">
+...| gbget '()D' | ....
+</pre>
+
+
+<p>
+to treat the data before passing them to other <code>NaN</code>-sensitive
+utilities.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgc0eb948" class="outline-3">
+<h3 id="orgc0eb948">Radix and thousands separator</h3>
+<div class="outline-text-3" id="text-orgc0eb948">
+<p>
+In addition to the radix symbol which separates the fractional and the
+integer part of the number, sometimes data are reported with a
+thousand separator symbol.  For instance "one million" could be
+written "1,000,000.00". The character used to separate thousands and
+the fractional part are defined inside the C locale. Programs in the
+gbutils package can automatically recognize the locale settings and
+process these entries accordingly. Please use "gbenv" to see the
+definitions in use. Changing the locale typically amount simply to the
+redefinition of the LANG environment variable
+</p>
+
+<pre class="example">
+# export LANG="en_US"
+</pre>
+
+
+<p>
+A list of the available locale can be obtained with the locale program
+</p>
+
+<pre class="example">
+# locale -a
+</pre>
+
+
+<p>
+and the actual setting verified with
+</p>
+
+<pre class="example">
+# locale
+</pre>
+
+
+<p>
+For more details refer to the locale documentation.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org60468ba" class="outline-3">
+<h3 id="org60468ba">Output format and precision</h3>
+<div class="outline-text-3" id="text-org60468ba">
+<p>
+In general, the output from the different programs is made of newline
+separated records of space separated fields of standard ASCII
+characters, which represent floating point numbers. The default format
+is scientific notation with a precision of six digits. The format and
+the precision can be changed using the environment variable
+<code>GB_OUT_FLOAT_FORMAT</code>. This variable can be set to any <code>printf</code> (the
+standard library C function) meaningful string. For instance with
+</p>
+
+<pre class="example">
+# export GB_OUT_FLOAT_FORMAT="%.8e"
+</pre>
+
+
+<p>
+the precision is extended to eight digit. While with
+</p>
+
+<pre class="example">
+# export GB_OUT_FLOAT_FORMAT="%.fe"
+</pre>
+
+
+<p>
+the scientific notation is replaced with a fixed-point
+notation. Please, refer to the <code>printf</code> documentation for further
+details.
+</p>
+
+<p>
+There is also a second variable, <code>GB_OUT_EMPTY_FORMAT</code>, which can be
+used to tune the comment headings that many programs generate with the
+verbose option <code>-v</code>. Notice that it is automatically set to a value
+which is consistent with the float format chosen, so in general it is
+a good idea not to change it explicitly.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga710da4" class="outline-2">
+<h2 id="orga710da4">Functional expressions</h2>
+<div class="outline-text-2" id="text-orga710da4">
+<p>
+The functional expressions used in various utilities, like <code>gbget</code>,
+<code>gbnlreg</code>, or <code>gbfun</code>, are interpreted via the <a href="https://www.gnu.org/software/libmatheval/">matheval</a> library.
+</p>
+
+<p>
+Supported constants are (names that should be used are given in
+parenthesis): e <code>(e)</code>, log2(e) <code>(log2e)</code>, log10(e) <code>(log10e)</code>, ln(2)
+<code>(ln2)</code>, ln(10) <code>(ln10)</code>, pi <code>(pi)</code>, pi/2 <code>(pi_2)</code>, pi/4 <code>(pi_4)</code>,
+1/pi <code>(1_pi)</code>, 2/pi <code>(2_pi)</code>, 2/sqrt(pi) <code>(2_sqrtpi)</code>, sqrt(2)
+<code>(sqrt2)</code> and sqrt(1/2) <code>(sqrt1_2)</code>.
+</p>
+
+<p>
+Supported elementary functions are (names that should be used are
+given in parenthesis): exponential <code>(exp)</code>, logarithmic <code>(log)</code>,
+square root <code>(sqrt)</code>, sine <code>(sin)</code>, cosine <code>(cos)</code>, tangent <code>(tan)</code>,
+cotangent <code>(cot)</code>, secant <code>(sec)</code>, cosecant <code>(csc)</code>, inverse sine
+<code>(asin)</code>, inverse cosine <code>(acos)</code>, inverse tangent <code>(atan)</code>, inverse
+cotangent <code>(acot)</code>, inverse secant <code>(asec)</code>, inverse cosecant
+<code>(acsc)</code>, hyperbolic sine <code>(sinh)</code>, cosine <code>(cosh)</code>, hyperbolic
+tangent <code>(tanh)</code>, hyperbolic cotangent <code>(coth)</code>, hyperbolic secant
+<code>(sech)</code>, hyperbolic cosecant <code>(csch)</code>, hyperbolic inverse sine
+<code>(asinh)</code>, hyperbolic inverse cosine <code>(acosh)</code>, hyperbolic inverse
+tangent <code>(atanh)</code>, hyperbolic inverse cotangent <code>(acoth)</code>, hyperbolic
+inverse secant <code>(asech)</code>, hyperbolic inverse cosecant <code>(acsch)</code>,
+absolute value <code>(abs)</code>, Heaviside step function <code>(step)</code> with value 1
+defined for x = 0, Dirac delta function with infinity <code>(delta)</code> and
+not-a-number <code>(nandelta)</code> values defined for x = 0, and error function
+<code>(erf)</code>.
+</p>
+
+<p>
+Supported unary operation is unary minus ('-').
+</p>
+
+<p>
+Supported binary operations are addition ('+'), subtraction ('-')
+multiplication ('*'), division multiplication ('/') and exponentiation
+('^').
+</p>
+
+<p>
+Usual mathematical rules regarding operation precedence
+apply. Parenthesis ('(' and ')') could be used to change priority
+order.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9fc278c" class="outline-2">
+<h2 id="org9fc278c">Numerical Error handling</h2>
+<div class="outline-text-2" id="text-org9fc278c">
+<p>
+The default behaviour of Gnu Scientific Library functions is to abort
+the execution of the program if a numeric error is produced. Some of
+these errors, especially underflow errors, are tolerable inside a
+computation. The 'gbutils' package provides a way of switching off the
+GSL error handling. It is sufficient to set the environment variable
+<code>GB_ERROR_HANDLER_OFF</code> using
+</p>
+
+<pre class="example">
+# export GB_ERROR_HANDLER_OFF=
+</pre>
+
+
+<p>
+and all the programs will ignore numerical errors. This feature must
+be used carefully, after checking that the loss of precision implied
+by the presence of these errors can be considered tolerable for the
+actual computation one wants to perform. The default behaviour can be
+recovered using
+</p>
+
+<pre class="example">
+# unset GB_ERROR_HANDLER_OFF
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgb440aa9" class="outline-2">
+<h2 id="orgb440aa9">Binary format</h2>
+<div class="outline-text-2" id="text-orgb440aa9">
+<p>
+<i>THIS IS AN EXPERIMENTAL FEATURE</i>
+</p>
+
+<p>
+Like ASCII files, the binary files are structured as sequences of
+separate blocks. Each block is made of
+</p>
+
+<ul class="org-ul">
+<li>one <code>size_t</code> with number of columns C</li>
+
+<li>C <code>size_t</code> with the length of the rows, R<sub>1</sub> &#x2026; R<sub>C</sub></li>
+
+<li>the data stored sequentially column by column, for a total number
+equal to R<sub>1</sub>+R<sub>2</sub>+&#x2026;+R<sub>C</sub></li>
+</ul>
+
+<p>
+This structure allows the storage of non matrices structures in binary
+format. If lengths are different, the missing values are replaced with
+NANs. This mimic the behaviour of ASCII data handling.
+</p>
+
+<p>
+Notice that blocks are simply written one after the other. No
+particular separators are inserted between them.
+</p>
+
+<p>
+Implementation: the option <code>-b</code> redefines the function used to read
+and/or write data.
+</p>
+
+<p>
+This feature has been implemented for <code>gbget</code>, <code>gbmstat</code> and <code>gbfun</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgedbb1bc" class="outline-2">
+<h2 id="orgedbb1bc">Graphic output</h2>
+<div class="outline-text-2" id="text-orgedbb1bc">
+<p>
+As previously mentioned, the output of many programs in the gbutils
+package, like gbhisto or gbker, is intended to be plotted and not
+directly read from the terminal. It is generally composed of records
+and fields of standard ASCII characters. This type of output can be
+displayed using the various plotting utilities commonly available in
+Unix systems. We shortly review below three possibilities.
+</p>
+</div>
+
+<div id="outline-container-orgda057fb" class="outline-3">
+<h3 id="orgda057fb">GNU plotutils package</h3>
+<div class="outline-text-3" id="text-orgda057fb">
+<p>
+The plotutils package can be found <a href="http://www.gnu.org/software/plotutils/">here</a>. It contains the program
+<code>graph</code> which generate a plot starting from input data. For example to
+obtain a plot of the kernel density of the data in file <code>datafile.dat</code>
+one can use
+</p>
+
+<pre class="example">
+gbker &lt; datafile.dat | graph -T x
+</pre>
+
+
+<p>
+where <code>-T x</code> choose xwindow as output device.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1c9ad02" class="outline-3">
+<h3 id="org1c9ad02">Gnuplot interactive session</h3>
+<div class="outline-text-3" id="text-org1c9ad02">
+<p>
+An alternative is to use the powerful plotting environment provided by
+gnuplot. The program can be found <a href="http://www.gnuplot.info/">here</a>.
+</p>
+
+<p>
+From inside a gnuplot session, the previous kernel density can be
+obtained with
+</p>
+
+<pre class="example">
+plot "&lt; gbker &lt; datafile.dat " 
+</pre>
+
+
+<p>
+see Gnuplot documentations for details.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgee336f7" class="outline-3">
+<h3 id="orgee336f7">Gnuplot's plot from command line</h3>
+<div class="outline-text-3" id="text-orgee336f7">
+<p>
+As the example above shows, in order to plot the output of a command
+inside gnuplot you need to put it inside an expression delimited by "&lt;
+and ". Moreover, all double quotes " have to be escaped with a
+backslash \. These requirements can lead to cumbersome expressions
+when complicated commands are necessary. Moreover, starting an
+interactive gnuplot session and writing the expression whose output
+should be plotted doesn't seem so attractive when one needs fast,
+simple plotting, for exploratory purposes. These are the cases foe
+qhich the command <code>gbplot</code> is provided. This is a shell script that
+accept the data to be plotted as input and the directive on how to
+plot it on the command line.
+</p>
+
+<p>
+The basic usage is as follows
+</p>
+
+<pre class="example">
+gbplot [options] [plot|splot] &lt;plotting options&gt; &lt; datafile
+</pre>
+
+
+<p>
+or
+</p>
+
+<pre class="example">
+command pipe | gbplot [options] [plot|splot] &lt;plotting options&gt;
+</pre>
+
+
+<p>
+The command <code>plot</code> or <code>splot</code> are required. One can provide further
+plotting options by inserting them after these command. For example
+one can plot the kernel density estimate using
+</p>
+
+<pre class="example">
+gbker &lt; datafile.dat | gbplot plot
+</pre>
+
+
+<p>
+In this way the density is plotted using simple points. To use the
+fancier gnuplot's 'histeps' style use instead
+</p>
+
+<pre class="example">
+gbker &lt; datafile.dat | gbplot plot with histeps
+</pre>
+
+
+<p>
+The syntax of the plotting options is exactly the same that would be
+used inside gnuplot, after a the <code>plot</code> or <code>splot</code> command. For
+instance to specify a range for the x values use
+</p>
+
+<pre class="example">
+gbker &lt; datafile.dat | gbplot plot '[-1:1]' with histeps
+</pre>
+
+
+<p>
+It is also possible to obtain multiple plots of the data using the
+gnuplot special file name '""', as in
+</p>
+
+<pre class="example">
+gbker &lt; datafile.dat | gbplot plot 'w p , "" w l'
+</pre>
+
+
+<p>
+This command draws the kernel estimate two times: the first with
+points, the second with a line (as specified by the <code>w l</code> expression).
+</p>
+
+<p>
+<code>gbplot</code> also possesses several options. They must be specified before
+the <code>plot</code> or <code>splot</code> command. To insert a title in the plot use the
+option <code>-t</code>
+</p>
+
+<pre class="example">
+gbker &lt; datafile.dat | gbplot -t Title plot with histeps
+</pre>
+
+
+<p>
+Terminal type and output file can be specified with the <code>-T</code> and <code>-o</code>
+options respectively. The command
+</p>
+
+<pre class="example">
+gbker &lt; datafile.dat | gbplot -T pdf -o output.pdf plot with histeps
+</pre>
+
+
+<p>
+produce a pdf version fo the plot and save it in 'output.pdf'.
+</p>
+
+<p>
+Finally, if an interactive manipulation of plot parameters or data is
+required, you can use the option <code>-i</code>. This option opens an
+interactive gnuplot session, allowing for direct manipulation of plot
+settings and parameters
+</p>
+
+<pre class="example">
+gbker &lt; datafile.dat | gbplot -i plot with histeps
+</pre>
+
+
+<p>
+Once the session is closed, the output is saved in a file using a
+specific terminal if options <code>-o</code> and <code>-T</code> have been specified.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgaa76db4" class="outline-2">
+<h2 id="orgaa76db4">Programs summary table</h2>
+<div class="outline-text-2" id="text-orgaa76db4">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Input Type</th>
+<th scope="col" class="org-left">External lib</th>
+<th scope="col" class="org-left">NAN</th>
+<th scope="col" class="org-left">&#xa0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">gbget</td>
+<td class="org-left">c+</td>
+<td class="org-left">(matheval)</td>
+<td class="org-left">*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbfun</td>
+<td class="org-left">c+</td>
+<td class="org-left">matheval</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbgrid</td>
+<td class="org-left">no</td>
+<td class="org-left">matheval</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbrand</td>
+<td class="org-left">no</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbboot</td>
+<td class="org-left">s,t,c+</td>
+<td class="org-left">(gsl)</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbenv</td>
+<td class="org-left">no</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbmave</td>
+<td class="org-left">s,t</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbinterp</td>
+<td class="org-left">c,2</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbfilternear</td>
+<td class="org-left">c+</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbdist</td>
+<td class="org-left">s,t</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbstat</td>
+<td class="org-left">s,t</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbquant</td>
+<td class="org-left">s,t,c+</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbhisto</td>
+<td class="org-left">s,t</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbker</td>
+<td class="org-left">s</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbnear</td>
+<td class="org-left">s</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbhisto2d</td>
+<td class="org-left">c2</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbgcorr</td>
+<td class="org-left">s</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbacorr</td>
+<td class="org-left">c1,c2</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbxcorr</td>
+<td class="org-left">c2</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbker2d</td>
+<td class="org-left">c2</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbbin</td>
+<td class="org-left">c+</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbtest</td>
+<td class="org-left">c+</td>
+<td class="org-left">(gsl)</td>
+<td class="org-left">*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbmodes</td>
+<td class="org-left">s</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbbin</td>
+<td class="org-left">t</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbkreg</td>
+<td class="org-left">c2</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbkreg2d</td>
+<td class="org-left">c3</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gblreg</td>
+<td class="org-left">c2</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbglreg</td>
+<td class="org-left">c+</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbnlreg</td>
+<td class="org-left">c+</td>
+<td class="org-left">gsl,matheval</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbnlqreg</td>
+<td class="org-left">c+</td>
+<td class="org-left">gsl,matheval</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbhill</td>
+<td class="org-left">s</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbnlmult</td>
+<td class="org-left">c+</td>
+<td class="org-left">gsl,matheval</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbnlprobit</td>
+<td class="org-left">c+</td>
+<td class="org-left">gsl,matheval</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbnlpanel</td>
+<td class="org-left">c+</td>
+<td class="org-left">gsl,matheval</td>
+<td class="org-left">*</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbnlpolyit</td>
+<td class="org-left">c+</td>
+<td class="org-left">gsl,matheval</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gblafit</td>
+<td class="org-left">s</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbalafit</td>
+<td class="org-left">s</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbepfit</td>
+<td class="org-left">s</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gblaepfit</td>
+<td class="org-left">s</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">gbaepfit</td>
+<td class="org-left">s</td>
+<td class="org-left">gsl</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+<b>Input Type</b>: 's' sequential; 't' tabular; 'c' compounded c2 read
+couples, c3 triplets, c+ a variable number of columns; 'no' no input
+required
+</p>
+
+<p>
+<b>External libs</b>: gsl: Gnu Scientific Library matheval: GNU matheval
+library () means optional dependence (special features are available
+only if the library is found)
+</p>
+
+<p>
+<b>NAN</b>: program automatically ignores NAN values in computations
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Giulio Bottazzi</p>
+<p class="date">Created: 2024-02-25 dom 12:38</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

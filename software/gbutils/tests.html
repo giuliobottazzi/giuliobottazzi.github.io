@@ -1,0 +1,1181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-02-25 dom 12:38 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>overview of tests in gbutils</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Giulio Bottazzi" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">overview of tests in gbutils</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgd6b983d">Intro</a></li>
+<li><a href="#orgabe7295">Kolmogorov-Smirnov type tests</a>
+<ul>
+<li><a href="#orge834637">\(D^+\) statistics (D+) and \(D^-\) statistics (D-)</a></li>
+<li><a href="#org5daaca0">D statistics (D)</a></li>
+<li><a href="#org8df88ac">Two-sample Kolmogorov-Smirnov Test (KS)</a></li>
+</ul>
+</li>
+<li><a href="#orge810f9c">Tests of Randomness</a>
+<ul>
+<li><a href="#orgc447a41">The turning point test (TR-TP)</a></li>
+<li><a href="#org3aaa4e5">The difference-sign test (TR-DS)</a></li>
+<li><a href="#org0836104">The rank test (TR-RT)</a></li>
+</ul>
+</li>
+<li><a href="#orgf72d0fa">Measure of correlation</a>
+<ul>
+<li><a href="#org20355a8">Pearson correlation (R)</a></li>
+</ul>
+</li>
+<li><a href="#org7adeebb">Difference in mean</a>
+<ul>
+<li><a href="#orgb837afa"><i>t</i>-test for paired samples (TP)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd6b983d" class="outline-2">
+<h2 id="orgd6b983d">Intro</h2>
+<div class="outline-text-2" id="text-orgd6b983d">
+<p>
+Many tests are implemented in the <code>gbtest</code> utility. In the examples
+below we will use the utility <code>gbrun</code> to generate random samples for
+the tests and the utility <code>gbfun</code> to manipulate the data when
+necessary. Before starting let us review the command's option, whose
+list can be obtained passing <code>-h</code> to the command line or with <code>man
+  gbtest</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash-mode">Options:
+-p  compute associated significance
+-s  input data are already sorted in ascending order
+-F  specify the input fields separators (default " \t")    
+-v  verbosity: 0 none, 1 headings, 2+ description (default 0) 
+-h  this help
+</pre>
+</div>
+
+<p>
+In general, the option <code>-p</code>- prints a two-sided p-score while the
+one-sided scores are provided as further information using higher
+verbosity level <code>-v 2</code> (see the examples below). Some statistics
+require the data to be sorted and the program perform the sorting
+internally. If the data are already sorted, using the option <code>-s</code>
+will save some computation time.
+</p>
+
+<p>
+There are three types of tests implemented: those based on a single
+sample, those based on paired observations and those applicable to
+multiple samples. This is the list returned by option <code>-h</code>
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">name</th>
+<th scope="col" class="org-left">type</th>
+<th scope="col" class="org-left">description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">D+,D-,D,V</td>
+<td class="org-left">1 samp</td>
+<td class="org-left">Kolmogorov-Smirnov tests on cumulated data</td>
+</tr>
+
+<tr>
+<td class="org-left">W2,A2,U2</td>
+<td class="org-left">1 samp</td>
+<td class="org-left">Cramer-von Mises tests on cumulated data</td>
+</tr>
+
+<tr>
+<td class="org-left">CHI2-1</td>
+<td class="org-left">1 samp</td>
+<td class="org-left">Chi-Sqrd, 1 samp. 2nd column: th. prob.</td>
+</tr>
+
+<tr>
+<td class="org-left">WILCO</td>
+<td class="org-left">1 samp</td>
+<td class="org-left">Wilcoxon (mode=0)</td>
+</tr>
+
+<tr>
+<td class="org-left">TS</td>
+<td class="org-left">1 samp</td>
+<td class="org-left">Student's T (mean=0)</td>
+</tr>
+
+<tr>
+<td class="org-left">TR-TP</td>
+<td class="org-left">1 samp</td>
+<td class="org-left">Test of randomness: turning points</td>
+</tr>
+
+<tr>
+<td class="org-left">TR-DS</td>
+<td class="org-left">1 samp</td>
+<td class="org-left">Test of randomness: difference sign</td>
+</tr>
+
+<tr>
+<td class="org-left">TR-RT</td>
+<td class="org-left">1 samp</td>
+<td class="org-left">Test of randomness: rank test</td>
+</tr>
+
+<tr>
+<td class="org-left">R</td>
+<td class="org-left">pairs</td>
+<td class="org-left">Pearson's correlation coefficient</td>
+</tr>
+
+<tr>
+<td class="org-left">RHO</td>
+<td class="org-left">pairs</td>
+<td class="org-left">Spearman's Rho rank correlation</td>
+</tr>
+
+<tr>
+<td class="org-left">TAU</td>
+<td class="org-left">pairs</td>
+<td class="org-left">Kendall's Tau correlation</td>
+</tr>
+
+<tr>
+<td class="org-left">CHI2-2</td>
+<td class="org-left">pairs</td>
+<td class="org-left">Chi-Sqrd, 2 samples</td>
+</tr>
+
+<tr>
+<td class="org-left">TP</td>
+<td class="org-left">pairs</td>
+<td class="org-left">Student's T with paired samples</td>
+</tr>
+
+<tr>
+<td class="org-left">KS</td>
+<td class="org-left">2 samp</td>
+<td class="org-left">Kolmogorov-Smirnov test</td>
+</tr>
+
+<tr>
+<td class="org-left">T</td>
+<td class="org-left">2 samp</td>
+<td class="org-left">Student's T with same variances</td>
+</tr>
+
+<tr>
+<td class="org-left">TH</td>
+<td class="org-left">2 samp</td>
+<td class="org-left">Student's T with different variances</td>
+</tr>
+
+<tr>
+<td class="org-left">F</td>
+<td class="org-left">2 samp</td>
+<td class="org-left">F-Test for different variances</td>
+</tr>
+
+<tr>
+<td class="org-left">WMW</td>
+<td class="org-left">2 samp</td>
+<td class="org-left">Wilcoxon-Mann-Whitney U</td>
+</tr>
+
+<tr>
+<td class="org-left">FP</td>
+<td class="org-left">2 samp</td>
+<td class="org-left">Fligner-Policello standardized U^</td>
+</tr>
+
+<tr>
+<td class="org-left">LEV-MEAN</td>
+<td class="org-left">2+ samp</td>
+<td class="org-left">Levene equality of variances using means</td>
+</tr>
+
+<tr>
+<td class="org-left">LEV-MED</td>
+<td class="org-left">2+ samp</td>
+<td class="org-left">Levene equality of variances using medians</td>
+</tr>
+
+<tr>
+<td class="org-left">KW</td>
+<td class="org-left">3+ samp</td>
+<td class="org-left">Kruscal-Wallis test on 3+ samples</td>
+</tr>
+
+<tr>
+<td class="org-left">CHI2-N</td>
+<td class="org-left">3+ samp</td>
+<td class="org-left">Multi-columns contingency table analysis</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+The tests based on a single sample (1 samp) expect a single column of
+data. If more columns are provided, the statistics is computed on each
+column separately.
+</p>
+
+<p>
+The tests based on paired observations (pairs) or on two samples (2
+samp), require exactly two columns of data. If more columns are
+provided, in general the test is performed separately for any couple
+of columns. The output is a matrix that contains the result of the
+statistics in the lower triangle and, if the option <code>-p</code> is specified,
+the relative p-scores in the upper triangle. In this case, data are
+passed column first. That is, the value read in the \(i\) th row and \(j\)
+th column of the lower triangle is obtained considering the \(j\) th
+column of data as the first sample and the \(i\) th column as the second
+sample.
+</p>
+
+<p>
+The tests based on more than 2 samples (2+ samp or 3+ samp) compute a
+single statistics using all provided columns.
+</p>
+
+<p>
+In the case of paired samples, the number of observations in each
+column must be the same. In all other cases, this is not required and
+"NAN" values in the input are automatically ignored by the program.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgabe7295" class="outline-2">
+<h2 id="orgabe7295">Kolmogorov-Smirnov type tests</h2>
+<div class="outline-text-2" id="text-orgabe7295">
+<p>
+These tests measure the hypothesis that a set of data
+\((x_1,\ldots,x_n)\) are independently drawn from a uniform
+distribution. If you want to test that a set of data
+\((z_1,\ldots,z_n)\) are independently drawn for a given distribution
+\(F(x)\), you have to supply the tests with the transformed data
+\((F(z_1),\ldots,F(z_n))\). Before computing the statistics, the data
+are sorted in increasing order.. If you already supply sorted data,
+consider using the option <code>-s</code> to spare some time. In what follows
+the function \([x]\) is the integer part of \(x\) and \([x]^+\) is equal
+to \(x\) if \(x>0\) and zero otherwise.
+</p>
+</div>
+
+<div id="outline-container-orge834637" class="outline-3">
+<h3 id="orge834637">\(D^+\) statistics (D+) and \(D^-\) statistics (D-)</h3>
+<div class="outline-text-3" id="text-orge834637">
+<p>
+Consider the maximum positive and maximum negative deviations
+observed in the sample from the uniform distribution
+</p>
+
+<p>
+\[
+   D^+=\max_{i=1,\ldots,n} [x_i - i/n]^+, \quad
+   D^-=\max_{i=1,\ldots,n} [i/n - x_i]^+.
+   \]
+</p>
+
+<p>
+Under the null, both statistics are exactly distributed according
+to
+</p>
+
+<p>
+\[   
+   G(x) = 1-x \sum_{j=1}^{[n (1-x)]} \binom{n}{j} \left( 1-x-j/n \right)^{n-j} \left(x+j/n \right)^{j-1}.
+   \]
+</p>
+
+<p>
+Their asymptotic distribution of \(\sqrt{n} D^+\) and \(\sqrt{n} D^-\) for large \(n\) is
+</p>
+
+<p>
+\[
+   H(x) = 1-e^{-2x^2}.
+   \]
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand exponential 1 -c 1 -r 20 | gbfun '1-exp(-x)' | gbtest -p -v 2  D-
+# loaded 20x1 data table
+# D- Kolmogorov-Smirnov test
+#  Observed D-                         0.0599563
+#  Sample size                         20
+#  Standardized score                  0.268133
+#  Exact inference:
+#   One-sided P-value: Pr{stat&gt;D-}      0.823889
+#   One-sided P-value: Pr{stat&lt;D-}      0.176111
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&gt;D-}      0.866069
+#   One-sided P-value: Pr{stat&lt;D-}      0.133931
+#statistic	p-score
+ 5.995630e-02  8.238891e-01
+</pre>
+</div>
+<p>
+In this case we generate \(20\) observations from the exponential
+distribution and transform them using the correct distribution
+function, \(F(x)=1-e^{-x}\). As expected, the test does not reject
+the null. Note that the asymptotic p-score is already quite good,
+despite the relative small sample.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand flat 0 1 -c 1 -r 20 | gbfun '1-exp(-x)' | gbtest -p -v 2  D-  
+# loaded 20x1 data table
+# D- Kolmogorov-Smirnov test
+#  Observed D-                         0.367974
+#  Sample size                         20
+#  Standardized score                  1.64563
+#  Exact inference:
+#   One-sided P-value: Pr{stat&gt;D-}      0.003084
+#   One-sided P-value: Pr{stat&lt;D-}      0.996916
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&gt;D-}      0.00444396
+#   One-sided P-value: Pr{stat&lt;D-}      0.995556
+#statistic	p-score
+ 3.679745e-01  3.084003e-03
+</pre>
+</div>
+<p>
+In this case, data are from a uniform distribution. The test reject
+the hypothesis that they are exponentially distributed with a
+p-score of \(3\, 10^{-3}\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5daaca0" class="outline-3">
+<h3 id="org5daaca0">D statistics (D)</h3>
+<div class="outline-text-3" id="text-org5daaca0">
+<p>
+This is a two-sided version of the previous statistics, as both
+positive and negative deviations are considered,
+</p>
+
+<p>
+\[
+   D^+=\max_{i=1,\ldots,n} |x_i - i/n|.
+   \]
+</p>
+
+<p>
+The test provide both a large \(n\) asymptotic inference and a small
+sample corrected version.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand cauchy 2 -c 1 -r 20 | gbfun 'atan(x1/2)/pi+0.5' | gbtest -p -v 2 D
+# loaded 20x1 data table
+# D Kolmogorov-Smirnov test
+#  Observed D                          0.16291
+#  Sample size                         20
+#  Asymptotic standardized score       0.728555
+#  Small-sample corrected score        0.752111
+#  Small-sample corrected inference:
+#   One-sided P-value: Pr{stat&gt;D}      0.623614
+#   One-sided P-value: Pr{stat&lt;D}      0.376386
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&gt;D}      0.663323
+#   One-sided P-value: Pr{stat&lt;D}      0.336677
+#statistic	p-score
+ 1.629098e-01  6.236143e-01
+</pre>
+</div>
+<p>
+We generate \(20\) observations independently from a Cauchy
+distribution with parameter \(2\) and transform them with the correct
+cumulative distribution function \(F(x)=1/\pi\arctan x/2 + 1/2\). As
+expected, the \(D\) statistics does not reject the correct
+hypothesis.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand gaussian 1 -c 1 -r 20 | gbfun 'atan(x1/2)/pi+0.5' | gbtest -p -v 2 D
+# loaded 20x1 data table
+# D Kolmogorov-Smirnov test
+#  Observed D                          0.302732
+#  Sample size                         20
+#  Asymptotic standardized score       1.35386
+#  Small-sample corrected score        1.39763
+#  Small-sample corrected inference:
+#   One-sided P-value: Pr{stat&gt;D}      0.0402113
+#   One-sided P-value: Pr{stat&lt;D}      0.959789
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&gt;D}      0.0511635
+#   One-sided P-value: Pr{stat&lt;D}      0.948836
+#statistic	p-score
+ 3.027317e-01  4.021128e-02
+</pre>
+</div>
+<p>
+If the data are generated from a Normal distribution and then
+transformed with the Cauchy distribution, then the test recognizes
+it and rejects the hypothesis with a p-score of \(4\, 10^{-2}\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8df88ac" class="outline-3">
+<h3 id="org8df88ac">Two-sample Kolmogorov-Smirnov Test (KS)</h3>
+<div class="outline-text-3" id="text-org8df88ac">
+<p>
+This is a two-sample version of the previous test. The test checks
+if two samples \((x_1,\ldots,x_n)\) and \((y_1,\ldots,y_m)\) are
+generated by independently drawing from the same distribution. Note
+that the two set of observations need not to have the same
+size. Starting from the empirical distribution functions,
+\(\hat{F}_x\) and \(\hat{F}_y\), the relevant statistics is defined as
+</p>
+
+<p>
+\[
+   D = \sup_z | \hat{F}_x(z)- \hat{F}_y(z)|.
+   \]
+</p>
+
+<p>
+The test reports a one-sided asymptotic p-score applying the
+asymptotic inference of the previous test with an effective size
+sample equal to \(\sqrt{nm/(n+m)}\).
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand gaussian 1 -c 2 -r 20 | gbtest -p -v 2 KS
+# loaded 20x2 data table
+# Kolmogorov-Smirnov Test; 2-samples
+#  Observed KS                          0.3
+#  Effective Size                       10
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&gt;KS}      0.275269
+#statistic	p-score
+ 3.000000e-01  2.752689e-01
+</pre>
+</div>
+<p>
+The two columns of data come from the same Normal distribution. The
+test does not reject the hypothesis.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;paste &lt;(gbrand -R 1 gaussian 1 -c 1 -r 20) &lt;(gbrand -R 2 cauchy 1 -c 1 -r 30) | gbtest KS -p -v 2
+# loaded 30x2 data table
+# Kolmogorov-Smirnov Test; 2-samples
+#  Observed KS                          0.466667
+#  Effective Size                       12
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&gt;KS}      0.00672794
+#statistic	p-score
+ 4.666667e-01  6.727939e-03
+</pre>
+</div>
+<p>
+By comparing a sample from a Normal distribution with a sample from
+a Cauchy distribution, the hypothesis is rejected with a p-score of
+\(6.7\, 10^{-3}\).
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orge810f9c" class="outline-2">
+<h2 id="orge810f9c">Tests of Randomness</h2>
+<div class="outline-text-2" id="text-orge810f9c">
+<p>
+These tests are performed over a sequence of observations
+\((x_1,\ldots,x_n)\) to detect a deviation form the null hypothesis
+that the observations are independent and identically
+distributed. In what follows the function \(\theta(x)\) is equal to
+one if \(x>0\) and zero otherwise.
+</p>
+</div>
+
+<div id="outline-container-orgc447a41" class="outline-3">
+<h3 id="orgc447a41">The turning point test (TR-TP)</h3>
+<div class="outline-text-3" id="text-orgc447a41">
+<p>
+The following statistics counts the number of <i>turning points</i> in
+the sequence
+</p>
+
+<p>
+\[
+   T=\sum_{i=1}^{n} \theta(x_i -x_{i-1}) \theta(x_i -x_{i+1}) + \theta(x_{i-1} - x_i) \theta(x_i -x_{i-1}).
+   \]
+</p>
+
+<p>
+Under the null, the statistics is asymptotically normally
+distributed with mean and variance given by
+</p>
+
+<p>
+\[
+   \bar{T}=2 (n-2)/3, \quad \sigma^2_T = (16 n -29)/90.
+   \]
+</p>
+
+<p>
+A positive and large standardized score signal that the sequence
+oscillates too much to be iid, while a large negative standardized
+score reveal the present of anomalous local serial
+correlations. The one side statistics is the absolute value of the
+standardized score and signal the presence of serial correlation or
+anti-correlation.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand gaussian 1 -c 1 -r 100 | gbtest -p -v 2 TR-TP 
+# loaded 100x1 data table
+# Turning Points Test of Randomness (1 sample)
+#  Observed Turning Points             63
+#  Expected mean                       65.3333
+#  Expected std. dev.                  4.17798
+#  Standardized score                  -0.558483
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&lt;obs.}      0.288257
+#   One-sided P-value: Pr{stat&gt;obs.}      0.711743
+#   Two-sided P-value: Pr{|stat|&gt;|obs.|}  0.576515
+#statistic	p-score
+ 6.300000e+01  5.765146e-01
+</pre>
+</div>
+<p>
+In this case the test is unable to reject the hypothesis of iid
+observations. This is expected as the sample was made of \(100\)
+independent observations drawn from a Gaussian distribution.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand&gt;gbrand gaussian 1 -c 1 -r 100 | gbfun 'x1+sin(x0)' | gbtest -p -v 2 TR-TP
+# loaded 100x1 data table
+# Turning Points Test of Randomness (1 sample)
+#  Observed Turning Points             57
+#  Expected mean                       65.3333
+#  Expected std. dev.                  4.17798
+#  Standardized score                  -1.99458
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&lt;obs.}      0.0230442
+#   One-sided P-value: Pr{stat&gt;obs.}      0.976956
+#   Two-sided P-value: Pr{|stat|&gt;|obs.|}  0.0460885
+#statistic	p-score
+ 5.700000e+01  4.608848e-02
+</pre>
+</div>
+<p>
+In this case a non-linear drift was added to the observations and
+the test reject the iid hypothesis with a p-score of \(4.6\,
+   10^{-2}\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3aaa4e5" class="outline-3">
+<h3 id="org3aaa4e5">The difference-sign test (TR-DS)</h3>
+<div class="outline-text-3" id="text-org3aaa4e5">
+<p>
+This test is specifically designed to detect trends in
+data. Consider the statistics
+</p>
+
+<p>
+\[
+   S=\sum_{i=2}^{n}  \theta(x_i -x_{i-1}).
+   \]
+</p>
+
+<p>
+Under the null, this statistics is asymptotically normally
+distributed with  mean and variance given by
+</p>
+
+<p>
+\[
+   \bar{S}=(n-1)/2, \quad \sigma^2_S = (n=1)/12.
+   \]
+</p>
+
+<p>
+A positive and large standardized score signal the presence of a
+positive trend in data, while a negative large standardized score
+is associated to negative trends. The one side statistics is the
+absolute value of the standardized score and signal the presence of
+a positive or negative trend.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand gaussian 1 -c 1 -r 100 | gbtest -p -v 2 TR-DS 
+# loaded 100x1 data table
+# Difference Sign Test of Randomness (1 sample)
+#  Observed Positive Differences       51
+#  Expected mean                       49.5
+#  Expected std. dev.                  2.90115
+#  Standardized score                  0.517036
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&lt;obs.}      0.697435
+#   One-sided P-value: Pr{stat&gt;obs.}      0.302565
+#   Two-sided P-value: Pr{|stat|&gt;|obs.|}  0.605131
+#statistic	p-score
+ 5.100000e+01  6.051307e-01
+</pre>
+</div>
+<p>
+In this case the test is unable to reject the hypothesis of iid
+observations. This is expected as the sample was made of \(100\)
+independent observations drawn from a Gaussian distribution.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand gaussian 1 -c 1 -r 100 | gbfun 'x1+.2*x0' | gbtest -p -v 2 TR-DS 
+# loaded 100x1 data table
+# Difference Sign Test of Randomness (1 sample)
+#  Observed Positive Differences       57
+#  Expected mean                       49.5
+#  Expected std. dev.                  2.90115
+#  Standardized score                  2.58518
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&lt;obs.}      0.995134
+#   One-sided P-value: Pr{stat&gt;obs.}      0.00486637
+#   Two-sided P-value: Pr{|stat|&gt;|obs.|}  0.00973275
+#statistic	p-score
+ 5.700000e+01  9.732748e-03
+</pre>
+</div>
+<p>
+By adding a positive linear trend to the data, the idd hypothesis
+is rejected by the test with a p-score of \(9.7\, 10^{-3}\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0836104" class="outline-3">
+<h3 id="org0836104">The rank test (TR-RT)</h3>
+<div class="outline-text-3" id="text-org0836104">
+<p>
+This test is particularly suited for detecting a linear trend in
+the data. The following statistics counts the number of ordered
+pairs.
+</p>
+
+<p>
+\[
+   P=\sum_{i=1}^{n-1} \sum_{j=i+1}^n \theta(x_j -x_i),
+   \]
+</p>
+
+<p>
+If the observations are independent and identically distributed,
+\(P\) is asymptotically normally distributed with mean and variance
+given by (see Kendall and Stuart, "The Advanced Theory of
+Statistics", vol.3, section 45.24)
+</p>
+
+<p>
+\[
+   \bar{P}=n (n-1)/4, \quad \sigma^2_P=n (n-1) (2n+5)/72.
+   \]
+</p>
+
+<p>
+A positive and large standardized score signal the presence of an
+increasing trend, while a negative and large score the presence of
+a decreasing trend. The one side statistics is based on the
+absolute value of the standardized score and signal the presence of
+a trend.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand gaussian 1 -c 1 -r 100 | gbtest -p -v 2 TR-RT
+# loaded 100x1 data table
+# Rank Test of Randomness (1 sample)
+#  Observed increasing couples         2613
+#  Expected mean                       2475
+#  Expected std. dev.                  167.891
+#  Standardized score                  0.82196
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&lt;obs.}      0.79445
+#   One-sided P-value: Pr{stat&gt;obs.}      0.20555
+#   Two-sided P-value: Pr{|stat|&gt;|obs.|}  0.4111
+#statistic	p-score
+ 2.613000e+03  4.110995e-01
+</pre>
+</div>
+<p>
+In this case the test accept the hypothesis of iid observations, as
+expected.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode"> &gt;gbrand gaussian 1 -c 1 -r 100 | gbfun 'x1-0.02*x0' | gbtest -p -v 2 TR-RT
+# loaded 100x1 data table
+# Rank Test of Randomness (1 sample)
+#  Observed increasing couples         1784
+#  Expected mean                       2475
+#  Expected std. dev.                  167.891
+#  Standardized score                  -4.11576
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&lt;obs.}      1.92955e-05
+#   One-sided P-value: Pr{stat&gt;obs.}      0.999981
+#   Two-sided P-value: Pr{|stat|&gt;|obs.|}  3.8591e-05
+#statistic	p-score
+ 1.784000e+03  3.859101e-05
+</pre>
+</div>
+<p>
+In this case the test reject the hypothesis of absence of any trend
+with a p-score of \(3.8\, 10^{-5}\) and the hypothesis of the lack of
+a decreasing trend with a p-score of \(1.9\, 10^{-5}\).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf72d0fa" class="outline-2">
+<h2 id="orgf72d0fa">Measure of correlation</h2>
+<div class="outline-text-2" id="text-orgf72d0fa">
+</div>
+<div id="outline-container-org20355a8" class="outline-3">
+<h3 id="org20355a8">Pearson correlation (R)</h3>
+<div class="outline-text-3" id="text-org20355a8">
+<p>
+The program computes the statistics
+</p>
+
+<p>
+\[
+   R= \frac{\sum_{i=1}^N (x_i-\bar{x}) (y_i-\bar{y})}{(\sqrt{\sum_{i=1}^N (x_i-\bar{x})^2})(\sqrt{\sum_{i=1}^N (y_i-\bar{x})^2})}
+   \]
+</p>
+
+<p>
+where \(N\) is the size of the samples, \(x_i\) and \(y_i\) are the
+sample data, \(\bar{x}\) an \(\bar{y}\) their respective mean. Notice
+that the two samples must have the same size.
+</p>
+
+<p>
+The provided p-score is of the null hypothesis of zero correlation,
+and is computed from the Fisher's transformation assuming that the
+quantity
+</p>
+
+<p>
+\[
+   \frac{\sqrt{N-3}}{2} \log \frac{1+R}{1-R}
+   \]
+</p>
+
+<p>
+is normally distributed with unit variance. This is exact if the
+original variables are normal and uncorrelated, but it is known to
+be approximately valid also for non normal variables as long as the
+sample size is large enough and the variance of the variables
+exists.
+</p>
+
+<p>
+As an example, I generate two samples of 100 observations (two
+columns of 100 rows each) independently drawn from a normal
+distribution of unit variance saving them in a file
+</p>
+<pre class="example">
+&gt;gbrand gaussian 1 -c 2 -r 100 &gt; data.txt
+</pre>
+
+<p>
+and then I test their correlation, asking for the associated
+p-score
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbtest -p R &lt; data.txt
+1.499019e-02  8.826211e-01
+</pre>
+</div>
+<p>
+If I'm interested in the one-sided inference I can obtain it using
+option <code>-v</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbtest -v 2 p R &lt; data.txt
+loaded 100x2 data table
+# Pearson's R 2-sample correlation
+#  Size of the sample                  100
+#  Observed Pearson's R                        0.0149902
+#  Asymptotic inference:
+#   Negative correlation P-value: Pr{stat&lt;R}   0.558689
+#   Positive correlation P-value: Pr{stat&gt;R}   0.441311
+#   Any correlation P-value:  Pr{|stat|&gt;|R|}   0.882621
+1.499019e-02  8.826211e-01
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7adeebb" class="outline-2">
+<h2 id="org7adeebb">Difference in mean</h2>
+<div class="outline-text-2" id="text-org7adeebb">
+</div>
+<div id="outline-container-orgb837afa" class="outline-3">
+<h3 id="orgb837afa"><i>t</i>-test for paired samples (TP)</h3>
+<div class="outline-text-3" id="text-orgb837afa">
+<p>
+The Student's <i>t</i>-test for paired samples assume two samples of
+equal size with paired observations. The pairing will eliminate any
+fixed effect of a specific couple, like testing some characteristic
+of the subject before and after a given treatment. The statistics
+is simply the ratio between the mean and the standard error of the
+difference of the pair's values, formally
+</p>
+
+<p>
+\[
+   T = \sqrt{N (N-1)} \,  \frac{\bar{x}-\bar{y}}{\sum_i (x_i-y_i-\bar{x}+\bar{y})^2}
+   \]
+</p>
+
+<p>
+where \(N\) is the size of the samples, \(x_i\) and \(y_i\) are the
+sample data, \(\bar{x}\) an \(\bar{y}\) their respective mean. Notice
+that the two samples must have the same size.
+</p>
+
+<p>
+The provided p-score is of the null hypothesis of equal means in
+the two samples. It is based on the consideration than if the mean
+of the two samples is equal, than the \(T\) statistics is
+asymptotically distributed according to a Student's <i>t</i>
+distribution with \(N-1\) degrees of freedom.
+</p>
+
+<p>
+To generate paired samples, I add an independent random variable of
+zero mean to the observations of the first sample
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand gaussian 1 -c 2 -r 100 | gbfun 'x1','x1+x2' | gbtest -p -v 2 TP  
+# loaded 100x2 data table
+# Student's T test; paired observations
+#  Observed T                          -0.726799
+#  Degrees of freedom                  99
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&gt;T}      0.765468
+#   One-sided P-value: Pr{stat&lt;T}      0.234532
+#   Two-sided P-value: Pr{|stat|&gt;|T|}  0.469064
+-7.267989e-01  4.690642e-01
+</pre>
+</div>
+<p>
+As expected, the test report no difference in the means. When the
+observations are normally distributed, the test is quite
+powerful. With 100 observations it is possible to detect deviation
+equal to the 10% of the original standard deviation
+</p>
+<div class="org-src-container">
+<pre class="src src-bash-mode">&gt;gbrand gaussian 1 -c 2 -r 100 | gbfun 'x1','x1+x2+0.1' | gbtest -p -v 2 TP
+# loaded 100x2 data table
+# Student's T test; paired observations
+#  Observed T                          -1.68939
+#  Degrees of freedom                  99
+#  Asymptotic inference:
+#   One-sided P-value: Pr{stat&gt;T}      0.952854
+#   One-sided P-value: Pr{stat&lt;T}      0.0471459
+#   Two-sided P-value: Pr{|stat|&gt;|T|}  0.0942917
+-1.689390e+00  9.429174e-02
+</pre>
+</div>
+<p>
+Don't expect these performances when the observations are more
+fat-tailed.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Giulio Bottazzi</p>
+<p class="date">Created: 2024-02-25 dom 12:38</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>gbget tutorial</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">gbget tutorial</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org9e6e27d">Introduction to <code>gbget</code></a></li>
+<li><a href="#org5575421">Examples</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9e6e27d" class="outline-2">
+<h2 id="org9e6e27d">Introduction to <code>gbget</code></h2>
+<div class="outline-text-2" id="text-org9e6e27d">
+<p>
+The special utility <code>gbget</code> is used to perform basic manipulation of
+ASCII data files. It takes a file or a list of files containing
+tabular data and extract command line specified parts of these
+data. The result of the extraction can be further manipulated with a
+list of possible transformations.
+</p>
+
+<p>
+Essentially, the user provides a list of <i>data specifications</i> at the
+command line. The program analyze each specification in turns and,
+according to it, extract and print data to standard output.
+</p>
+
+<p>
+Each <i>data specification</i> has the following structure
+</p>
+
+<pre class="example">
+filename[block](col-range,rows-range)&lt;options&gt;
+</pre>
+
+
+<p>
+where:
+</p>
+
+<dl class="org-dl">
+<dt>filename</dt><dd>is the name of a regular (ASCII) file</dd>
+
+<dt>block</dt><dd>identify a given data-block inside the file; data-blocks
+are separated by 2 or more empty lines (format chosen for
+consistency with gnuplot specifications). Notice that
+comment lines (beginning with a "#" symbol) DO NOT count as
+empty lines for this purpose.</dd>
+
+<dt>col-range</dt><dd>the range of required columns, specified as
+<code>begin:end:skip</code>. Negative values are counted from the
+end. Default is <code>1:-1:1</code> i.e. all columns. If begin&gt;end
+the columns are read in reversed order.</dd>
+</dl>
+
+
+<dl class="org-dl">
+<dt>rows-range</dt><dd>the range of required rows, specified as
+<code>begin:end:skip</code>. Negative values are counted from the
+end. Default is <code>1:-1:1</code> i.e. all rows. If begin&gt;end
+the rows are read in reversed order.</dd>
+
+<dt>&lt;options&gt;</dt><dd>is a list of single letter options that identify
+successive transformations to be applied to data.</dd>
+</dl>
+
+<p>
+The list of options includes
+</p>
+
+<dl class="org-dl">
+<dt>t</dt><dd>transpose the matrix</dd>
+
+<dt>f</dt><dd>flatten the data column-wise, reducing them to a single column</dd>
+
+<dt>l</dt><dd>take the log of all fields</dd>
+
+<dt>d</dt><dd>take the column-wise difference: substract column 1 from 2,
+column 2 from 3, etc.</dd>
+
+<dt>D</dt><dd>remove all lines containing at least one NAN entry</dd>
+
+<dt>z</dt><dd>remove the mean to each column</dd>
+
+<dt>Z</dt><dd>reduce each column to zscores, that is remove the mean and
+divide by the standard deviation</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org5575421" class="outline-2">
+<h2 id="org5575421">Examples</h2>
+<div class="outline-text-2" id="text-org5575421">
+<p>
+A few examples can help to understand the gbget syntax. Consider the
+file <code>test.dat</code> with the following content
+</p>
+
+<pre class="example">
+10 20 30
+11 21 31
+12 22 32
+13 23 33
+14 24 34
+
+
+15 25 35
+16 26 36
+17 27 37
+18 28 38
+19 29 39
+</pre>
+
+<p>
+i.e. two data blocks, separated by two blank lines, each made of three
+columns and 5 rows. This file should already exists in the <code>gbutils</code>
+source directory. If the support for <a href="http://www.gzip.org/zlib/">zlib</a> has been found on your
+system, in the examples below you can equivalently use the compressed
+file <code>test.dat.gz</code>.
+</p>
+
+<p>
+Now if you type:
+</p>
+
+<pre class="example">
+# gbget 'test.dat[1](1:2)'
+</pre>
+
+
+<p>
+(the <code>'</code> are normally required to protect the content of the string
+from shell expansion) you obtain
+</p>
+
+<pre class="example">
+1.000000e+01  2.000000e+01
+1.100000e+01  2.100000e+01
+1.200000e+01  2.200000e+01
+1.300000e+01  2.300000e+01
+1.400000e+01  2.400000e+01
+</pre>
+
+<p>
+i.e. the first two column <code>(1:2)</code> of the first datablock <code>[1]</code>. By
+default, the output is in scientific notation, but more on this below.
+</p>
+
+<p>
+If instead you type
+</p>
+
+<pre class="example">
+# gbget 'test.dat[2](-2:,2:3)'
+</pre>
+
+
+<p>
+you obtain
+</p>
+
+<pre class="example">
+2.600000e+01  3.600000e+01
+2.700000e+01  3.700000e+01
+</pre>
+
+<p>
+i.e. the rows from 2 to 3 (included) of the last two columns of the
+second data block <code>[2]</code>. Notice that a negative entry in column or row
+specification means "count from the end".
+</p>
+
+<p>
+You can also print <i>each second column</i> of the second block with
+</p>
+
+<pre class="example">
+# gbget 'test.dat[2](::2)'
+</pre>
+
+
+<p>
+that gives you
+</p>
+
+<pre class="example">
+1.500000e+01  3.500000e+01
+1.600000e+01  3.600000e+01
+1.700000e+01  3.700000e+01
+1.800000e+01  3.800000e+01
+1.900000e+01  3.900000e+01
+</pre>
+
+<p>
+or <i>each third row</i> of the whole file
+</p>
+
+<pre class="example">
+# gbget 'test.dat(,::3)'
+</pre>
+
+
+<p>
+to have
+</p>
+
+<pre class="example">
+1.000000e+01  2.000000e+01  3.000000e+01
+1.300000e+01  2.300000e+01  3.300000e+01
+1.600000e+01  2.600000e+01  3.600000e+01
+1.900000e+01  2.900000e+01  3.900000e+01
+</pre>
+
+<p>
+If the initial and final positions in a slice specification are
+reversed, the columns or the rows are printed in reverse order. For
+instance
+</p>
+
+<pre class="example">
+# gbget 'test.dat(,3:1)'
+</pre>
+
+
+<p>
+gives
+</p>
+
+<pre class="example">
+1.200000e+01  2.200000e+01  3.200000e+01
+1.100000e+01  2.100000e+01  3.100000e+01
+1.000000e+01  2.000000e+01  3.000000e+01
+</pre>
+
+<p>
+Several different transformations can be applied to the chosen
+<i>matrix</i> of data.  For instance, the matrix can be flattened
+column-wise, i.e. each column can be put after the previous one in a
+single, long, column using the flag <code>f</code>, or you can transpose it
+using the option <code>t</code>. Let see some examples. Consider
+</p>
+
+<pre class="example">
+# gbget 'test.dat[1](,2:3)'
+</pre>
+
+
+<p>
+which gives
+</p>
+
+<pre class="example">
+1.100000e+01  2.100000e+01  3.100000e+01
+1.200000e+01  2.200000e+01  3.200000e+01
+</pre>
+
+<p>
+now you can flatten the output
+</p>
+
+<pre class="example">
+# gbget 'test.dat[1](,2:3)f'
+</pre>
+
+
+<pre class="example">
+1.100000e+01
+1.200000e+01
+2.100000e+01
+2.200000e+01
+3.100000e+01
+3.200000e+01
+</pre>
+
+<p>
+or transpose it
+</p>
+
+<pre class="example">
+# gbget 'test.dat[1](,2:3)t'
+</pre>
+
+
+<pre class="example">
+1.100000e+01  1.200000e+01
+2.100000e+01  2.200000e+01
+3.100000e+01  3.200000e+01
+</pre>
+
+<p>
+Finally, the output format can be customized using options <code>-o</code> and
+<code>-e</code>. To fully exploit these options you need to know the syntax of
+the <code>printf</code> command implemented in the standard C libraries. However,
+the <i>type</i> of output can be easily chosen with a single flag. If
+instead of the scientific notation you prefer a fixed point notation
+for your output, you have to use the option <code>-o</code> with the value <code>%f</code>
+</p>
+
+<pre class="example">
+# gbget 'test.dat[1](,2:3)t' -o ' %f'
+</pre>
+
+
+<pre class="example">
+11.000000 12.000000
+21.000000 22.000000
+31.000000 32.000000
+</pre>
+
+<p>
+while in order to have an <i>integer</i> output you need <code>-o</code> with the
+value <code>%d</code>
+</p>
+
+<pre class="example">
+# gbget 'test.dat[1](,2:3)t' -o ' %d'
+</pre>
+
+
+<pre class="example">
+11 12
+21 22
+31 32
+</pre>
+
+<p>
+in this case, however, be aware of the truncations: gbget rounds a
+non-integer value down to the nearest integer!
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

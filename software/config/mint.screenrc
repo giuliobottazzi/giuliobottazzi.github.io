@@ -1,0 +1,221 @@
+#
+# Filename:     .screenrc
+# Author:       Giulio Bottazzi
+# Created:      Tue Mar 27 2007
+#
+#
+# This is the personal screen configuration file.
+#
+# Commands in this file are used to set options, bind screen functions to
+# keys, redefine terminal capabilities, and to automatically establish one or
+# more windows at the beginning of your screen session.
+#
+
+# Changelog:
+#
+# Wed Feb 15 2012 G.B.
+#
+# added key binding to display gbutils help
+#
+# Thu Jul  2 2009 G.B.
+#
+# added default UTF-8 encoding and changed the escape character
+#
+#
+# Wed Apr  2 2008 G.B.
+#
+# added '%h' to the hardstatus line definition to display emerge (and
+# possibly other programs) messages
+#
+# Thu Apr  5 2007 G.B.
+#
+# added key bindings to move across screens and to enter copy mode in
+# a faster way (the ESC key is in a keyboard corner far away).
+
+
+# ------------------------------------------------------------------------------
+# SCREEN SETTINGS
+# ------------------------------------------------------------------------------
+
+startup_message off
+#nethack on
+
+#defflow on # will force screen to process ^S/^Q
+#autodetach off
+
+#G.B. Sun May 28 2006
+#do not start each windows as a new login
+deflogin off
+
+# turn visual bell on
+vbell on
+vbell_msg "   Wuff  ----  Wuff!!  "
+
+# define a bigger scrollback, default is 100 lines
+defscrollback 1024
+
+# the default command is a non-login shell
+shell $SHELL
+
+#sets the default encoding for new windows to `utf8'
+defutf8 on
+#change the encoding used in the current window
+#utf8 on
+
+
+# ------------------------------------------------------------------------------
+# TERMINAL SETTINGS
+# ------------------------------------------------------------------------------
+
+# The vt100 description does not mention "dl". *sigh*
+termcapinfo vt100 dl=5\E[M
+
+# Set the hardstatus prop on gui terms to set the titlebar/icon title
+#termcapinfo xterm*|rxvt*|kterm*|Eterm* hs:ts=\E]0;:fs=\007:ds=\E]0;\007
+termcapinfo xterm*|rxvt*|kterm*|Eterm* xt:hs:ts=\E]2;:fs=\007:ds=\E]2;\007
+#dissetting the command:
+#
+#\E]2; set the window title (BUT not the icon name)
+#hs indicates that a terminal has a hardstatus line
+#ts gives the escape sequence for entering the hardstatus line
+#fs gives the escape sequence for leaving it
+#ds gives the escape sequence for clearing i
+#
+# use this for the hard status string
+#hardstatus string "%H: %-Lw%{= BW}%50> [[ %n%f %t ]] %{-}%+Lw%<"
+hardstatus string "${USER}@%H: %-w%{= BW}%50> [[%f %t %h]] %{-}%+w%<"
+#dissetting the command:
+#%-w all the windows until the present 
+#%n number of the displayed window
+#%f flags of the displayed window
+#%t title of the displayed window
+#%h hardstatus of the window 
+#%+w all the windows after the present 
+
+#The '%h' allows for messages sent by programs in the X environment by
+#the use of the '\e]2;...\a' escape sequence, that is the one that
+#normnally sets windows title and icon name.
+
+# An alternative hardstatus to display a bar at the bottom listing the
+# windownames and highlighting the current windowname in blue. (This is only
+# enabled if there is no hardstatus setting for your terminal)
+#
+#GB uncomment next line-------------------------------------
+# turn sending of screen messages to hardstatus off
+hardstatus off
+#hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+hardstatus lastline
+
+# set these terminals up to be 'optimal' instead of vt100
+termcapinfo xterm*|linux*|rxvt*|Eterm* OP
+
+# Change the xterm initialization string from is2=\E[!p\E[?3;4l\E[4l\E>
+# (This fixes the "Aborted because of window size change" konsole symptoms found
+#  in bug #134198)
+termcapinfo xterm*|rxvt*|aterm  'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
+
+# Do not use xterms alternate window buffer (won't add lines to scrollback bfr)
+#termcapinfo xterm|xterms|xs ti=\E7\E[?47l
+
+#add scrolling with mouse
+termcapinfo xterm*|rxvt* ti@:te@
+
+
+# ------------------------------------------------------------------------------
+# SCREEN KEYBINDINGS
+# ------------------------------------------------------------------------------
+
+# An example of a "screen scraper" which will launch urlview on the current
+# screen window
+#
+#bind ^B eval "hardcopy_append off" "hardcopy -h $HOME/.screen-urlview" "screen urlview $HOME/.screen-urlview"
+
+#G.B. Wed Feb 15 10:49:38 CET 2012
+# provide help for gbutils functions: use 'ctrl-a g' to have an
+# interactive window where typing the name of a gbutil program shows
+# its help doc. Replace ctrl-a with the appropriate escape.
+bind g screen /bin/bash -c 'while read name; do $name -h | less; done'
+
+# on Debian backspace should send char `\177':
+bindkey -k kb stuff "\177"
+
+#G.B. Fri Feb 21 11:31:57 CET 2003
+#set the escape function to C-x
+#escape '^xa'
+
+#G.B. Wed Apr 16 11:08:05 CEST 2003
+#make the ISO 8859-1 Characters "NO-BREAK SPACE" the escape
+#it is usefull if some key is remapped to generate this as with
+#xmodmap -e "keycode 115 = 0xa0"
+#N.B. 0xa0 is the hex version and 240 the octal of the same character
+#escape \240a
+
+#in UNICODE implemented with UTF-8 encoding the character 0xa0 get
+#remapped and screen seems no longer able to get it. Better to use an
+#ASCII character like 0x1f. To assign it to the 'windows' key use
+#xmodmap -e "keycode 115 = 0x1f"
+# N.B. 0x1f is the hex version and 037 the octal of the same character
+#escape \037a
+
+#revert back to the default in Linux Mint; problem in reading the
+# keycode using in .Xmodemap the setting
+# keycode 133 = 0x1f
+
+#emacs-like key binding for cut&paste by Pieter Luteijn <luteijn@xs4all.nl>
+# G.B. March 2007
+#--------------------------------------------------------------------------
+
+bindkey -m ^@ stuff " " # ctrl-space to start marking
+bindkey -m ^[w stuff " " # alt-w to stop marking and copy into buffer
+bind y paste a # meta-y, since ctrl-y interact with the same command in zsh
+
+#more advanced key binding with cycling
+
+# preload registers so we can use them later without getting error messages
+register a "<still empty>"
+register b "<still empty>"
+register c "<still empty>"
+register d "<still empty>"
+register e "<still empty>"
+register f "<still empty>"
+register g "<still empty>"
+register h "<still empty>"
+register i "<still empty>"
+register j "<still empty>"
+register k "<still empty>"
+
+# ctrl-space -> space to start marking
+bindkey -m ^@ stuff " "
+
+# alt-w -> shift queue of past clippings (last one gets
+# overwritten/dropped) and then send a space to stop marking and copy
+# into buffer; then copy this to the free'd-up register.
+bindkey -m ^[w eval "paste i j" "paste h i" "paste g h" "paste f g" "paste e f" "paste d e" "paste c d" "paste b c" "paste a b" "stuff ' '" "paste . a"
+
+# alt-y -> first save the current register 50 in register 60, then
+# shift queue of past clippings around, finally put saved register in
+# at freed up space at the back of the queue.
+bindkey ^[y eval "paste a k" "paste b a" "paste c b" "paste d c" "paste e d" "paste f e" "paste g f" "paste h g" "paste i h" "paste j i" "paste k j" 'register k "echo "' 'paste ka k' 'eval "colon" "paste k" "stuff ^m"'
+
+# bonus
+# alt-shift-y -> alt-y in the other direction
+bindkey ^[Y eval "paste j k" "paste i j" "paste h i" "paste g h" "paste f g" "paste e f" "paste d e" "paste c d" "paste b c" "paste a b" "paste k a" 'register k "echo "' 'paste ka k' 'eval "colon" "paste k" "stuff ^m"'
+
+#following key bindings are probed using
+# $ cat > /dev/null
+# and pressing the keys to see what is produced. The following applies
+# to aterm
+
+#fast entry in copy mode
+bindkey ^[Oa copy
+
+#moving across screens (by Jonathan Daugherty)
+bindkey ^[Oc next
+bindkey ^[Od prev
+
+#while for xterm you should use
+
+#bindkey ^[[1;5D prev 
+#bindkey ^[[1;5C next 
+#bindkey ^[[1;5A copy
+

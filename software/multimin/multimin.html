@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-09-13 ven 09:55 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>multimin: an interface for GSL optimization routines</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../software.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">multimin: an interface for GSL optimization routines</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orge9ca684">Introduction</a></li>
+<li><a href="#org9617a70">Download and install</a></li>
+<li><a href="#orgec796e6">Calling convention</a></li>
+<li><a href="#orge87ecd2">Example</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orge9ca684" class="outline-2">
+<h2 id="orge9ca684">Introduction</h2>
+<div class="outline-text-2" id="text-orge9ca684">
+<p>
+<code>multimin</code> is an interface to the <a href="http://www.gnu.org/software/gsl/">GNU Scientific Library</a> minimization
+routines. It is a simple C function. When invoked, all the information
+necessary to perform the minimization, that is the function, possibly
+its derivatives, the initial conditions and the minimization options,
+are passed as formal parameters.
+</p>
+
+<p>
+The main advantage is that <code>multimin</code> automatically handles different
+kinds of boundary conditions (open, closed, semi-closed). The way in
+which this is performed is by transforming the problem using a change
+of coordinates. For instance, assume one is interested in the minimum
+\(x_0\) of the function \(f(x)\) on the closed interval
+\([a,b]\). Considering the change of variable
+</p>
+
+<p>
+\[
+x=h(y)=\frac{a+b}{2} + \frac{a-b}{2} \, \sin(y)
+\]
+</p>
+
+<p>
+one can restate the problem above as finding the minimum \(y_0\) of the
+function \(f(h(y))\) on the open real line. Once the minimum (or better,
+one minimum) has been found, the solution of the original problem is
+obtained as \(x_0=h(y_0)\). The list of the implemented transformations
+can be found below.
+</p>
+
+<p>
+Using <code>multimin</code> one can safely forget about the details of the
+interior functioning of the GSL minimization routines. The pointer to
+the objective function to be minimized and, when required, its
+derivatives, are passed as parameters. So the only programming effort
+for the user is to properly code these functions. The C function
+returning the value of the objective function at the point \(x\) should
+be coded as
+</p>
+<div class="org-src-container">
+<pre class="src src-c-mode">void (*f) (const size_t n, const double *x,void *fparams,double *fval)
+</pre>
+</div>
+<p>
+where <code>n</code> is the dimension of the problem (number of variables),
+<code>fval</code> is the return value, <code>x</code> is an array of type double of
+dimension <code>n</code> containing the coordinates where the objective function
+has to be computed and <code>fparams</code> is a pointer to a list of parameters,
+different from the value of the variables, on which the function
+depends. The function returning derivatives of the objective is coded
+similarly (see below).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9617a70" class="outline-2">
+<h2 id="org9617a70">Download and install</h2>
+<div class="outline-text-2" id="text-org9617a70">
+<p>
+Download the file <a href="multimin.c">multimin.c</a> and <a href="multimin.h">multimin.h</a> and copy it in the
+directory of your choice. In order to work, the GNU scientific library
+must be properly installed on your system. To compile a program using
+multimin, remember to include the appropriate header file
+<code>multimin.h</code>. To test the function, download <a href="multimin_test.c">this file</a> and compile it
+using
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">gcc -Wall multimin_test.c multimin.c -lgsl -lgslcblas -o multimin_test
+</pre>
+</div>
+<p>
+The example is discussed in the <a href="#orge87ecd2">section</a> below. For a list of recent
+additions to <code>multimin</code> you can check the <code>ChangeLog</code> file distributed
+with the software.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgec796e6" class="outline-2">
+<h2 id="orgec796e6">Calling convention</h2>
+<div class="outline-text-2" id="text-orgec796e6">
+<p>
+Let's now analyze the calling convention in details
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c-mode">multimin(size_t n,double *x,double *fmin, unsigned *type,double
+	 *xmin,double *xmax, void (*f) (const size_t,const double
+	 *,void *,double *), void (* df) (const size_t,const double *,
+	 void *,double *), void (* fdf) (const size_t,const double *,
+	 void *,double *,double *), void *fparams, const struct
+	 multimin_params oparams)
+</pre>
+</div>
+
+<p>
+the list of the parameters is as follows (where INPUT stands for the
+input values of the parameter, while OUTPUT indicates their values
+when the function return):
+</p>
+
+<dl class="org-dl">
+<dt><code>n</code></dt><dd>INPUT: dimension of the problem, number of independent
+variables of the function.</dd>
+</dl>
+
+
+<dl class="org-dl">
+<dt><code>x</code></dt><dd>INPUT: pointer to an array of <code>n</code> values <code>x[0],...x[n-1]</code>
+containing the initial estimate of the minimum point. OUTPUT:
+contains the final estimation of the minimum position</dd>
+
+<dt><code>fmin</code></dt><dd>OUPUT: return the value of the function at the minimum</dd>
+
+<dt><code>type</code></dt><dd><p>
+INPUT a pointer to an array of <code>n</code> integers
+<code>type[1],...,type[n-1]</code> describing the boundary conditions
+for the different variables. The problem is solved as an
+unconstrained one on a suitably transformed variable
+y. Possible values are:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 1:</span> Available transformations</caption>
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">value</td>
+<td class="org-left">interval</td>
+<td class="org-left">function</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-left">unconstrained</td>
+<td class="org-left">\(x=y\)</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">\([x_m,+\infty )\)</td>
+<td class="org-left">\(x=x_m+y^2\)</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">\(( -\infty,x_M ]\)</td>
+<td class="org-left">\(x=x_M-y^2\)</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">\([ x_m,x_M ]\)</td>
+<td class="org-left">\(x=SS+SD \sin(y)\)</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">\(( x_m,+\infty )\)</td>
+<td class="org-left">\(x=x_m+\exp(y)\)</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">\(( -\infty,x_M )\)</td>
+<td class="org-left">\(x=x_M-\exp(y)\)</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">\(( x_m,x_M )\)</td>
+<td class="org-left">\(x=SS+SD \tanh(y)\)</td>
+</tr>
+
+<tr>
+<td class="org-right">7*</td>
+<td class="org-left">\(( x_m,x_M )\)</td>
+<td class="org-left">\(x=SS+SD (1+y/\sqrt{1+y^2})\)</td>
+</tr>
+
+<tr>
+<td class="org-right">8*</td>
+<td class="org-left">\(( x_m,+\infty )\)</td>
+<td class="org-left">\(x=x_m+.5 (y+\sqrt{1+y^2})\)</td>
+</tr>
+
+<tr>
+<td class="org-right">9*</td>
+<td class="org-left">\(( -\infty,x_M )\)</td>
+<td class="org-left">\(x=x_M+.5 (y-\sqrt{1+y^2})\)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+where \(SS=(x_m+x_M)/2\) and \(SD=(x_M-x_m)/2\).
+</p>
+
+<p>
+(*) These are UNSUPPORTED transformations: they have been
+used for testing purposes but are not recommended.
+</p></dd>
+
+<dt><code>xmin xmax</code></dt><dd>INPUT: pointers to arrays of double containing
+respectively the lower and upper boundaries of the
+different variables. For a given variable, only the
+values that are implied by the type of constraints,
+defined as in <code>*type</code>, are actually inspected.</dd>
+</dl>
+
+
+<dl class="org-dl">
+<dt><code>f</code></dt><dd><p>
+function that calculates the objective function at a specified
+point x. Its specification is
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c-mode">void (*f) (const size_t n, const double *x,void *fparams,double *fval)
+</pre>
+</div>
+<p>
+where
+</p>
+
+<dl class="org-dl">
+<dt><code>n</code></dt><dd>INPUT: the number of variables</dd>
+
+<dt><code>x</code></dt><dd>INPUT:the point at which the function is required</dd>
+
+<dt><code>fparams</code></dt><dd>INPUT: pointer to a structure containing
+parameters required by the function. If no
+external parameter are required it can be set to
+NULL.</dd>
+
+<dt><code>fval</code></dt><dd>OUTPUT: the value of the objective function at
+the current point x.</dd>
+</dl></dd>
+</dl>
+
+
+<dl class="org-dl">
+<dt><code>df</code></dt><dd><p>
+function that calculates the gradient of the objective
+function at a specified point x. Its specification is
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c-mode">void (*df) (const size_t n, const double *x,void *fparams,double *grad)
+</pre>
+</div>
+<p>
+where
+</p>
+
+<dl class="org-dl">
+<dt><code>n</code></dt><dd>INPUT: the number of variables</dd>
+
+<dt><code>x</code></dt><dd>INPUT:the point at which the function is required</dd>
+
+<dt><code>fparams</code></dt><dd>INPUT: pointer to a structure containing
+parameters required by the function. If no
+external parameter are required it can be set to
+NULL.</dd>
+<dt><code>grad</code></dt><dd>OUTPUT: the values of the gradient of the
+objective function at the current point x are
+stored in <code>grad[0],...,grad[n-1]</code>.</dd>
+</dl></dd>
+</dl>
+
+
+<dl class="org-dl">
+<dt><code>fdf</code></dt><dd><p>
+fdf calculates the value and the gradient of the objective
+function at a specified point x. Its specification is
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c-mode">void (*fdf) (const size_t n, const double *x,void *fparams,double *fval,double *grad)
+</pre>
+</div>
+
+<p>
+where
+</p>
+
+<dl class="org-dl">
+<dt><code>n</code></dt><dd>INPUT: the number of variables</dd>
+
+<dt><code>x</code></dt><dd>INPUT:the point at which the function is required</dd>
+
+<dt><code>fparams</code></dt><dd>INPUT: pointer to a structure containing
+parameters required by the function. If no
+external parameter are required it can be set to
+NULL.</dd>
+
+<dt><code>fval</code></dt><dd>OUTPUT: the value of the objective function at
+the current point x.</dd>
+
+<dt><code>grad</code></dt><dd>OUTPUT: the values of the gradient of the
+objective function at the current point x are
+stored in <code>grad[0],...,grad[n-1]</code>.</dd>
+</dl></dd>
+
+<dt><code>fparams</code></dt><dd>pointer to a structure containing parameters required
+by the function. If no external parameter are required
+it can be set to NULL.</dd>
+
+<dt><code>oparams</code></dt><dd>structure of the type "multimin<sub>params</sub>" containing the
+optimization parameters. The members are
+
+<dl class="org-dl">
+<dt><code>double step_size</code></dt><dd>size of the first trial step</dd>
+<dt><code>double tol</code></dt><dd>accuracy of the line minimization</dd>
+<dt><code>unsigned maxiter</code></dt><dd>maximum number of iterations</dd>
+<dt><code>double epsabs</code></dt><dd>accuracy of the minimization</dd>
+<dt><code>double maxsize</code></dt><dd>final size of the simplex</dd>
+<dt><code>unsigned method</code></dt><dd>method to use. Possible values are:                
+<ol class="org-ol">
+<li value="0">Fletcher-Reeves conjugate gradient</li>
+<li>Polak-Ribiere conjugate gradient</li>
+<li>Vector Broyden-Fletcher-Goldfarb-Shanno method</li>
+<li>Steepest descent algorithm</li>
+<li>Nelder-Mead simplex</li>
+<li>Vector Broyden-Fletcher-Goldfarb-Shanno ver. 2</li>
+<li>Simplex algorithm of Nelder and Mead ver. 2</li>
+<li>Simplex algorithm of Nelder and Mead: random initialization</li>
+</ol></dd>
+
+<dt><code>unsigned verbosity</code></dt><dd>if greater then 0 print info
+on intermediate steps</dd>
+</dl></dd>
+</dl>
+</div>
+</div>
+
+
+<div id="outline-container-orge87ecd2" class="outline-2">
+<h2 id="orge87ecd2">Example</h2>
+<div class="outline-text-2" id="text-orge87ecd2">
+<p>
+Consider the same example described in the <a href="http://www.gnu.org/software/gsl/manual/html_node/Providing-a-function-to-minimize.html">GSL maual</a>: a
+two-dimensional paraboloid function centerd in \((a,b)\) with scale
+factor \((A,B)\) and minimum \(C\):
+</p>
+
+<p>
+\[
+f(x,y) = A (x-a)^2 + B (y-b)^2 + C \;.
+\]
+</p>
+
+<p>
+Assume the parameters \((a,b,A,B,C)\) are stored in a five dimensional
+array named <code>p</code>. The function returning the value of the objective can
+be coded as follows
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #228b22;">void</span> <span style="color: #0000ff;">f</span>(<span style="color: #a020f0;">const</span> <span style="color: #228b22;">size_t</span> <span style="color: #a0522d;">n</span>, <span style="color: #a020f0;">const</span> <span style="color: #228b22;">double</span> *<span style="color: #a0522d;">x</span>,<span style="color: #228b22;">void</span> *<span style="color: #a0522d;">fparams</span>,<span style="color: #228b22;">double</span> *<span style="color: #a0522d;">fval</span>){
+
+  <span style="color: #228b22;">double</span> *<span style="color: #a0522d;">p</span> = (<span style="color: #228b22;">double</span> *)params;
+
+  *fval=p[2]*(x[0]-p[0])*(x[0]-p[0]) + p[3]*(x[1]-p[1])*(x[1]-p[1]) + p[4];
+
+}
+</pre>
+</div>
+<p>
+while the function returning the derivatives reads
+</p>
+<div class="org-src-container">
+<pre class="src src-c-mode">void df(const size_t n, const double *x,void *fparams,double *grad)
+{
+
+    double *p = (double *)params;
+
+    grad[0]=2*p[2]*(x[0]-p[0]);
+
+    grad[1]=2*p[3]*(x[1]-p[1]);
+}
+</pre>
+</div>
+<p>
+and, in addition, one needs a function returning both the value of the
+objective and of its derivative at the point
+</p>
+<div class="org-src-container">
+<pre class="src src-c-mode">void fdf(const size_t n, const double *x,void *fparams,double *fval,double *grad)
+{
+
+    double *p = (double *)params;
+
+    *fval=p[2]*(x[0]-p[0])*(x[0]-p[0]) + p[3]*(x[1]-p[1])*(x[1]-p[1]) + p[4];
+
+    grad[0]=2*p[2]*(x[0]-p[0]);
+
+    grad[1]=2*p[3]*(x[1]-p[1]);
+}
+</pre>
+</div>
+
+<p>
+Once these functions are defined, the program to minimize the
+objective can simply be
+</p>
+<div class="org-src-container">
+<pre class="src src-c"><span style="color: #228b22;">int</span> <span style="color: #0000ff;">main</span>(){
+
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">par</span>[5] = { 1.0, 2.0, 10.0, 20.0, 30.0 };
+
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">x</span>[2]={0,0};
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">minimum</span>;
+
+  <span style="color: #228b22;">double</span> <span style="color: #a0522d;">xmin</span>[2], <span style="color: #a0522d;">xmax</span>[2];
+  <span style="color: #228b22;">unsigned</span> <span style="color: #a0522d;">type</span>[2];
+
+  <span style="color: #a020f0;">struct</span> <span style="color: #228b22;">multimin_params</span> <span style="color: #a0522d;">optim_par</span> = {.1,1e-2,100,1e-3,1e-5,2,0};
+
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">unconstrained minimization</span><span style="color: #b22222;"> */</span>
+  multimin(2,x,&amp;minimum,<span style="color: #008b8b;">NULL</span>,<span style="color: #008b8b;">NULL</span>,<span style="color: #008b8b;">NULL</span>,&amp;f,&amp;df,&amp;fdf,(<span style="color: #228b22;">void</span> *) par,optim_par);
+
+  printf(<span style="color: #8b2252;">"unconstrained minimum %e at x=%e y=%e\n"</span>,minimum,x[0],x[1]);
+
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">minimum constrained in [-1,2]x(-5,5]</span><span style="color: #b22222;"> */</span>
+  type[0]=3;
+  xmin[0]=-1;
+  xmax[0]=2;
+  x[0]=0;
+
+  type[1]=2;
+  xmin[1]=-5;
+  xmax[1]=5;
+  x[1]=0;
+
+  <span style="color: #b22222;">/* </span><span style="color: #b22222;">increase verbosity</span><span style="color: #b22222;"> */</span>
+  optim_par.verbosity=1;
+
+  multimin(2,x,&amp;minimum,type,xmin,xmax,&amp;f,&amp;df,&amp;fdf,par,optim_par);
+
+  printf(<span style="color: #8b2252;">"constrained minimum %e at x=%e y=%e\n"</span>,minimum,x[0],x[1]);
+
+
+  <span style="color: #a020f0;">return</span> 0;
+}
+</pre>
+</div>
+<p>
+Notice that in the unconstrained minimization <code>NULL</code> arrays have been
+passed to the function. To search for a constrained minimum, the
+arrays <code>type</code>, <code>xmin</code> and <code>xmax</code> have been set accordingly. Of course,
+in this case the two minima coincide.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2024-09-13 ven 09:55</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2024-09-13 ven 09:55 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>subbotools: Power Exponential estimation</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<style type="text/css">
+<!--/*--><![CDATA[/*><!--*/
+div.figure { float:left; }
+/*]]>*/-->
+</style>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../software.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">subbotools: Power Exponential estimation</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2664277">Getting Started</a>
+<ul>
+<li><a href="#org2bf9456">Requirements</a></li>
+<li><a href="#orge7015ba">Installation instructions</a></li>
+</ul>
+</li>
+<li><a href="#org62078b9">Overview</a>
+<ul>
+<li><a href="#orgd82560b">Symmetric Power Exponential</a></li>
+<li><a href="#org987fe59">Asymmetric Power Exponential</a></li>
+<li><a href="#org5bf2ee5">Less Asymmetric Power Exponential</a></li>
+<li><a href="#org922ae30">Structure of the package</a></li>
+</ul>
+</li>
+<li><a href="#org165e410">Documentation</a></li>
+<li><a href="#org6927e24">Contributors</a></li>
+</ul>
+</div>
+</div>
+<p>
+WARNING: The <code>subbotools</code> package has been discontinued. All its
+functionalities are part of the <code>gbutils</code> package, see <a href="../gbutils/ep.html">Laplace and Power Exponential estimation</a>.
+</p>
+
+<div id="outline-container-org2664277" class="outline-2">
+<h2 id="org2664277">Getting Started</h2>
+<div class="outline-text-2" id="text-org2664277">
+<p>
+The package subbotools provides a set of programs for the Maximum
+Likelihood Estimation of the Symmetric and Asymmetric Power
+Exponential (or Subbotin) families of distributions.
+</p>
+
+<p>
+The properties of the ML estimator are studied in the paper <a href="http://icc.oxfordjournals.org/content/early/2011/07/04/icc.dtr036.full">A new
+class of asymmetric exponential power densities with applications to
+economics and finance</a> by G. Bottazzi and A. Secchi. If you find this
+package useful, you are kindly asked to mention this paper as a
+background reference in the publications derived by its use in your
+research or professional activity.
+</p>
+</div>
+
+<div id="outline-container-org2bf9456" class="outline-3">
+<h3 id="org2bf9456">Requirements</h3>
+<div class="outline-text-3" id="text-org2bf9456">
+<p>
+The recent versions of the package depend on the GNU Scientific
+Library (GSL) version 2 (&gt;= 2.1). Package versions before the 1.2.2
+depend on the GNU Scientific Library (GSL) version 1 (version &gt;= 1.6).
+</p>
+
+<p>
+To be installed from source, the package requires a C compiler and the
+standard C library. Unix-like environment in which GNU auto-tools can
+work is required for automatic installation.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge7015ba" class="outline-3">
+<h3 id="orge7015ba">Installation instructions</h3>
+<div class="outline-text-3" id="text-orge7015ba">
+<p>
+On <code>Linux</code>, the <code>subbotools</code> package can be either installed using a
+.deb package or from source. The first method is recommended. You can
+download the relevant <code>Debian</code> package (with extension <code>.deb</code>) from
+the <a href="ftp://cafed.sssup.it/packages/">cafed repository</a>. Only 64 bit executable and source code are made
+available starting from version 1.2.2. Then move into the directory
+that contains the just downloaded package and use
+</p>
+
+<pre class="example">
+sudo dpkg -i nameofthepackage
+</pre>
+
+
+<p>
+where "nameofthepackage" must be substituted with the name of the
+downloaded <code>.deb</code> file. If installation from source is required
+instead, keep reading.
+</p>
+
+<p>
+The installation from source should be rather
+straightforward. Download the package and unpack it
+</p>
+
+<pre class="example">
+tar xvzf subbotools-{version}.tar.gz
+</pre>
+
+
+<p>
+move inside the source directory
+</p>
+
+<pre class="example">
+cd subbotools-{version}
+</pre>
+
+
+<p>
+run the configure script
+</p>
+
+<pre class="example">
+./configure
+</pre>
+
+
+<p>
+then build the files
+</p>
+
+<pre class="example">
+make
+</pre>
+
+
+<p>
+become root
+</p>
+
+<pre class="example">
+su
+</pre>
+
+
+<p>
+and install them
+</p>
+
+<pre class="example">
+make install
+</pre>
+
+
+<p>
+If you can't install the file as root you have to provide a different
+directory for the binaries using the option <code>--prefix</code> of the
+configure script. For more detailed instructions see the "INSTALL"
+file in the distributed package.
+</p>
+
+<p>
+In <code>Windows 10</code>, the <code>subbotools</code> package can be installed directly
+form the Bash shell using the Windows Subsystem for Linux. To activate
+it, open the Settings app, go to "Update &amp; Security -&gt; For Developers"
+and activate the “Developer Mode”. Then open the Control Panel, go to
+“Programs -&gt; Turn Windows Features On or Off” and enable the “Windows
+Subsystem for Linux” option. Confirm with “OK" and reboot the system
+to install the new software. Open Microsoft Store and install your
+preferred Linux distribution. I suggest Ubuntu or Debian. Now you have
+a Linux system inside Windows 10. Launch the just installed
+application to enter a console and follow the instruction for <code>Linux</code>
+above.
+</p>
+
+<p>
+In older <code>Windows</code> versions, the <code>subbotools</code> package is installed in
+the <code>Cygwin</code> environment. Follow the instructions in the <a href="http://cafim.sssup.it/~giulio/software/subbotools/cygwin_install.html">cygwin
+installation</a> page.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org62078b9" class="outline-2">
+<h2 id="org62078b9">Overview</h2>
+<div class="outline-text-2" id="text-org62078b9">
+<p>
+Three distinct families of distributions are considered: the original
+Subbotin family, its asymmetric generalization and a "lesser
+asymmetric" version that results convenient for certain data. The
+parametrization of the different families is reported below. For
+further details see <a href="subbotools.html">the official documentation</a>, also available in <a href="http://www.lem.sssup.it/WPLem/2004-14.html">PDF
+format</a>.
+</p>
+</div>
+
+<div id="outline-container-orgd82560b" class="outline-3">
+<h3 id="orgd82560b">Symmetric Power Exponential</h3>
+<div class="outline-text-3" id="text-orgd82560b">
+<p>
+This is the original Subbotin, or Exponential Power (EP), family of
+distributions which depend on three parameters: the scale parameter
+\(a\), the shape parameter \(b\) and the position parameter \(m\). The main
+use of this family is in providing a smooth interpolation between the
+Gaussian and the Laplacian density. Indeed both these distributions
+can be seen as special cases of the Subbotin distribution. In this way
+by fitting a Subbotin on a given dataset, one does obtain a
+descriptive information about the tail behavior (shape parameter) but
+also derive some inference about the postulated Gaussian or Laplacian
+behavior of the data. The density reads
+</p>
+
+<p>
+\[ 
+f(x;a,b,m) = {1 \over 2 \, a \, b^{1/b} \, \Gamma(1+1/b)}\;
+e^{-{1 \over b}\, \left|{x-m \over a}\right|^b} \;\;.
+\]
+</p>
+
+
+
+<div class="figure">
+<p><img src="fig_subbo_b.png" alt="fig_subbo_b.png" width="400" />
+</p>
+<p><span class="figure-number">Figure 1: </span>EP densities with a=1 and different values of b.</p>
+</div>
+
+
+<div class="figure">
+<p><img src="fig_subbo_a.png" alt="fig_subbo_a.png" width="400" />
+</p>
+<p><span class="figure-number">Figure 2: </span>EP densities with b=1 and different values of a.</p>
+</div>
+
+<br style="clear:both;" />
+</div>
+</div>
+
+<div id="outline-container-org987fe59" class="outline-3">
+<h3 id="org987fe59">Asymmetric Power Exponential</h3>
+<div class="outline-text-3" id="text-org987fe59">
+<p>
+The Asymmetric Exponential Power (AEP) is a 5-parameter family of
+densities. In addition to the location parameter m, the left and right
+parts of the density are independently parametrized by a scale and
+shape parameter. The density reads
+</p>
+
+<p>
+\[
+f(x;b_l,b_r,a_l,a_r,m) = \frac{1}{C}\;\;
+e^{-\left( \frac{1}{b_l}\;\left|\frac{x-m}{a_l}\right|^{b_l}\;\theta(m-x)+
+\frac{1}{b_r}\;\left|\frac{x-m}{a_r}\right|^{b_r}\;\theta(x-m)
+\right)}
+\]
+</p>
+
+<p>
+where \(\theta(x)\) is the Heaviside theta function and \(C\) the
+normalization constant, \(C = a_l b_l^{1/b_l-1}\Gamma(1/b_l) + a_r
+b_r^{1/b_r-1}\Gamma(1/b_r)\).
+</p>
+
+
+
+<div class="figure">
+<p><img src="fig_asubbo_b.png" alt="fig_asubbo_b.png" width="400" />
+</p>
+<p><span class="figure-number">Figure 3: </span>AEP with a<sub>l</sub>=1, b<sub>l</sub>=2, a<sub>r</sub>=1 and different values of b<sub>r</sub>.</p>
+</div>
+
+
+<div class="figure">
+<p><img src="fig_asubbo_a.png" alt="fig_asubbo_a.png" width="400" />
+</p>
+<p><span class="figure-number">Figure 4: </span>AEP with a<sub>l</sub>=1, b<sub>l</sub>=0.5, b<sub>r</sub>=0.5 and different values of a<sub>r</sub></p>
+</div>
+
+<br style="clear:both;" />
+
+
+<p>
+These plots are taken from <a href="http://icc.oxfordjournals.org/content/early/2011/07/04/icc.dtr036.full">A new class of asymmetric exponential power
+densities with applications to economics and finance</a> by G. Bottazzi
+and A. Secchi.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5bf2ee5" class="outline-3">
+<h3 id="org5bf2ee5">Less Asymmetric Power Exponential</h3>
+<div class="outline-text-3" id="text-org5bf2ee5">
+<p>
+The less asymmetric density is the Asymmetric Power Exponential
+density, with the two scale parameters set equal, that is \(a_l=a_r\).
+</p>
+
+<p>
+\[
+f(x;b_l,b_r,a,m) = \frac{1}{C}\;\;
+e^{-\left( \frac{1}{b_l}\;\left|\frac{x-m}{a}\right|^{b_l}\;\theta(m-x)+
+\frac{1}{b_r}\;\left|\frac{x-m}{a}\right|^{b_r}\;\theta(x-m)
+\right)}
+\]
+</p>
+
+<p>
+the normalization constant now reads \(C = a
+(b_l^{1/b_l-1}\Gamma(1/b_l) + b_r^{1/b_r-1}\Gamma(1/b_r))\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org922ae30" class="outline-3">
+<h3 id="org922ae30">Structure of the package</h3>
+<div class="outline-text-3" id="text-org922ae30">
+<p>
+The subbotools package is composed of the following programs:
+</p>
+
+<dl class="org-dl">
+<dt>subbofit</dt><dd>finds the Subbotin density that better fit a given set
+of observations. The observations are considered
+independently drawn from the same probability
+distribution and the parameters value are obtained via
+maximum likelihood estimation.</dd>
+<dt>subboafit</dt><dd>finds the asymmetric Subbotin density that better fit a
+given set of observations. The observations are
+considered independently drawn from the same
+probability distribution and the parameters value are
+obtained via maximum likelihood estimation.</dd>
+<dt>subbolafit</dt><dd>finds the (less) asymmetric Subbotin density, i.e. an
+asymmetric density with a symmetric scale parameter,
+that better fit a given set of observations. The
+observations are considered independently drawn from
+the same probability distribution and the parameters
+value are obtained via maximum likelihood estimation.</dd>
+<dt>subboshow</dt><dd>takes a set of observations as input and produces a
+graphic showing the value of the log-likelihood of this
+set as a function of the density parameters.</dd>
+<dt>subbogen</dt><dd>generates random variables extracted from a Subbotin
+density. The relevant parameters can be provided on the
+command line or read from standard input.</dd>
+<dt>subboagen</dt><dd>generates random variables extracted from an asymmetric
+Subbotin density. The relevant parameters can be can be
+provided on the command line or read from standard
+input.</dd>
+</dl>
+
+<p>
+These programs have been mainly written to be used from the command
+line.  They read data from file or standard input in an ASCII format
+and print the result in ASCII format to standard output. The versatile
+gnuplot program is used as graphic back-end. When the output is
+intended to be graphically displayed, it has been designed in a format
+suitable to be sent to gnuplot for plotting.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org165e410" class="outline-2">
+<h2 id="org165e410">Documentation</h2>
+<div class="outline-text-2" id="text-org165e410">
+<p>
+For a description of the method applied and a brief tutorial on the
+use of the different commands see <a href="subbotools.html">here</a>. The same instructions are
+available in a <a href="http://www.lem.sssup.it/WPLem/2004-14.html">PDF document</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6927e24" class="outline-2">
+<h2 id="org6927e24">Contributors</h2>
+<div class="outline-text-2" id="text-org6927e24">
+<p>
+Angelo Secchi provided helpful suggestions in the design of programs
+user interface and he wrote the Cygwin installation instructions.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2024-09-13 ven 09:55</p>
+</div>
+</body>
+</html>

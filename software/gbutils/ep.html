@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Laplace and Power Exponential estimation</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Laplace and Power Exponential estimation</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org07baa9f">Overview</a></li>
+<li><a href="#org0c5dc40">Distribution families</a>
+<ul>
+<li><a href="#orgd757065">Symmetric Power Exponential</a></li>
+<li><a href="#org76ccbc7">Asymmetric Power Exponential</a></li>
+<li><a href="#org6c693fe">Less Asymmetric Power Exponential</a></li>
+</ul>
+</li>
+<li><a href="#orgbc2fe7e">Available utilities</a></li>
+<li><a href="#orgda3bf84">Documentation</a></li>
+<li><a href="#org7f24897">Contributors</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org07baa9f" class="outline-2">
+<h2 id="org07baa9f">Overview</h2>
+<div class="outline-text-2" id="text-org07baa9f">
+<p>
+The utilities described here address the problem of estimating
+different families of distributions related to the Laplace and
+Exponential Power distribution. In the next section a short
+description of these families is provided. See <a href="#orgbc2fe7e">Available utilities</a> for
+a list of the programs included in the package.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0c5dc40" class="outline-2">
+<h2 id="org0c5dc40">Distribution families</h2>
+<div class="outline-text-2" id="text-org0c5dc40">
+<p>
+Three distinct families of distributions are considered: the original
+Exponential Power, or Subbotin, family, its asymmetric generalization
+and a "lesser asymmetric" version that results convenient for certain
+data. The parametrization of the different families is reported
+below. For further details see <a href="subbotools.html">the official documentation</a>, also
+available in <a href="http://www.lem.sssup.it/WPLem/2004-14.html">PDF format</a>.
+</p>
+</div>
+
+<div id="outline-container-orgd757065" class="outline-3">
+<h3 id="orgd757065">Symmetric Power Exponential</h3>
+<div class="outline-text-3" id="text-orgd757065">
+<p>
+This is the original Exponential Power, or Exponential Power (EP),
+family of distributions which depend on three parameters: the scale
+parameter \(a\), the shape parameter \(b\) and the position parameter
+\(m\). The main use of this family is in providing a smooth
+interpolation between the Gaussian and the Laplacian density. Indeed
+both these distributions can be seen as special cases of the
+Exponential Power distribution. In this way by fitting a Exponential
+Power on a given dataset, one does obtain a descriptive information
+about the tail behavior (shape parameter) but also derive some
+inference about the postulated Gaussian or Laplacian behavior of the
+data. The density reads
+</p>
+
+<p>
+\[ 
+f(x;a,b,m) = {1 \over 2 \, a \, b^{1/b} \, \Gamma(1+1/b)}\;
+e^{-{1 \over b}\, \left|{x-m \over a}\right|^b} \;\;.
+\]
+</p>
+
+
+
+<div class="figure">
+<p><img src="fig_subbo_b.png" alt="fig_subbo_b.png" width="400" />
+</p>
+<p><span class="figure-number">Figure 1: </span>EP densities with a=1 and different values of b.</p>
+</div>
+
+
+<div class="figure">
+<p><img src="fig_subbo_a.png" alt="fig_subbo_a.png" width="400" />
+</p>
+<p><span class="figure-number">Figure 2: </span>EP densities with b=1 and different values of a.</p>
+</div>
+
+<br style="clear:both;" />
+</div>
+</div>
+
+<div id="outline-container-org76ccbc7" class="outline-3">
+<h3 id="org76ccbc7">Asymmetric Power Exponential</h3>
+<div class="outline-text-3" id="text-org76ccbc7">
+<p>
+The Asymmetric Exponential Power (AEP) is a 5-parameter family of
+densities. In addition to the location parameter m, the left and right
+parts of the density are independently parametrized by a scale and
+shape parameter. The density reads
+</p>
+
+<p>
+\[
+f(x;b_l,b_r,a_l,a_r,m) = \frac{1}{C}\;\;
+e^{-\left( \frac{1}{b_l}\;\left|\frac{x-m}{a_l}\right|^{b_l}\;\theta(m-x)+
+\frac{1}{b_r}\;\left|\frac{x-m}{a_r}\right|^{b_r}\;\theta(x-m)
+\right)}
+\]
+</p>
+
+<p>
+where \(\theta(x)\) is the Heaviside theta function and \(C\) the
+normalization constant, \(C = a_l b_l^{1/b_l-1}\Gamma(1/b_l) + a_r
+b_r^{1/b_r-1}\Gamma(1/b_r)\).
+</p>
+
+
+
+<div class="figure">
+<p><img src="fig_asubbo_b.png" alt="fig_asubbo_b.png" width="400" />
+</p>
+<p><span class="figure-number">Figure 3: </span>AEP with a<sub>l</sub>=1, b<sub>l</sub>=2, a<sub>r</sub>=1 and different values of b<sub>r</sub>.</p>
+</div>
+
+
+<div class="figure">
+<p><img src="fig_asubbo_a.png" alt="fig_asubbo_a.png" width="400" />
+</p>
+<p><span class="figure-number">Figure 4: </span>AEP with a<sub>l</sub>=1, b<sub>l</sub>=0.5, b<sub>r</sub>=0.5 and different values of a<sub>r</sub></p>
+</div>
+
+<br style="clear:both;" />
+
+
+<p>
+These plots are taken from <a href="http://icc.oxfordjournals.org/content/early/2011/07/04/icc.dtr036.full">A new class of asymmetric exponential power
+densities with applications to economics and finance</a> by G. Bottazzi
+and A. Secchi.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6c693fe" class="outline-3">
+<h3 id="org6c693fe">Less Asymmetric Power Exponential</h3>
+<div class="outline-text-3" id="text-org6c693fe">
+<p>
+The less asymmetric density is the Asymmetric Power Exponential
+density, with the two scale parameters set equal, that is \(a_l=a_r\).
+</p>
+
+<p>
+\[
+f(x;b_l,b_r,a,m) = \frac{1}{C}\;\;
+e^{-\left( \frac{1}{b_l}\;\left|\frac{x-m}{a}\right|^{b_l}\;\theta(m-x)+
+\frac{1}{b_r}\;\left|\frac{x-m}{a}\right|^{b_r}\;\theta(x-m)
+\right)}
+\]
+</p>
+
+<p>
+the normalization constant now reads \(C = a
+(b_l^{1/b_l-1}\Gamma(1/b_l) + b_r^{1/b_r-1}\Gamma(1/b_r))\).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbc2fe7e" class="outline-2">
+<h2 id="orgbc2fe7e">Available utilities</h2>
+<div class="outline-text-2" id="text-orgbc2fe7e">
+<p>
+The <code>gbtools</code> package includes of the following programs:
+</p>
+
+<dl class="org-dl">
+<dt>gbepfit</dt><dd>finds the Exponential Power density that better fit a
+given set of observations. The observations are
+considered independently drawn from the same probability
+distribution and the parameters value are obtained via
+maximum likelihood estimation.</dd>
+<dt>gbaepfit</dt><dd>finds the asymmetric Exponential Power density that
+better fit a given set of observations. The observations
+are considered independently drawn from the same
+probability distribution and the parameters value are
+obtained via maximum likelihood estimation.</dd>
+<dt>gblaepfit</dt><dd>finds the (less) asymmetric Exponential Power density,
+i.e. an asymmetric density with a symmetric scale
+parameter, that better fit a given set of
+observations. The observations are considered
+independently drawn from the same probability
+distribution and the parameters value are obtained via
+maximum likelihood estimation.</dd>
+<dt>gbepshow</dt><dd>(since version 6.4) takes a set of observations as input
+and produces a graphic showing the value of the
+log-likelihood of this set as a function of the density
+parameters.</dd>
+<dt>gbrand</dt><dd>can be used to generates random variables extracted from a
+Exponential Power or Asymmetrci Exponential Power
+distribution. See <code>gbrand</code> documentation.</dd>
+</dl>
+
+<p>
+These programs have been mainly written to be used from the command
+line.  They read data from file or standard input in an ASCII format
+and print the result in ASCII format to standard output. The versatile
+gnuplot program is used as graphic back-end. When the output is
+intended to be graphically displayed, it has been designed in a format
+suitable to be sent to gnuplot for plotting.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgda3bf84" class="outline-2">
+<h2 id="orgda3bf84">Documentation</h2>
+<div class="outline-text-2" id="text-orgda3bf84">
+<p>
+For a description of the method applied and a brief tutorial on the
+use of the different commands see <a href="subbotools.html">here</a>. The same instructions are
+available in a <a href="http://www.lem.sssup.it/WPLem/2004-14.html">PDF document</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7f24897" class="outline-2">
+<h2 id="org7f24897">Contributors</h2>
+<div class="outline-text-2" id="text-org7f24897">
+<p>
+Angelo Secchi provided helpful suggestions in the design of programs
+user interface and he wrote the Cygwin installation instructions.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

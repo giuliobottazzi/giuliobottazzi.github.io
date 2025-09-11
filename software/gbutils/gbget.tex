@@ -1,0 +1,286 @@
+% Created 2014-12-27 Sat 20:38
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage[normalem]{ulem}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{hyperref}
+\tolerance=1000
+\author{Giulio Bottazzi}
+\date{\today}
+\title{gbget tutorial}
+\hypersetup{
+  pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 23.4.1 (Org mode 8.0.6)}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Introduction to \texttt{gbget}}
+\label{sec-1}
+
+The special utility \texttt{gbget} is used to perform basic manipulation of
+ASCII data files. It takes a file or a list of files containing
+tabular data and extract command line specified parts of these
+data. The result of the extraction can be further manipulated with a
+list of possible transformations.
+
+Essentially, the user provides a list of \emph{data specifications} at the
+command line. The program analyze each specification in turns and,
+according to it, extract and print data to standard output.
+
+Each \emph{data specification} has the following structure
+
+\begin{verbatim}
+filename[block](col-range,rows-range)<options>
+\end{verbatim}
+
+where:
+
+\begin{description}
+\item[{filename}] is the name of a regular (ASCII) file
+
+\item[{block}] identify a given data-block inside the file; data-blocks
+are separated by 2 or more empty lines (format chosen for
+consistency with gnuplot specifications). Notice that
+comment lines (beginning with a "\#" symbol) DO NOT count as
+empty lines for this purpose.
+
+\item[{col-range}] the range of required columns, specified as
+\verb~begin:end:skip~. Negative values are counted from the
+end. Default is \verb~1:-1:1~ i.e. all columns. If begin>end
+the columns are read in reversed order.
+\end{description}
+
+
+\begin{description}
+\item[{rows-range}] the range of required rows, specified as
+\verb~begin:end:skip~. Negative values are counted from the
+end. Default is \verb~1:-1:1~ i.e. all rows. If begin>end
+the rows are read in reversed order.
+
+\item[{<options>}] is a list of single letter options that identify
+successive transformations to be applied to data.
+\end{description}
+
+The list of options includes
+
+\begin{description}
+\item[{t}] transpose the matrix
+
+\item[{f}] flatten the data column-wise, reducing them to a single column
+
+\item[{l}] take the log of all fields
+
+\item[{d}] take the column-wise difference: substract column 1 from 2,
+column 2 from 3, etc.
+
+\item[{D}] remove all lines containing at least one NAN entry
+
+\item[{z}] remove the mean to each column
+
+\item[{Z}] reduce each column to zscores, that is remove the mean and
+divide by the standard deviation
+\end{description}
+\section{Examples}
+\label{sec-2}
+
+A few examples can help to understand the gbget syntax. Consider the
+file \verb~test.dat~ with the following content
+
+\begin{verbatim}
+10 20 30
+11 21 31
+12 22 32
+13 23 33
+14 24 34
+
+
+15 25 35
+16 26 36
+17 27 37
+18 28 38
+19 29 39
+\end{verbatim}
+
+i.e. two data blocks, separated by two blank lines, each made of three
+columns and 5 rows. This file should already exists in the \verb~gbutils~
+source directory. If the support for \href{http://www.gzip.org/zlib/}{zlib} has been found on your
+system, in the examples below you can equivalently use the compressed
+file \verb~test.dat.gz~.
+
+Now if you type:
+
+\begin{verbatim}
+# gbget 'test.dat[1](1:2)'
+\end{verbatim}
+
+(the \textasciitilde{}'\textasciitilde{} are normally required to protect the content of the string
+from shell expansion) you obtain
+
+\begin{verbatim}
+1.000000e+01  2.000000e+01
+1.100000e+01  2.100000e+01
+1.200000e+01  2.200000e+01
+1.300000e+01  2.300000e+01
+1.400000e+01  2.400000e+01
+\end{verbatim}
+
+i.e. the first two column \verb~(1:2)~ of the first datablock \verb~[1]~. By
+default, the output is in scientific notation, but more on this below.
+
+If instead you type
+
+\begin{verbatim}
+# gbget 'test.dat[2](-2:,2:3)'
+\end{verbatim}
+
+you obtain
+
+\begin{verbatim}
+2.600000e+01  3.600000e+01
+2.700000e+01  3.700000e+01
+\end{verbatim}
+
+i.e. the rows from 2 to 3 (included) of the last two columns of the
+second data block \verb~[2]~. Notice that a negative entry in column or row
+specification means "count from the end".
+
+You can also print \emph{each second column} of the second block with
+
+\begin{verbatim}
+# gbget 'test.dat[2](::2)'
+\end{verbatim}
+
+that gives you
+
+\begin{verbatim}
+1.500000e+01  3.500000e+01
+1.600000e+01  3.600000e+01
+1.700000e+01  3.700000e+01
+1.800000e+01  3.800000e+01
+1.900000e+01  3.900000e+01
+\end{verbatim}
+
+or \emph{each third row} of the whole file
+
+\begin{verbatim}
+# gbget 'test.dat(,::3)'
+\end{verbatim}
+
+to have
+
+\begin{verbatim}
+1.000000e+01  2.000000e+01  3.000000e+01
+1.300000e+01  2.300000e+01  3.300000e+01
+1.600000e+01  2.600000e+01  3.600000e+01
+1.900000e+01  2.900000e+01  3.900000e+01
+\end{verbatim}
+
+If the initial and final positions in a slice specification are
+reversed, the columns or the rows are printed in reverse order. For
+instance
+
+\begin{verbatim}
+# gbget 'test.dat(,3:1)'
+\end{verbatim}
+
+gives
+
+\begin{verbatim}
+1.200000e+01  2.200000e+01  3.200000e+01
+1.100000e+01  2.100000e+01  3.100000e+01
+1.000000e+01  2.000000e+01  3.000000e+01
+\end{verbatim}
+
+Several different transformations can be applied to the chosen
+\emph{matrix} of data.  For instance, the matrix can be flattened
+column-wise, i.e. each column can be put after the previous one in a
+single, long, column using the flag \verb~f~, or you can transpose it
+using the option \verb~t~. Let see some examples. Consider
+
+\begin{verbatim}
+# gbget 'test.dat[1](,2:3)'
+\end{verbatim}
+
+which gives
+
+\begin{verbatim}
+1.100000e+01  2.100000e+01  3.100000e+01
+1.200000e+01  2.200000e+01  3.200000e+01
+\end{verbatim}
+
+now you can flatten the output
+
+\begin{verbatim}
+# gbget 'test.dat[1](,2:3)f'
+\end{verbatim}
+
+\begin{verbatim}
+1.100000e+01
+1.200000e+01
+2.100000e+01
+2.200000e+01
+3.100000e+01
+3.200000e+01
+\end{verbatim}
+
+or transpose it
+
+\begin{verbatim}
+# gbget 'test.dat[1](,2:3)t'
+\end{verbatim}
+
+\begin{verbatim}
+1.100000e+01  1.200000e+01
+2.100000e+01  2.200000e+01
+3.100000e+01  3.200000e+01
+\end{verbatim}
+
+Finally, the output format can be customized using options \verb~-o~ and
+\verb~-e~. To fully exploit these options you need to know the syntax of
+the \texttt{printf} command implemented in the standard C libraries. However,
+the \emph{type} of output can be easily chosen with a single flag. If
+instead of the scientific notation you prefer a fixed point notation
+for your output, you have to use the option \verb~-o~ with the value \verb~%f~
+
+\begin{verbatim}
+# gbget 'test.dat[1](,2:3)t' -o ' %f'
+\end{verbatim}
+
+\begin{verbatim}
+11.000000 12.000000
+21.000000 22.000000
+31.000000 32.000000
+\end{verbatim}
+
+while in order to have an \emph{integer} output you need \verb~-o~ with the
+value \verb~%d~
+
+\begin{verbatim}
+# gbget 'test.dat[1](,2:3)t' -o ' %d'
+\end{verbatim}
+
+\begin{verbatim}
+11 12
+21 22
+31 32
+\end{verbatim}
+
+in this case, however, be aware of the truncations: gbget rounds a
+non-integer value down to the nearest integer!
+% Emacs 23.4.1 (Org mode 8.0.6)
+\end{document}
