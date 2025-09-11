@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>YAFiMM - Yet Another Financial Market Model</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../software.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">YAFiMM - Yet Another Financial Market Model</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org6749105">Getting Started</a>
+<ul>
+<li><a href="#org93dc9fe">YAFiMM configuration file</a></li>
+<li><a href="#orgb2da939">Configuration File Example</a></li>
+</ul>
+</li>
+<li><a href="#org49ee729">Installation</a>
+<ul>
+<li><a href="#org730ab36">Required libraries</a></li>
+<li><a href="#orgcfc17fe">How to obtain help</a></li>
+</ul>
+</li>
+<li><a href="#org705f738">References</a></li>
+<li><a href="#org654ece0">Package files list</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org6749105" class="outline-2">
+<h2 id="org6749105">Getting Started</h2>
+<div class="outline-text-2" id="text-org6749105">
+<p>
+This package contains programs providing a simulation framework for
+the analysis of a financial market model. For the description of the
+model, see the References below. Five dinstinct programs are provided:
+</p>
+
+<dl class="org-dl">
+<dt><code>deterministic</code></dt><dd>it computes the deterministic market dynamics
+obtained under the hypothesis of identical agents;</dd>
+<dt><code>stochastic</code></dt><dd>it provides the stochastic version of the previous
+system with the addition of random noise;</dd>
+<dt><code>aggregate</code></dt><dd>is for the market (aggregate) dynamics obtained with
+"nosy" perturbed agents with short selling allowed;</dd>
+<dt><code>yafimm</code></dt><dd>a complete agent-based simulation of a market, with prices
+fixed via different trading protocols and considering
+heterogeneous agents with budget constraints;</dd>
+<dt><code>match</code></dt><dd>test the implementation of the batch auction.</dd>
+</dl>
+</div>
+
+
+<div id="outline-container-org93dc9fe" class="outline-3">
+<h3 id="org93dc9fe">YAFiMM configuration file</h3>
+<div class="outline-text-3" id="text-org93dc9fe">
+<p>
+The program <code>yfimm</code> reads the description of the market and the
+agents from a configuration file. The name of this file can be
+provided at the command line with the option <code>-F</code>. If no file name
+is provided, yafimm reads the market and agents description from
+the standard input.
+</p>
+
+<p>
+The structure of the configuration file is a sequence of lines. Each
+line constitutes a record whose field are separated by blank (spaces
+or tabs) characters. Each record describe one "building block" of the
+model: the general properties of the market or the characteristic of a
+group of agents. The generic structure of a line can be represented
+as
+</p>
+<pre class="example">
+typeofrecord first_arg second_arg ...
+</pre>
+<p>
+The first field of a line specifies the type of record and can
+assume the following values
+</p>
+
+<dl class="org-dl">
+<dt>market</dt><dd>the line describe a market</dd>
+<dt>trendfollower</dt><dd>the line describe a group of "trend following"
+agents</dd>
+<dt>fundamental</dt><dd>the line describe a group of "fundamental"
+agents</dd>
+<dt>sophfund</dt><dd>the line describe a group of sophisticated
+"fundamental" agents</dd>
+<dt>noise</dt><dd>the line describe a group of "noise trading" agents</dd>
+</dl>
+
+<p>
+(Only the first three characters are relevant to identify the type
+of a record). Line beginning with a "#" are considered comments and
+are skipped.
+</p>
+
+<p>
+If the record describes a group of agents, the second field has a
+special meaning: it is the number of agents belonging to this
+group. The rest of the line is formed by couples of the form
+key=value. The possible values for the key depend on the type of
+record and are listed below, together with their default value and
+constraints
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">record type</th>
+<th scope="col" class="org-left">key</th>
+<th scope="col" class="org-left">(default) explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">market</td>
+<td class="org-left">type</td>
+<td class="org-left">(0)    0 walrasian auction 1 batch auction 2 order book</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">d</td>
+<td class="org-left">(.01)  dividend (d&gt;0)</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">r</td>
+<td class="org-left">(.01)  riskless return (r&gt;0)</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">A</td>
+<td class="org-left">(1)    total amount of risky shares (A&gt;0)</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">initnoise</td>
+<td class="org-left">(.01)  initial level of noise on forecasted returns</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">initnumber</td>
+<td class="org-left">(100)  number of time steps in market initialization</td>
+</tr>
+
+<tr>
+<td class="org-left">trendfollower</td>
+<td class="org-left">beta</td>
+<td class="org-left">(1.)   risk aversion (beta&gt;0)</td>
+</tr>
+
+<tr>
+<td class="org-left">or</td>
+<td class="org-left">lamba</td>
+<td class="org-left">(.99)  EWMA parameter (0&lt;lambda&lt;=1)</td>
+</tr>
+
+<tr>
+<td class="org-left">noise trader</td>
+<td class="org-left">eta</td>
+<td class="org-left">(0.0)  market orders propensity (0&lt;=eta&lt;=1)</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">Dy</td>
+<td class="org-left">(0.0)  personal shock of forecasted return (0&lt;=Dy&lt;=1)</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">horizon</td>
+<td class="org-left">(1)    horizon of trading position (integer&gt;0)</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">shortA</td>
+<td class="org-left">(0)    switch on (0) or off (1) the budget constraint of A</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">shortB</td>
+<td class="org-left">(0)    switch on (0) or off (1) the budget constraint of B</td>
+</tr>
+
+<tr>
+<td class="org-left">fundamental</td>
+<td class="org-left">beta</td>
+<td class="org-left">(1.)   risk aversion (beta&gt;0)</td>
+</tr>
+
+<tr>
+<td class="org-left">or</td>
+<td class="org-left">lambda</td>
+<td class="org-left">(.99)  EWMA parameter (0&lt;lambda&lt;=1)</td>
+</tr>
+
+<tr>
+<td class="org-left">soph. fund.</td>
+<td class="org-left">eta</td>
+<td class="org-left">(0.0)  market orders propensity (0&lt;=eta&lt;=1)</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">theta</td>
+<td class="org-left">(1.0)  market efficiency estimation (0&lt;=theta&lt;=1)</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">Dy</td>
+<td class="org-left">(0.0)  personal shock of forecasted return (0&lt;=Dy&lt;=1)</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">horizon</td>
+<td class="org-left">(1)    horizon of trading position (integer&gt;0)</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">shortA</td>
+<td class="org-left">(0)    switch on (0) or off (1) the budget constraint on A</td>
+</tr>
+
+<tr>
+<td class="org-left">..</td>
+<td class="org-left">shortB</td>
+<td class="org-left">(0)    switch on (0) or off (1) the budget constraint on B</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<p>
+The value can be substituted by a comma separated couple
+min<sub>value,max</sub><sub>value</sub>. In this case each agent of the group will be
+assigned a random value drawn from an uniform distribution with
+support (min<sub>value,max</sub><sub>value</sub>]. Notice that <code>shortA=1</code> implies
+<code>shortB=1</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb2da939" class="outline-3">
+<h3 id="orgb2da939">Configuration File Example</h3>
+<div class="outline-text-3" id="text-orgb2da939">
+<p>
+This is the situation: the market is a batch auction; the riskless
+return is $.001$ and the dividends per share paid at each market
+round are $.001$. On the market there are \(100\) agents acting as
+trend followers. They use an EWMA rule with parameter $.97$ for
+future return forecasting and their risk aversion is randomly
+chosen between \(100\) and \(200\). During the trading, they send
+market orders (instead of limit order) to the auctioneer \(50\%\) of
+the times. Operating on the market there are also \(50\)
+fundamentalists, whose forecasting rule for return supposes a
+"market efficiency" of $.5$ and an EWMA coefficient of $.94$.
+Their risk aversion is equal to 10. Moreover, they receive random
+shocks, uniformly distributed in \([-2\%,2\%]\), to their future
+price prediction and they always partecipate the market via limit
+orders.  Both types of agents are initialized with forecasts
+extracted from a random distribution of mean zero and variance
+\(0.01\). Fundamentalists can attain short position in bond
+(i.e. they can borrow money).
+</p>
+
+<p>
+This situation described above is represented with the following
+lines
+</p>
+<pre class="example">
+market type=1 d=.001 r=.001 noise=.01
+trend 100 lambda=0.97 beta=100,200 eta=.5
+fund 50 theta=.5 lambda=0.94 beta=10 Dy=.02 shortB=1
+</pre>
+<p>
+Try the three .ini files provided with the package as an example.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org49ee729" class="outline-2">
+<h2 id="org49ee729">Installation</h2>
+<div class="outline-text-2" id="text-org49ee729">
+<p>
+Download the latest source code from the <a href="ftp://cafed.sssup.it/packages/">cafed</a> repository.  On Linux
+the installation is simple. Uncompress the package
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">tar xvsf yafimm-version.tar.gz
+</pre>
+</div>
+<p>
+move to the directory::
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #483d8b;">cd</span> yafimm-version
+</pre>
+</div>
+<p>
+configure, compile and install the package using
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">./configure
+make
+make install
+</pre>
+</div>
+
+<p>
+By default, the executable files are placed in <code>/usr/local/bin</code>. If
+you prefer different location then use the <code>configure</code> option
+<code>--prefix</code>.  See the file <code>INSTALL</code> for more information.
+</p>
+</div>
+
+
+<div id="outline-container-org730ab36" class="outline-3">
+<h3 id="org730ab36">Required libraries</h3>
+<div class="outline-text-3" id="text-org730ab36">
+<p>
+<code>yafimm</code> is written in C++. It requires the <a href="http://www.gnu.org/software/gsl/">GNU Scientific Library</a>,
+which should be available through the package management software
+of any Linux distribution. Remember to install the <b>development</b>
+version of the libraries before trying to compile <code>yafimm</code>.
+</p>
+
+<p>
+Technical information for advanced users (regular users can skip it):
+The standard packages assume the use of the CBLAS interface provided
+by the GSL library itself. If you want to use a different library, you
+should intall via the source code (tar.gz file) and change the
+LOADLIBES parameter in Makefile to reflect your preferences.   
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcfc17fe" class="outline-3">
+<h3 id="orgcfc17fe">How to obtain help</h3>
+<div class="outline-text-3" id="text-orgcfc17fe">
+<p>
+Look at the short help provided by the programs
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">yafimm -h
+deterministic -h
+aggregate -h
+</pre>
+</div>
+<p>
+There is a still-work-in-progress manual in the directory doc. Most
+importantly, read the papers listed in the References below, where
+the model and its features are (hopefully) clearly explained.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org705f738" class="outline-2">
+<h2 id="org705f738">References</h2>
+<div class="outline-text-2" id="text-org705f738">
+<p>
+M. Anufriev and G. Bottazzi <i>Asset Pricing with Heterogeneous
+Investment Horizons</i>, Studies in Nonlinear Dynamics &amp; Econometrics,
+Volume 16, Issue 4, October 2012. <a href="http://dx.doi.org/10.1515/1558-3708.1903">DOI</a>
+</p>
+
+<p>
+G.Bottazzi, G.Dosi and I.Rebesco <i>Institutional Architectures and
+Behavioral Ecologies in the Dynamics of Financial Markets</i> Journal
+of Mathematical Economics, vol. 41, pp. 197-228, 2005
+</p>
+
+<p>
+G.Bottazzi <i>A Simple Micro-Model of Market Dynamics</i>, Lecture Notes
+in Economics and Mathematical Systems, Volume 531, pp. 213-228,
+Springer-Verlag, Berlin, 2004 <a href="http://link.springer.com/chapter/10.1007%2F978-3-642-17045-4_12">DOI</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org654ece0" class="outline-2">
+<h2 id="org654ece0">Package files list</h2>
+<div class="outline-text-2" id="text-org654ece0">
+<pre class="example">
+README                      this file
+deterministic.c             src of deterministic
+aggregate.c                 src of aggregate
+match.c                     src of match
+Order[.h,.cpp]              class Order
+BookOrder[.h,.cpp]          class BookOrder
+Market[.h,.cpp]             class Market
+Walrasian[.h,.cpp]          definition of Walrasian auction protocol
+Batch[.h,.cpp]              definition of Batch auction protocol
+Book[.h,.cpp]               definition of Order Book protocol
+Agent[.h,.cpp]              class Agent
+TrendFollower[.h,.cpp]      class TrendFollower
+Fundamentalist[.h,.cpp]     class Fundamentalist
+SophFundamentalist[.h,.cpp] class SophFundamentalist
+NoiseTrader[.h,.cpp]        class NoiseTrader
+Parser[.h,.cpp]             initialization file parser
+Yafimm[.h,.cpp]             the main program
+fixed.ini                   example initialization file for yafimm
+aperiodic.ini               example initialization file for yafimm
+test.ini                    example initialization file for yafimm
+Makefile
+COPYING                     Gnu public Licence
+AUTHORS                     list of authors
+yafimm.css                  docutils stylesheet
+
+</pre>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

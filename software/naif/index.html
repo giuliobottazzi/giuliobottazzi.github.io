@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NAIF - Numerical Analysis of Investment Functions</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../software.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">NAIF - Numerical Analysis of Investment Functions</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgf263f96">Getting Started</a>
+<ul>
+<li><a href="#org193c3e1">Brief description of the program</a></li>
+<li><a href="#org51a2238">Configuration File</a>
+<ul>
+<li><a href="#org3708ccd">Investment functions definition</a></li>
+<li><a href="#orgeaa04ff">Examples of the Config File</a></li>
+</ul>
+</li>
+<li><a href="#orge139346">Options</a></li>
+<li><a href="#org7038606">Simulation Initial Values</a>
+<ul>
+<li><a href="#org5d3988b">Initial portfolio composition</a></li>
+<li><a href="#org0118ef8">Initial market history</a></li>
+<li><a href="#org65c1017">Initial forecasts</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org555dc1f">Installation</a>
+<ul>
+<li><a href="#orge9ea678">Required Libraries</a></li>
+<li><a href="#orge2dc352">Disclaimer</a></li>
+</ul>
+</li>
+<li><a href="#orgc44df18">Contributors</a></li>
+<li><a href="#org64176be">References</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgf263f96" class="outline-2">
+<h2 id="orgf263f96">Getting Started</h2>
+<div class="outline-text-2" id="text-orgf263f96">
+<p>
+NAIF (Numerical Analysis of Investment Functions) is a program for
+simulating the trading activities of a heterogeneous group of agents
+in a simple two-asset economy. The code has been used to run
+simulations for several papers (see <a href="#org64176be">References</a>).
+</p>
+
+<p>
+Configuration data for the simulations are read from a file and are
+combined with command line options. Result are printed in ASCII format
+into the standard output. NAIF is written in C and requires some
+external libraries (see <a href="#org555dc1f">Installation</a>). It has been tested and
+used on several Linux distribution but should run, in principle, on
+any Unix platform. No other OSes have been tested.
+</p>
+
+<p>
+The main options and the syntax of the configuration file are briefly
+reviewed below. For a more detailed discussion see the list of
+<a href="examples.html">examples</a>.
+</p>
+</div>
+
+<div id="outline-container-org193c3e1" class="outline-3">
+<h3 id="org193c3e1">Brief description of the program</h3>
+<div class="outline-text-3" id="text-org193c3e1">
+<p>
+The program reads the config file with investment functions of
+different agents and simulate the price dynamics of the market with
+such behaviors. All parameters are provided in the command line. The
+initial conditions are provided in the command line as well, while the
+initial shares assigned to different agents are read from the file.
+</p>
+
+
+<div id="org7afe0e1" class="figure">
+<p><img src="./NAIF_structure.png" alt="NAIF_structure.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Strucure of the program</p>
+</div>
+
+<p>
+The basic usage of the program is
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif [options] &lt; [config file]
+</pre>
+</div>
+
+<p>
+The output data printed to the standard output can be easily used to
+create plots of the generated time series.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org51a2238" class="outline-3">
+<h3 id="org51a2238">Configuration File</h3>
+<div class="outline-text-3" id="text-org51a2238">
+<p>
+Each line of the file is the description of one agent or one group of
+agents. The lines beginning with a <code>#</code> symbol are considered comments
+and ignored.
+</p>
+
+<p>
+The definition of each agent is a comma separated list of parameters
+whose value is set with an assignment of the form
+</p>
+<pre class="example">
+key=value
+</pre>
+<p>
+The possible parameters are
+</p>
+
+<dl class="org-dl">
+<dt><code>f</code></dt><dd>the definition of the investment function. This can be
+defined as an arbitrary function with variables of the form
+<code>ret#</code>, <code>yld#</code>, <code>ewr#_#</code>, <code>ewy#_#</code>, <code>cwr#_#</code> and <code>cwy#_#</code>, where
+<code>#</code> stands for a single digit. See below for explanation and
+examples.</dd>
+
+<dt><code>w</code></dt><dd>the initial wealth of the agent</dd>
+
+<dt><code>x</code></dt><dd>the initial share of wealth invested in the risky security</dd>
+
+<dt><code>u</code></dt><dd>upper limit of the investment function</dd>
+
+<dt><code>l</code></dt><dd>ower limit of the investment function</dd>
+
+<dt><code>eps</code></dt><dd>a noise component uniformly drawn from -1/2 <code>eps</code> to 1/2
+<code>eps</code> is added to the agent investment function at each period</dd>
+</dl>
+</div>
+
+<div id="outline-container-org3708ccd" class="outline-4">
+<h4 id="org3708ccd">Investment functions definition</h4>
+<div class="outline-text-4" id="text-org3708ccd">
+<p>
+The arguments of the investment function are of the type <code>xy_z</code> where
+<code>x</code> is a string of three characters which denotes the type of argument
+and the following (integer) numbers <code>y</code> and <code>z</code> stand for possible
+specifiers. The meaning of the specifiers depend on the type of
+argument
+</p>
+
+<dl class="org-dl">
+<dt><code>ret#1</code></dt><dd>stands for the realized return #1 steps in the
+past. Specifier #1 can take positive integer values
+1,2,3,etc. Notice that due to the timing convention, the
+contemporaneous value of return cannot be an argument of the
+investment function.</dd>
+
+<dt><code>yld#1</code></dt><dd>stands for the realized dividend yield #1 steps in the
+past.  Specifier #1 can take non-negative integer values
+0,1,2,3,etc.</dd>
+
+<dt><code>ewr#1_#2</code></dt><dd>stands for the Exponential Weighting Moving Average
+estimator of the #1-th central moment of realized returns
+computed with the weight parameter "lambda" equal to
+0.#2. Specifier #1 can take positive integer values
+1,2,3,etc. Specifier #2 can take any non-negative integer value
+0,1,2,3,etc. Notice that parameter "lambda" belongs to the
+interval [0,1).</dd>
+
+<dt><code>ewy#1_#2</code></dt><dd>stands for the Exponential Weighting Moving Average
+estimator of the #1-th central moment of realized yields computed
+with the weight parameter "lambda" equal to 0.#2. Specifier #1
+can take positive integer values 1,2,3,etc. Specifier #2 can take
+any non-negative integer value. Notice that parameter "lambda"
+belongs to the interval [0,1).</dd>
+
+<dt><code>cwr#1_#2</code></dt><dd>stands for the Constant Weighting Moving Average
+estimator of the #1-th central moment of realized returns
+computed on the last #2 time steps. Both specifiers #1 and #2 can
+take positive integer values 1,2,3,etc.</dd>
+
+<dt><code>cwy#1_#2</code></dt><dd>stands for the Constant Weighting Moving Average
+estimator of the #1-th central moment of realized dividend yields
+computed on the last #2 time steps. Both specifiers #1 and #2 can
+take positive integer values 1,2,3,etc.</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgeaa04ff" class="outline-4">
+<h4 id="orgeaa04ff">Examples of the Config File</h4>
+<div class="outline-text-4" id="text-orgeaa04ff">
+<p>
+The following line
+</p>
+<pre class="example">
+f=ret1+cwy3_12,x=.3,w=10
+</pre>
+<p>
+defines an agent who invests, at each time step, a share of wealth in
+the risky asset which is proportional to the sum of the last realized
+return (ret1) and the third central moment of the realized yields
+estimated through CWMA (cwy3) on the last 12 (<sub>12</sub>) time steps. The
+initial agent's endowment is 10 (w=10) of which 30% is invested in the
+risky security (x=.3) and the remaining in the riskless one.
+</p>
+
+<p>
+A small modification
+</p>
+<pre class="example">
+f=ret1+cwy3_12,x=.3,w=10,eps=.01
+</pre>
+<p>
+leads to a definition of analogous agent, but now, at each time step,
+a random component is drawn from an uniform distribution on
+[-.005,.005] and added to the agents' investment function.
+</p>
+
+<p>
+The line
+</p>
+<pre class="example">
+f=ret1+cwy3_12,x=.3,w=10,eps=.01,u=0.99,l=0.01
+</pre>
+<p>
+describes the same agent, whose investment choice is truncated in
+order to be in interval [0.01,0.99]. (This guarantees the boundedness
+of the dynamics!)
+</p>
+
+<p>
+A group of similar agent can be defined prepending to the agent
+definition an integer number, which denotes the number of agents in
+the group, followed by a column ':'. For instance
+</p>
+<pre class="example">
+50:f=ret1+cwy3_12,x=.3,w=10,eps=.01,u=0.99,l=0.01
+</pre>
+<p>
+stands for a group of fifty agents similar to the agent discussed
+above. Notice that due to the i.i.d. nature of the random component of
+the investment function, the investment decisions of the different
+agents of the group usually will not be identical.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge139346" class="outline-3">
+<h3 id="orge139346">Options</h3>
+<div class="outline-text-3" id="text-orge139346">
+<p>
+The following options are in use. The default values are shown in
+[]. Notice that the outcome is controlled by the option -O:
+</p>
+
+<dl class="org-dl">
+<dt>t</dt><dd>simulation length (default 10)</dd>
+<dt>T</dt><dd>transient length (default 0)</dd>
+<dt>s</dt><dd>skip this number of steps in output (default 1)</dd>
+<dt>S</dt><dd>set the seed of the random number generator  (defult 0)</dd>
+<dt>r</dt><dd>riskless return (default 0.01)</dd>
+<dt>D</dt><dd>dividend structure. Define parameters values using pairs
+'name=values'. Names are 'type', 'mean' and 'stdev'.
+[type=0,mean=.02,stdev=0]. Possible types are: 
+<dl class="org-dl">
+<dt>0</dt><dd>constant yield</dd>
+<dt>1</dt><dd>log-normal i.i.d. yield</dd>
+<dt>2</dt><dd>uniform i.i.d. yield</dd>
+<dt>3</dt><dd>geometrically growing dividend with initial value 0.001
+and log-normal growth rate with given mean and stdev</dd>
+</dl></dd>
+<dt>R</dt><dd>initial return structure. Define parameters values using pairs
+'name=values'. Names are 'mean' and 'stdev'. ( default
+mean=.02, stdev=0)</dd>
+<dt>Y</dt><dd>initial yield structure. Define parameters values using pairs
+'name=values'. Names are 'mean' and 'stdev'. ( default
+mean=.02, stdev=0)</dd>
+<dt>O</dt><dd>set the output, list of t:step, r:return, p:price, w:wealth,
+x:avg.inv.share, y:yield, d:dividend, A:risky asset, B:riskless
+asset, X:inv.shares, W:wealth shares, (default 'rx')</dd>
+<dt>v</dt><dd>verbose output</dd>
+<dt>h</dt><dd>help message</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-org7038606" class="outline-3">
+<h3 id="org7038606">Simulation Initial Values</h3>
+<div class="outline-text-3" id="text-org7038606">
+<p>
+A simulation is completely specified only when the initial conditions
+are defined. For the simulations in NAIF there are three things that
+have to be specified: initial agent's portfolio, initial market
+history and initial values of agent's forecast variables. Below we
+analyze each of these three aspects.
+</p>
+</div>
+
+<div id="outline-container-org5d3988b" class="outline-4">
+<h4 id="org5d3988b">Initial portfolio composition</h4>
+<div class="outline-text-4" id="text-org5d3988b">
+<p>
+Each agent i is given an initial wealth level (w<sub>i</sub>) and an initial
+share of wealth (x<sub>i</sub>) invested in the risky assets. These quantities
+can be explicitly specified using the parameter w and x in the
+configuration file. If not specified, their default values are 1 and
+.5, respectively. From these quantities, the initial portfolio
+composition of each agent is determined as
+</p>
+
+<p>
+\[
+ A_i  = x_i w_i / \sum_j x_j w_j
+\]
+</p>
+
+<p>
+\[
+ B_i = (1-x_i) w_i / \sum_j x_j w_j
+\]
+</p>
+
+<p>
+where \(A_i\) and \(B_i\) stand for the initial amount of risky and
+riskless security, respectively. These values should be positive in
+order the initial market conditions could be defined. Otherwise, the
+message "Agents specification does not allow to define initial price."
+is printed.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org0118ef8" class="outline-4">
+<h4 id="org0118ef8">Initial market history</h4>
+<div class="outline-text-4" id="text-org0118ef8">
+<p>
+The initial price (for time t=0) of the risky security, according to
+the initialization of the agents' portfolio defined above, is set
+to 1.
+</p>
+
+<p>
+The generation of the first dividend (for time t=1) depends on the
+market process specified in the command line. If the process is
+described by means of the yield, then yield "yld1" is accordingly
+generated and first dividend coincides with "yld1" since p<sub>0</sub>=1. If the
+process is described by means of the dividend (i.e. if the dividend is
+assumed to be growing), initial value of the dividend is set to .001.
+</p>
+
+<p>
+The first price (for time t=1) is determined using the agents'
+investment functions, already.
+</p>
+
+<p>
+Moreover, an initial "fake" histories of both price returns and
+dividend yields are generated. The lengths of these histories are set
+to a value large enough to provide an initial value for each estimator
+(see below). The returns and yields are identically and independently
+extracted from an uniform distribution. The mean and variance of the
+distributions for the return and yield can be specified from the
+command line. Both parameters have a default value of 0.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org65c1017" class="outline-4">
+<h4 id="org65c1017">Initial forecasts</h4>
+<div class="outline-text-4" id="text-org65c1017">
+<p>
+The initial value assigned to agent's forecast variables depends on
+their nature. Past returns variables (<code>ret</code>, <code>yld</code>) and equally
+weighted averages (<code>cwr</code> and <code>cwy</code>) are computed on the initial return
+or yield history, respectively, generated according to the procedure
+described above. Conversely, to the EWMA estimators (<code>ewr</code> and <code>ewy</code>),
+which are (in principle) functions of an infinite set of returns, a
+value is assigned which is equal to the last return raised to the
+order of the estimator. For example, if \(r_0\) is the last return of
+the initial history of returns, <code>ewr1</code> is set to \(r_0\), <code>ewr2</code> is set
+to \(r_0^2\), ewr3 to \(r_0^3\), etc. Notice that the memory parameter
+"lambda" doesn't play any role in the initial value of the estimator.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org555dc1f" class="outline-2">
+<h2 id="org555dc1f">Installation</h2>
+<div class="outline-text-2" id="text-org555dc1f">
+<p>
+Download the latest source code from the <a href="ftp://cafed.sssup.it/packages/">cafed</a> repository. The
+installation should be straightforward. Unpack the package
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">tar -xzvf naif.tar.gz
+</pre>
+</div>
+<p>
+move inside the source directory, run the configure script and build
+the files
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #483d8b;">cd</span> naif 
+./configure
+make
+</pre>
+</div>
+<p>
+finally become root and install them
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">su
+make install
+</pre>
+</div>
+<p>
+for more detailed instructions see the file "INSTALL".
+</p>
+</div>
+
+<div id="outline-container-orge9ea678" class="outline-3">
+<h3 id="orge9ea678">Required Libraries</h3>
+<div class="outline-text-3" id="text-orge9ea678">
+<p>
+NAIF is written in C. It requires both the <a href="http://savannah.gnu.org">matheval library</a> and the
+<a href="http://www.gnu.org/software/gsl/">GNU Scientific Library</a>. Both libraries should be available through the
+package management software of any Linux distribution. Remember to
+install the <b>development</b> version of the libraries before trying to
+compile <code>NAIF</code>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge2dc352" class="outline-3">
+<h3 id="orge2dc352">Disclaimer</h3>
+<div class="outline-text-3" id="text-orge2dc352">
+<p>
+Please notice that the program has been written for personal use, and
+is distributed under the GPL license (see the file ``COPYING``) in the
+hope it could be of help to other people, but without any implied
+warranty.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc44df18" class="outline-2">
+<h2 id="orgc44df18">Contributors</h2>
+<div class="outline-text-2" id="text-orgc44df18">
+<p>
+<a href="http://www.finance.uts.edu.au/staff/mikhaila">M. Anufriev</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org64176be" class="outline-2">
+<h2 id="org64176be">References</h2>
+<div class="outline-text-2" id="text-org64176be">
+<p>
+M. Anufriev and G. Bottazzi, <i>Market Equilibria under Procedural
+Rationality</i>, Journal of Mathematical Economics, 46 (6),
+pp. 1140–1172, 2010
+</p>
+
+<p>
+M Anufriev and P Dindo <i>Wealth-driven selection in a financial market
+with heterogeneous agents</i>, Journal of Economic Behavior &amp;
+Organization 73 (3), 327-358, 2010.
+</p>
+
+<p>
+M Anufriev <i>Wealth-driven competition in a speculative financial
+market: examples with maximizing agents</i> Quantitative Finance 8 (4),
+363-380, 2008.
+</p>
+
+<p>
+M.Anufriev, G.Bottazzi and F.Pancotto
+<i>Equilibria, Stability and Asymptotic Dominance in a Speculative
+Market</i> <i>with Heterogeneous Agents</i> Journal of Economic Dynamics and
+Control, 30, pp. 1787-1835, 2006
+</p>
+
+<p>
+M. Anufriev and G. Bottazzi <i>Noisy Trading in the Large Market
+Limit</i> Lecture Notes in Economics and Mathematical Systems, Issue
+564, Springer-Verlag, Berlin, 2006
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

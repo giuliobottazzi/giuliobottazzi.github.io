@@ -1,0 +1,1445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NAIF - Examples</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="index.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">NAIF - Examples</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org16af24a">Example 1. Single trend-following agent</a></li>
+<li><a href="#org8eae98c">Example 2. Two fundamentalists generate multiple equilibria</a>
+<ul>
+<li><a href="#orgc7193c1">Non-equity-premium equilibrium</a></li>
+<li><a href="#org7f5c62a">Equilibrium with one survivor</a></li>
+</ul>
+</li>
+<li><a href="#org93fa106">Example 3. Constant yield vs. growing dividend</a></li>
+<li><a href="#org36081ff">Example 4. Mean-variance optimizer with truncated investment function</a>
+<ul>
+<li><a href="#org12e3be8">Long memory</a></li>
+<li><a href="#org067d4df">Short memory</a></li>
+<li><a href="#org1757c28">Moderate memory</a></li>
+<li><a href="#org921a376">Co-existence of different attractors</a></li>
+<li><a href="#org092f862">Role of noise</a></li>
+</ul>
+</li>
+<li><a href="#orgd5eec8c">Example 5. Two mean-variance optimizers with truncated investment functions</a></li>
+<li><a href="#org055700f">Example 6. Dynamics close to instability</a>
+<ul>
+<li><a href="#orgc752b1b">Losing stability through the Neimark-Sacker bifurcation with increasing investment function</a></li>
+<li><a href="#orge6c3e44">Losing stability through the Neimark-Sacker bifurcation with decreasing investment function</a></li>
+<li><a href="#org5f0b9f9">Losing stability through the flip bifurcation with decreasing investment function</a></li>
+</ul>
+</li>
+<li><a href="#org0bffe93">Example 8. Non-trivial Transitions between Different Equilibria</a></li>
+<li><a href="#org075a0ac">Generating many similar agents</a></li>
+</ul>
+</div>
+</div>
+<p>
+Find below several examples of simulations performed with <code>naif</code>. THe
+configuration files used in the example are distributed with the
+software but you can create the files yourself with any text editor.
+</p>
+
+<div id="outline-container-org16af24a" class="outline-2">
+<h2 id="org16af24a">Example 1. Single trend-following agent</h2>
+<div class="outline-text-2" id="text-org16af24a">
+<p>
+We start with a simple example with a single trader. Create the file
+<code>test01.cfg</code> with the following line
+</p>
+<pre class="example">
+x=.5,w=1,f=.5+.1*ret1
+</pre>
+<p>
+This line defines a "trend-follower" type of agent. Its initial wealth
+is equal to one (<code>w=1</code>). Initially it invests \(1/2\) of its wealth in the
+risky security (<code>x=.5</code>). In the following time steps, the investment is
+proportional to the last realized return (<code>f=.5+.1*ret1</code>): if the price
+of the asset remains fixed, that is the return is zero (ret1=0), it
+invests half of his wealth in the risky security. If the return is
+positive this share increases, if the return is negative the share
+decreases. Now consider the following command
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O r -t 40 -D <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test01.cfg
+</pre>
+</div>
+<p>
+It will print the returns history (<code>-O r</code>) for 40 time steps (<code>-t 40</code>)
+of a market populated by the agent above where the risky asset has
+constant yield equal to $.02$ (<code>-D mean=.02</code>) and the risk-free return
+is equal to $.01$ (<code>-r .01</code>). Using instead the command
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O r -t 40 -D <span style="color: #a0522d;">type</span>=1,<span style="color: #a0522d;">mean</span>=.02,<span style="color: #a0522d;">stdev</span>=.02 -r .01 &lt; test01.cfg
+</pre>
+</div>
+<p>
+one obtains the return history when a noise component is introduced in
+the risky yield (<code>stdev=.02</code>). The time series of both price returns
+are reported below
+</p>
+
+
+<div id="org38397ea" class="figure">
+<p><img src="./plot01_1.png" alt="plot01_1.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Price return history for single trend-following agent</p>
+</div>
+
+<p>
+It is interesting to see what happens in the EMC (Equilibrium Market
+Curve) plane defined by the price return and the agent's investment
+share. To draw the trajectory in this plane one can use the command
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O rx -t 40 -R <span style="color: #a0522d;">mean</span>=1 -D <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test01.cfg
+</pre>
+</div>
+<p>
+that prints price return and investment share on separate columns (<code>-O
+rx</code>). In this case we additionally specify the initial return (<code>-R
+mean=1</code>) to visualize fluctuations better.
+</p>
+
+
+<div id="org461b459" class="figure">
+<p><img src="./plot01_2.png" alt="plot01_2.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Trajectory in the EMC plane for single trend-following agent</p>
+</div>
+
+<p>
+The plot was obtained using <code>gnuplot</code> with the following code
+</p>
+<pre class="example">
+rf=.01
+y=.02
+
+set grid
+set xlabel "Price Return"
+set ylabel "Investment Share"
+
+plot [-.5:.4][0.2:.8]\
+    .5+.1*x w l lt 2 lw 3 title "investment function",\
+    (x-rf)/(x+y-rf) w l lt 1 lw 5 title "EMC",\
+    "&lt; ./naif -O rx -t 40 -R mean=1 -D mean=.02 -r .01 &lt; test01.cfg" w lp lt 4 pt 6 ps 1 notitle
+</pre>
+<p>
+It displays agent's investment function and the EMC. The latter
+depends on the risk-free interest rate and yield. As expected, the
+system converges to a stable fixed point, which is the intersection of
+the investment function of the agent and the EMC.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8eae98c" class="outline-2">
+<h2 id="org8eae98c">Example 2. Two fundamentalists generate multiple equilibria</h2>
+<div class="outline-text-2" id="text-org8eae98c">
+<p>
+Consider now the case of two agents that invest a fixed amount of
+wealth in the risky-security, \(0.5\) and \(-0.5\) respectively. In this
+case the market has two stable equilibria. In one equilibrium only the
+first agent survives while in the second both do. Which equilibrium is
+selected depends on the initial conditions. Create the file
+<code>test02_1.cfg</code> with the following lines
+</p>
+<pre class="example">
+x=.5,w=1,f=0.5
+x=.8,w=.7,f=-0.5
+</pre>
+<p>
+and the file <code>test02_2.cfg</code> defined as follows
+</p>
+<pre class="example">
+x=.5,w=1,f=0.5
+x=.8,w=.1,f=-0.5
+</pre>
+<p>
+In the second file, the second agent has a higher relative initial
+wealth share. Consider an average yield of $.02$ and a risk-free
+return of $.01$ and generate the return trajectory over 200 time steps
+of the two cases using
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O r -t 200 -R <span style="color: #a0522d;">mean</span>=1 -D <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test02_1.cfg
+naif -O r -t 200 -R <span style="color: #a0522d;">mean</span>=1 -D <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test02_2.cfg
+</pre>
+</div>
+<p>
+The sequences of returns are reported below.
+</p>
+
+
+<div id="org7257a52" class="figure">
+<p><img src="./plot02_1.png" alt="plot02_1.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Two possible attractors with two fundamentalist agents</p>
+</div>
+
+<p>
+In the first case both agents survive and the trajectory converges to
+the no-equity-premium equilibrium with price return equal to \(r=-y +
+r_f\), where \(y\) is the average yield and \(r_f\) is the risk-free
+return. With the considered values it is \(r=-0.01\). In the second case
+only the first agent survives and price return is determined through
+the EMC. In addition, in the same plot we show noisy versions of both
+trajectories generated with
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O r -t 200 -R <span style="color: #a0522d;">mean</span>=1 -D <span style="color: #a0522d;">type</span>=1,<span style="color: #a0522d;">mean</span>=.02,<span style="color: #a0522d;">stdev</span>=0.01 -r .01 &lt; test02_1.cfg
+naif -O r -t 200 -R <span style="color: #a0522d;">mean</span>=1 -D <span style="color: #a0522d;">type</span>=1,<span style="color: #a0522d;">mean</span>=.02,<span style="color: #a0522d;">stdev</span>=0.01 -r .01 &lt; test02_2.cfg
+</pre>
+</div>
+<p>
+The noisy trajectories represent mirror images of each other with
+respect to the line `r<sub>f</sub> = .01`. The reason is that in the case of the
+constant investment functions, the noise of the return is completely
+generated by the noise on the yield, and proportional to the term
+\(\sum_i w_i x^2_i / \sum_i w_i x_i (1-x_i)>\) where \(w_i\) and \(x_i\) are
+the wealth and the risky investment share of agent \(i\). This term is
+equal to -1 in the first equilibrium and +1 in the second.
+</p>
+
+<p>
+The case of multiple equilibria can be illustrated in the phase
+diagram with the EMC. On the vertical axes we will print the average
+investment share weighted by the agents' relative wealth. In the
+first, no-equity-premium equilibrium, the average share converges to
+zero, while in the second equilibrium the average share converges to
+the individual share of the first, surviving agent.
+</p>
+
+
+<div id="org421fca8" class="figure">
+<p><img src="./plot02_2.png" alt="plot02_2.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 4: </span>The EMC plane with two possible histories in a market with two fundamentalist agents</p>
+</div>
+
+<p>
+It is important to keep in mind that the model gives stationary
+trajectories in terms of returns. The resulting dynamics in term of
+price can be easily understood. In <code>naif</code> one can print the time
+evolution of different variables through the option -O. Let us analyze
+separatly how the different variables evolve in the two cases of a
+<a href="#orgc7193c1">Non-equity-premium equilibrium</a> and <a href="#org7f5c62a">Equilibrium with one survivor</a>.
+</p>
+</div>
+
+<div id="outline-container-orgc7193c1" class="outline-3">
+<h3 id="orgc7193c1">Non-equity-premium equilibrium</h3>
+<div class="outline-text-3" id="text-orgc7193c1">
+<p>
+The evolution of price and wealth can be obtained using the options <code>-O p</code> and <code>-O w</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O p -t 100 -R <span style="color: #a0522d;">mean</span>=1 -D <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test02_1.cfg
+naif -O w -t 100 -R <span style="color: #a0522d;">mean</span>=1 -D <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test02_1.cfg
+</pre>
+</div>
+<p>
+The result is plotted below.
+</p>
+
+
+
+<div id="org332c041" class="figure">
+<p><img src="./plot02_3.png" alt="plot02_3.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 5: </span>The evolution of price and total wealth during the transition to the no-equity-premium equilibrium.</p>
+</div>
+
+<p>
+In the no-equity-premium the price converges to 0 due to the negative
+return, but the total wealth is growing with the risk-free rate.
+</p>
+
+<p>
+The evolution of the individual wealth of the two agents can be traced
+using the option <code>-Q W</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O W -t 100 -R <span style="color: #a0522d;">mean</span>=1 -D <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test02_1.cfg
+</pre>
+</div>
+<p>
+Different columns contain the wealth of different agents. In this case
+the individual wealth evolve as follows
+</p>
+
+
+<div id="org3353e28" class="figure">
+<p><img src="./plot02_4.png" alt="plot02_4.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 6: </span>The evolution of investment shares during the transition to the no-equity premium equilibrium.</p>
+</div>
+
+<p>
+Initially the first agent has a larger wealth, but in equilibrium
+their wealth should be distributed in a way to guarantee zero average
+investment in the risky asset. Since their investment shares are 0.5
+and -0.5, they must have the same wealth shares. During the
+transition, in relative terms the first agent loses money by investing
+half of his wealth into unprofitable risky asset. Instead, the second
+agent gains the wealth, keeping negative (short) position in the risky
+asset.
+</p>
+
+<p>
+The evolution of the amount of risky stock the two agents own can be
+traced using the option <code>-O A</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O A -t 100 -R <span style="color: #a0522d;">mean</span>=1 -D <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test02_1.cfg
+</pre>
+</div>
+<p>
+Different columns contain the amount os shares of different agents. In
+this case the amount of owned stock evolve as follows
+</p>
+
+
+<div id="org5dcdaab" class="figure">
+<p><img src="./plot02_5.png" alt="plot02_5.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 7: </span>The evolution of the number of shares of the risky asset during the transition to the no-equity-premium equilibrium.</p>
+</div>
+
+<p>
+Since the total wealth of every agent is increasing, both of them
+change the absolute level of investment into the risky asset. The
+first agent borrows more and more shares from the second. The total
+sum of the possessions is always equal to 1, which is the (normalized)
+number of the risky asset's shares available in the market.
+</p>
+
+<p>
+Analogously, the evolution of the amount of cash owned by the two
+agents can be traced using the option <code>-O B</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O B -t 100 -R <span style="color: #a0522d;">mean</span>=1 -D <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test02_1.cfg
+</pre>
+</div>
+<p>
+It is reported in the following plot.
+</p>
+
+
+<div id="org3cab226" class="figure">
+<p><img src="./plot02_6.png" alt="plot02_6.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 8: </span>The evolution of the amount of cash during the transition to the no-equity premium equilibrium.</p>
+</div>
+
+<p>
+Generally, the amount of the riskless asset is growing when agents get
+the risk-free interest and the dividend per share of the riskless
+asset. In this case, the second agent has to pay the dividends to the
+first one, but with larger flow from the risk-free investment she is
+actually getting more money.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7f5c62a" class="outline-3">
+<h3 id="org7f5c62a">Equilibrium with one survivor</h3>
+<div class="outline-text-3" id="text-org7f5c62a">
+<p>
+Uisng exatly the same commands of the previous section, just changing
+<code>test02_1.cfg</code> with <code>test02_2.cfg</code>, we can analyze what happens to the
+system when it converges to the second equilibrium.
+</p>
+
+
+<div id="orgd9d7e40" class="figure">
+<p><img src="./plot02_7.png" alt="plot02_7.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 9: </span>The evolution of price and total wealth during the transition to the equilibrium where first agent is the only survivor.</p>
+</div>
+
+<p>
+In this equilibrium the return is positive, so that the price is
+growing. Total wealth is growing at the same rate.
+</p>
+
+
+<div id="orgb17c418" class="figure">
+<p><img src="./plot02_8.png" alt="plot02_8.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 10: </span>The evolution of investment shares during the transition to the equilibrium where first agent is the only survivor.</p>
+</div>
+
+<p>
+The first agent initially has larger wealth share and is able to get
+all the wealth asymptotically.
+</p>
+
+
+<div id="org5d7feb8" class="figure">
+<p><img src="./plot02_9.png" alt="plot02_9.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 11: </span>The evolution of the amount of the number of shares of the risky asset during the transition to the equilibrium where first agent is the only survivor.</p>
+</div>
+
+<p>
+The second agent is always short in the risky asset, but doing that it
+loses wealth, and can afford lending less and less shares of the risky
+asset.
+</p>
+
+
+<div id="org77aac46" class="figure">
+<p><img src="./plot02_10.png" alt="plot02_10.png" width="600px" />        
+</p>
+<p><span class="figure-number">Figure 12: </span>The evolution of the amount of cash during the transition to the equilibrium where first agent is the only survivor.</p>
+</div>
+
+<p>
+The second agent eventually loses all its money.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org93fa106" class="outline-2">
+<h2 id="org93fa106">Example 3. Constant yield vs. growing dividend</h2>
+<div class="outline-text-2" id="text-org93fa106">
+<p>
+In the first example, the trend-follower reacted only to variations in
+price return. Now we consider an agent who follows the trend of the
+TOTAL return, i.e. both of price return and dividend yield. In
+addition, we assume that the agent reacts positively to increases of
+the last realized dividend yield. Such an agent is defined in
+<code>test03.cfg</code> as follows
+</p>
+<pre class="example">
+x=.1,w=1,f=.5+.1*(ret1+yld1)+yld0
+</pre>
+<p>
+The following two commands print the first \(50\) returns both with and
+without noise in yield. Notice that apart from the price return, two
+initial yields are necessary to initialize the simulation. They are
+provided by the option <code>-Y mean=.02</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O r -t 50 -D <span style="color: #a0522d;">type</span>=1,<span style="color: #a0522d;">mean</span>=.02,<span style="color: #a0522d;">stdev</span>=0     -Y <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test03.cfg
+naif -O r -t 50 -D <span style="color: #a0522d;">type</span>=1,<span style="color: #a0522d;">mean</span>=.02,<span style="color: #a0522d;">stdev</span>=0.001 -Y <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test03.cfg
+</pre>
+</div>
+<p>
+The time series of the dividend yield in the same market can be
+obtained using the following two commands
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O y -t 50 -D <span style="color: #a0522d;">type</span>=1,<span style="color: #a0522d;">mean</span>=.02,<span style="color: #a0522d;">stdev</span>=0     -Y <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test03.cfg
+naif -O y -t 50 -D <span style="color: #a0522d;">type</span>=1,<span style="color: #a0522d;">mean</span>=.02,<span style="color: #a0522d;">stdev</span>=0.001 -Y <span style="color: #a0522d;">mean</span>=.02 -r .01 &lt; test03.cfg
+</pre>
+</div>
+<p>
+The generated trajectories are reported below
+</p>
+
+
+<div id="orgb9faaca" class="figure">
+<p><img src="./plot03_1.png" alt="plot03_1.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 13: </span>Price return and dividend yield history for single trend-following agent. The yield is stationary in the market.</p>
+</div>
+
+<p>
+Notice that the picture is not qualitatively different from our first
+example. This is expected, as the assumption of constant mean for the
+dividend yields leads to (almost) the same investment strategy in
+equilibrium. However, since the investment function has changed, the
+level of equilibrium return will be different.
+</p>
+
+<p>
+Next modify the example and consider the same agent operating in the
+market where dividends are growing with a constant rate. The new time
+series can be generated replacing <code>-D type=1,mean=.02,stdev=0</code> with
+the option <code>-D type=3,mean=.02,stdev=0</code>. Th resulting trajectories are
+reported below
+</p>
+
+
+<div id="orgd5fd062" class="figure">
+<p><img src="./plot03_2.png" alt="plot03_2.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 14: </span>Price return and dividend yield history for single trend-following agent. The dividend follows the geometric random walk</p>
+</div>
+
+<p>
+For this dividend structure it is known that when average growth rate
+of the dividend is larger than the risk-free interest rate, in the
+equilibrium the price return is equal to the average growth rate of
+the dividend. Instead, the yield is defined through the plot with the
+corresponding EMC.
+</p>
+
+
+<div id="org3cbc8d7" class="figure">
+<p><img src="./plot03_3.png" alt="plot03_3.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 15: </span>Determination of the equilibrium dividend yield by means of the EMC.</p>
+</div>
+
+<p>
+In this case the convergence is monotonic, so that the points in the
+phase space move very close to the investment function. The whole
+gnuplot code is given by::
+</p>
+<pre class="example">
+g=.02
+rf=.01
+
+plot [0.005:0.015]\
+    0.5+0.1*(g+x)+x        w l lt 2 lw 3 title "investment function",\
+    (g-rf)/(x+g-rf)        w l lt 1 lw 5 title "EMC",\
+    "&lt; ./naif -O yx -t 300 -D type=3,mean=.02,stdev=0 -Y mean=.02 -r .01 &lt; test03.cfg" w lp lt 4 pt 6 lw 1 title "yield, no noise, first 300 steps",\
+    "&lt; ./naif -O yx -T 600 -t 50 -D type=3,mean=.02,stdev=0 -Y mean=.02 -r .01 &lt; test03.cfg" w lp lt 4 pt 6 ps 2 lw 1 title "yield, no noise, after 600 steps"
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org36081ff" class="outline-2">
+<h2 id="org36081ff">Example 4. Mean-variance optimizer with truncated investment function</h2>
+<div class="outline-text-2" id="text-org36081ff">
+<p>
+So far we have considered agents that can have any investment share,
+positive or negative. Now we consider the situation, typical for the
+so-called Levy-Levy-Solomon (LLS) microscopic simulation model, in
+which agents predict the next total return as average of \(L\) past
+returns and, furthermore, are not allowed to have short positions. The
+last requirement confines the investment functions between, say,
+\(0.01\) and \(0.99\). For example, an agent with memory span \(L=5\), that
+is considering the last 5 returns to compute expectations, is defined
+in <code>test04_1.cfg</code> as follows
+</p>
+<pre class="example">
+x=.1,w=1,f=.5*(cwr1_5+cwy1_5),l=0.01,u=0.99
+</pre>
+<p>
+One can compare the price series generated in the market by such an
+agent, with the ones generated by similar agents having memory spans
+\(L=10\) and \(L=15\). They are defined in <code>test04_2.cfg</code> and
+<code>test04_3.cfg</code>, respectively, using
+</p>
+<pre class="example">
+x=.1,w=1,f=.5*(cwr1_10+cwy1_10),l=0.01,u=0.99
+</pre>
+<p>
+and
+</p>
+<pre class="example">
+x=.1,w=1,f=.5*(cwr1_15+cwy1_15),l=0.01,u=0.99
+</pre>
+<p>
+The commands
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0 -Y <span style="color: #a0522d;">mean</span>=.02 -T 0 -t 400 -r 0 &lt; test04_1.cfg 
+naif -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0 -Y <span style="color: #a0522d;">mean</span>=.02 -T 0 -t 400 -r 0 &lt; test04_2.cfg 
+naif -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0 -Y <span style="color: #a0522d;">mean</span>=.02 -T 0 -t 400 -r 0 &lt; test04_3.cfg 
+</pre>
+</div>
+<p>
+generate the following price trajectories for the three agents
+</p>
+
+
+<div id="orgad0e55e" class="figure">
+<p><img src="./plot04_1.png" alt="plot04_1.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 16: </span>Price dynamics for single agent with truncated investment function in the market with geometrically growing dividend</p>
+</div>
+
+<p>
+To explain this dynamics, notice that the risk free interest rate was
+set to \(0\), which is less than the averare growth rate of the dividend
+(\(0.04\)). Therefore the price return in the unique stable equilibrium
+must be equal to \(0.04\), while the dividend yield is defined through
+the EMC. Apparently, only for the agent with long memory \(L=15\), this
+equilibrium is stable.
+</p>
+</div>
+
+<div id="outline-container-org12e3be8" class="outline-3">
+<h3 id="org12e3be8">Long memory</h3>
+<div class="outline-text-3" id="text-org12e3be8">
+<p>
+Let us then, first, analyze the case \(L=15\). On the phase space of the
+EMC the dynamics looks as in the next diagram, generated with code
+</p>
+<pre class="example">
+set xlabel "Dividend Yield"
+set ylabel "Investment Share"
+g=0.04
+rf=0
+
+plot [:][0:0.4]\
+      (g-rf)/(x+g-rf)        w l lt 1 lw 5 title "  EMC",\
+      0.5*(g+x)              w l lt 2 lw 3 title "  investment function",\
+      "&lt; ./naif -O yx -T 150 -t 30 -D type=3,mean=.04,stdev=0 -r 0 &lt; test04_3.cfg" w lp lt 4 pt 6 ps 1 lw 1 title "  30 steps after 150 transitory",\
+      "&lt; ./naif -O yx -T 180 -t 30 -D type=3,mean=.04,stdev=0 -r 0 &lt; test04_3.cfg" w lp lt 4 pt 6 ps 2 lw 1 title "  next 30 steps"
+</pre>
+
+
+<div id="org2e25848" class="figure">
+<p><img src="./plot04_2.png" alt="plot04_2.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 17: </span>The EMC illsutrating the situation with one agent from the LLS model.</p>
+</div>
+
+<p>
+The convergence to the stable fixed point can be also seen on the time
+series
+</p>
+
+
+<div id="orgb3537dc" class="figure">
+<p><img src="./plot04_3.png" alt="plot04_3.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 18: </span>Price, return, dividend yield and investment share for the LLS agent with long memory. First 200 periods are shown.</p>
+</div>
+
+<p>
+The last plot is generated using the <code>multiplot</code> command in <code>gnuplot</code>
+as follows
+</p>
+<pre class="example">
+reset
+set key horizontal left top
+set grid y
+
+set size 1,1
+
+set multiplot
+
+set size 1,0.25
+set origin 0.0,0.0
+
+set bmargin 2
+set tmargin 0.5
+set lmargin 5
+set rmargin 2
+
+set ylabel "Price"
+set logscale y
+plot [:]\
+    "&lt; ./naif -O p -T 100 -t 200 -D type=3,mean=.04,stdev=0 -Y mean=.02 -r 0 &lt; test04_3.cfg" w l lt 1 lw 2 notitle 
+unset logscale y
+
+set bmargin 0.5
+set format x ""
+set xlabel ""
+set origin 0.0,0.25
+set ylabel "Return" offset -1
+plot [:]\
+    "&lt; ./naif -O r -T 100 -t 200 -D type=3,mean=.04,stdev=0 -Y mean=.02 -r 0 &lt; test04_3.cfg" w l lt 2 lw 2 notitle
+
+set origin 0.0,0.5
+set ylabel "Yield" offset -1
+plot [:]\
+    "&lt; ./naif -O y -T 100 -t 200 -D type=3,mean=.04,stdev=0 -Y mean=.02 -r 0 &lt; test04_3.cfg" w l lt 3 lw 2 notitle
+
+set origin 0.0,0.75
+set ylabel "Share" offset 1
+plot [:]\
+    "&lt; ./naif -O x -T 100 -t 200 -D type=3,mean=.04,stdev=0 -Y mean=.02 -r 0 &lt; test04_3.cfg" w l lt 4 lw 2 notitle
+
+unset multiplot
+</pre>
+<p>
+Let us have a closer look on the typical quasi-cyclical phase of the
+transitory pattern. Take a zoomed version of the previous plot between
+time steps 20 and 46.
+</p>
+
+
+<div id="org744aa28" class="figure">
+<p><img src="./plot04_4.png" alt="plot04_4.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 19: </span>Price, return, dividend yield and investment share for the LLS agent with long memory. 26 periods after 64 transitory steps.</p>
+</div>
+
+<p>
+In the beginning the agent invests only \(25\%\) of his wealth to the
+risky asset. This is a relatively low quantity, so that the price
+return is low. Furthermore, the return is negative, so that the price
+falls down. The falling price contributes to the growing yield, but
+this positive contribution to the agent's wealth is not enough to
+overcome the losses due to the price fall. The total return decreases
+and the investment function dictates to the agent to invest even less.
+</p>
+
+<p>
+But the investment share is bounded from below. When the minimum level
+\(0.01\) is reached (at period 5 on the graph), the price is on its
+lowest but the dividend is still growing. Therefore, the dividend
+yield will be extremely high next period. High yield has two important
+effects. First, it contributes to the agents' wealth and, through the
+demand effect, brings return back to the positive level. Second, it
+also changes the agent's investment behavior. Due to these effect, now
+the boom period starts. The investment share and prices are growing,
+the return is positive, but the dividend yield falls
+down. Nevertheless, the economy time series looks stationary and it
+seems that nothing can stop the boom. But over another 15 periods the
+agent suddenly becomes less optimistic in his investments. Why does it
+happen? Because the agent forgot the periods 4-8, which were
+characterized by very high yield and return. The investment share
+starts to fall and the cycle repeats it again.
+</p>
+
+<p>
+As we have seen, in this example, the dynamics come to the rest point.
+High memory span implies that the rare periods of high return changes
+get small weight in the agents' memory. This effect, together with
+relatively flatness of the investment function, explains the stability
+of dynamics.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org067d4df" class="outline-3">
+<h3 id="org067d4df">Short memory</h3>
+<div class="outline-text-3" id="text-org067d4df">
+<p>
+Consider now the case with short memory span, \(L=5\). The dynamics is
+unstable in this case, and the typical cycle looks as follows.
+</p>
+
+
+<div id="orgc525cd5" class="figure">
+<p><img src="./plot04_5.png" alt="plot04_5.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 20: </span>Price, return, dividend yield and investment share for the LLS agent with short memory. 26 periods after 50 transitory steps</p>
+</div>
+
+<p>
+The qualitative story is similar to the one previously told. Periods
+1-6 are related to the boom. The investment share is on its highest
+level, therefore the price is high, therefore the dividend yield is
+low. At some point the boom comes to the end. We can see, that as in
+the previous example, the reason is that some high values of return
+and yield were forgotten by the agent.
+</p>
+
+<p>
+In contrast with the previous example, the change is drammatic now:
+the agent immediately switches to the lowest possible investment
+share. The price falls down and the next period yield increases. This
+increase in the dividend yield pushes us the investment share and,
+afterwards, the prices. After two periods the agent again invests the
+maximum, the return jumps up and then immediately falls down,
+reacting, respectively, on the high increase of the investment share
+and the stabilization of it on the \(0.99\) level.
+</p>
+
+<p>
+Now the time of relative stability starts. The agent, however, still
+remembers a period of high total return (when the yield was high), two
+other periods of huge return (the yield was low already, but prices
+grew very fast), and also one period of huge crash. One after another,
+these periods leave the agent's memory, and when only the last period
+remains, the investment share falls down. The story repeats again.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1757c28" class="outline-3">
+<h3 id="org1757c28">Moderate memory</h3>
+<div class="outline-text-3" id="text-org1757c28">
+<p>
+The moderate memory case, \(L=10\), is somewhere in between the previous
+two, as we can see below. Sometimes the yield generated by the low
+prices is high enough to trigger very strong (maximum) investment
+behavior, but sometimes it is not and the investment shares grows to
+the moderate level.
+</p>
+
+
+<div id="orgde2d0fc" class="figure">
+<p><img src="./plot04_6.png" alt="plot04_6.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 21: </span>Price, return, dividend yield and investment share for the LLS agent with moderate memory. 61 period after 70 transitory steps</p>
+</div>
+
+<p>
+It is important to keep in mind that all the simulations we showed so
+far were competely deterministic. Some of the qualitative features of
+the system became clear. We can see that the crashes happen
+periodically and that the length of the period is related to the
+memory span of the agent. However, the seemingly unpredictable sizes
+of the booms and crashes on the last plot suggest that the system is
+chaotic or close to being chaotic.
+</p>
+
+<p>
+We also observed some asymmetry in the time series, in the sense that
+the agents typically spend more time in the regime of the large
+investmet shares with low price returns. This is puzzling, since in
+the original contribution of Levy and Levy (1994), for example, one
+did not observe such an asymmetry. Compare also the last simulations
+with the same time series in the first few periods.
+</p>
+
+
+<div id="org3b5367c" class="figure">
+<p><img src="./plot04_7.png" alt="plot04_7.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 22: </span>Price, return, dividend yield and investment share for the LLS agent with moderate memory</p>
+</div>
+
+<p>
+It seems that the symmetric situation (with equally long bear and bull
+market regimes) is typical only for transitory period, during which
+the price did not yet developed its trend. When the price starts to
+grow, its return becomes typically positive which contributes to the
+positive "bias" of the agent in the investment behavior.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org921a376" class="outline-3">
+<h3 id="org921a376">Co-existence of different attractors</h3>
+<div class="outline-text-3" id="text-org921a376">
+<p>
+The simulations so-far suggest that the fixed point is unstable for
+the agent with moderate memory, L=10. This is not the case,
+however. It turns out that the point is actually stable, but it
+co-exists with the stable quasi-cycle which we observed so
+far. Consider the following commands
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0 -Y <span style="color: #a0522d;">mean</span>=0.02 -T 0 -t 400 -r 0 &lt; test04_2.cfg
+naif -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0 -Y <span style="color: #a0522d;">mean</span>=0.12 -T 0 -t 400 -r 0 &lt; test04_2.cfg
+</pre>
+</div>
+<p>
+The only difference is in the initial return time series submitted to
+the program. In the first case, it consists of 10 returns equal to
+0.02, while in the second case it consists of 10 returns equal to
+0.12. The resulting time series are quite different, however.
+</p>
+
+
+<div id="orgd463693" class="figure">
+<p><img src="./plot04_8.png" alt="plot04_8.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 23: </span>The price trajectories for two different initial conditions with memory L=10.</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org092f862" class="outline-3">
+<h3 id="org092f862">Role of noise</h3>
+<div class="outline-text-3" id="text-org092f862">
+<p>
+The previous finding stresses also the role of noise, which can switch
+the system from one attractor to another. Let us simulate the same
+three time series as in the first figure of this Section, but now
+assume that the dividend grows with a random rate. The following
+commands have been used
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif &lt; test04_1.cfg -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0.05 -Y <span style="color: #a0522d;">mean</span>=.02 -T 0 -t 400 -r 0
+naif &lt; test04_2.cfg -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0.05 -Y <span style="color: #a0522d;">mean</span>=.02 -T 0 -t 400 -r 0
+naif &lt; test04_3.cfg -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0.05 -Y <span style="color: #a0522d;">mean</span>=.02 -T 0 -t 400 -r 0
+</pre>
+</div>
+<p>
+and the resulting dynamics are shown below.
+</p>
+
+
+<div id="org320db5c" class="figure">
+<p><img src="./plot04_9.png" alt="plot04_9.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 24: </span>The EMC illsutrating the situation with one agent from the LLS model. Noise with standard deviation 0.05 has been added to the dividend growth rate.</p>
+</div>
+
+<p>
+The time series with moderate memory \(L=10\) is now stable (even if it
+is volatile due to noise added to the dividend growth rate).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd5eec8c" class="outline-2">
+<h2 id="orgd5eec8c">Example 5. Two mean-variance optimizers with truncated investment functions</h2>
+<div class="outline-text-2" id="text-orgd5eec8c">
+<p>
+In our previous example the agent with memory span \(L=15\) generated
+stable dynamics. Let us suppose that another agent enters the
+market. It has the same memory span but smaller risk aversion. The
+situation is described in <code>test05_1.cfg</code> as
+</p>
+<pre class="example">
+x=.1,w=1,f=.5*(cwr1_15+cwy1_15),l=0.01,u=0.99
+x=.1,w=1,f=3*(cwr1_15+cwy1_15),l=0.01,u=0.99
+</pre>
+
+<p>
+The dynamics can be illustrated by means of the EMC plot.
+</p>
+
+
+<div id="org494a21c" class="figure">
+<p><img src="./plot05_1.png" alt="plot05_1.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 25: </span>The EMC illustrating the situation with two agentw from the LLS model</p>
+</div>
+
+<p>
+The lower equilibrium (generated by the 1st agent) is now unstable,
+but the new equilibrium (generated by the 2nd agent) is not necessary
+stable. It suggests that the invasion of the market should be
+successful, i.e. the second agent (with smaller risk aversion) will be
+able to survive in the long run. Whether she will dominate the market
+or not will depend on the stability of her, new equilibrium.
+</p>
+
+<p>
+It turns out that her memory span, \(L_2=15\), is too small to generate
+stable equilibrium. As a comparison, let us consider the following
+configurations in files: in <code>test05_2.cfg</code> we assume \(L=20\)
+</p>
+<pre class="example">
+x=.1,w=1,f=.5*(cwr1_15+cwy1_15),l=0.01,u=0.99
+x=.1,w=1,f=3*(cwr1_20+cwy1_20),l=0.01,u=0.99
+</pre>
+<p>
+in <code>test05_3.cfg</code> we assume \(L=30\)
+</p>
+<pre class="example">
+x=.1,w=1,f=.5*(cwr1_15+cwy1_15),l=0.01,u=0.99
+x=.1,w=1,f=3*(cwr1_30+cwy1_30),l=0.01,u=0.99
+</pre>
+<p>
+and in <code>test05_4.cfg</code> we assume respectively \(L=40\)
+</p>
+<pre class="example">
+x=.1,w=1,f=.5*(cwr1_15+cwy1_15),l=0.01,u=0.99
+x=.1,w=1,f=3*(cwr1_40+cwy1_40),l=0.01,u=0.99
+</pre>
+<p>
+Using the commands
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0.05 -T 0 -t 500 -r 0 &lt; test05_1.cfg 
+naif -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0.05 -T 0 -t 500 -r 0 &lt; test05_2.cfg
+naif -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0.05 -T 0 -t 500 -r 0 &lt; test05_3.cfg 
+naif -O p -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0.05 -T 0 -t 500 -r 0 &lt; test05_4.cfg
+</pre>
+</div>
+<p>
+one obtains the following time series
+</p>
+
+
+<div id="orgaed2400" class="figure">
+<p><img src="./plot05_2.png" alt="plot05_2.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 26: </span>Price in the market with two agents</p>
+</div>
+
+<p>
+When the second agent has the memory span equal to 15 or 20, the
+dynamics is unstable and investment shares switch between maximum and
+minimum levels, leading to large price fluctuations. When her memory
+span is equal to 30, the dynamics (as we confirm below) slowly
+converges to the stable fixed point. When the memory span is \(40\), the
+stable fixed point is reached already after \(200\) time steps.
+</p>
+
+<p>
+To see the evolution of the wealth shares in all the four cases, use
+the commands
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O X -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0.05 -T 0 -t 500 -r 0 &lt; test05_1.cfg 
+naif -O X -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0.05 -T 0 -t 500 -r 0 &lt; test05_2.cfg
+naif -O X -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0.05 -T 0 -t 500 -r 0 &lt; test05_3.cfg
+naif -O X -D <span style="color: #a0522d;">type</span>=3,<span style="color: #a0522d;">mean</span>=0.04,<span style="color: #a0522d;">stdev</span>=0.05 -T 0 -t 500 -r 0 &lt; test05_4.cfg
+</pre>
+</div>
+<p>
+The following plot is obtained from the SECOND column of the
+output. It shows, therefore, the wealth share of the agent with
+smaller risk aversion.
+</p>
+
+
+<div id="orgf40d32c" class="figure">
+<p><img src="./plot05_3.png" alt="plot05_3.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 27: </span>Wealth share of the agent with smaller risk aversion invading the market</p>
+</div>
+
+<p>
+When the equilibrium is unstable, both agents co-exist in the market
+in the long-run. Conversely, for \(L_2=30\) and \(L_2=40\), the second
+agent manages to wipe the first agent out of the market.
+</p>
+
+<p>
+Finally, we show the time series for investment share, dividend yield,
+return and price after 1000 transitory steps for all four
+simulations. The case of \(L_2=30\) and \(L_2=40\) coincide.
+</p>
+
+
+<div id="org033ca4f" class="figure">
+<p><img src="./plot05_4.png" alt="plot05_4.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 28: </span>Return for the case of 2 LLS agents with different risk aversions and different memory spans. 100 periods after 3000 transitory steps.</p>
+</div>
+
+
+<div id="orgaf0cd56" class="figure">
+<p><img src="./plot05_5.png" alt="plot05_5.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 29: </span>Dividend yield for the case of 2 LLS agents with different risk aversions and different memory spans. 100 periods after 3000 transitory steps.</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org055700f" class="outline-2">
+<h2 id="org055700f">Example 6. Dynamics close to instability</h2>
+<div class="outline-text-2" id="text-org055700f">
+<p>
+Numerical simulations of <code>naif</code> program help to understand better the
+nature of bifurcations leading to instability of the system.
+</p>
+</div>
+
+<div id="outline-container-orgc752b1b" class="outline-3">
+<h3 id="orgc752b1b">Losing stability through the Neimark-Sacker bifurcation with increasing investment function</h3>
+<div class="outline-text-3" id="text-orgc752b1b">
+<p>
+The most common way of losing stability is through the Neimark-Sacker
+bifurcation (when two complex multipliers cross the unit circle). In
+<code>test06_1.cfg</code> we define the agent as
+</p>
+<pre class="example">
+x=0.05,w=1,f=0.05+0.0474*ret1
+</pre>
+<p>
+Consider the case of constant yield (equal to \(0.02\)) with riskfree
+interest rate 0. Under these economic conditions, the investment
+function above leads to the equilibrium return 0.001054. This point is
+stable, but it is very close to the stability border. Indeed, the two
+complex conjugated multipliers have modulus \(0.99847\). We also
+consider specification in <code>test06_2.cfg</code>
+</p>
+<pre class="example">
+x=0.05,w=1,f=0.05+0.0475*ret1
+</pre>
+<p>
+which also leads to the stable point with modulus of roots
+\(0.99953\). (The small change of investment function leads also to
+small shift in the fixed point.) Finally, in <code>test06_3.cfg</code> we
+define::
+</p>
+<pre class="example">
+x=0.05,w=1,f=0.05+0.0476*ret1
+</pre>
+<p>
+This investment function leads to unstable equilibrium with modulus of
+multipliers equal to \(1.00058\).
+</p>
+
+<p>
+In order to guarantee that initial point belongs to the basin of
+attractor, we carefully specify initial conditions both in the config
+file (x=0.05) and in the command line (-R mean=0.001) using the
+command
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O r -T 10000 -t 100 -D <span style="color: #a0522d;">mean</span>=.02 -R <span style="color: #a0522d;">mean</span>=0.001 -r 0 &lt; test06_2.cfg
+</pre>
+</div>
+<p>
+The next plot shows how the dynamics in the first two (stable) cases
+look like after a long transitory period.
+</p>
+
+
+<div id="org2b7d154" class="figure">
+<p><img src="./plot06_1.png" alt="plot06_1.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 30: </span>Return dynamics of the stable system close to instability after 10000 transitory period</p>
+</div>
+
+<p>
+In the unstable case the oscillating dynamics is diverging and never
+settles down to the periodic or quasi-periodic attractor:
+</p>
+
+
+<div id="orgcf69500" class="figure">
+<p><img src="./plot06_2.png" alt="plot06_2.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 31: </span>Diverging return dynamics of unstable system.</p>
+</div>
+
+<p>
+It suggests that in this case the NS bifurcation is <b>subcritical</b>
+(i.e. before bifurcation the unstable quasi-periodic solution coexists
+with stable fixed point)
+</p>
+
+<p>
+Similar scenario can be observed in the case when agent has the same
+investment function, but consideres the average of last two
+observations. It leads to the stabilization of the same fixed point
+(for given slope), but for larger slopes the system again undergoes
+subcritical Neimark-Sacker bifurcation. The next two plots use files
+<code>test06_4.cfg</code>
+</p>
+<pre class="example">
+x=0.05,w=1,f=0.05+0.067*cwr1_2
+</pre>
+<p>
+and <code>test06_5.cfg</code>
+</p>
+<pre class="example">
+x=0.05,w=1,f=0.05+0.0675*cwr1_2
+</pre>
+
+
+<div id="orgc6def89" class="figure">
+<p><img src="./plot06_3.png" alt="plot06_3.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 32: </span>Return dynamics of the stable system close to instability after 10000 transitory period.</p>
+</div>
+
+
+<div id="org43ad182" class="figure">
+<p><img src="./plot06_4.png" alt="plot06_4.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 33: </span>Diverging return dynamics of unstable system.</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge6c3e44" class="outline-3">
+<h3 id="orge6c3e44">Losing stability through the Neimark-Sacker bifurcation with decreasing investment function</h3>
+<div class="outline-text-3" id="text-orge6c3e44">
+<p>
+Interesting example of NS bifurcation happens when agent's investment
+function is decreasing. If the memory span of such agent is odd, say
+1, then the flip bifrucation takes place. (This situation we consider
+in the next Section.) But when the memory span is even, as 2 or 4,
+then the typical bifurcation is again Neimark-Sacker. In file
+<code>test06_6.cfg</code> we consider::
+</p>
+<pre class="example">
+x=0.4932,w=1,f=0.5-0.349*cwr1_2
+</pre>
+<p>
+and compare it with agent in <code>test06_7.cfg</code>
+</p>
+<pre class="example">
+x=0.4932,w=1,f=0.5-0.35*cwr1_2
+</pre>
+<p>
+In both cases agents have decreasing function of average of past 2
+returns. In the former case two complex multipliers have modulus equal
+to \(0.999564\), while in the latter case, the modulus are
+\(1.00071\). Therefore, commands
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O r -T 10000 -t 50 -D <span style="color: #a0522d;">mean</span>=.02 -R <span style="color: #a0522d;">mean</span>=0.01946 -r 0 &lt; test06_6.cfg
+naif -O r -T 10000 -t 50 -D <span style="color: #a0522d;">mean</span>=.02 -R <span style="color: #a0522d;">mean</span>=0.01946 -r 0 &lt; test06_7.cfg
+</pre>
+</div>
+<p>
+should generate stable and unstable trajectories, respectively. The
+next plot shows the result
+</p>
+
+
+<div id="orgef66220" class="figure">
+<p><img src="./plot06_5.png" alt="plot06_5.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 34: </span>Dynamics of system with memory span 2 and decreasing investment function for stable and unstable situations about NEIMARK-SACKER bifurcation.</p>
+</div>
+
+<p>
+Now the system gets to the quiasi-periodic trajectory immediately
+after the Neimark-Sacker bifurcation. Thus, in this case the
+bifurcation seems to be <b>supercritical</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5f0b9f9" class="outline-3">
+<h3 id="org5f0b9f9">Losing stability through the flip bifurcation with decreasing investment function</h3>
+<div class="outline-text-3" id="text-org5f0b9f9">
+<p>
+Occasionally the system loses its stability through the flip
+bifurcation. Analysis shows that it can happen, for example, when
+agent with decreasing investment function and odd memory span crosses
+the EMC too steeply. Consider two configuration files <code>test06_8.cfg</code>
+and <code>test06_9.cfg</code> given as below
+</p>
+<pre class="example">
+x=0.497,w=1,f=0.5-0.123*ret1
+</pre>
+<p>
+and
+</p>
+<pre class="example">
+x=0.497,w=1,f=0.5-0.124*ret1
+</pre>
+<p>
+Numerical computations give multipliers -0.995829, 0.494072 in the
+former case and multipliers -1.00124, 0.4954 in the latter. Obviously,
+the fixed point undergoes the flip bifurcation.
+</p>
+
+
+<div id="orga4e9f80" class="figure">
+<p><img src="./plot06_6.png" alt="plot06_6.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 35: </span>Dynamics of system with memory span 1 and decreasing investment function for stable and unstable situation about FLIP bifurcation.</p>
+</div>
+
+<p>
+Indeed, the plot shows that after stability the dynamics start to
+diverge being close to 2 cycle. Moreover, the oscillating trajectory
+is continuing to diverge, suggesting that the flip bifurcation is
+<b>subcritical</b>.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0bffe93" class="outline-2">
+<h2 id="org0bffe93">Example 8. Non-trivial Transitions between Different Equilibria</h2>
+<div class="outline-text-2" id="text-org0bffe93">
+<p>
+Even when the attractor of the dynamics is clear, the transitory
+dynamics can be non-trivial and rather long. Consider the situation
+described in <code>test07_1.cfg</code> as
+</p>
+<pre class="example">
+x=0.1,w=.1,f=0.1
+x=-0.1,w=-1,f=-0.1
+</pre>
+<p>
+This example is analogous to <a href="file:///Example 2/">file:///Example 2/</a> we considered above. There are
+three equilibria in the market, stable no-equity-premium equilibrium
+with two survivors, stable equilibrium where only first agent
+survives, and unstable equilibrium where only the second agent
+survives. We take 0 risk free interest rate and with the help of
+command
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">naif -O r -t 2000 -D <span style="color: #a0522d;">mean</span>=.02 -r 0 &lt; test07_1.cfg
+</pre>
+</div>
+<p>
+observe long transitory from the unstable equilibrium with second
+survivor to the stable equilibrium with first survivor. In all the
+following plots the total length of simulation is 2000 periods.
+</p>
+
+
+<div id="orgd88e652" class="figure">
+<p><img src="./plot07_1.png" alt="plot07_1.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 36: </span>The evolution of price return (left scale) and average wealth share (right scale) during the transition from unstable to stable equilibrium</p>
+</div>
+
+
+<div id="org0dcd140" class="figure">
+<p><img src="./plot07_2.png" alt="plot07_2.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 37: </span>The evolution of price and average wealth share on the EMC</p>
+</div>
+
+<p>
+The strange feature of the transitory dynamics is that while the price
+return smoothly evolves from the negative level in the unstable
+equilibrium to the positive level in the stable one, the average
+investment share has a point of discontinuity.
+</p>
+
+<p>
+To understand this transition, notice that the initialization of
+agents in <code>test07_1.cfg</code> gives the second agent negative initial
+wealth (which is interpreted as debt in this case) and also negative
+investment share (which implies normal, positive position in the risky
+asset). Thus, overall she starts with positive number of shares of the
+risky asset and with big negative amount of cash. Furthermore, the
+total initial wealth equal to sum of \(0.1\) and \(-1\) is also negative.
+</p>
+
+<p>
+The initial conditions then imply that price starts to fall down, but
+that the wealth grows due to the positive dividend yield. At some
+point wealth reaches level 0. At this moment we observe discontinuity:
+positive wealth of the first agent immediately translates to the
+positive wealth share, while it was always negative before. The
+opposite happens with the wealth of the second agent. Then, the wealth
+continues to grow with asymptotical growth rate equal to the
+equilibrium rate of return.
+</p>
+
+
+<div id="orgcb82860" class="figure">
+<p><img src="./plot07_3.png" alt="plot07_3.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 38: </span>The evolution of price (left scale) and total wealth (right scale) during the transition from unstable to stable equilibrium</p>
+</div>
+
+<p>
+The price return was negative in the beginning, so the price
+falled. Instead, the wealth, which is initially negative, grew because
+of the high dividend yield. When wealth undergoes transition from
+positive to negative, the price return also becomes positive and price
+starts to grow.
+</p>
+
+
+<div id="org655715e" class="figure">
+<p><img src="./plot07_4.png" alt="plot07_4.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 39: </span>The evolution of wealth shares during the transition</p>
+</div>
+
+<p>
+Wealth of the first agent is always positive and growing. Until the
+total wealth is negative, it translates to the negative decreasing
+wealth share. Then it becomes positive and it reaches 1 when the
+second agent disappears from the market.
+</p>
+
+
+<div id="org3b18ccb" class="figure">
+<p><img src="./plot07_5.png" alt="plot07_5.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 40: </span>The evolution of the number of shares of the risky asset during the transition</p>
+</div>
+
+<p>
+First agent has very good timing. His share of the risky asset grows
+as the return for the asset grows. 
+</p>
+
+
+<div id="org26c6eb4" class="figure">
+<p><img src="./plot07_6.png" alt="plot07_6.png" width="600px" />
+</p>
+<p><span class="figure-number">Figure 41: </span>The evolution of the amount of cash during the transition</p>
+</div>
+
+<p>
+Second agent starts with negative cash. She improves her position by
+selling short the risky asset, which is, however, better than the
+riskless in average.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org075a0ac" class="outline-2">
+<h2 id="org075a0ac">Generating many similar agents</h2>
+<div class="outline-text-2" id="text-org075a0ac">
+<p>
+Using the syntax <code>:</code> in the configuration file it is possible to
+generate multiple copy of the same agent. Sometimes, however, it is
+useful to generate many agents who are variation with respect a single
+baseline model. This can be easily achieved using the ability of the
+Unix zsh to manipulate arithmetic expressions. For instance consider
+the agent description::
+</p>
+<pre class="example">
+x=.5,w=1,f=.5+.1*ret1
+</pre>
+<p>
+in <code>test01.cgf</code>. One can generate many similar agents with the
+following simple script
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #483d8b;">setopt</span> INTERACTIVE_COMMENTS
+
+<span style="color: #a020f0;">for</span> i<span style="color: #a020f0;"> in</span> {1..100}; <span style="color: #a020f0;">do</span>
+    <span style="color: #b22222;"># </span><span style="color: #b22222;">generate uniform r.v. in [0,1)</span>
+    <span style="color: #a0522d;">eps</span>=$(( RANDOM/32767.0 ));
+    <span style="color: #b22222;"># </span><span style="color: #b22222;">scale the r.v.</span>
+    <span style="color: #a0522d;">eps</span>=$(( .1+.01*eps));
+    <span style="color: #b22222;"># </span><span style="color: #b22222;">generate the investment function </span>
+    <span style="color: #483d8b;">echo</span> <span style="color: #8b2252;">"x=.1,w=1,f=.5+$eps*ret1"</span>;
+<span style="color: #a020f0;">done</span> &gt; file.cfg
+</pre>
+</div>
+<p>
+then <code>file.cfg</code> contains the definition of 100 slightly different
+traders. Notice that this script <b>does not</b> work in <code>bash</code> shell, as
+it only performs integer operations.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Spanning tree and spanning forest</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../software.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Spanning tree and spanning forest</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org7b80a5b">Introduction</a></li>
+<li><a href="#org268c87c">Weighted graph and spanning tree</a>
+<ul>
+<li><a href="#org73f910d">Spanning tree</a></li>
+</ul>
+</li>
+<li><a href="#org733b15c">Finding minimum and maximum spanning tree</a></li>
+<li><a href="#orgb1ffabd">Example</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7b80a5b" class="outline-2">
+<h2 id="org7b80a5b">Introduction</h2>
+<div class="outline-text-2" id="text-org7b80a5b">
+<p>
+The source files in <a href="spanntree.tar.gz">spanntree.tar.gz</a> contains several routines that
+compute the maximum and minimum spanning tree for ordered or unordered
+graphs. They can be used both for connected graphs or for graphs
+characterized by several disjoint parts. The routines are implemented
+as C function, which can be easily linked to any application. A simple
+program is provided which computer minimum and maximum spanning tree
+for a graph provided at the command line.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org268c87c" class="outline-2">
+<h2 id="org268c87c">Weighted graph and spanning tree</h2>
+<div class="outline-text-2" id="text-org268c87c">
+<p>
+A weighted graph can essentially be of two types: directed and
+undirected.
+</p>
+
+
+<div id="org6f05b56" class="figure">
+<p><img src="../../img/graph.png" alt="graph.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Weighted directed graph</p>
+</div>
+
+<p>
+A directed graph can be seen as a collection of vertexes and of links
+connecting them, called edges. Links have a source vertex and a
+destination vertex, and are associated a weight. For instance in the
+figure the edge connecting vertex 5 and 3 is associated a weight
+of 2. A graph can be formally represented in essentially two ways: a
+list of edges, reporting for each edge the origin and destination
+vertexes together with the weight, or an andjacency matrix, in which
+each row and each column represent a different vertex and the
+associated entry is the wight of the edge linking the two. For the
+graph in the picture, the first representation would be
+</p>
+<pre class="example">
+2 1 2
+3 2 1
+4 5 2
+5 3 2
+5 1 3
+6 4 1
+</pre>
+<p>
+while the second is
+</p>
+<pre class="example">
+0 0 0 0 0 0
+2 0 0 0 0 0
+0 1 0 0 0 0
+0 0 0 0 0 5
+3 0 2 0 0 0
+0 0 0 1 0 0 
+</pre>
+<p>
+This representation adopts the convention that an entry of zero,
+i.e. a zero wright, represent a missing link.
+</p>
+
+<p>
+In an undirected graph, the "direction" of the edges is not
+relevant. So if vertex 1 is connected to vertex 2, the latter is
+automatically connected to the first. A weight is again assigned to
+each edge. It is immediate to see that a undirected graph can be seen
+as a special case of a directed graph. The list of edges will contain
+couples of edges, with the same weights, where origin and destination
+vertexes are swapped, while the matrix representation will be a
+symmetric matrix.
+</p>
+</div>
+
+<div id="outline-container-org73f910d" class="outline-3">
+<h3 id="org73f910d">Spanning tree</h3>
+<div class="outline-text-3" id="text-org73f910d">
+<p>
+ Given a graph, a subset of its edges represent a
+<i>subgraph</i>. Essentially is a new graph obtained removing some of the
+original links.
+</p>
+
+<p>
+A <i>spanning tree</i> is a subgraph of the original graph, which connect
+all the vertexes that where originally connected. This means that
+removing an edge form a spanning tree, at least a couple of vertexes
+that were originally connected get disconnected. The definition of
+spanning tree does not only apply to fully connected graph. When
+applied to disconnected graph it often takes the name of <i>spanning
+forest</i>.
+</p>
+
+<p>
+The above definitions do not use the weight associated to the
+edges. The weights are however relevant for the definition of a
+<i>maximum spanning tree</i> (MST). A spanning tree is a MST if the sum of
+the weights of its vertexes is not lower than the sum of the weights
+of the vertexes of any other spanning tree.
+</p>
+
+<p>
+Analogously a <i>minimum spanning tree</i> (mst) is a spanning tree such
+that the sum of the weights of its edges is not greater than the sum
+of the edges of any other spanning tree.
+</p>
+
+<p>
+Notice that these definition do not imply that the MST or the mst is
+unique.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org733b15c" class="outline-2">
+<h2 id="org733b15c">Finding minimum and maximum spanning tree</h2>
+<div class="outline-text-2" id="text-org733b15c">
+<p>
+The efficient algorithm for the identification of a minimum or maximum
+spanning tree makes use of the so called <a href="http://en.wikipedia.org/wiki/Disjoint-set_data_structure">disjoint set</a> data
+structure. The algorithm that makes use of this set is called an
+<i>union find</i> algorithm. Essentially it incrementally builds sets of
+related objects. 
+</p>
+
+<p>
+The implementation in C is contained in <a href="union_find.h">union<sub>find.h</sub></a> and
+<a href="union_find.c">union<sub>find.c</sub></a>. It is a modified version of the code available from
+<a href="http://en.literateprograms.org/Disjoint_set_data_structure_(C)?oldid=13366">literateprograms.org</a>. The modifications reflect the pseudo-code
+discussed <a href="http://en.wikipedia.org/wiki/Disjoint-set_data_structure">here</a>.
+</p>
+
+<p>
+The actual code which perform the the MST and mst is contained in
+<a href="graph.c">graph.c</a>. It is based on the <a href="http://en.wikipedia.org/wiki/Kruskal%27s_algorithm">Kruskal's</a> algorithm. The basic functions
+are
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c-mode">void Mst(size_t V, Edge *edges, size_t E,  Edge **tree, size_t *T)
+</pre>
+</div>
+
+<p>
+and
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c-mode">void mst(size_t V, Edge *edges, size_t E,  Edge **tree, size_t *T)
+</pre>
+</div>
+
+<p>
+which computes a Maximum and minimum spanning tree (or forest, in case
+of disjoint graph), respectively. The first three arguments of the
+function define the initial graph: <code>V</code> is the number of vertexes,
+<code>edges</code> is an array of <code>Edges</code> which define the graph and <code>E</code> is its
+length. The function store the spanning tree in the array <code>(*) tree</code>
+and its length in <code>T</code>. Notice that if the original graph is made of P
+disjoint parts, it is T=V-P. If the graph is connected, then P=1 and
+T=V-1.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb1ffabd" class="outline-2">
+<h2 id="orgb1ffabd">Example</h2>
+<div class="outline-text-2" id="text-orgb1ffabd">
+<p>
+As an example of the use of the routines in graph consider a simple
+programs which reads a graph as a list of edges from the standard
+input and return the minimum and maximum spanning tree
+</p>
+
+<div class="org-src-container">
+<pre class="src src-c-mode">int main(){
+
+  size_t i;
+
+  /* initial graph */
+  size_t N;     /* number of nodes */
+  size_t E;     /* number of edges */
+  Edge * graph=NULL; /* original graph */
+  size_t orig,dest;
+  double weight;
+
+  /* spanning forest */
+  Edge * tree=NULL;  /* spanning forest */
+  size_t T;	/* edges in the spanning forest */
+  double wt;    /* total weight of the spanning forest */
+
+  /* load the graph */
+  E=0;
+  N=0;
+  while(scanf("%zd %zd %lf",&amp;orig,&amp;dest,&amp;weight) != EOF){
+    E++;
+    if(orig&gt;N) N=orig;
+    if(dest&gt;N) N=dest;
+    graph = (Edge *) realloc(graph,E*sizeof(Edge));
+    graph[E-1].orig = orig;
+    graph[E-1].dest = dest;
+    graph[E-1].weight = weight;
+  }
+
+  /* compute the minimum spanning tree */
+  mst(N,graph,E,&amp;tree,&amp;T);
+
+  /* output the result */
+  printf("#minimum spanning tree\n");
+  wt=0;
+  for(i=0;i&lt;T;i++){
+    printf("%zd %zd %f\n",tree[i].orig,tree[i].dest,tree[i].weight);
+    wt += tree[i].weight;
+  }
+  printf("#total weight = %f\n",wt);
+
+  /* compute the maximum spanning tree */
+  Mst(N,graph,E,&amp;tree,&amp;T);
+
+  /* output the result */
+  printf("#maximum spanning tree\n");
+  wt=0;
+  for(i=0;i&lt;T;i++){
+    printf("%zd %zd %f\n",tree[i].orig,tree[i].dest,tree[i].weight);
+    wt += tree[i].weight;
+  }
+  printf("#total wight = %f\n",wt);
+
+
+  return 0;
+
+}
+</pre>
+</div>
+
+<p>
+The number of vertexes is obtained from the list of provided
+edges. Download the example <a href="spanntree.c">spanntree.c</a> and compile it using
+</p>
+<pre class="example">
+gcc spanntree.c graph.c union_find.c -o spanntree
+</pre>
+<p>
+then run it on whatever graph you want.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>

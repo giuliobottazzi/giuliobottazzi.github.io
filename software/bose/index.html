@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-07-06 Thu 18:13 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BoSe, Bottazzi-Secchi model of firm growth</title>
+<meta name="generator" content="Org mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../software.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">BoSe, Bottazzi-Secchi model of firm growth</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgcc140f1">Introduction</a>
+<ul>
+<li><a href="#org6b5da16">Download and installation</a></li>
+<li><a href="#org458d2f3">List of programs</a></li>
+</ul>
+</li>
+<li><a href="#org255cb18">The Bottazzi-Secchi model</a>
+<ul>
+<li><a href="#orgeb76640">bose_growth</a></li>
+<li><a href="#orgbfb767b">bose_size</a></li>
+<li><a href="#org60780af">bose</a></li>
+<li><a href="#org547b3f8">bose_step1</a></li>
+<li><a href="#org9c9a24e">bose_step2</a></li>
+</ul>
+</li>
+<li><a href="#org0b6a142">Bibliography</a></li>
+</ul>
+</div>
+</div>
+<ul class="org-ul">
+<li>Authors::   Giulio Bottazzi</li>
+<li>Contact::   &lt;bottazzi@sssup.it&gt;</li>
+<li>Revision::  0.6</li>
+<li>Copyright:: GPL</li>
+</ul>
+
+<div id="outline-container-orgcc140f1" class="outline-2">
+<h2 id="orgcc140f1">Introduction</h2>
+<div class="outline-text-2" id="text-orgcc140f1">
+<p>
+This is a little collection of programs written to test and study the
+Bottazzi-Secchi model of firm growth. The model is described in
+several papers, see the <a href="#org0b6a142">Bibliography</a>.
+</p>
+
+<p>
+This package contains both C programs and Python scripts. The C
+programs require that the <a href="http://www.gnu.org/software/gsl">GNU Scientific Library (GSL)</a> is installed on
+your computer while a Python interpreter is necessary in order to run
+the scripts. If <code>python</code> is the name of your Python interpreter you
+can run the program <code>name_of_program</code> with
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">python name_of_program
+</pre>
+</div>
+<p>
+Notice that the several Python scripts in the package require the
+<a href="http://sourceforge.net/projects/numpy">numpy</a> module for Python.
+</p>
+
+<p>
+A python interpreter is automatically installed in any Linux
+distribution and both the GSL library and the numpy module are usually
+available as packages.
+</p>
+</div>
+
+<div id="outline-container-org6b5da16" class="outline-3">
+<h3 id="org6b5da16">Download and installation</h3>
+<div class="outline-text-3" id="text-org6b5da16">
+<p>
+Provided the dependencies above are satisfied, the installation should
+be straightforward. Download the latest available <code>tar.gz</code> package
+from the <a href="ftp://cafed.sssup.it/packages/">cafed repository</a>. Unpack the package
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">tar xvzf bose-{version}.tar.gz
+</pre>
+</div>
+<p>
+move inside the source directory
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #483d8b;">cd</span> bose-{version}
+</pre>
+</div>
+<p>
+run the configure script, build and install
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">./configure
+make
+make install
+</pre>
+</div>
+<p>
+For more detailed instructions see the INSTALL file in the package.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org458d2f3" class="outline-3">
+<h3 id="org458d2f3">List of programs</h3>
+<div class="outline-text-3" id="text-org458d2f3">
+<p>
+<code>bose_step1</code> and <code>bose_step2</code> are just intermediate utilities written
+to numerically check the correctness of the analytical analysis on
+which the model is based.
+</p>
+
+<p>
+The program <code>bose</code> and the scripts <code>bose_growth</code> and <code>bose_sizes</code>
+provide a simulation of the Bottazzi-Secchi models. The latter keeps
+track of the size evolution of the firms while the formers simply
+generate the growth rates densities (and several other things&#x2026;. see
+the documentation below).
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org255cb18" class="outline-2">
+<h2 id="org255cb18">The Bottazzi-Secchi model</h2>
+<div class="outline-text-2" id="text-org255cb18">
+<p>
+To better understand the various command line options of the following
+programs it is probably useful to summarize the main features of the
+model. Please understand that this explanation is by no mean
+exhaustive. It is intended for people who did already read one of the
+papers in which the model is described. If you don't know the model,
+please refer to the <a href="#org0b6a142">Bibliography</a>.
+</p>
+
+<p>
+The model is indented as a discrete time evolution of an industrial
+sector.  Consider a sector with N firms. At the beginning of each
+round the economy allows for M business opportunities to be exploited
+by firms. These opportunities are distributed among the firms
+following a Bose-Einstein statistics.
+</p>
+
+<p>
+Each opportunity generates a multiplicative growth shock affecting the
+size of the firm which captured it. All these growth shocks are
+assumed identically distributed with a common density \(g\).
+</p>
+
+<p>
+The resulting growth rates probability density p(x;M,N) reads
+</p>
+
+<p>
+\[
+p(x;M,N) = \sum_{h=0}^{M} \,  P(h;N,M) \,  \sqrt{\frac{M}{N}} \, g\left(\sqrt{\frac{M}{N}} x\right)^{\ast (h+1)}
+\]
+</p>
+
+<p>
+where the exponent indicates the convolution of the density \(g\) and
+\(P(h;N,M)\) is the Bose-Einstein distribution of parameter N and M
+</p>
+
+<p>
+\[
+ P(h;N,M) = {N+M-h-2 \choose N-2}/{N+M-1 \choose N-1}
+\]
+</p>
+</div>
+
+<div id="outline-container-orgeb76640" class="outline-3">
+<h3 id="orgeb76640">bose_growth</h3>
+<div class="outline-text-3" id="text-orgeb76640">
+<p>
+This is the basic program for the generation of Bottazzi-Secchi growth
+rates distribution. One can provide several command lines options
+(default values are specified in square brackets):
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">-N the number of firms                            [100]
+-M the average number of micro-shocks per firm    [100]
+-D the type of micro-shock distribution           [0]
+   0:normal 1:uniform 2:gamma
+-d the shape parameter of the Gamma distribution
+-m the mean of the micro-shock distribution       [0.0]
+-v the variance of the micro shock distribution   [.01]
+-T the number of simulation steps                 [1]
+</pre>
+</div>
+<p>
+The program prints the rate of growth of each firm at each period.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbfb767b" class="outline-3">
+<h3 id="orgbfb767b">bose_size</h3>
+<div class="outline-text-3" id="text-orgbfb767b">
+<p>
+This is essentially the same as bose_growth_ with the only difference
+that together with the growth rate also the size of each firm is
+printed at each rime step.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org60780af" class="outline-3">
+<h3 id="org60780af">bose</h3>
+<div class="outline-text-3" id="text-org60780af">
+<p>
+This C program analyzes the growth rates probability distribution
+\(p(x;M,N)\) defined above.
+</p>
+
+<p>
+This program takes as input the parameters N,M and a specification for
+the density g. Both Gamma and Gaussian distributions are available as
+micro-shock distribution. However, they are always considered of unit
+variance and mean zero. The options setting the model parameter are
+(default values are specified in square brackets):
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">-n the number of firms             [100] 
+-m the number of shocks            [0] 
+-t the typeof shocks:              [0]
+   0    gaussian
+   &gt;0   Gamma distributed, value defines the shape parameter
+-N the number of points to plot    [100]
+</pre>
+</div>
+<p>
+The output of the program is chosen with the option <code>-O</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">-O set the type of output [0]
+
+  0. growth rates distribution:                          x,F_m(x) 
+  1. growth rates density:                               x,f_m(x)
+  2. Laplace distribution and density:                   x,F_L(x),f_L(x)
+  3. deviation from Laplace distribution:                x,D(x)
+  4. max deviation from Laplace and critical sample:     argmaxD(x),maxD(x),N(.5),N(.05),N(.01)
+</pre>
+</div>
+<p>
+D is the absolute deviation of the density of the model from a Laplace density
+</p>
+
+<p>
+\[
+ D(x) = |F_m(x) - F_L(x)|
+\]
+</p>
+
+<p>
+The parameter \(N()\) printed by the option <code>-O 4</code> is the effective
+number of points to discriminate with confidence f the model
+distribution from the Laplace, using the Kolmogorov-Smirnov
+statistics. It's the solution of:
+</p>
+
+<p>
+\[ (\sqrt{N/2}+.12+.11/\sqrt{N/2}) N(f) = Q_{ks}^{-1} (f) \]
+</p>
+
+<p>
+where \(Q_{ks}^{-1}\) is the inverse distribution of the K.-S. statistics.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org547b3f8" class="outline-3">
+<h3 id="org547b3f8">bose_step1</h3>
+<div class="outline-text-3" id="text-org547b3f8">
+<p>
+This Python script is intended to check the convergence toward a
+Laplace density (i.e. symmetric exponential) of the sum of Gaussian
+variates whose number follows a geometric distribution.
+</p>
+
+<p>
+Notice that for a geometric distribution
+</p>
+
+<p>
+\[
+ \text{Prob}\{x=k\} = (1-a) \, a^k
+\]
+</p>
+
+<p>
+and
+</p>
+
+<p>
+\[ \text{Prob}\{x \leq N\} = 1-a^{N+1} \]
+</p>
+
+<p>
+so that this variate can be generated by::
+</p>
+
+<p>
+\[
+ x = \left[ \frac{log(1-\epsilon)}{log(a)} \right]
+\]
+</p>
+
+<p>
+where \(\epsilon\) is an uniform distribution in \([0,1)\) and \([x]\)
+stands for the integer part of \(x\) (i.e. the <code>C</code> function <code>floor()</code>).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9c9a24e" class="outline-3">
+<h3 id="org9c9a24e">bose_step2</h3>
+<div class="outline-text-3" id="text-org9c9a24e">
+<p>
+This Python script is written to check how the Bose-Einstein partition
+of M micro-shocks across N firms generates a geometric distribution of
+shocks for each single firm.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org0b6a142" class="outline-2">
+<h2 id="org0b6a142">Bibliography</h2>
+<div class="outline-text-2" id="text-org0b6a142">
+<ul class="org-ul">
+<li>G.Bottazzi and A. Secchi (2002) "On The Laplace Distribution of Firms Growth Rates" L.E.M. Working Paper n. 2002-20</li>
+<li>G.Bottazzi, A.Secchi "Why are distributions of firm growth rates tent-shaped?", Economic Letters vol. 80 pp.415-420, 2003.</li>
+<li>G.Bottazzi, A. Secchi "A Stochastic Model of Firm Growth", Physica A vol. 324 pp. 213-129, 2003.</li>
+<li>G.Bottazzi, A. Secchi "Explaining the distribution of firms growth rates", The RAND Journal of Economics, 37, pp. 235-256, 2006.</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2023-07-06 Thu 18:13</p>
+</div>
+</body>
+</html>
