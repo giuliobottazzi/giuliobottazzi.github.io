@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-09-12 ven 18:24 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Download historical data from Yahoo Finance</title>
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
+<link rel="icon" type="image/x-icon" href="../../favicon.ico" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YKR4ZZCW1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YKR4ZZCW1');
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../../other.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Download historical data from Yahoo Finance</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgac91929">Introduction</a></li>
+<li><a href="#orgf9d14fd">Tickers</a></li>
+<li><a href="#org7fbe0c4">Obtain historical data</a></li>
+<li><a href="#orgd2e42c4">Scripting</a></li>
+<li><a href="#org4d0b5f5">S&amp;P 500</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgac91929" class="outline-2">
+<h2 id="orgac91929">Introduction</h2>
+<div class="outline-text-2" id="text-orgac91929">
+<p>
+The majority of people use <a href="https://finance.yahoo.com/">Yahoo Finance</a> to obtain updated quotes for
+traded securities all around the world. However, it can be a useful
+source of financial data also for research purposes. In fact, from
+yahoo it is possible to easily obtain historical series of prices.
+The service was suspended for a few years but now it seems to work
+again, albeit with a slightly different procedure.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf9d14fd" class="outline-2">
+<h2 id="orgf9d14fd">Tickers</h2>
+<div class="outline-text-2" id="text-orgf9d14fd">
+<p>
+The first problem is to identify the ticker symbol of the desired
+securities. The ticker symbol is an unique string that identifies each
+security. A global selection of tickers is available as an Excel file
+from <a href="http://investexcel.net/all-yahoo-finance-stock-tickers/">investexcel</a>.
+</p>
+
+<p>
+For the New York stock exchange (NYSE), the updated list of tickers
+can be automatically downloaded in CSV format from the <a href="http://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&amp;exchange=nyse&amp;render=download">screening
+interface</a>.  Replace 'nyse' with 'nasdaq' to obtain the list of
+security traded on NASDAQ. The obtained file lists:
+</p>
+<ol class="org-ol">
+<li>the ticker symbol</li>
+<li>the name of the company</li>
+<li>the price of the last transaction</li>
+<li>the market capitalization,</li>
+<li>the IPO year</li>
+<li>the Sector as defined by the stock exchange,</li>
+<li>the Industry, a further division of the Sectors</li>
+<li>the link to company page on the stock exchange website</li>
+</ol>
+
+<p>
+A useful subset of stocks are the components of the S&amp;P500 index. They
+are liquid and substantially capitalized securities. The list of
+tickers composing the index can be, for instance, obtained from
+<a href="https://datahub.io/core/s-and-p-500-companies#data">datahub</a>.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org7fbe0c4" class="outline-2">
+<h2 id="org7fbe0c4">Obtain historical data</h2>
+<div class="outline-text-2" id="text-org7fbe0c4">
+<p>
+Once the ticker of the interesting security is know, the data can be
+downloaded using a special URL as in the following example
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">https://query1.finance.yahoo.com/v7/finance/download/[TICKER]?<span style="color: #a0522d;">period1</span>=[EPOCHSTART]&amp;<span style="color: #a0522d;">period2</span>=[EPOCHEND]&amp;<span style="color: #a0522d;">interval</span>=1d&amp;<span style="color: #a0522d;">events</span>=history&amp;<span style="color: #a0522d;">includeAdjustedClose</span>=true
+</pre>
+</div>
+<p>
+<code>[TICKER]</code> is mandatory and is the ticker of the desired
+security. <code>[EPOCHSTART]</code> and <code>[EPOCHEND]</code> define the range of dates
+for which data are downloaded. Thy are expressed using the "epoch", a
+Unix standard to represent dates as sequences of numbers (it is the
+number of seconds from 1-1-1970). Conversion from common date formats
+and epoch format can be obtained using an online <a href="https://www.epochconverter.com/">epoch converter</a>. For
+instance 1AM, first of January, 1990 is expressed as "631155600". The
+interval variable sets the frequency of the data. In the example it is
+1 day. It can be <code>1w</code> for weekly data and <code>1mo</code> for monthly
+data. <code>events=history</code> selects historical prices. The last flag
+<code>includeAdjustedClose=true</code> include adjusted closing prices. Prices
+are already adjusted for splits, the "Adjusted Close" price is further
+adjusted for dividends.
+</p>
+
+<p>
+If you insert the URL above in any browser, the data are saved in a
+file named according to the ticker symbol. The file contains the
+following comma separated fields:
+</p>
+<ol class="org-ol">
+<li>Date (yyyy-mm-dd)</li>
+<li>Open</li>
+<li>High</li>
+<li>Low</li>
+<li>Close</li>
+<li>Adj Close</li>
+<li>Volume</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd2e42c4" class="outline-2">
+<h2 id="orgd2e42c4">Scripting</h2>
+<div class="outline-text-2" id="text-orgd2e42c4">
+<p>
+Generally we want to download data about several securities at
+once. In this case scripting is necessary.
+</p>
+
+<p>
+For instance, in order to download the price data at daily frequency
+for all NYSE traded companies in the Technology sector we can proceed
+as follows. From the <a href="http://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&amp;exchange=nyse&amp;render=download">screener interface</a> we select NYSE and the
+Technology sector and download the CSV file. Then we collect all the
+tickers in a variable
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #a0522d;">ticks</span>=$( awk -F<span style="color: #8b2252;">','</span> <span style="color: #8b2252;">'NR&gt;1{print $1}'</span> nasdaq_screener.csv )
+</pre>
+</div>
+<p>
+where <code>nasdaq_screener.csv</code> is the name of the previously downloaded
+file. Finally, we cycle over all tickers and download the price data,
+saving them in a appropriately named files
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #a0522d;">USERAGENT</span>=<span style="color: #8b2252;">"Mozilla/5.0"</span>
+<span style="color: #a0522d;">EPOCHSTART</span>=<span style="color: #8b2252;">"631155600"</span>
+<span style="color: #a0522d;">EPOCHEND</span>=<span style="color: #8b2252;">"1609459200"</span>
+<span style="color: #a0522d;">BASEURL</span>=<span style="color: #8b2252;">"https://query1.finance.yahoo.com/v7/finance/download/"</span>
+<span style="color: #a020f0;">for</span> tick<span style="color: #a020f0;"> in</span> $<span style="color: #a0522d;">ticks</span>; <span style="color: #a020f0;">do</span>
+    <span style="color: #a0522d;">URL</span>=<span style="color: #8b2252;">"${BASEURL}${ticker}?period1=${EPOCHSTART}&amp;period2=${EPOCHEND}&amp;interval=1d&amp;events=history&amp;includeAdjustedClose=true"</span>
+    wget --user-agent=${<span style="color: #a0522d;">USERAGENT</span>} <span style="color: #8b2252;">"$URL"</span> -O ${<span style="color: #a0522d;">ticker</span>}.csv
+<span style="color: #a020f0;">done</span>
+</pre>
+</div>
+<p>
+In the example dates range from 01-01-1990 to 31-12-2020. One needs to
+specify a well known user agent as, I guess, Yahoo implements some
+generic protection against scrapers.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4d0b5f5" class="outline-2">
+<h2 id="org4d0b5f5">S&amp;P 500</h2>
+<div class="outline-text-2" id="text-org4d0b5f5">
+<p>
+Using the previous technique I have download historical prices for the
+stocks composing the S&amp;P500 index from 01-01-1990 to 31-12-2020. They
+are collected in this <a href="https://drive.google.com/file/d/14_p3RYsEDaW7upRfbWe5A5YvnCeTfzeX/view?usp=sharing">archive</a>. Files are named according to the
+respective tickers.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Created: 2025-09-12 ven 18:24</p>
+</div>
+</body>
+</html>
