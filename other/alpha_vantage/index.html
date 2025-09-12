@@ -3,11 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-07-06 Thu 18:13 -->
+<!-- 2025-09-12 ven 14:46 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Download historical data using Alpha Vantage</title>
-<meta name="generator" content="Org mode" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet" type="text/css" href="../../css/stylesheet.css" />
 <link rel="icon" type="image/x-icon" href="../../favicon.ico" />
 <!-- Google tag (gtag.js) -->
@@ -25,26 +25,26 @@
  <a accesskey="h" href="../../other.html"> UP </a>
  |
  <a accesskey="H" href="../../index.html"> HOME </a>
-</div><div id="content">
+</div><div id="content" class="content">
 <h1 class="title">Download historical data using Alpha Vantage</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org6cd8001">Introduction</a></li>
-<li><a href="#org83c3725">Tickers</a></li>
-<li><a href="#org97baef8">Obtaining historical data</a></li>
-<li><a href="#orga209655">Scripting</a></li>
-<li><a href="#orgaaf54ef">Caveat</a></li>
-<li><a href="#orga03cf99">S&amp;P 500</a></li>
+<li><a href="#org6a778e9">Introduction</a></li>
+<li><a href="#org8d4c6ac">Tickers</a></li>
+<li><a href="#org152fbd0">Obtaining historical data</a></li>
+<li><a href="#orgdcb6418">Scripting</a></li>
+<li><a href="#org738d0b9">Caveat</a></li>
+<li><a href="#org6314efe">S&amp;P 500</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org6cd8001" class="outline-2">
-<h2 id="org6cd8001">Introduction</h2>
-<div class="outline-text-2" id="text-org6cd8001">
+<div id="outline-container-org6a778e9" class="outline-2">
+<h2 id="org6a778e9">Introduction</h2>
+<div class="outline-text-2" id="text-org6a778e9">
 <p>
 <a href="https://www.alphavantage.co">Alpha Vantage</a> provides free historical data for various financial time
 series. This page is intended as a short introduction to download
@@ -56,14 +56,14 @@ free from <a href="https://www.alphavantage.co/support/#api-key">this page</a>.
 
 <p>
 UPDATE: The last S&amp;P500 database of daily prices is available in the
-<a href="#orga03cf99">S&amp;P 500</a> section below.
+<a href="#org6314efe">S&amp;P 500</a> section below.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org83c3725" class="outline-2">
-<h2 id="org83c3725">Tickers</h2>
-<div class="outline-text-2" id="text-org83c3725">
+<div id="outline-container-org8d4c6ac" class="outline-2">
+<h2 id="org8d4c6ac">Tickers</h2>
+<div class="outline-text-2" id="text-org8d4c6ac">
 <p>
 The first problem is to identify the ticker symbol of the desired
 securities. The ticker symbol is an unique string that identifies each
@@ -104,9 +104,9 @@ obtained from <a href="https://datahub.io/core/s-and-p-500-companies#data">datah
 </div>
 </div>
 
-<div id="outline-container-org97baef8" class="outline-2">
-<h2 id="org97baef8">Obtaining historical data</h2>
-<div class="outline-text-2" id="text-org97baef8">
+<div id="outline-container-org152fbd0" class="outline-2">
+<h2 id="org152fbd0">Obtaining historical data</h2>
+<div class="outline-text-2" id="text-org152fbd0">
 <p>
 Once the ticker of the interesting security is know, the data can be
 downloaded using the Alpha Vantage interface from the base URL
@@ -167,16 +167,16 @@ Using <code>TIME_SERIES_DAILY_ADJUSTED</code> as a function one gets instead:
 
 <p>
 However, The 6th column, "Adjusted Close", seems to be problematic,
-see <a href="#orgaaf54ef">Caveat</a> below. Also notice that the data retrieved from Alpha
+see <a href="#org738d0b9">Caveat</a> below. Also notice that the data retrieved from Alpha
 Vantage are in inverse temporal order: the last prices come first in
 the file.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orga209655" class="outline-2">
-<h2 id="orga209655">Scripting</h2>
-<div class="outline-text-2" id="text-orga209655">
+<div id="outline-container-orgdcb6418" class="outline-2">
+<h2 id="orgdcb6418">Scripting</h2>
+<div class="outline-text-2" id="text-orgdcb6418">
 <p>
 Often one wants to download data about several securities at once. For
 instance, in order to download the price data at daily frequency for
@@ -217,9 +217,9 @@ The procedure above is replicated in the <a href="alpha_vantage.sh">example file
 </div>
 </div>
 
-<div id="outline-container-orgaaf54ef" class="outline-2">
-<h2 id="orgaaf54ef">Caveat</h2>
-<div class="outline-text-2" id="text-orgaaf54ef">
+<div id="outline-container-org738d0b9" class="outline-2">
+<h2 id="org738d0b9">Caveat</h2>
+<div class="outline-text-2" id="text-org738d0b9">
 <p>
 When using the <code>TIME_SERIES_DAILY_ADJUSTED</code> option the returned
 quantities should be adjusted by split events. But this does not seem
@@ -230,7 +230,7 @@ capitalized companies trading on NYSE.
 </p>
 
 
-<div class="figure">
+<div id="org42c02ed" class="figure">
 <p><img src="AV_CRSP_MSFT.png" alt="AV_CRSP_MSFT.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Comparing price time series from Alpha Vantage and CRSP</p>
@@ -277,14 +277,14 @@ be checked using, for instance, <a href="https://www.stocksplithistory.com">stoc
 </div>
 </div>
 
-<div id="outline-container-orga03cf99" class="outline-2">
-<h2 id="orga03cf99">S&amp;P 500</h2>
-<div class="outline-text-2" id="text-orga03cf99">
+<div id="outline-container-org6314efe" class="outline-2">
+<h2 id="org6314efe">S&amp;P 500</h2>
+<div class="outline-text-2" id="text-org6314efe">
 <p>
 Using a simple <a href="alpha_vantage_sp500.sh">script</a> once can obtain the price history of the stocks
-composing the S&amp;P 500 index. You can download an <a href="sp500.tar">compressed file</a> of the
+composing the S&amp;P 500 index. You can download an <a href="https://drive.google.com/file/d/1Td8u2vhvNJpmq1DegCbmTCsc42Ms_ff4/view?usp=sharing">compressed file</a> of the
 historical daily prices as of January, 12 2021. I already reverted the
-order of the lines and applied the script described in the <a href="#orgaaf54ef">Caveat</a>
+order of the lines and applied the script described in the <a href="#org738d0b9">Caveat</a>
 section above. Files are named according to the ticker symbol of the
 company. They contains eight space separated columns:
 </p>
@@ -307,7 +307,7 @@ with column 8.
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-07-06 Thu 18:13</p>
+<p class="date">Created: 2025-09-12 ven 14:46</p>
 </div>
 </body>
 </html>
