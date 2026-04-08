@@ -3,11 +3,11 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-07-06 Thu 18:13 -->
+<!-- 2026-03-06 Fri 11:39 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Errata</title>
-<meta name="generator" content="Org mode" />
+<meta name="generator" content="Org Mode" />
 <link rel="stylesheet"  type="text/css" href="css/stylesheet.css"/>
 <link rel="icon"  type="image/x-icon" href="favicon.ico"/>
 <!-- Google tag (gtag.js) -->
@@ -19,43 +19,54 @@
 
   gtag('config', 'G-0YKR4ZZCW1');
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
 </script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="org-div-home-and-up">
  <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="index.html"> HOME </a>
-</div><div id="content">
+</div><div id="content" class="content">
 <h1 class="title">Errata</h1>
-<div id="table-of-contents">
+<div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
-<div id="text-table-of-contents">
+<div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#org41198d4">Innovation and corporate growth in the evolution of the drug industry</a></li>
 <li><a href="#orgb23f4cd">A New Class of Asymmetric Exponential Power Densities with Applications to Economics and Finance</a></li>
 <li><a href="#orgfb999ea">Cities and Clusters: Economy-Wide and Sector-Specific Effects in Corporate Location</a></li>
+<li><a href="#org95016ad">Drift criteria for persistence of discrete stochastic processes on the line</a></li>
 </ul>
 </div>
 </div>
@@ -151,9 +162,38 @@ should start
 </p>
 </div>
 </div>
+
+<div id="outline-container-org95016ad" class="outline-2">
+<h2 id="org95016ad">Drift criteria for persistence of discrete stochastic processes on the line</h2>
+<div class="outline-text-2" id="text-org95016ad">
+<ul class="org-ul">
+<li>Authors: G. Bottazzi and P. Dindo</li>
+<li>Journal: Journal of Mathematical Economics</li>
+<li>Date: Aug 2022</li>
+<li>Link: <a href="https://doi.org/10.1016/j.jmateco.2022.102696">DOI</a></li>
+</ul>
+
+<p>
+Page 2, in the examples for transient process, parentheses are
+wrongly placed. In the first bullet point, replace \(P(\lim \sup)_{t
+  \to \infty} x_t=\lim \inf_{t \to \infty} x_t=1\) with \(P(\lim \sup_{t
+  \to \infty} x_t=\lim \inf_{t \to \infty} x_t)=1\); in the second
+bullet point, replace \(P(\lim \sup)_{t \to \infty} x_t=\lim \inf_{t
+  \to \infty} x_t=0\) with \(P(\lim \sup_{t \to \infty} x_t=\lim \inf_{t
+  \to \infty} x_t)=0\).
+</p>
+
+<p>
+Page 3, In the last paragraph of the proof of Theorem 3.1, replace
+\(P\{\lim_{t \to \infty} X_{T+t} \in I\}>0\) with \(P(\lim_{t \to
+  \infty} X_{T+t} \in I)>0\) and \(P\{x_{T+t+1} \in I \mid x_{T+t+1} \in
+  I \}<1\) with \(P(x_{T+t+1} \in I \mid x_{T+t} \in I )<1\).
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Created: 2023-07-06 Thu 18:13</p>
+<p class="date">Created: 2026-03-06 Fri 11:39</p>
 </div>
 </body>
 </html>
